@@ -1,0 +1,7 @@
+Main Card
+Weight class				Method	Round	Time	Notes
+Welterweight	Nate Diaz	def.	Conor McGregor	Submission (rear-naked choke)	2	4:12	
+Women's Bantamweight	Miesha Tate	def.	Holly Holm (c)	Technical Submission (rear-naked choke)	5	3:30	[a]
+Light Heavyweight	Ilir Latifi	def.	Gian Villante	Decision (unanimous) (30-27, 30-27, 30-27)	3	5:00	
+Light Heavyweight	Corey Anderson	def.	Tom Lawlor	Decision (unanimous) (30-27, 30-27, 29-28)	3	5:00	
+Women's Bantamweight	Amanda Nunes	def.	Valentina Shevchenko	Decision (unanimous) (29-28, 29-27, 29-27)	3	5:00	

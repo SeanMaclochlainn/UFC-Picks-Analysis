@@ -1,0 +1,7 @@
+Main Card
+Weight class				Method	Round	Time	Notes
+Featherweight	Conor McGregor (c)	def.	Jose Aldo (c)	KO (punch)	1	0:13	[a]
+Middleweight	Luke Rockhold	def.	Chris Weidman (c)	TKO (punches)	4	3:12	[b]
+Middleweight	Yoel Romero	def.	Ronaldo Souza	Decision (split) (29-27, 28-29, 29-28)	3	5:00	
+Welterweight	Demian Maia	def.	Gunnar Nelson	Decision (unanimous) (30-26, 30-25, 30-25)	3	5:00	
+Featherweight	Max Holloway	def.	Jeremy Stephens	Decision (unanimous) (30-27, 30-27, 29-28)	3	5:00	

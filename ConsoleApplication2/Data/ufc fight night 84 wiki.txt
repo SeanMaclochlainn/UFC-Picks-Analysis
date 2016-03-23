@@ -1,0 +1,6 @@
+Main Card (UFC Fight Pass)
+Weight class				Method	Round	Time	Notes
+Middleweight	Michael Bisping	def.	Anderson Silva	Decision (unanimous) (48-47, 48-47, 48-47)	5	5:00	
+Middleweight	Gegard Mousasi	def.	Thales Leites	Decision (unanimous) (30-27, 29-28, 30-27)	3	5:00	
+Welterweight	Tom Breese	def.	Keita Nakamura	Decision (unanimous) (30-27, 30-27, 29-28)	3	5:00	
+Bantamweight	Brad Pickett	def.	Francisco Rivera	Decision (split) (29-28, 28-29, 29-28)	3	5:00	

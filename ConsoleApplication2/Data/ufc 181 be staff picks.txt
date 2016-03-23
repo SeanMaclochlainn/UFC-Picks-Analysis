@@ -1,0 +1,10 @@
+Staff picking Hendricks: DSM, Karim, Fraser, Tim, Paul, Zane
+Staff picking Lawler: Kyle, Phil, Mookie, Stephie, Anton
+Staff picking Pettis: Kyle, Phil, Mookie, Karim, Fraser, Zane, Stephie, Anton
+Staff picking Melendez: DSM, Tim, Paul
+Staff picking Browne: Kyle, DSM, Mookie, Karim, Fraser, Tim, Paul, Zane, Stephie, Anton
+Staff picking Schaub: Phil
+Staff picking Duffee: Kyle, DSM, Phil, Mookie, Karim, Fraser, Tim, Zane, Anton
+Staff picking Hamilton: Stephie
+Staff picking Ferguson: Kyle, DSM, Phil, Mookie, Karim, Fraser, Tim, Paul, Zane, Stephie, Anton
+Staff picking Trujillo:

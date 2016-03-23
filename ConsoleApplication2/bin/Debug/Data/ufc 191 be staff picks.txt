@@ -1,0 +1,10 @@
+Staff picking DJohnson: Mookie, Hutch, Phil, Fraser, Josh, Zane, Tim, Anton, Lewis
+Staff picking Dodson: Stephie
+Staff picking Arlovski: Stephie, Hutch, Phil, Fraser, Zane, Tim, Anton
+Staff picking Mir: Josh, Mookie, Lewis
+Staff picking Johnson: Stephie, Mookie, Hutch, Phil, Fraser, Josh, Zane, Tim, Anton, Lewis
+Staff picking Manuwa:
+Staff picking Anderson: Phil, Josh, Zane, Tim
+Staff picking Blachowicz: Stephie, Mookie, Hutch, Fraser, Anton
+Staff picking Chambers:
+Staff picking VanZant: Stephie, Mookie, Hutch, Phil, Fraser, Josh, Zane, Tim, Anton, Lewis

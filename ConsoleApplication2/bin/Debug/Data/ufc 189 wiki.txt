@@ -1,0 +1,7 @@
+Main Card
+Weight class				Method	Round	Time	Notes
+Featherweight	Conor McGregor	def.	Chad Mendes	TKO (punches)	2	4:57	[a]
+Welterweight	Robbie Lawler (c)	def.	Rory MacDonald	TKO (punches)	5	1:00	[b]
+Catchweight (149.5 lbs)	Jeremy Stephens	def.	Dennis Bermudez	TKO (flying knee and punches)	3	0:32	
+Welterweight	Gunnar Nelson	def.	Brandon Thatch	Submission (rear-naked choke)	1	2:54	
+Bantamweight	Thomas Almeida	def.	Brad Pickett	KO (flying knee)	2	0:29	

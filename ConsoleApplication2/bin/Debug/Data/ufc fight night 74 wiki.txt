@@ -1,0 +1,8 @@
+Main Card (Fox Sports 1)
+Weight class				Method	Round	Time	Notes
+Featherweight	Max Holloway	def.	Charles Oliveira	TKO (neck injury)	1	1:39	[a]
+Welterweight	Neil Magny	def.	Erick Silva	Decision (split) (28–29, 29–28, 30–27)	3	5:00	
+Welterweight	Patrick Cote	def.	Josh Burkman	TKO (punches)	3	1:26	
+Lightweight	Francisco Trinaldo	def.	Chad Laprise	TKO (punches)	1	2:43	
+Lightweight	Olivier Aubin-Mercier	def.	Tony Sims	Decision (unanimous) (30–27, 30–27, 29–28)	3	5:00	
+Women's Strawweight	Valerie Letourneau	def.	Maryna Moroz	Decision (unanimous) (29–28, 29–28, 30–27)	3	5:00	

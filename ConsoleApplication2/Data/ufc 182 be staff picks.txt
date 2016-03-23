@@ -1,0 +1,10 @@
+Staff picking Jones: Phil, Anton, Paul, DSM, Karim, Mookie, Tim, Zane, Rainer
+Staff picking Cormier: Fraser, Stephie
+Staff picking Cerrone: Fraser, Phil, DSM, Mookie, Tim, Stephie
+Staff picking Jury: Anton, Paul, Karim, Zane, Rainer
+Staff picking Marquardt: Fraser, Tim, Rainer
+Staff picking Tavares: Phil, Anton, Paul, DSM, Karim, Mookie, Stephie, Zane
+Staff picking Horiguchi: Fraser, Phil, Anton, Paul, DSM, Karim, Mookie, Tim, Stephie, Zane, Rainer
+Staff picking Gaudinot:
+Staff picking Lombard: Fraser, Phil, Mookie, Anton, Paul, DSM, Karim, Tim, Stephie, Zane, Rainer
+Staff picking Burkman:

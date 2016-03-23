@@ -1,0 +1,7 @@
+Main Card
+Weight class				Method	Round	Time	Notes
+Welterweight	Robbie Lawler (c)	def.	Carlos Condit	Decision (split) (47-48, 48-47, 48-47)	5	5:00	[a]
+Heavyweight	Stipe Miocic	def.	Andrei Arlovski	TKO (punches)	1	0:54	
+Welterweight	Albert Tumenov	def.	Lorenz Larkin	Decision (split) (29-28, 28-29, 29-28)	3	5:00	
+Featherweight	Brian Ortega	def.	Diego Brandao	Submission (triangle choke)	3	1:37	
+Lightweight	Abel Trujillo	def.	Tony Sims	Submission (guillotine choke)	1	3:18	

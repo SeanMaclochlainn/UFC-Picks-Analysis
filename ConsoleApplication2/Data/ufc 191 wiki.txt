@@ -1,0 +1,7 @@
+Main Card
+Weight class				Method	Round	Time	Notes
+Flyweight	Demetrious DJohnson (c)	def.	John Dodson	Decision (unanimous) (49–46, 49–46, 50–45)	5	5:00	[a]
+Heavyweight	Andrei Arlovski	def.	Frank Mir	Decision (unanimous) (29–28, 29–28, 30–27)	3	5:00	
+Light Heavyweight	Anthony Johnson	def.	Jimi Manuwa	KO (punches)	2	0:28	
+Light Heavyweight	Corey Anderson	def.	Jan Blachowicz	Decision (unanimous) (30–25, 30–25, 29–26)	3	5:00	
+Women's Strawweight	Paige VanZant	def.	Alex Chambers	Submission (armbar)	3	1:01	

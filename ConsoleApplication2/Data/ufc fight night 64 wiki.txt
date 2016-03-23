@@ -1,0 +1,6 @@
+Main Card (UFC Fight Pass)
+Weight class				Method	Round	Time	Notes
+Heavyweight	Mirko Filipovic	def.	Gabriel Gonzaga	TKO (elbows and punches)	3	3:30	
+Light Heavyweight	Jimi Manuwa	def.	Jan Blachowicz	Decision (unanimous) (30–27, 30–27, 29–28)	3	5:00	
+Welterweight	Pawel Pawlak	def.	Sheldon Westcott	Decision (unanimous) (29–28, 29–28, 29–28)	3	5:00	
+Women's Strawweight	Maryna Moroz	def.	Joanne Calderwood	Submission (armbar)	1	1:30	

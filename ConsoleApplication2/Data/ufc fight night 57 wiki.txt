@@ -1,0 +1,8 @@
+Main Card (Fox Sports 1)
+Weight class				Method	Round	Time	Notes
+Featherweight	Frankie Edgar	def.	Cub Swanson	Submission (neck crank)	5	4:56	
+Lightweight	Edson Barboza	def.	Bobby Green	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
+Flyweight	Chico Camus	def.	Brad Pickett	Decision (split) (29–28, 29–28, 27–30)	3	5:00	
+Heavyweight	Oleksiy Oliynyk	def.	Jared Rosholt	KO (punches)	1	3:21	
+Flyweight	Joseph Benavidez	def.	Dustin Ortiz	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
+Lightweight	Matt Wiman	def.	Isaac Vallie-Flagg	Decision (unanimous) (29–28, 30–27, 30–27)	3	5:00	

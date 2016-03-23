@@ -1,0 +1,8 @@
+Main Card (Fox Sports 1)
+Weight class				Method	Round	Time	Notes
+Welterweight	Neil Magny	def.	Kelvin Gastelum	Decision (split) (47-48, 48-47, 48-47)	5	5:00	
+Featherweight	Ricardo Lamas	def.	Diego Sanchez	Decision (unanimous) (30-27, 30-27, 30-27)	3	5:00	
+Flyweight	Henry Cejudo	def.	Jussier Formiga	Decision (split) (30-27, 28-29, 30-27)	3	5:00	
+Welterweight	Erick Montano	def.	Enrique Marin	Decision (split) (29-28, 28-29, 29-28)	3	5:00	[a]
+Lightweight	Enrique Barzola	def.	Horacio Gutierrez	Decision (unanimous) (30-27, 30-27, 30-26)	3	5:00	[b]
+Lightweight	Leandro Silva	def.	Efrain Escudero	Decision (unanimous) (29-28, 29-28, 29-28)	3	5:00	

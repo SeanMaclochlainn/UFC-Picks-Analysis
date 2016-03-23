@@ -1,0 +1,14 @@
+Staff picking Rousey: Tim, Rainer, Josh, Mookie, Stephie, Phil, Fraser, Hutch, Connor, Lewis, Zane, Anton
+Staff picking Correia:
+Staff picking erioNogueira: Rainer, Josh, Mookie, Fraser, Zane
+Staff picking Rua: Tim, Stephie, Phil, Hutch, Connor, Lewis, Anton
+Staff picking Bruno: Rainer, Mookie, Phil, Connor
+Staff picking Franca: Tim, Josh, Stephie, Fraser, Hutch, Zane, Anton
+Staff picking Lopes: Tim, Rainer, Josh, Mookie, Stephie, Fraser, Phil, Hutch, Connor, Zane, Anton
+Staff picking Vieira:
+Staff picking igoNogueira: Tim, Rainer, Josh, Stephie, Fraser, Lewis
+Staff picking Struve: Mookie, Phil, Hutch, Connor, Zane, Anton
+Staff picking Palelei: Rainer, Josh, Mookie, Stephie, Fraser, Phil, Connor, Zane, Anton
+Staff picking Silva: Tim, Hutch
+Staff picking Aguilar: Tim, Rainer, Josh
+Staff picking Gadelha: Mookie, Stephie, Phil, Fraser, Hutch, Connor, Zane, Anton

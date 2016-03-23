@@ -1,0 +1,7 @@
+Main Card
+Weight class				Method	Round	Time	Notes
+Lightweight	Dos Anjos	def.	Anthony Pettis (c)	Decision (unanimous) (50–45, 50–45, 50–45)	5	5:00	[a]
+Women's Strawweight	Joanna Jedrzejczyk	def.	Carla Esparza (c)	TKO (punches)	2	4:17	[b]
+Welterweight	Johny Hendricks	def.	Matt Brown	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
+Heavyweight	Alistair Overeem	def.	Roy Nelson	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
+Flyweight	Henry Cejudo	def.	Chris Cariaso	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	

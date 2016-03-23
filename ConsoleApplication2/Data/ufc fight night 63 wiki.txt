@@ -1,0 +1,8 @@
+Main Card (Fox Sports 1)
+Weight class				Method	Round	Time	Notes
+Featherweight	Chad Mendes	def.	Ricardo Lamas	TKO (punches)	1	2:45	
+Lightweight	Al Iaquinta	def.	Jorge Masvidal	Decision (split) (29–28, 27–30, 29–28)	3	5:00	
+Lightweight	Michael Chiesa	def.	Mitch Clarke	Decision (unanimous) (29–26, 29–28, 29–28)	3	5:00	
+Women's Bantamweight	Julianna Pena	def.	Milana Dudleva	TKO (punches and elbows)	1	3:59	
+Featherweight	Clay Guida	def.	Robbie Peralta	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
+Lightweight	Dustin Poirier	def.	Carlos Ferreira	KO (punches)	1	3:45	

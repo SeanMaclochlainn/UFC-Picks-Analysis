@@ -1,0 +1,12 @@
+Staff picking Holloway: Mookie, Stephie, Phil, Hutch, Tim, James, Zane, Anton
+Staff picking Oliveira: Rainer, Lewis
+Staff picking Magny: Rainer, Hutch,
+Staff picking Silva: Mookie, Stephie, Phil, Tim, James, Lewis, Zane, Silva, Anton
+Staff picking Burkman: Mookie, Rainer, Phil, Hutch, Tim, James, Zane, Anton
+Staff picking Cote: Stephie
+Staff picking Laprise: Phil, Tim, James, Zane, Anton
+Staff picking Trinaldo: Mookie, Stephie, Rainer, Hutch
+Staff picking Aubin-Mercier: Stephie, Rainer, Phil, Hutch, Tim, James, Anton
+Staff picking Sims: Mookie, Zane
+Staff picking Letourneau: Stephie, Rainer, Hutch, James
+Staff picking Moroz: Tim, Zane, Mookie, Phil, Anton

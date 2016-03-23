@@ -1,0 +1,8 @@
+Main Card (Fox Sports 1)
+Weight class				Method	Round	Time	Notes
+Welterweight	Donald Cerrone	def.	Alex Oliveira	Submission (triangle choke)	1	2:33	
+Middleweight	Derek Brunson	def.	Roan Carneiro	TKO (punches)	1	2:38	
+Catchweight (142 lbs)	Cody Garbrandt	def.	Augusto Mendes	TKO (punches)	1	4:18	
+Featherweight	Dennis Bermudez	def.	Tatsuya Kawajiri	Decision (unanimous) (29-28, 29-28, 29-28)	3	5:00	
+Middleweight	Chris Camozzi	def.	Joe Riggs	TKO (knees)	1	0:26	
+Lightweight	James Krause	def.	Shane Campbell	Decision (unanimous) (29-28, 29-28, 29-28)	3	5:00	
