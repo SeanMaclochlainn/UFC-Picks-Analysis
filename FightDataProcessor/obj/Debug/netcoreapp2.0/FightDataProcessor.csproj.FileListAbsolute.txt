@@ -1,0 +1,15 @@
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightDataProcessor.deps.json
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightDataProcessor.runtimeconfig.json
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightDataProcessor.runtimeconfig.dev.json
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightDataProcessor.dll
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightDataProcessor.pdb
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\obj\Debug\netcoreapp2.0\FightDataProcessor.csprojResolveAssemblyReference.cache
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\obj\Debug\netcoreapp2.0\FightDataProcessor.csproj.CoreCompileInputs.cache
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\obj\Debug\netcoreapp2.0\FightDataProcessor.AssemblyInfoInputs.cache
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\obj\Debug\netcoreapp2.0\FightDataProcessor.AssemblyInfo.cs
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\obj\Debug\netcoreapp2.0\FightDataProcessor.dll
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\obj\Debug\netcoreapp2.0\FightDataProcessor.pdb
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightData.DataLayer.dll
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightData.Models.dll
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightData.Models.pdb
+C:\Github\UFC-Picks-Analysis\FightDataProcessor\bin\Debug\netcoreapp2.0\FightData.DataLayer.pdb

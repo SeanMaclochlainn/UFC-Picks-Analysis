@@ -1,0 +1,9 @@
+C:\Github\UFC-Picks-Analysis\FightData.Models\bin\Debug\netcoreapp2.0\FightData.Models.deps.json
+C:\Github\UFC-Picks-Analysis\FightData.Models\bin\Debug\netcoreapp2.0\FightData.Models.dll
+C:\Github\UFC-Picks-Analysis\FightData.Models\bin\Debug\netcoreapp2.0\FightData.Models.pdb
+C:\Github\UFC-Picks-Analysis\FightData.Models\obj\Debug\netcoreapp2.0\FightData.Models.csprojResolveAssemblyReference.cache
+C:\Github\UFC-Picks-Analysis\FightData.Models\obj\Debug\netcoreapp2.0\FightData.Models.csproj.CoreCompileInputs.cache
+C:\Github\UFC-Picks-Analysis\FightData.Models\obj\Debug\netcoreapp2.0\FightData.Models.AssemblyInfoInputs.cache
+C:\Github\UFC-Picks-Analysis\FightData.Models\obj\Debug\netcoreapp2.0\FightData.Models.AssemblyInfo.cs
+C:\Github\UFC-Picks-Analysis\FightData.Models\obj\Debug\netcoreapp2.0\FightData.Models.dll
+C:\Github\UFC-Picks-Analysis\FightData.Models\obj\Debug\netcoreapp2.0\FightData.Models.pdb

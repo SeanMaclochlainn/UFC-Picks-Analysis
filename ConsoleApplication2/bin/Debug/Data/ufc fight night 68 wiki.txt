@@ -1,8 +1,0 @@
-Main Card (Fox Sports 1)
-Weight class				Method	Round	Time	Notes
-Middleweight	Dan Henderson	def.	Tim Boetsch	KO (punches)	1	0:28	
-Heavyweight	Ben Rothwell	def.	Matt Mitrione	Submission (gogó choke)	1	1:54	
-Catchweight (159.5 lbs)	Dustin Poirier	def.	Yancy Medeiros	TKO (body kick and punches)	1	2:38	
-Featherweight	Brian Ortega	def.	Thiago Tavares	TKO (punches)	3	4:10	
-Bantamweight	Anthony Birchak	def.	Joe Soto	KO (punches)	1	1:37	
-Bantamweight	Francisco Rivera	def.	Alex Caceres	KO (punches)	1	0:21	

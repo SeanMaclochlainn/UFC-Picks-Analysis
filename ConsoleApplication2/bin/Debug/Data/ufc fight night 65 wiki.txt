@@ -1,6 +1,0 @@
-Main Card (UFC Fight Pass)
-Weight class				Method	Round	Time	Notes
-Heavyweight	Stipe Miocic	def.	Mark Hunt	TKO (punches)	5	2:47	
-Middleweight	Robert Whittaker	def.	Brad Tavares	KO (punches)	1	0:44	
-Light Heavyweight	Sean OConnell	def.	Anthony Perosh	TKO (punches)	1	0:56	
-Lightweight	James Vick	def.	Jake Matthews	Submission (guillotine choke)	1	4:53	

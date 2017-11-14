@@ -1,8 +1,0 @@
-Main Card (Fox Sports 1)
-Weight class				Method	Round	Time	Notes
-Middleweight	Vitor Belfort	def.	Dan Henderson	TKO (head kick and punches)	1	2:07	
-Light Heavyweight	Glover Teixeira	def.	Patrick Cummins	TKO (punches)	2	1:12	
-Bantamweight	Thomas Almeida	def.	Anthony Birchak	KO (punches)	1	4:22	
-Lightweight	Alex Oliveira	def.	Piotr Hallmann	KO (punch)	3	0:54	
-Lightweight	Rashid Magomedov	def.	Gilbert Burns	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
-Light Heavyweight	Corey Anderson	def.	Fabio Maldonado	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	

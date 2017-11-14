@@ -1,6 +1,0 @@
-Main Card (UFC Fight Pass)
-Weight class				Method	Round	Time	Notes
-Flyweight	Louis Smolka	def.	Paddy Holohan	Submission (rear-naked choke)	2	4:09	
-Lightweight	Norman Parke	def.	Reza Madadi	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
-Welterweight	Nicolas Dalby	vs.	Darren Till	Draw (majority) (28–29, 28–28, 28–28)	3	5:00	
-Flyweight	Neil Seery	def.	Jon Reyes	Submission (guillotine choke)	2	4:12	

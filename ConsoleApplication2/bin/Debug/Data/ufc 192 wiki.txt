@@ -1,7 +1,0 @@
-Main Card
-Weight class				Method	Round	Time	Notes
-Light Heavyweight	Daniel Cormier (c)	def.	Alexander Gustafsson	Decision (split) (47–48, 48–47, 49–46)	5	5:00	[a]
-Light Heavyweight	Ryan Bader	def.	Rashad Evans	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
-Heavyweight	Ruslan Magomedov	def.	Shawn Jordan	Decision (unanimous) (30–27, 29–28, 30–27)	3	5:00	
-Flyweight	Joseph Benavidez	def.	Ali Bagautinov	Decision (unanimous) (30–27, 29–28, 30–27)	3	5:00	
-Women's Bantamweight	Julianna Pena	def.	Jessica Eye	Decision (unanimous) (29–27, 29–27, 29–27)	3	5:00	[b]

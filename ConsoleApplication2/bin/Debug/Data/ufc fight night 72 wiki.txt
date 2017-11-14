@@ -1,8 +1,0 @@
-Main Card (Fox Sports 1)
-Weight class				Method	Round	Time	Notes
-Middleweight	Michael Bisping	def.	Thales Leites	Decision (split) (47–48, 49–46, 48–47)	5	5:00	
-Lightweight	Evan Dunham	def.	Ross Pearson	Decision (unanimous) (30–27, 30–27, 29–28)	3	5:00	
-Lightweight	Joseph Duffy	def.	Ivan Jorge	Submission (triangle choke)	1	3:05	
-Women's Strawweight	Joanne Calderwood	def.	Cortney Casey	Decision (unanimous) (30–27, 29–28, 30–27)	3	5:00	
-Welterweight	Leon Edwards	def.	Pawel Pawlak	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
-Lightweight	Stevie Ray	def.	Leonardo Mafra	TKO (punches)	1	2:30	

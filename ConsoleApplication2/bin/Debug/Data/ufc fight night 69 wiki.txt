@@ -1,6 +1,0 @@
-Main Card (UFC Fight Pass)
-Weight class				Method	Round	Time	Notes
-Women's Strawweight	Joanna Jedrzejczyk (c)	def.	Jessica Penne	TKO (punches and knee)	3	4:22	[a]
-Featherweight	Tatsuya Kawajiri	def.	Dennis Siver	Decision (unanimous) (29–28, 29–28, 29–28)	3	5:00	
-Welterweight	Peter Sobotta	def.	Steve Kennedy	Submission (rear-naked choke)	1	2:57	
-Lightweight	Nick Hein	def.	Lukasz Sajewski	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	

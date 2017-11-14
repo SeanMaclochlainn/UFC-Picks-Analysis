@@ -1,7 +1,0 @@
-Main Card (Fox Sports 1)
-Weight class				Method	Round	Time	Notes
-Middleweight	Yoel Romero	def.	Lyoto Machida	KO (elbows)	3	1:38	
-Welterweight	Lorenz Larkin	def.	Santiago Ponzinibbio	TKO (punches)	2	3:07	
-Middleweight	Antonio Carlos	def.	Eddie Gordon	Submission (rear-naked choke)	3	4:37	
-Middleweight	Thiago Santos	def.	Steve Bosse	KO (head kick)	1	0:29	
-Featherweight	Hacran Dias	def.	Levan Makashvili	Decision (split) (28–29, 29–28, 29–28)	3	5:00	

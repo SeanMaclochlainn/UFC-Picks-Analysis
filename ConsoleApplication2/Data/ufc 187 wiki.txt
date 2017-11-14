@@ -1,7 +1,0 @@
-Main Card
-Weight class				Method	Round	Time	Notes
-Light Heavyweight	Daniel Cormier	def.	Anthony Johnson	Submission (rear-naked choke)	3	2:39	[a]
-Middleweight	Chris Weidman (c)	def.	Vitor Belfort	TKO (punches)	1	2:53	[b]
-Lightweight	Donald Cerrone	def.	John Makdessi	TKO (head kick)	2	4:44	[c]
-Heavyweight	Andrei Arlovski	def.	Travis Browne	TKO (punches)	1	4:41	
-Flyweight	Joseph Benavidez	def.	John Moraga	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	

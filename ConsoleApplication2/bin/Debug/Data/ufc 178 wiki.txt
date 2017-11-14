@@ -1,7 +1,0 @@
-Main card
-Weight class				Method	Round	Time	Notes
-Flyweight	Demetrious Johnson (c)	def.	Chris Cariaso	Submission (kimura)	2	2:29	[a]
-Lightweight	Donald Cerrone	def.	Eddie Alvarez	Decision (unanimous) (29–28, 29–28, 29–28)	3	5:00	
-Featherweight	Conor McGregor	def.	Dustin Poirier	TKO (punches)	1	1:46	
-Middleweight	Yoel Romero	def.	Tim Kennedy	TKO (punches)	3	0:58	
-Women's Bantamweight	Cat Zingano	def.	Amanda Nunes	TKO (elbows and punches)	3	1:21	

@@ -1,7 +1,0 @@
-Main card
-Weight class				Method	Round	Time	Notes
-Heavyweight	Fabrício Werdum	def.	Mark Hunt	TKO (flying knee and punches)	2	2:27	[a]
-Welterweight	Kelvin Gastelum	def.	Jake Ellenberger	Submission (rear-naked choke)	1	4:46	
-Featherweight	Ricardo Lamas	def.	Dennis Bermudez	Submission (guillotine choke)	1	3:18	
-Welterweight	Augusto Montano	def.	Chris Heatherly	TKO (knees)	1	4:50	
-Welterweight	Héctor Urbina	def.	Edgar Garcia	Submission (guillotine choke)	1	3:38	

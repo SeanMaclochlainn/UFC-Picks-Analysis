@@ -1,7 +1,0 @@
-Main Card
-Weight class				Method	Round	Time	Notes
-Women's Bantamweight	Ronda Rousey (c)	def.	Cat Zingano	Submission (straight armbar)	1	0:14	[a]
-Women's Bantamweight	Holly Holm	def.	Raquel Pennington	Decision (split) (29–28, 28–29, 30–27)	3	5:00	
-Welterweight	Jake Ellenberger	def.	Josh Koscheck	Submission (north-south choke)	2	4:20	
-Welterweight	Alan Jouban	def.	Richard Walsh	KO (elbow and punches)	1	2:19	
-Lightweight	Tony Ferguson	def.	Gleison Tibau	Submission (rear-naked choke)	1	2:37	

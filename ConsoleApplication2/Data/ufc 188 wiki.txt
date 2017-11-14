@@ -1,7 +1,0 @@
-Main Card
-Weight class				Method	Round	Time	Notes
-Heavyweight	Fabrício Werdum (ic)	def.	Cain Velasquez (c)	Submission (guillotine choke)	3	2:13	[a]
-Lightweight	Eddie Alvarez	def.	Gilbert Melendez	Decision (split) (29–28, 28–29, 29–28)	3	5:00	
-Middleweight	Kelvin Gastelum	def.	Nate Marquardt	TKO (corner stoppage)	2	5:00	
-Featherweight	Yair Rodriguez	def.	Charles Rosa	Decision (split) (28–29, 29–28, 29–28)	3	5:00	
-Women's Strawweight	Tecia Torres	def.	Angela Hill	Decision (unanimous) (30–27, 30–27, 29–28)	3	5:00	

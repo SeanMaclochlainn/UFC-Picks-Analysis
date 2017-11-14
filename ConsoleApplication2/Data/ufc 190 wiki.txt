@@ -1,9 +1,0 @@
-Main Card
-Weight class				Method	Round	Time	Notes
-Women's Bantamweight	Ronda Rousey (c)	def.	Bethe Correia	KO (punch)	1	0:34	[a]
-Light Heavyweight	Mauricio Rua	def.	Antonio erioNogueira	Decision (unanimous) (29–28, 29–28, 29–28)	3	5:00	
-Lightweight	Glaico Franca	def.	Fernando Bruno	Submission (rear-naked choke)	3	4:46	[b]
-Bantamweight	Reginaldo Vieira	def.	Dileno Lopes	Decision (unanimous) (29–28, 30–27, 30–27)	3	5:00	[c]
-Heavyweight	Stefan Struve	def.	Antônio igoNogueira	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	
-Heavyweight	Antônio Silva	def.	Soa Palelei	TKO (punches)	2	0:41	
-Women's Strawweight	Cláudia Gadelha	def.	Jessica Aguilar	Decision (unanimous) (30–27, 30–27, 30–27)	3	5:00	[d]

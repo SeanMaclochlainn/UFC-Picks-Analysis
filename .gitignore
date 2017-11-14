@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ConsoleApplication2/obj/Debug/ConsoleApplication2.csproj.CoreCompileInputs.cache
+/ConsoleApplication2/obj/Debug/
+/.vs/FightDataProcesser/v15/Server/sqlite3/db.lock
