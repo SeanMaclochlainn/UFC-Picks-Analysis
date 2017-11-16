@@ -115,6 +115,7 @@ namespace FightData.DataLayer
             cmd.Parameters.Add(new SqlParameter("@FighterBId", fight.FighterB.Id));
             cmd.Parameters.Add(new SqlParameter("@WinnerId", fight.Winner.Id));
             cmd.Parameters.Add(new SqlParameter("@EventId", fight.Event.Id));
+            cmd.Parameters.Add(new SqlParameter("@CardTypeId", fight.CardTypeId));
             cmd.ExecuteNonQuery();
         }
 

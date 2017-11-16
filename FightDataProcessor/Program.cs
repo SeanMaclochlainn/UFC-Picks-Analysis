@@ -103,23 +103,46 @@ namespace FightDataProcessor
                     List<Pick> allPicks = utilities.GetAllPicks();
                     var wikiDoc = new HtmlDocument();
                     wikiDoc.LoadHtml(wikipediaPage.Data);
-                    HtmlNode tableBodyElement = wikiDoc.GetElementbyId("Results").ParentNode.NextSibling.NextSibling;
-                    List<HtmlNode> trNodes = tableBodyElement.ChildNodes.Where(i => i.Name != "#text").ToList();
-                    trNodes.RemoveAt(1);
-                    eventObj.Fights = new List<Fight>();
-                    int cardType = 0;
-                    foreach (var node in trNodes)
+
+                    string tableXpath = @"//*[@class='toccolours']";
+
+                    List<string> optionalXpaths = new List<string>() { @"/tbody/tr[{0}]", @"/tr[{0}]" };
+
+                    string tableRows = @"/tbody/tr[{0}]|";
+                    wikiDoc.DocumentNode.SelectSingleNode(tableXpath);
+
+                    int i = 1;
+                    bool validXpath = true;
+                    while (true)
                     {
+                        string xPath = GetCorrectXpath(tableXpath, optionalXpaths, wikiDoc, i);
+                        if (xPath == "")
+                            break;
+                        var node = wikiDoc.DocumentNode.SelectSingleNode(xPath);
+                        int cardType = 0;
                         if (node.InnerText.Contains("Main Card"))
+                        {
                             cardType = 1;
+                            i++;
+                            continue;
+                        }
                         else if (node.InnerText.Contains("Preliminary Card"))
+                        {
                             cardType = 2;
-                        else
-                            throw new Exception("Can't find card type");
-                        //2 and 4
-                        var line = node.InnerText.Split(new string[] { "\n" }, StringSplitOptions.None);
-                        string fighterA = line.ElementAtOrDefault(2);
-                        string fighterB = line.ElementAtOrDefault(4);
+                            i++;
+                            continue;
+                        }
+                        else if (node.InnerText.Contains("Weight class"))
+                        {
+                            i++;
+                            continue;
+                        }
+                        string fighterAXpath = xPath+@"/td[2]";
+                        string fighterBXpath = xPath+@"/td[4]";
+                        
+                        string fighterA = wikiDoc.DocumentNode.SelectSingleNode(fighterAXpath).InnerText;
+                        string fighterB = wikiDoc.DocumentNode.SelectSingleNode(fighterBXpath).InnerText;
+
                         Fighter fighterAObj = utilities.FindFighter(fighterA, allFighters, altNames);
                         if (fighterAObj == null)
                         {
@@ -136,10 +159,11 @@ namespace FightDataProcessor
                             fighterBObj.Id = utilities.AddFighter(fighterb);
                         }
 
-                        Fight fight = new Fight { Event = eventObj, FighterA = fighterAObj, FighterB = fighterBObj, Winner = fighterAObj };
+                        Fight fight = new Fight { Event = eventObj, FighterA = fighterAObj, FighterB = fighterBObj, Winner = fighterAObj, CardTypeId = cardType };
                         if (!allFights.Contains(fight))
                             utilities.AddFight(fight);
-                        eventObj.Fights.Add(fight);
+                        eventObj.Fights = new List<Fight>() { fight };
+                        i++;
                     }
 
                     //get mma junkie picks
@@ -186,6 +210,23 @@ namespace FightDataProcessor
                     }
                 }
             }
+        }
+
+        private static string GetCorrectXpath(string baseXpath, List<string> optionalXpaths, HtmlDocument document, int formatNo)
+        {
+            string xPath = "";
+            foreach(var optxPath in optionalXpaths)
+            {
+                string optxPathForm = string.Format(optxPath, formatNo);
+                xPath = baseXpath + optxPathForm;
+                HtmlNode htmlNode = document.DocumentNode.SelectSingleNode(xPath);
+                if (htmlNode != null)
+                    break;
+                else
+                    xPath = "";
+            }
+            return xPath;
+
         }
     }
 }
