@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FightData.Models
 {
@@ -8,5 +7,6 @@ namespace FightData.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<Pick> Picks { get; set; }
     }
 }

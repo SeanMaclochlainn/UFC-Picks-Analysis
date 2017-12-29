@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FightData.Models
 {
     public class Fight
     {
         public int Id { get; set; }
-        public Fighter FighterA { get; set; }
-        public Fighter FighterB { get; set; }
-        public Fighter Winner { get; set; }
+        public int FighterAid { get; set; }
+        public int FighterBid { get; set; }
+        public int WinnerId { get; set; }
         public Event Event { get; set; }
-        public int CardTypeId { get; set; }
+        public CardType CardType { get; set; }
+        public List<Pick> Picks { get; set; }
     }
 }
