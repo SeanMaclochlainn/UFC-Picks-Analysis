@@ -103,5 +103,12 @@ namespace FightData.DataLayer
         }
         #endregion
 
+        #region CardTypes
+        public CardType GetCardType(string cardName)
+        {
+            return context.CardType.FirstOrDefault(ct => ct.Name == cardName);
+        }
+        #endregion
+
     }
 }
