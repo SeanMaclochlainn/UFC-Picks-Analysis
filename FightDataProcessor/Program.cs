@@ -56,13 +56,6 @@ namespace FightDataProcessor
 
                     List<Website> websites = dataUtilities.GetAllWebsites();
                     HttpClient client = new HttpClient();
-
-                    //WebClient client = new WebClient();
-                    //client.Headers.Add("User-Agent: Other");
-                    //client.Headers.Add("user-agent", "Only a test!");
-                    //client.Encoding = Encoding.UTF8;
-                    //ServicePointManager.Expect100Continue = true;
-                    //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                     foreach (var website in websites)
                     {
                         Webpage webpage = new Webpage();
@@ -147,29 +140,29 @@ namespace FightDataProcessor
                     //    string fighterA = wikiDoc.DocumentNode.SelectSingleNode(fighterAXpath).InnerText;
                     //    string fighterB = wikiDoc.DocumentNode.SelectSingleNode(fighterBXpath).InnerText;
 
-                        //Fighter fighterAObj = db.Fighter.First(f => f.FullName == fighterA);//utilities.FindFighter(fighterA, allFighters, altNames);
-                        //if (fighterAObj == null)
-                        //{
-                        //    var names = fighterA.Split(new String[] { " " }, StringSplitOptions.None).ToList();
+                    //Fighter fighterAObj = db.Fighter.First(f => f.FullName == fighterA);//utilities.FindFighter(fighterA, allFighters, altNames);
+                    //if (fighterAObj == null)
+                    //{
+                    //    var names = fighterA.Split(new String[] { " " }, StringSplitOptions.None).ToList();
 
-                        //    Fighter fightera = utilities.PopulateFighterName(fighterA);
-                        //    fighterAObj = new Fighter();
-                        //    fighterAObj.Id = utilities.AddFighter(fightera);
-                        //}
+                    //    Fighter fightera = utilities.PopulateFighterName(fighterA);
+                    //    fighterAObj = new Fighter();
+                    //    fighterAObj.Id = utilities.AddFighter(fightera);
+                    //}
 
-                        //Fighter fighterBObj = utilities.FindFighter(fighterB, allFighters, altNames);
-                        //if (fighterBObj == null)
-                        //{
-                        //    Fighter fighterb = utilities.PopulateFighterName(fighterB);
-                        //    fighterBObj = new Fighter();
-                        //    fighterBObj.Id = utilities.AddFighter(fighterb);
-                        //}
+                    //Fighter fighterBObj = utilities.FindFighter(fighterB, allFighters, altNames);
+                    //if (fighterBObj == null)
+                    //{
+                    //    Fighter fighterb = utilities.PopulateFighterName(fighterB);
+                    //    fighterBObj = new Fighter();
+                    //    fighterBObj.Id = utilities.AddFighter(fighterb);
+                    //}
 
-                        //Fight fight = new Fight { Event = eventObj, FighterA = fighterAObj, FighterB = fighterBObj, Winner = fighterAObj, CardTypeId = cardType };
-                        //if (!allFights.Contains(fight))
-                        //    utilities.AddFight(fight);
-                        //eventObj.Fights = new List<Fight>() { fight };
-                        //i++;
+                    //Fight fight = new Fight { Event = eventObj, FighterA = fighterAObj, FighterB = fighterBObj, Winner = fighterAObj, CardTypeId = cardType };
+                    //if (!allFights.Contains(fight))
+                    //    utilities.AddFight(fight);
+                    //eventObj.Fights = new List<Fight>() { fight };
+                    //i++;
                     //}
 
                     //        //get mma junkie picks
@@ -292,7 +285,7 @@ namespace FightDataProcessor
                 }
             }
         }
-
+    
         private static string GetCorrectXpath(string baseXpath, List<string> optionalXpaths, HtmlDocument document, int formatNo)
         {
             string xPath = "";
