@@ -6,9 +6,8 @@ namespace FightData.Models
     public class Fight
     {
         public int Id { get; set; }
-        public int FighterAid { get; set; }
-        public int FighterBid { get; set; }
-        public int WinnerId { get; set; }
+        public Fighter Winner { get; set; }
+        public Fighter Loser { get; set; }
         public Event Event { get; set; }
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; }

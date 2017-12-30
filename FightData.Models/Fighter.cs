@@ -11,5 +11,7 @@ namespace FightData.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public List<FighterAltName> AltNames { get; set; }
+        public List<Fight> Wins { get; set; }
+        public List<Fight> Losses { get; set; }
     }
 }

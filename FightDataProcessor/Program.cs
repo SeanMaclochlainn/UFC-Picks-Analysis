@@ -277,7 +277,7 @@ namespace FightDataProcessor
                         dataUtilities.AddFighter(fighterBObj);
                     }
 
-                    Fight fight = new Fight { Event = eventObj, FighterAid = fighterAObj.Id, FighterBid = fighterBObj.Id, WinnerId = fighterAObj.Id, CardType = cardType };
+                    Fight fight = new Fight { Event = eventObj, Winner = fighterAObj, Loser = fighterBObj, CardType = cardType };
                     if (!dataUtilities.GetAllFights().Contains(fight))
                         dataUtilities.AddFight(fight);
                     lineNo++;

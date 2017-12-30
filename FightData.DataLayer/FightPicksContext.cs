@@ -59,13 +59,6 @@ namespace FightData.DataLayer
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Fight>(entity =>
-            {
-                entity.Property(e => e.FighterAid).HasColumnName("FighterAId");
-
-                entity.Property(e => e.FighterBid).HasColumnName("FighterBId");
-            });
-
             modelBuilder.Entity<Fighter>(entity =>
             {
                 entity.Property(e => e.FirstName)
@@ -125,6 +118,15 @@ namespace FightData.DataLayer
             {
                 entity.HasKey(f => new { f.AltNameId, f.FighterId });
             });
+
+            modelBuilder.Entity<Fight>()
+                .HasOne(f => f.Winner)
+                .WithMany(ft => ft.Wins);
+
+            modelBuilder.Entity<Fight>()
+                .HasOne(f => f.Loser)
+                .WithMany(ft => ft.Losses);
+            
         }
     }
 }
