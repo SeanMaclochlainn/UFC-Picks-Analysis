@@ -280,16 +280,15 @@ namespace FightDataProcessor
                     Fight fight = new Fight { Event = eventObj, FighterAid = fighterAObj.Id, FighterBid = fighterBObj.Id, WinnerId = fighterAObj.Id, CardType = cardType };
                     if (!dataUtilities.GetAllFights().Contains(fight))
                         dataUtilities.AddFight(fight);
-                    eventObj.Fights = new List<Fight>() { fight };
                     lineNo++;
                 }
             }
         }
-    
+
         private static string GetCorrectXpath(string baseXpath, List<string> optionalXpaths, HtmlDocument document, int formatNo)
         {
             string xPath = "";
-            foreach(var optxPath in optionalXpaths)
+            foreach (var optxPath in optionalXpaths)
             {
                 string optxPathForm = string.Format(optxPath, formatNo);
                 xPath = baseXpath + optxPathForm;
