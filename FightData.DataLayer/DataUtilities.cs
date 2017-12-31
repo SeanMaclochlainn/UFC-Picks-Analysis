@@ -59,10 +59,24 @@ namespace FightData.DataLayer
             context.SaveChanges();
         }
 
+        ///<summary>
+        ///Searches for fighter in database
+        ///</summary>
         public Fighter FindFighter(string fighterName)
         {
             fighterName = CleanFighterName(fighterName);
             return context.Fighter.FirstOrDefault(f => f.FullName == fighterName);
+        }
+
+        ///<summary>
+        ///Searches for fighter within event
+        ///</summary>
+        public Fighter FindFighter(string fighterName, Event eventObj)
+        {
+            List<Fighter> fighters = eventObj.Fights.Select(f => f.Winner).ToList();
+            fighters.AddRange(eventObj.Fights.Select(f => f.Loser).ToList());
+            Fighter fighter = fighters.FirstOrDefault(f => f.FullName == fighterName || f.LastName == fighterName);
+            return fighter;
         }
 
         public Fighter PopulateFighterName(string name)
@@ -99,7 +113,7 @@ namespace FightData.DataLayer
         public void AddFight(Fight fight)
         {
             context.Fight.Add(fight);
-            context.SaveChanges();  
+            context.SaveChanges();
         }
         #endregion
 
@@ -109,6 +123,22 @@ namespace FightData.DataLayer
             return context.CardType.FirstOrDefault(ct => ct.Name == cardName);
         }
         #endregion
+
+        #region Analysts
+        public List<Analyst> GetAllAnalysts()
+        {
+            return context.Analyst.ToList();
+        }
+        #endregion
+
+        #region Picks
+        public void AddPick(Pick pick)
+        {
+            context.Pick.Add(pick);
+            context.SaveChanges();
+        }
+        #endregion
+
 
     }
 }

@@ -91,124 +91,8 @@ namespace FightDataProcessor
                 foreach (var eventObj in events)
                 {
                     ProcessWikipediaEntry(eventObj);
-                    //get fights
-                    //todo: make websites enums
-                    //var wikipediaPage = db.Webpage.First(w => w.Event.Id == eventObj.Id && w.Website.Name.Contains("Wikipedia"));
-                    //List<Fighter> allFighters = db.Fighter.ToList();
-                    //List<AltName> altNames = db.AltName.ToList();
-                    //List<Fight> allFights = db.Fight.ToList();
-                    //List<Pick> allPicks = db.Pick.ToList();
-                    //var wikiDoc = new HtmlDocument();
-                    //wikiDoc.LoadHtml(wikipediaPage.Data);
+                    ProcessByAnalystXFights(eventObj, 2);
 
-                    //string tableXpath = @"//*[@class='toccolours']";
-
-                    //List<string> optionalXpaths = new List<string>() { @"/tbody/tr[{0}]", @"/tr[{0}]" };
-
-                    //string tableRows = @"/tbody/tr[{0}]|";
-                    //wikiDoc.DocumentNode.SelectSingleNode(tableXpath);
-
-                    //int i = 1;
-                    //bool validXpath = true;
-                    //while (true)
-                    //{
-                    //    string xPath = GetCorrectXpath(tableXpath, optionalXpaths, wikiDoc, i);
-                    //    if (xPath == "")
-                    //        break;
-                    //    var node = wikiDoc.DocumentNode.SelectSingleNode(xPath);
-                    //    int cardType = 0;
-                    //    if (node.InnerText.Contains("Main Card"))
-                    //    {
-                    //        cardType = 1;
-                    //        i++;
-                    //        continue;
-                    //    }
-                    //    else if (node.InnerText.Contains("Preliminary Card"))
-                    //    {
-                    //        cardType = 2;
-                    //        i++;
-                    //        continue;
-                    //    }
-                    //    else if (node.InnerText.Contains("Weight class"))
-                    //    {
-                    //        i++;
-                    //        continue;
-                    //    }
-                    //    string fighterAXpath = xPath + @"/td[2]";
-                    //    string fighterBXpath = xPath + @"/td[4]";
-
-                    //    string fighterA = wikiDoc.DocumentNode.SelectSingleNode(fighterAXpath).InnerText;
-                    //    string fighterB = wikiDoc.DocumentNode.SelectSingleNode(fighterBXpath).InnerText;
-
-                    //Fighter fighterAObj = db.Fighter.First(f => f.FullName == fighterA);//utilities.FindFighter(fighterA, allFighters, altNames);
-                    //if (fighterAObj == null)
-                    //{
-                    //    var names = fighterA.Split(new String[] { " " }, StringSplitOptions.None).ToList();
-
-                    //    Fighter fightera = utilities.PopulateFighterName(fighterA);
-                    //    fighterAObj = new Fighter();
-                    //    fighterAObj.Id = utilities.AddFighter(fightera);
-                    //}
-
-                    //Fighter fighterBObj = utilities.FindFighter(fighterB, allFighters, altNames);
-                    //if (fighterBObj == null)
-                    //{
-                    //    Fighter fighterb = utilities.PopulateFighterName(fighterB);
-                    //    fighterBObj = new Fighter();
-                    //    fighterBObj.Id = utilities.AddFighter(fighterb);
-                    //}
-
-                    //Fight fight = new Fight { Event = eventObj, FighterA = fighterAObj, FighterB = fighterBObj, Winner = fighterAObj, CardTypeId = cardType };
-                    //if (!allFights.Contains(fight))
-                    //    utilities.AddFight(fight);
-                    //eventObj.Fights = new List<Fight>() { fight };
-                    //i++;
-                    //}
-
-                    //        //get mma junkie picks
-                    //        Webpage mmaJunkiePage = utilities.GetWebPage(eventObj.Id, 2);
-                    //        HtmlDocument mmaJunkieDoc = new HtmlDocument();
-                    //        mmaJunkieDoc.LoadHtml(mmaJunkiePage.Data);
-                    //        var container = mmaJunkieDoc.GetElementbyId("content-container");
-                    //        string picksTable = mmaJunkieDoc.DocumentNode.SelectSingleNode("//div[@class='articleBody']/table").InnerText;
-                    //        List<string> analystPicksTable = picksTable.Split(new string[] { "\n\n\n" }, StringSplitOptions.None).ToList();
-                    //        //analystPicksTable.RemoveRange(0, 2);
-                    //        analystPicksTable.RemoveAll(ap => !ap.Contains("@"));
-                    //        List<Analyst> analysts = utilities.GetAllAnalysts();
-                    //        foreach (var analystPicks in analystPicksTable)
-                    //        {
-                    //            List<string> analystPicksList = analystPicks.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
-                    //            analystPicksList.RemoveAll(p => p == "");
-                    //            string analystName = analystPicksList[0];
-                    //            if (analystName.Contains("@"))
-                    //            {
-                    //                analystName = analystName.Remove(analystName.IndexOf("@"));
-                    //                analystName = analystName.Trim();
-                    //            }
-                    //            Analyst analyst = analysts.SingleOrDefault(a => a.Name == analystName);
-                    //            if (analyst == null)
-                    //            {
-                    //                Console.WriteLine("Couldn't find analyst {0}", analystName);
-                    //                Console.ReadLine();
-                    //                continue;
-                    //            }
-                    //            analystPicksList.RemoveRange(0, analystPicksList.Count - eventObj.Fights.Count);
-                    //            analystPicksList.RemoveRange(0, 3);
-                    //            analystPicksList.RemoveAll(ap => ap.Contains("2014 Champion"));
-                    //            for (int fightCount = 0; fightCount < analystPicksList.Count - 1; fightCount++)
-                    //            {
-                    //                Fight fight = eventObj.Fights[fightCount];
-                    //                string analystPick = analystPicksList[fightCount];
-                    //                Fighter fighter = utilities.GetAnalystsFighterPick(fight, analystPicksList[fightCount], altNames);
-                    //                bool correct = fight.Winner.Id == fighter.Id ? true : false;
-                    //                Pick pick = new Pick() { AnalystId = analyst.Id, FightId = fight.Id, FighterPickId = fighter.Id, Correct = correct };
-                    //                if (!allPicks.Any(p => p.FightId == pick.FightId && p.AnalystId == analyst.Id))
-                    //                    utilities.AddPick(pick.AnalystId, analystPick, pick.Correct, pick.FightId, pick.FighterPickId);
-
-                    //            }
-                    //        }
-                    //    }
-                    //}
                 }
             }
 
@@ -229,7 +113,7 @@ namespace FightDataProcessor
                 int lineNo = 1;
                 bool validXpath = true;
                 CardType cardType = new CardType();
-                while(validXpath)
+                while (validXpath)
                 {
                     string xPath = GetCorrectXpath(tableXpath, optionalXpaths, wikiDoc, lineNo);
                     if (xPath != "")
@@ -284,6 +168,48 @@ namespace FightDataProcessor
                     }
                     else
                         validXpath = false;
+                }
+            }
+
+            void ProcessByAnalystXFights(Event eventObj, int websiteId)
+            {
+                Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
+                HtmlDocument htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(webPage.Data);
+
+                bool validXpath = true;
+                int analystStartPt = 2;
+                while (validXpath)
+                {
+                    //analysts xpath
+                    string analystXPath = string.Format("//div[@class='articleBody']/table/tbody/tr[{0}]/td/strong", analystStartPt);
+                    
+                    HtmlNode analystNode = htmlDoc.DocumentNode.SelectSingleNode(analystXPath);
+                    if (analystNode != null)
+                    {
+                        string analystName = analystNode.InnerText.Trim();
+                        Analyst analyst = dataUtilities.GetAllAnalysts().FirstOrDefault(a => a.Name == analystName);
+
+                        int fighterStartPt = 2;
+                        foreach (var fight in eventObj.Fights.ToList())
+                        {
+                            //fighter xpath
+                            string fighterXPath = string.Format("//div[@class='articleBody']/table/tbody/tr[{0}]/td[{1}]", analystStartPt, fighterStartPt);
+                            HtmlNode fightNode = htmlDoc.DocumentNode.SelectSingleNode(fighterXPath);
+                            if (fightNode != null)
+                            {
+                                string fighterName = fightNode.InnerText.Trim();
+                                Fighter fighter = dataUtilities.FindFighter(fighterName, eventObj);
+                                Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
+                                dataUtilities.AddPick(pick);
+                                fighterStartPt++;
+                            }
+                        }
+                    }
+                    else
+                        validXpath = false;
+
+                    analystStartPt++;
                 }
             }
         }
