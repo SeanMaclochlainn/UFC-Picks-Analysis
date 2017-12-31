@@ -229,58 +229,61 @@ namespace FightDataProcessor
                 int lineNo = 1;
                 bool validXpath = true;
                 CardType cardType = new CardType();
-                while (true)
+                while(validXpath)
                 {
                     string xPath = GetCorrectXpath(tableXpath, optionalXpaths, wikiDoc, lineNo);
-                    if (xPath == "")
-                        break;
-                    var node = wikiDoc.DocumentNode.SelectSingleNode(xPath);
-
-                    string mainCard = "main card";
-                    string preliminaryCard = "preliminary card";
-                    string weightClass = "weight class";
-                    if (node.InnerText.ToLower().Contains(mainCard))
+                    if (xPath != "")
                     {
-                        cardType = dataUtilities.GetCardType(mainCard);
+                        var node = wikiDoc.DocumentNode.SelectSingleNode(xPath);
+
+                        string mainCard = "main card";
+                        string preliminaryCard = "preliminary card";
+                        string weightClass = "weight class";
+                        if (node.InnerText.ToLower().Contains(mainCard))
+                        {
+                            cardType = dataUtilities.GetCardType(mainCard);
+                            lineNo++;
+                            continue;
+                        }
+                        else if (node.InnerText.ToLower().Contains(preliminaryCard))
+                        {
+                            cardType = dataUtilities.GetCardType(preliminaryCard);
+                            lineNo++;
+                            continue;
+                        }
+                        else if (node.InnerText.ToLower().Contains(weightClass))
+                        {
+                            lineNo++;
+                            continue;
+                        }
+                        string fighterAXpath = xPath + @"/td[2]";
+                        string fighterBXpath = xPath + @"/td[4]";
+
+                        string fighterA = wikiDoc.DocumentNode.SelectSingleNode(fighterAXpath).InnerText;
+                        string fighterB = wikiDoc.DocumentNode.SelectSingleNode(fighterBXpath).InnerText;
+
+
+                        Fighter fighterAObj = dataUtilities.FindFighter(fighterA);
+                        if (fighterAObj == null)
+                        {
+                            fighterAObj = dataUtilities.PopulateFighterName(fighterA);
+                            dataUtilities.AddFighter(fighterAObj);
+                        }
+
+                        Fighter fighterBObj = dataUtilities.FindFighter(fighterB);
+                        if (fighterBObj == null)
+                        {
+                            fighterBObj = dataUtilities.PopulateFighterName(fighterB);
+                            dataUtilities.AddFighter(fighterBObj);
+                        }
+
+                        Fight fight = new Fight { Event = eventObj, Winner = fighterAObj, Loser = fighterBObj, CardType = cardType };
+                        if (!dataUtilities.GetAllFights().Contains(fight))
+                            dataUtilities.AddFight(fight);
                         lineNo++;
-                        continue;
                     }
-                    else if (node.InnerText.ToLower().Contains(preliminaryCard))
-                    {
-                        cardType = dataUtilities.GetCardType(preliminaryCard);
-                        lineNo++;
-                        continue;
-                    }
-                    else if (node.InnerText.ToLower().Contains(weightClass))
-                    {
-                        lineNo++;
-                        continue;
-                    }
-                    string fighterAXpath = xPath + @"/td[2]";
-                    string fighterBXpath = xPath + @"/td[4]";
-
-                    string fighterA = wikiDoc.DocumentNode.SelectSingleNode(fighterAXpath).InnerText;
-                    string fighterB = wikiDoc.DocumentNode.SelectSingleNode(fighterBXpath).InnerText;
-
-
-                    Fighter fighterAObj = dataUtilities.FindFighter(fighterA);
-                    if (fighterAObj == null)
-                    {
-                        fighterAObj = dataUtilities.PopulateFighterName(fighterA);
-                        dataUtilities.AddFighter(fighterAObj);
-                    }
-
-                    Fighter fighterBObj = dataUtilities.FindFighter(fighterB);
-                    if (fighterBObj == null)
-                    {
-                        fighterBObj = dataUtilities.PopulateFighterName(fighterB);
-                        dataUtilities.AddFighter(fighterBObj);
-                    }
-
-                    Fight fight = new Fight { Event = eventObj, Winner = fighterAObj, Loser = fighterBObj, CardType = cardType };
-                    if (!dataUtilities.GetAllFights().Contains(fight))
-                        dataUtilities.AddFight(fight);
-                    lineNo++;
+                    else
+                        validXpath = false;
                 }
             }
         }
