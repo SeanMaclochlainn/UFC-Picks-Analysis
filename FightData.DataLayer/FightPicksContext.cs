@@ -81,15 +81,6 @@ namespace FightData.DataLayer
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Pick>(entity =>
-            {
-                entity.Property(e => e.Pick1)
-                    .IsRequired()
-                    .HasColumnName("Pick")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
-
             modelBuilder.Entity<Webpage>(entity =>
             {
                 entity.Property(e => e.Data).IsUnicode(false);
