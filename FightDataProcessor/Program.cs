@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FightDataProcessor
@@ -92,6 +93,7 @@ namespace FightDataProcessor
                 {
                     ProcessWikipediaEntry(eventObj);
                     ProcessByAnalystXFights(eventObj, 2);
+                    ProcessByFightsXAnalyst(eventObj, 3);
 
                 }
             }
@@ -210,6 +212,64 @@ namespace FightDataProcessor
                         validXpath = false;
 
                     analystStartPt++;
+                }
+            }
+            void ProcessByFightsXAnalyst(Event eventObj, int websiteId)
+            {
+                Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
+                
+                HtmlDocument htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(webPage.Data);
+
+                int fightStartNo = 1;
+                int i = 0;
+                while(i <= eventObj.Fights.Count)
+                {
+                    string fightXPath = String.Format("//div[@class='c-entry-content']/p[contains(text(),'Staff picking')][{0}]", fightStartNo);
+                    HtmlNode fightNode = htmlDoc.DocumentNode.SelectSingleNode(fightXPath);
+                    if (fightNode != null)
+                    {
+                        string fighterRegex = "(?<=Staff picking ).*?(?=:)";
+
+                        Match fighterMatch = Regex.Match(fightNode.InnerText, fighterRegex);
+                        string fighter1Str = fighterMatch.Value;
+
+                        string fighter2Str = fighterMatch.NextMatch().Value;
+                        int index = fightNode.InnerText.IndexOf(fighter2Str);
+                        string fighter2text = fightNode.InnerText.Substring(index);
+
+                        string fighter1Text = fightNode.InnerText.Substring(0, index);
+
+                        Fighter fighter1 = dataUtilities.FindFighter(fighter1Str, eventObj);
+                        Fight fight = dataUtilities.FindFight(fighter1, eventObj);
+
+                        string analystRegex = "(?<=(,|:) ).*?(?=(,|Staff|$))";
+                        
+                        Match analystMatch = Regex.Match(fighter1Text, analystRegex);
+                        
+                        while(analystMatch.Success)
+                        {
+                            string analystStr = analystMatch.Value;
+                            Analyst analyst = dataUtilities.GetAnalyst(analystStr);
+                            Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter1 };
+                            dataUtilities.AddPick(pick);
+                            analystMatch = analystMatch.NextMatch();
+                         }
+
+                        Fighter fighter2 = dataUtilities.FindFighter(fighter2Str, eventObj);
+
+                        analystMatch = Regex.Match(fighter2text, analystRegex);
+                        while (analystMatch.Success)
+                        {
+                            string analystStr = analystMatch.Value;
+                            Analyst analyst = dataUtilities.GetAnalyst(analystStr);
+                            Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter2 };
+                            dataUtilities.AddPick(pick);
+                            analystMatch = analystMatch.NextMatch();
+                        }
+                    }
+                    i++;
+                    fightStartNo++;
                 }
             }
         }

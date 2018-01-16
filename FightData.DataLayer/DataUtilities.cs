@@ -22,7 +22,11 @@ namespace FightData.DataLayer
         #region Events
         public List<Event> GetAllEvents()
         {
-            return context.Event.ToList();
+            return context.Event
+                .Include("Fights.Loser")
+                .Include("Fights.Winner")
+                .Include("Fights.Picks")
+                .ToList();
         }
 
         public void AddEvent(Event eventObj)
@@ -110,6 +114,14 @@ namespace FightData.DataLayer
             return context.Fight.ToList();
         }
 
+        ///<summary>
+        ///Searches for a fight within an event by using one of the fighters
+        ///</summary>
+        public Fight FindFight(Fighter fighter, Event eventObj)
+        {
+            return eventObj.Fights.FirstOrDefault(f => f.Winner == fighter || f.Loser == fighter);
+        }
+
         public void AddFight(Fight fight)
         {
             context.Fight.Add(fight);
@@ -128,6 +140,11 @@ namespace FightData.DataLayer
         public List<Analyst> GetAllAnalysts()
         {
             return context.Analyst.ToList();
+        }
+
+        public Analyst GetAnalyst(string name)
+        {
+            return context.Analyst.FirstOrDefault(a => a.Name == name);
         }
         #endregion
 
