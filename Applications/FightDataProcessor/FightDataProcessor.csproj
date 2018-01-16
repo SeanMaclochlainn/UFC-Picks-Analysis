@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FightData.DataLayer\FightData.DataLayer.csproj" />
+    <ProjectReference Include="..\..\DataLayer\FightData.DataLayer\FightData.DataLayer.csproj" />
+    <ProjectReference Include="..\..\Models\FightData.Models\FightData.Models.csproj" />
   </ItemGroup>
 
 </Project>

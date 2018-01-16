@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FightData.Models\FightData.Models.csproj" />
+    <ProjectReference Include="..\..\Models\FightData.Models\FightData.Models.csproj" />
   </ItemGroup>
 
 </Project>
