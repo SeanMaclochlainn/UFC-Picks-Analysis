@@ -18,5 +18,16 @@ namespace FightData.Models.DataModels
             else
                 return "";
         }
+
+        public bool HasPick(Fight fight)
+        {
+            return fight.Picks.Any(p => p.Analyst == this);
+        }
+
+        public Pick GetPick(Fight fight)
+        {
+            Pick pick = fight.Picks.FirstOrDefault(p => p.Analyst == this);
+            return pick;
+        }
     }
 }

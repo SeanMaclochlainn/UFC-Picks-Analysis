@@ -40,9 +40,16 @@
                     </td>
                     @foreach (var analyst in Model.Analysts)
                     {
-                        <td>
-                            @analyst.GetNameOfPick(fight)
-                        </td>
+                        if (analyst.HasPick(fight))
+                        {
+                            <td class="@(analyst.GetPick(fight).Correct() ? "bg-success" : "bg-danger")">
+                                @analyst.GetNameOfPick(fight)
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
                     }
                 </tr>
             }
