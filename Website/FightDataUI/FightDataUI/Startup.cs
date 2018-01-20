@@ -43,7 +43,7 @@ namespace FightDataUI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=FightEvents}/{action=Index}/{id?}");
             });
         }
     }

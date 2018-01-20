@@ -1,0 +1,51 @@
+﻿@model FightData.Models.ViewModels.FightEventVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var fightEvent in Model.FightEvents)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center" colspan="@(Model.Analysts.Count + 2)">
+                    @fightEvent.EventName
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Winner
+                </td>
+                <td>
+                    Loser
+                </td>
+                @foreach (var analyst in Model.Analysts)
+                {
+                    <td>
+                        @analyst.Name
+                    </td>
+                }
+            </tr>
+            @foreach (var fight in fightEvent.Fights)
+            {
+                <tr>
+                    <td class="bg-success">
+                        @fight.Winner.FullName
+                    </td>
+                    <td class="bg-danger">
+                        @fight.Loser.FullName
+                    </td>
+                    @foreach (var analyst in Model.Analysts)
+                    {
+                        <td>
+                            @(fight.Picks.Any(p => p.Fight == fight && p.Analyst == analyst) ? fight.Picks.FirstOrDefault(p => p.Fight == fight && p.Analyst == analyst).FighterPick.LastName : "")
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

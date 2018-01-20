@@ -1,4 +1,5 @@
 ﻿using FightData.Models;
+using FightData.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -156,6 +157,19 @@ namespace FightData.DataLayer
         }
         #endregion
 
+        #region ViewModels
+        public FightEventVM GetFightEventVM()
+        {
+            List<Event> events = GetAllEvents();
+            List<Analyst> analysts = GetAllAnalysts();
+            FightEventVM fightEventVM = new FightEventVM()
+            {
+                Analysts = analysts,
+                FightEvents = events
+            };
+            return fightEventVM;
+        }
+        #endregion
 
     }
 }
