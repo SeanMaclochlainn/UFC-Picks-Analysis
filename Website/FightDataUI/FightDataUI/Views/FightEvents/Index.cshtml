@@ -41,7 +41,7 @@
                     @foreach (var analyst in Model.Analysts)
                     {
                         <td>
-                            @(fight.Picks.Any(p => p.Fight == fight && p.Analyst == analyst) ? fight.Picks.FirstOrDefault(p => p.Fight == fight && p.Analyst == analyst).FighterPick.LastName : "")
+                            @analyst.GetNameOfPick(fight)
                         </td>
                     }
                 </tr>
