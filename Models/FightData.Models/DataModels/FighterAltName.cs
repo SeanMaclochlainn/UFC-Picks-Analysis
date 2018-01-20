@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FightData.Models
+namespace FightData.Models.DataModels
 {
     public class FighterAltName
     {

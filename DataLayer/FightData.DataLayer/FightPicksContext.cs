@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using FightData.Models;
+using FightData.Models.DataModels;
 
 namespace FightData.DataLayer
 {

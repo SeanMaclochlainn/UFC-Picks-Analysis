@@ -1,4 +1,4 @@
-﻿using FightData.Models;
+﻿using FightData.Models.DataModels;
 using FightData.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FightData.Models.ViewModels;
 using FightData.DataLayer;
-using FightData.Models;
 
 namespace FightDataUI.Controllers
 {

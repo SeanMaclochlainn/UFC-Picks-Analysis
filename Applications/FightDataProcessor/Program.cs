@@ -1,5 +1,5 @@
 ﻿using FightData.DataLayer;
-using FightData.Models;
+using FightData.Models.DataModels;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Configuration;
 using System;

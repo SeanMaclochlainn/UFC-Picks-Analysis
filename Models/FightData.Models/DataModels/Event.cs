@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FightData.Models
+namespace FightData.Models.DataModels
 {
     public class Event
     {

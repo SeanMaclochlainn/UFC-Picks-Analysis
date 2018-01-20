@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FightData.Models.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
