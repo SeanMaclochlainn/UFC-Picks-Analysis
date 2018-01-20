@@ -5,10 +5,11 @@
 
 @foreach (var fightEvent in Model.FightEvents)
 {
+    int colspan = Model.Analysts.Count + 2;
     <table class="table">
         <thead>
             <tr>
-                <th class="text-center" colspan="@(Model.Analysts.Count + 2)">
+                <th class="text-center" colspan="@colspan">
                     @fightEvent.EventName
                 </th>
                 <th></th>
@@ -51,6 +52,19 @@
                             <td></td>
                         }
                     }
+                </tr>
+            }
+            <tr>
+                <td colspan="@colspan">
+                    URLs
+                </td>
+            </tr>
+            @foreach(var webpage in fightEvent.Webpages)
+            {
+                <tr>
+                    <td colspan="@colspan">
+                        <a href="@webpage.Url">@webpage.Website.Name</a>
+                    </td>
                 </tr>
             }
         </tbody>

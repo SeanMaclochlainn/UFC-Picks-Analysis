@@ -27,6 +27,7 @@ namespace FightData.DataLayer
                 .Include("Fights.Loser")
                 .Include("Fights.Winner")
                 .Include("Fights.Picks")
+                .Include("Webpages.Website")
                 .ToList();
         }
 
