@@ -190,9 +190,9 @@ namespace FightDataProcessor
                     if (analystNode != null)
                     {
                         string analystName = analystNode.InnerText.Trim();
-                        Analyst analyst = dataUtilities.GetAllAnalysts().FirstOrDefault(a => a.Name == analystName);
+                        Analyst analyst = dataUtilities.FindAnalyst(analystName);
 
-                        if(analyst==null)
+                        if (analyst==null)
                         {
                             analyst = SelectOrAddAnalyst(analystName, dataUtilities);
                         }
@@ -263,7 +263,7 @@ namespace FightDataProcessor
                         while(analystMatch.Success)
                         {
                             string analystStr = analystMatch.Value;
-                            Analyst analyst = dataUtilities.GetAnalyst(analystStr);
+                            Analyst analyst = dataUtilities.FindAnalyst(analystStr);
                             if(analyst==null)
                             {
                                 analyst = SelectOrAddAnalyst(analystStr, dataUtilities);
@@ -284,7 +284,7 @@ namespace FightDataProcessor
                         while (analystMatch.Success)
                         {
                             string analystStr = analystMatch.Value;
-                            Analyst analyst = dataUtilities.GetAnalyst(analystStr);
+                            Analyst analyst = dataUtilities.FindAnalyst(analystStr);
                             Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter2 };
                             dataUtilities.AddPick(pick);
                             analystMatch = analystMatch.NextMatch();

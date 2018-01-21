@@ -147,7 +147,9 @@ namespace FightData.DataLayer
         #region Analysts
         public List<Analyst> GetAllAnalysts()
         {
-            return context.Analyst.ToList();
+            return context.Analyst
+                .Include("AltNames")
+                .ToList();
         }
 
         public Analyst AddAnalyst(string name)
@@ -172,9 +174,18 @@ namespace FightData.DataLayer
             context.SaveChanges();
         }
 
-        public Analyst GetAnalyst(string name)
+        public Analyst FindAnalyst(string name)
         {
-            return context.Analyst.FirstOrDefault(a => a.Name == name);
+            List<Analyst> analysts = GetAllAnalysts();
+            Analyst analyst = analysts.FirstOrDefault(a => a.Name == name);
+            if (analyst == null)
+            {
+                List<AnalystAltName> altNames = new List<AnalystAltName>();
+                analysts.ForEach(a => altNames.AddRange(a.AltNames));
+                AnalystAltName altName = altNames.FirstOrDefault(an => an.Name == name);
+                analyst = altName.Analyst;
+            }
+            return analyst;
         }
         #endregion
 
