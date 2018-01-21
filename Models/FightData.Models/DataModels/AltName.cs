@@ -7,6 +7,6 @@ namespace FightData.Models.DataModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<FighterAltName> Fighters { get; set; }
+        public Fighter Fighter { get; set; }
     }
 }

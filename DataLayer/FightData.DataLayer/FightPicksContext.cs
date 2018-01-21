@@ -115,11 +115,6 @@ namespace FightData.DataLayer
                 .WithMany(e => e.Webpages)
                 .IsRequired();
 
-            modelBuilder.Entity<FighterAltName>(entity =>
-            {
-                entity.HasKey(f => new { f.AltNameId, f.FighterId });
-            });
-
             modelBuilder.Entity<Fight>()
                 .HasOne(f => f.Winner)
                 .WithMany(ft => ft.Wins);
@@ -146,6 +141,11 @@ namespace FightData.DataLayer
             modelBuilder.Entity<Pick>()
                 .HasOne(p => p.Analyst)
                 .WithMany(a => a.Picks)
+                .IsRequired();
+
+            modelBuilder.Entity<AltName>()
+                .HasOne(an => an.Fighter)
+                .WithMany(f => f.AltNames)
                 .IsRequired();
 
         }
