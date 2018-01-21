@@ -148,6 +148,11 @@ namespace FightData.DataLayer
                 .WithMany(f => f.AltNames)
                 .IsRequired();
 
+            modelBuilder.Entity<AnalystAltName>()
+                .HasOne(a => a.Analyst)
+                .WithMany(a => a.AltNames)
+                .IsRequired();
+
         }
     }
 }
