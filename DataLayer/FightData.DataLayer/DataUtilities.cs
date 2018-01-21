@@ -65,6 +65,12 @@ namespace FightData.DataLayer
             context.SaveChanges();
         }
 
+        public void AddAltFighterName(string name, Fighter fighter)
+        {
+            context.FighterAltName.Add(new FighterAltName() { Name = name, Fighter = fighter });
+            context.SaveChanges();
+        }
+
         ///<summary>
         ///Searches for fighter in database
         ///</summary>
@@ -142,6 +148,28 @@ namespace FightData.DataLayer
         public List<Analyst> GetAllAnalysts()
         {
             return context.Analyst.ToList();
+        }
+
+        public Analyst AddAnalyst(string name)
+        {
+            Analyst analyst = new Analyst()
+            {
+                Name = name
+            };
+            context.Analyst.Add(analyst);
+            context.SaveChanges();
+            return analyst;
+        }
+
+        public void AddAnalystAltName(string name, Analyst analyst)
+        {
+            AnalystAltName analystAltName = new AnalystAltName()
+            {
+                Name = name,
+                Analyst = analyst
+            };
+            context.AnalystAltName.Add(analystAltName);
+            context.SaveChanges();
         }
 
         public Analyst GetAnalyst(string name)

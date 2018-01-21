@@ -8,6 +8,7 @@ namespace FightData.DataLayer
     public class FightPicksContext : DbContext
     {
         public DbSet<FighterAltName> FighterAltName { get; set; }
+        public DbSet<AnalystAltName> AnalystAltName { get; set; }
         public DbSet<Analyst> Analyst { get; set; }
         public DbSet<CardType> CardType { get; set; }
         public DbSet<Event> Event { get; set; }

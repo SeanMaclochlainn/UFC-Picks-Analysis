@@ -192,6 +192,11 @@ namespace FightDataProcessor
                         string analystName = analystNode.InnerText.Trim();
                         Analyst analyst = dataUtilities.GetAllAnalysts().FirstOrDefault(a => a.Name == analystName);
 
+                        if(analyst==null)
+                        {
+                            analyst = SelectOrAddAnalyst(analystName, dataUtilities);
+                        }
+
                         int fighterStartPt = 2;
                         foreach (var fight in eventObj.Fights.ToList())
                         {
@@ -202,6 +207,10 @@ namespace FightDataProcessor
                             {
                                 string fighterName = fightNode.InnerText.Trim();
                                 Fighter fighter = dataUtilities.FindFighter(fighterName, eventObj);
+                                if(fighter==null)
+                                {
+                                    fighter = FindUnknownFighter(fighterName, eventObj, dataUtilities);
+                                }
                                 Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
                                 dataUtilities.AddPick(pick);
                                 fighterStartPt++;
@@ -241,6 +250,10 @@ namespace FightDataProcessor
                         string fighter1Text = fightNode.InnerText.Substring(0, index);
 
                         Fighter fighter1 = dataUtilities.FindFighter(fighter1Str, eventObj);
+                        if (fighter1 == null)
+                        {
+                            fighter1 = FindUnknownFighter(fighter1Str, eventObj, dataUtilities);
+                        }
                         Fight fight = dataUtilities.FindFight(fighter1, eventObj);
 
                         string analystRegex = "(?<=(,|:) ).*?(?=(,|Staff|$))";
@@ -251,12 +264,21 @@ namespace FightDataProcessor
                         {
                             string analystStr = analystMatch.Value;
                             Analyst analyst = dataUtilities.GetAnalyst(analystStr);
+                            if(analyst==null)
+                            {
+                                analyst = SelectOrAddAnalyst(analystStr, dataUtilities);
+                            }
+                            
                             Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter1 };
                             dataUtilities.AddPick(pick);
                             analystMatch = analystMatch.NextMatch();
                          }
 
                         Fighter fighter2 = dataUtilities.FindFighter(fighter2Str, eventObj);
+                        if(fighter2==null)
+                        {
+                            fighter2 = FindUnknownFighter(fighter2Str, eventObj, dataUtilities);
+                        }
 
                         analystMatch = Regex.Match(fighter2text, analystRegex);
                         while (analystMatch.Success)
@@ -289,6 +311,65 @@ namespace FightDataProcessor
             }
             return xPath;
 
+        }
+
+        static Fighter FindUnknownFighter(string name, Event eventObj, DataUtilities dataUtilities)
+        {
+            Console.WriteLine("Cannot match fighter {0}. Please select from the list: ", name);
+            List<Fighter> fighters = new List<Fighter>();
+            eventObj.Fights.ForEach(f => fighters.AddRange(new List<Fighter>() { f.Winner, f.Loser }));
+            fighters.ForEach(f => Console.WriteLine("{0}. {1}", fighters.IndexOf(f)+1, f.FullName));
+     
+            int number = 0;
+            while (number == 0)
+            {
+                Console.WriteLine("Enter correct fighter number:");
+                string fighterNo = Console.ReadLine();
+                int.TryParse(fighterNo, out number);
+                if (number == 0 || number > fighters.Count)
+                    Console.WriteLine("Incorrect input, please try again");
+            }
+
+            number--;
+            Fighter fighter = fighters.ElementAt(number);
+            dataUtilities.AddAltFighterName(name, fighter);
+            return fighter;
+        }
+
+        static Analyst SelectOrAddAnalyst(string analystName, DataUtilities dataUtilities)
+        {
+            Console.WriteLine("Cannot find analyst: {0}\n\nPlease select from existing analysts or press n to add add as a new analyst:", analystName);
+            List<Analyst> analysts = dataUtilities.GetAllAnalysts();
+            analysts.ForEach(a => Console.WriteLine("{0}. {1}", analysts.IndexOf(a) + 1, a.Name));
+
+            Analyst analyst = new Analyst();
+            bool validInput = false;
+            while (!validInput)
+            {
+                string analystInput = Console.ReadLine();
+                if (analystInput == "n")
+                {
+                    validInput = true;
+                    analyst = dataUtilities.AddAnalyst(analystName);
+                }
+                else
+                {
+                    int.TryParse(analystInput, out int number);
+                    if (number == 0 || number > analysts.Count)
+                    {
+                        Console.WriteLine("Incorrect input, please try again");
+                        validInput = false;
+                    }
+                    else
+                    {
+                        validInput = true;
+                        number--;
+                        analyst = analysts.ElementAt(number);
+                        dataUtilities.AddAnalystAltName(analystName, analyst);
+                    }
+                }
+            }
+            return analyst;
         }
     }
 }
