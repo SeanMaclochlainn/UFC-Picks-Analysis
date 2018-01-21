@@ -105,6 +105,16 @@ namespace FightData.DataLayer
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Webpage>()
+                .HasOne(wp => wp.Website)
+                .WithMany(ws => ws.Webpages)
+                .IsRequired();
+
+            modelBuilder.Entity<Webpage>()
+                .HasOne(wp => wp.Event)
+                .WithMany(e => e.Webpages)
+                .IsRequired();
+
             modelBuilder.Entity<FighterAltName>(entity =>
             {
                 entity.HasKey(f => new { f.AltNameId, f.FighterId });
@@ -117,7 +127,27 @@ namespace FightData.DataLayer
             modelBuilder.Entity<Fight>()
                 .HasOne(f => f.Loser)
                 .WithMany(ft => ft.Losses);
-            
+
+            modelBuilder.Entity<Fight>()
+                .HasOne(f => f.Event)
+                .WithMany(e => e.Fights)
+                .IsRequired();
+
+            modelBuilder.Entity<Pick>()
+                .HasOne(p => p.Fight)
+                .WithMany(f => f.Picks)
+                .IsRequired();
+
+            modelBuilder.Entity<Pick>()
+                .HasOne(p => p.FighterPick)
+                .WithMany(fp => fp.Picks)
+                .IsRequired();
+
+            modelBuilder.Entity<Pick>()
+                .HasOne(p => p.Analyst)
+                .WithMany(a => a.Picks)
+                .IsRequired();
+
         }
     }
 }
