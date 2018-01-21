@@ -7,7 +7,7 @@ namespace FightData.DataLayer
 {
     public class FightPicksContext : DbContext
     {
-        public DbSet<AltName> AltName { get; set; }
+        public DbSet<FighterAltName> FighterAltName { get; set; }
         public DbSet<Analyst> Analyst { get; set; }
         public DbSet<CardType> CardType { get; set; }
         public DbSet<Event> Event { get; set; }
@@ -27,7 +27,7 @@ namespace FightData.DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AltName>(entity =>
+            modelBuilder.Entity<FighterAltName>(entity =>
             {
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -143,7 +143,7 @@ namespace FightData.DataLayer
                 .WithMany(a => a.Picks)
                 .IsRequired();
 
-            modelBuilder.Entity<AltName>()
+            modelBuilder.Entity<FighterAltName>()
                 .HasOne(an => an.Fighter)
                 .WithMany(f => f.AltNames)
                 .IsRequired();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FightData.Models.DataModels
 {
-    public class AltName
+    public class FighterAltName
     {
         public int Id { get; set; }
         public string Name { get; set; }
