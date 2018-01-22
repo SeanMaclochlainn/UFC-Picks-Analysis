@@ -60,7 +60,7 @@ namespace FightDataProcessor
                     foreach (var website in websites)
                     {
                         Webpage webpage = new Webpage();
-                        Console.WriteLine("Enter {0} url (Enter to skip website)", website.Name);
+                       Console.WriteLine("Enter {0} url (Enter to skip website)", website.WebsiteName.ToString());
                         string websiteUrl = Console.ReadLine();
                         if (!string.IsNullOrEmpty(websiteUrl))
                         {
@@ -101,7 +101,7 @@ namespace FightDataProcessor
             void ProcessWikipediaEntry(Event eventObj)
             {
                 List<Webpage> webpages = dataUtilities.GetAllWebpages();
-                var wikipediaPage = webpages.First(w => w.Event.Id == eventObj.Id && w.Website.Name.Contains("Wikipedia"));
+                var wikipediaPage = webpages.First(w => w.Event.Id == eventObj.Id && w.Website.WebsiteName == WebsiteName.Wikipedia);
                 var wikiDoc = new HtmlDocument();
                 wikiDoc.LoadHtml(wikipediaPage.Data);
 

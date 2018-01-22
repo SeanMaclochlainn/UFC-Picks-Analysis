@@ -99,11 +99,6 @@ namespace FightData.DataLayer
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Webpage>()
