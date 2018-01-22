@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace FightDataProcessor
 {
-    class WebpageProcessor
+    public class WebpageProcessor
     {
         private Event eventObj;
         private DataUtilities dataUtilities;

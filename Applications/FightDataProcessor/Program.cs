@@ -18,7 +18,6 @@ namespace FightDataProcessor
 
         static void Main(string[] args)
         {
-            FightPicksContext db = new FightPicksContext();
 
             DataUtilities dataUtilities = new DataUtilities();
 
@@ -32,59 +31,8 @@ namespace FightDataProcessor
             var input = Console.ReadLine();
             if (input == "1")
             {
-                while (true)
-                {
-                    Console.WriteLine("Enter the event name or press e to select existing event");
-                    string eventSelection = Console.ReadLine();
-                    int eventId = 0;
-                    Event eventObj = null;
-                    if (eventSelection == "e")
-                    {
-                        List<Event> eventList = dataUtilities.GetAllEvents();
-                        Console.WriteLine("Select event ID:");
-                        foreach (var existingEvent in eventList)
-                        {
-                            Console.WriteLine("ID: {0} Name: {1}", existingEvent.Id, existingEvent.EventName);
-                        }
-                        eventId = int.Parse(Console.ReadLine());
-                        eventObj = eventList.First(e => e.Id == eventId);
-                    }
-                    else
-                    {
-                        eventObj = new Event() { EventName = eventSelection };
-                        dataUtilities.AddEvent(eventObj);
-                    }
-
-                    List<Website> websites = dataUtilities.GetAllWebsites();
-                    HttpClient client = new HttpClient();
-                    foreach (var website in websites)
-                    {
-                        Webpage webpage = new Webpage();
-                       Console.WriteLine("Enter {0} url (Enter to skip website)", website.WebsiteName.ToString());
-                        string websiteUrl = Console.ReadLine();
-                        if (!string.IsNullOrEmpty(websiteUrl))
-                        {
-                            webpage.Url = websiteUrl;
-                            webpage.Event = eventObj;
-                            webpage.Website = website;
-                            Task<HttpResponseMessage> result = client.GetAsync(websiteUrl);
-                            while (!result.IsCompleted)
-                            {
-
-                            }
-                            HttpResponseMessage result2 = result.Result;
-                            HttpContent content = result2.Content;
-                            Task<string> contentstr = content.ReadAsStringAsync();
-                            while (!contentstr.IsCompleted)
-                            {
-
-                            }
-                            webpage.Data = contentstr.Result;
-                            //webpage.Data = client.DownloadString(websiteUrl);
-                            dataUtilities.AddWebpage(webpage);
-                        }
-                    }
-                }
+                EventDataCollector eventDataCollector = new EventDataCollector();
+                eventDataCollector.CollectEventData();
             }
             else if (input == "2")
             {
