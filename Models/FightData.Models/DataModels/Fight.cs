@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.Models.DataModels
 {
@@ -12,20 +13,21 @@ namespace FightData.Models.DataModels
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; }
 
-        public override bool Equals(object obj)
+        public static bool FightInList(List<Fight> fights, Fight fight)
         {
-            if (obj == null || GetType() != obj.GetType())
-                return false;
-            Fight fight = (Fight)obj;
-            if (fight.Winner == Winner && fight.Loser == Loser && fight.Event == Event)
+            List<Fight> matchingFights = fights
+                .Where(f =>
+                f.Event.Id == fight.Event.Id && 
+                f.Winner.Id == fight.Winner.Id && 
+                f.Loser.Id == fight.Loser.Id)
+                .ToList();
+
+            if (matchingFights.Count > 0)
+            {
                 return true;
+            }
             else
                 return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return Winner.GetHashCode() ^ Loser.GetHashCode() ^ Event.GetHashCode();
         }
     }
 }

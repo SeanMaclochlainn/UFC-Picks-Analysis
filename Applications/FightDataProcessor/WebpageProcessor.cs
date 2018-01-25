@@ -93,7 +93,7 @@ namespace FightDataProcessor
                     }
 
                     Fight fight = new Fight { Event = eventObj, Winner = fighterAObj, Loser = fighterBObj, CardType = cardType };
-                    if (!dataUtilities.GetAllFights().Contains(fight))
+                    if (!Fight.FightInList(dataUtilities.GetAllFights(), fight))
                         dataUtilities.AddFight(fight);
                     lineNo++;
                 }
