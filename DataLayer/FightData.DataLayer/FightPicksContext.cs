@@ -141,7 +141,7 @@ namespace FightData.DataLayer
 
             modelBuilder.Entity<FighterAltName>()
                 .HasOne(an => an.Fighter)
-                .WithMany(f => f.AltNames)
+                .WithMany(f => f.FighterAltNames)
                 .IsRequired();
 
             modelBuilder.Entity<AnalystAltName>()

@@ -24,8 +24,9 @@ namespace FightData.DataLayer
         public List<Event> GetAllEvents()
         {
             return context.Event
-                .Include("Fights.Loser")
-                .Include("Fights.Winner")
+                .Include("Fights")
+                .Include("Fights.Loser.FighterAltNames")
+                .Include("Fights.Winner.FighterAltNames")
                 .Include("Fights.Picks")
                 .Include("Webpages.Website")
                 .ToList();
@@ -35,6 +36,13 @@ namespace FightData.DataLayer
         {
             context.Event.Add(eventObj);
             context.SaveChanges();
+        }
+
+        public List<Fighter> GetFighters(Event eventObj)
+        {
+            List<Fighter> fighters = eventObj.Fights.Select(f => f.Winner).ToList();
+            fighters.AddRange(eventObj.Fights.Select(f => f.Loser).ToList());
+            return fighters;
         }
         #endregion
 
@@ -71,23 +79,29 @@ namespace FightData.DataLayer
             context.SaveChanges();
         }
 
-        ///<summary>
-        ///Searches for fighter in database
-        ///</summary>
-        public Fighter FindFighter(string fighterName)
-        {
-            fighterName = CleanFighterName(fighterName);
-            return context.Fighter.FirstOrDefault(f => f.FullName == fighterName);
-        }
-
-        ///<summary>
-        ///Searches for fighter within event
-        ///</summary>
         public Fighter FindFighter(string fighterName, Event eventObj)
         {
-            List<Fighter> fighters = eventObj.Fights.Select(f => f.Winner).ToList();
-            fighters.AddRange(eventObj.Fights.Select(f => f.Loser).ToList());
-            Fighter fighter = fighters.FirstOrDefault(f => f.FullName == fighterName || f.LastName == fighterName);
+            List<Fighter> fighters = GetFighters(eventObj);
+            return FindFighter(fighterName, fighters);
+        }
+
+        public Fighter FindFighter(string fighterName, List<Fighter> fighters)
+        {
+            fighterName = CleanFighterName(fighterName);
+            List<FighterAltName> fighterAltNames = new List<FighterAltName>();
+            
+            fighters.ForEach(f => fighterAltNames.AddRange(f.FighterAltNames));
+
+            Fighter fighter = fighters.SingleOrDefault(f => f.FullName == fighterName);
+            if(fighter == null)
+            {
+                fighter = fighters.SingleOrDefault(f => f.LastName == fighterName);
+            }
+            if (fighter == null)
+            {
+                FighterAltName fighterAltName = fighterAltNames.SingleOrDefault(fan => fan.Name == fighterName);
+                fighter = fighterAltName!=null ? fighterAltName.Fighter : null;
+            }
             return fighter;
         }
 
@@ -113,6 +127,11 @@ namespace FightData.DataLayer
             name = name.Replace("(c)", "");
             name = name.Trim();
             return name;
+        }
+
+        public List<Fighter> GetAllFighters()
+        {
+            return context.Fighter.Include("FighterAltNames").ToList();
         }
         #endregion
 

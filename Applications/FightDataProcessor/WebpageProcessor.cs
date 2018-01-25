@@ -78,14 +78,14 @@ namespace FightDataProcessor
                     string fighterB = wikiDoc.DocumentNode.SelectSingleNode(fighterBXpath).InnerText;
 
 
-                    Fighter fighterAObj = dataUtilities.FindFighter(fighterA);
+                    Fighter fighterAObj = dataUtilities.FindFighter(fighterA, dataUtilities.GetAllFighters());
                     if (fighterAObj == null)
                     {
                         fighterAObj = dataUtilities.PopulateFighterName(fighterA);
                         dataUtilities.AddFighter(fighterAObj);
                     }
 
-                    Fighter fighterBObj = dataUtilities.FindFighter(fighterB);
+                    Fighter fighterBObj = dataUtilities.FindFighter(fighterB, dataUtilities.GetAllFighters());
                     if (fighterBObj == null)
                     {
                         fighterBObj = dataUtilities.PopulateFighterName(fighterB);
