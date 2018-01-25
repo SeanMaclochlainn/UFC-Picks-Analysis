@@ -89,18 +89,18 @@ namespace FightData.DataLayer
         {
             fighterName = CleanFighterName(fighterName);
             List<FighterAltName> fighterAltNames = new List<FighterAltName>();
-            
+
             fighters.ForEach(f => fighterAltNames.AddRange(f.FighterAltNames));
 
             Fighter fighter = fighters.SingleOrDefault(f => f.FullName == fighterName);
-            if(fighter == null)
+            if (fighter == null)
             {
                 fighter = fighters.SingleOrDefault(f => f.LastName == fighterName);
             }
             if (fighter == null)
             {
                 FighterAltName fighterAltName = fighterAltNames.SingleOrDefault(fan => fan.Name == fighterName);
-                fighter = fighterAltName!=null ? fighterAltName.Fighter : null;
+                fighter = fighterAltName != null ? fighterAltName.Fighter : null;
             }
             return fighter;
         }
@@ -211,8 +211,24 @@ namespace FightData.DataLayer
         #region Picks
         public void AddPick(Pick pick)
         {
-            context.Pick.Add(pick);
-            context.SaveChanges();
+            List<Pick> existingPicks = GetAllPicks()
+                .Where(p =>
+                p.Analyst.Id == pick.Analyst.Id &&
+                p.Fight.Id == pick.Fight.Id)
+                .ToList();
+            if (existingPicks.Count() == 0)
+            {
+                context.Pick.Add(pick);
+                context.SaveChanges();
+            }
+        }
+
+        public List<Pick> GetAllPicks()
+        {
+            return context.Pick
+                .Include("Analyst")
+                .Include("Fight")
+                .ToList();
         }
         #endregion
 
