@@ -100,6 +100,7 @@ namespace FightDataProcessor
                 else
                     validXpath = false;
             }
+            Console.WriteLine("Processed wikipedia entry for {0}", eventObj.EventName);
         }
 
         private void ProcessByAnalystXFights(int websiteId)
@@ -151,6 +152,7 @@ namespace FightDataProcessor
 
                 analystStartPt++;
             }
+            Console.WriteLine("Processed AnalystXFights for {0}", eventObj.EventName);
         }
 
         private void ProcessByFightsXAnalyst(int websiteId)
@@ -223,6 +225,7 @@ namespace FightDataProcessor
                 i++;
                 fightStartNo++;
             }
+            Console.WriteLine("Processed FightsXAnalyst for {0}", eventObj.EventName);
         }
 
         private Fighter FindUnknownFighter(string name)

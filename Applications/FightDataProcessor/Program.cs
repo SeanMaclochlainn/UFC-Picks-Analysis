@@ -20,13 +20,13 @@ namespace FightDataProcessor
         {
             DataUtilities dataUtilities = new DataUtilities();
 
-            //Configuration = new ConfigurationBuilder()
-            //.SetBasePath(Directory.GetCurrentDirectory())
-            //.AddJsonFile("appsettings.json", false, true)
-            //.Build();
-            //string connectionString = Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
+        //Configuration = new ConfigurationBuilder()
+        //.SetBasePath(Directory.GetCurrentDirectory())
+        //.AddJsonFile("appsettings.json", false, true)
+        //.Build();
+        //string connectionString = Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
 
-            Console.WriteLine("Choose from the following options: \n\n1: Collect Data\n2: Process Events");
+        Console.WriteLine("Choose from the following options: \n\n1: Collect Data\n2: Process Events");
             var input = Console.ReadLine();
             if (input == "1")
             {
@@ -41,7 +41,9 @@ namespace FightDataProcessor
                     WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj);
                     webpageProcessor.ProcessWebpages();
                 }
-            }            
+            }
+            Console.WriteLine("Finished processing data");
+            Console.ReadLine();
         }        
     }
 }
