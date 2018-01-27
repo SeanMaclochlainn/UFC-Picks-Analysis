@@ -54,19 +54,21 @@ namespace FightDataProcessor
                     string mainCard = "main card";
                     string preliminaryCard = "preliminary card";
                     string weightClass = "weight class";
-                    if (node.InnerText.ToLower().Contains(mainCard))
+                    string fightCard = "fight card";
+                    string nodeInnerText = node.InnerText.ToLower();
+                    if (nodeInnerText.Contains(mainCard) || nodeInnerText.Contains(fightCard))
                     {
                         cardType = dataUtilities.GetCardType(mainCard);
                         lineNo++;
                         continue;
                     }
-                    else if (node.InnerText.ToLower().Contains(preliminaryCard))
+                    else if (nodeInnerText.Contains(preliminaryCard))
                     {
                         cardType = dataUtilities.GetCardType(preliminaryCard);
                         lineNo++;
                         continue;
                     }
-                    else if (node.InnerText.ToLower().Contains(weightClass))
+                    else if (nodeInnerText.Contains(weightClass))
                     {
                         lineNo++;
                         continue;
