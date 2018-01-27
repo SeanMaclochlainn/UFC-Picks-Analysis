@@ -14,7 +14,7 @@ namespace FightData.DataLayer
     public class DataUtilities
     {
         private FightPicksContext context;
-        
+
         public DataUtilities()
         {
             context = new FightPicksContext();
@@ -36,6 +36,16 @@ namespace FightData.DataLayer
         {
             context.Event.Add(eventObj);
             context.SaveChanges();
+        }
+
+        public Event GetEvent(int id)
+        {
+            return GetAllEvents().Single(e => e.Id == id);
+        }
+
+        public Event RefreshEvent(Event eventObj)
+        {
+            return GetEvent(eventObj.Id);
         }
 
         public List<Fighter> GetFighters(Event eventObj)

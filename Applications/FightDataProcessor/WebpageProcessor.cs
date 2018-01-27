@@ -107,6 +107,7 @@ namespace FightDataProcessor
 
         private void ProcessByAnalystXFights(int websiteId)
         {
+            dataUtilities.RefreshEvent(eventObj);
             Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(webPage.Data);
@@ -159,6 +160,7 @@ namespace FightDataProcessor
 
         private void ProcessByFightsXAnalyst(int websiteId)
         {
+            dataUtilities.RefreshEvent(eventObj);
             Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
 
             HtmlDocument htmlDoc = new HtmlDocument();
