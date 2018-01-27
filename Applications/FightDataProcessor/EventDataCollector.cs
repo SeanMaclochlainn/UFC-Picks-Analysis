@@ -69,7 +69,15 @@ namespace FightDataProcessor
                         }
                         webpage.Data = contentstr.Result;
                         //webpage.Data = client.DownloadString(websiteUrl);
-                        dataUtilities.AddWebpage(webpage);
+                        Webpage existingWebpage = dataUtilities.FindWebpage(webpage.Event.Id, webpage.Website.Id);
+                        if (existingWebpage!=null)
+                        {
+                            webpage = dataUtilities.UpdateWebpage(webpage);
+                        }
+                        else
+                        {
+                            dataUtilities.AddWebpage(webpage);
+                        }
                     }
                 }
             }

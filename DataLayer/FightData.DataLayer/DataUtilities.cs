@@ -14,7 +14,7 @@ namespace FightData.DataLayer
     public class DataUtilities
     {
         private FightPicksContext context;
-
+        
         public DataUtilities()
         {
             context = new FightPicksContext();
@@ -64,6 +64,25 @@ namespace FightData.DataLayer
             context.Webpage.Add(webpage);
             context.SaveChanges();
         }
+
+        public Webpage FindWebpage(int eventId, int websiteId)
+        {
+            List<Webpage> webpages = GetAllWebpages();
+            Webpage webpage = webpages.FirstOrDefault(w =>
+            w.Website.Id == websiteId &&
+            w.Event.Id == eventId);
+            return webpage;
+        }
+
+        public Webpage UpdateWebpage(Webpage webpage)
+        {
+            Webpage existingWebpage = FindWebpage(webpage.Event.Id, webpage.Website.Id);
+            existingWebpage.Url = webpage.Url;
+            existingWebpage.Data = webpage.Data;
+            context.SaveChanges();
+            return existingWebpage;
+        }
+
         #endregion
 
         #region Fighters
