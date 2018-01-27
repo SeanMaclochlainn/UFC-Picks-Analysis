@@ -30,16 +30,13 @@ namespace FightDataProcessor
         private void ProcessWikipediaEntry()
         {
             List<Webpage> webpages = dataUtilities.GetAllWebpages();
-            var wikipediaPage = webpages.First(w => w.Event.Id == eventObj.Id && w.Website.WebsiteName == WebsiteName.Wikipedia);
-            var wikiDoc = new HtmlDocument();
+            Webpage wikipediaPage = webpages.First(w => w.Event.Id == eventObj.Id && w.Website.WebsiteName == WebsiteName.Wikipedia);
+            HtmlDocument wikiDoc = new HtmlDocument();
             wikiDoc.LoadHtml(wikipediaPage.Data);
 
             string tableXpath = @"//*[@class='toccolours']";
 
             List<string> optionalXpaths = new List<string>() { @"/tbody/tr[{0}]", @"/tr[{0}]" };
-
-            string tableRows = @"/tbody/tr[{0}]|";
-            wikiDoc.DocumentNode.SelectSingleNode(tableXpath);
 
             int lineNo = 1;
             bool validXpath = true;
@@ -49,7 +46,7 @@ namespace FightDataProcessor
                 string xPath = GetCorrectXpath(tableXpath, optionalXpaths, wikiDoc, lineNo);
                 if (xPath != "")
                 {
-                    var node = wikiDoc.DocumentNode.SelectSingleNode(xPath);
+                    HtmlNode node = wikiDoc.DocumentNode.SelectSingleNode(xPath);
 
                     string mainCard = "main card";
                     string preliminaryCard = "preliminary card";
@@ -291,6 +288,9 @@ namespace FightDataProcessor
             return analyst;
         }
 
+        ///<summary>
+        ///Combines the baseXpath and each optionalXpath and returns the frst one that finds a valid node in the document
+        ///</summary>
         private static string GetCorrectXpath(string baseXpath, List<string> optionalXpaths, HtmlDocument document, int formatNo)
         {
             string xPath = "";

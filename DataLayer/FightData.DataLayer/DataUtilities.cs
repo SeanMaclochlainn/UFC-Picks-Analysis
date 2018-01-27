@@ -138,7 +138,7 @@ namespace FightData.DataLayer
         {
             name = CleanFighterName(name);
             Fighter fighter = new Fighter();
-            var names = name.Split(new string[] { " " }, StringSplitOptions.None).ToList();
+            List<string> names = name.Split(new string[] { " " }, StringSplitOptions.None).ToList();
             fighter.FirstName = names.First();
             fighter.LastName = names.Last();
             fighter.FullName = name;

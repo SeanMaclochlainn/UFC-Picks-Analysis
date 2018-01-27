@@ -27,7 +27,7 @@ namespace FightDataProcessor
         //string connectionString = Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
 
         Console.WriteLine("Choose from the following options: \n\n1: Collect Data\n2: Process Events");
-            var input = Console.ReadLine();
+            string input = Console.ReadLine();
             if (input == "1")
             {
                 EventDataCollector eventDataCollector = new EventDataCollector();
@@ -35,7 +35,7 @@ namespace FightDataProcessor
             }
             else if (input == "2")
             {
-                var events = dataUtilities.GetAllEvents();
+                List<Event> events = dataUtilities.GetAllEvents();
                 foreach (var eventObj in events)
                 {
                     WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj);
