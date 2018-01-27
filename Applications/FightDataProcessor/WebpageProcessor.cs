@@ -120,12 +120,7 @@ namespace FightDataProcessor
                 if (analystNode != null)
                 {
                     string analystName = analystNode.InnerText.Trim();
-                    Analyst analyst = dataUtilities.FindAnalyst(analystName);
-
-                    if (analyst == null)
-                    {
-                        analyst = SelectOrAddAnalyst(analystName);
-                    }
+                    Analyst analyst = FindOrAddAnalyst(analystName);
 
                     int fighterStartPt = 2;
                     foreach (var fight in eventObj.Fights.ToList())
@@ -196,11 +191,7 @@ namespace FightDataProcessor
                     while (analystMatch.Success)
                     {
                         string analystStr = analystMatch.Value;
-                        Analyst analyst = dataUtilities.FindAnalyst(analystStr);
-                        if (analyst == null)
-                        {
-                            analyst = SelectOrAddAnalyst(analystStr);
-                        }
+                        Analyst analyst = FindOrAddAnalyst(analystStr);
 
                         Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter1 };
                         dataUtilities.AddPick(pick);
@@ -217,7 +208,7 @@ namespace FightDataProcessor
                     while (analystMatch.Success)
                     {
                         string analystStr = analystMatch.Value;
-                        Analyst analyst = dataUtilities.FindAnalyst(analystStr);
+                        Analyst analyst = FindOrAddAnalyst(analystStr);
                         Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter2 };
                         dataUtilities.AddPick(pick);
                         analystMatch = analystMatch.NextMatch();
@@ -252,36 +243,39 @@ namespace FightDataProcessor
             return fighter;
         }
 
-        private Analyst SelectOrAddAnalyst(string analystName)
+        private Analyst FindOrAddAnalyst(string analystName)
         {
-            Console.WriteLine("Cannot find analyst: {0}\n\nPlease select from existing analysts or press n to add add as a new analyst:", analystName);
-            List<Analyst> analysts = dataUtilities.GetAllAnalysts();
-            analysts.ForEach(a => Console.WriteLine("{0}. {1}", analysts.IndexOf(a) + 1, a.Name));
-
-            Analyst analyst = new Analyst();
-            bool validInput = false;
-            while (!validInput)
+            Analyst analyst = dataUtilities.FindAnalyst(analystName);
+            if (analyst == null)
             {
-                string analystInput = Console.ReadLine();
-                if (analystInput == "n")
+                Console.WriteLine("Cannot find analyst: {0}\n\nPlease select from existing analysts or press n to add add as a new analyst:", analystName);
+                List<Analyst> analysts = dataUtilities.GetAllAnalysts();
+                analysts.ForEach(a => Console.WriteLine("{0}. {1}", analysts.IndexOf(a) + 1, a.Name));
+                
+                bool validInput = false;
+                while (!validInput)
                 {
-                    validInput = true;
-                    analyst = dataUtilities.AddAnalyst(analystName);
-                }
-                else
-                {
-                    int.TryParse(analystInput, out int number);
-                    if (number == 0 || number > analysts.Count)
+                    string analystInput = Console.ReadLine();
+                    if (analystInput == "n")
                     {
-                        Console.WriteLine("Incorrect input, please try again");
-                        validInput = false;
+                        validInput = true;
+                        analyst = dataUtilities.AddAnalyst(analystName);
                     }
                     else
                     {
-                        validInput = true;
-                        number--;
-                        analyst = analysts.ElementAt(number);
-                        dataUtilities.AddAnalystAltName(analystName, analyst);
+                        int.TryParse(analystInput, out int number);
+                        if (number == 0 || number > analysts.Count)
+                        {
+                            Console.WriteLine("Incorrect input, please try again");
+                            validInput = false;
+                        }
+                        else
+                        {
+                            validInput = true;
+                            number--;
+                            analyst = analysts.ElementAt(number);
+                            dataUtilities.AddAnalystAltName(analystName, analyst);
+                        }
                     }
                 }
             }
