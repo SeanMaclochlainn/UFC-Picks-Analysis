@@ -231,7 +231,8 @@ namespace FightData.DataLayer
                 List<AnalystAltName> altNames = new List<AnalystAltName>();
                 analysts.ForEach(a => altNames.AddRange(a.AltNames));
                 AnalystAltName altName = altNames.FirstOrDefault(an => an.Name == name);
-                analyst = altName.Analyst;
+                if (altName != null)
+                    analyst = altName.Analyst;
             }
             return analyst;
         }
