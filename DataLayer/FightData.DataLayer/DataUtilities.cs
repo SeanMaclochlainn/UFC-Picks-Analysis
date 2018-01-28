@@ -124,6 +124,9 @@ namespace FightData.DataLayer
             Fighter fighter = fighters.SingleOrDefault(f => f.FullName == fighterName);
             if (fighter == null)
             {
+                int fighterSameNames = fighters.Count(f => f.LastName == fighterName);
+                if (fighterSameNames > 1) //just skip the pick for now if another fighter on the card has the same last name
+                    return null;
                 fighter = fighters.SingleOrDefault(f => f.LastName == fighterName);
             }
             if (fighter == null)
