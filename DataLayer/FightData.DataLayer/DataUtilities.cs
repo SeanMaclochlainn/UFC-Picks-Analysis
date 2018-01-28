@@ -241,12 +241,11 @@ namespace FightData.DataLayer
         #region Picks
         public void AddPick(Pick pick)
         {
-            List<Pick> existingPicks = GetAllPicks()
-                .Where(p =>
+            int existingPicks = GetAllPicks()
+                .Count(p =>
                 p.Analyst.Id == pick.Analyst.Id &&
-                p.Fight.Id == pick.Fight.Id)
-                .ToList();
-            if (existingPicks.Count() == 0)
+                p.Fight.Id == pick.Fight.Id);
+            if (existingPicks == 0)
             {
                 context.Pick.Add(pick);
                 context.SaveChanges();
