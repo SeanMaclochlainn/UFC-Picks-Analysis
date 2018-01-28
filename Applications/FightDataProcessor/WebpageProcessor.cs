@@ -104,7 +104,7 @@ namespace FightDataProcessor
 
         private void ProcessByAnalystXFights(int websiteId)
         {
-            dataUtilities.RefreshEvent(eventObj);
+            eventObj = dataUtilities.RefreshEvent(eventObj);
             Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(webPage.Data);
@@ -136,7 +136,7 @@ namespace FightDataProcessor
                             {
                                 fighter = FindUnknownFighter(fighterName);
                             }
-                            if(fighter!=null)
+                            if (fighter != null)
                             {
                                 Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
                                 dataUtilities.AddPick(pick);
@@ -155,7 +155,7 @@ namespace FightDataProcessor
 
         private void ProcessByFightsXAnalyst(int websiteId)
         {
-            dataUtilities.RefreshEvent(eventObj);
+            eventObj = dataUtilities.RefreshEvent(eventObj);
             Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
 
             HtmlDocument htmlDoc = new HtmlDocument();
@@ -235,7 +235,7 @@ namespace FightDataProcessor
             {
                 Console.WriteLine("Enter correct fighter number or enter n if not present:");
                 string fighterNo = Console.ReadLine();
-                if(fighterNo=="n")
+                if (fighterNo == "n")
                 {
                     return null;
                 }
@@ -261,7 +261,7 @@ namespace FightDataProcessor
                 Console.WriteLine("Cannot find analyst: {0}\n\nPlease select from existing analysts or press n to add add as a new analyst:", analystName);
                 List<Analyst> analysts = dataUtilities.GetAllAnalysts();
                 analysts.ForEach(a => Console.WriteLine("{0}. {1}", analysts.IndexOf(a) + 1, a.Name));
-                
+
                 bool validInput = false;
                 while (!validInput)
                 {
