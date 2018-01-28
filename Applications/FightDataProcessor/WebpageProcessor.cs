@@ -136,8 +136,11 @@ namespace FightDataProcessor
                             {
                                 fighter = FindUnknownFighter(fighterName);
                             }
-                            Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
-                            dataUtilities.AddPick(pick);
+                            if(fighter!=null)
+                            {
+                                Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
+                                dataUtilities.AddPick(pick);
+                            }
                             fighterStartPt++;
                         }
                     }
@@ -230,11 +233,18 @@ namespace FightDataProcessor
             int number = 0;
             while (number == 0)
             {
-                Console.WriteLine("Enter correct fighter number:");
+                Console.WriteLine("Enter correct fighter number or enter n if not present:");
                 string fighterNo = Console.ReadLine();
-                int.TryParse(fighterNo, out number);
-                if (number == 0 || number > fighters.Count)
-                    Console.WriteLine("Incorrect input, please try again");
+                if(fighterNo=="n")
+                {
+                    return null;
+                }
+                else
+                {
+                    int.TryParse(fighterNo, out number);
+                    if (number == 0 || number > fighters.Count)
+                        Console.WriteLine("Incorrect input, please try again");
+                }
             }
 
             number--;
