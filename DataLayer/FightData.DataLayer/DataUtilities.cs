@@ -23,13 +23,13 @@ namespace FightData.DataLayer
         #region Events
         public List<Event> GetAllEvents()
         {
-            return context.Event
-                .Include("Fights")
-                .Include("Fights.Loser.FighterAltNames")
-                .Include("Fights.Winner.FighterAltNames")
-                .Include("Fights.Picks")
-                .Include("Webpages.Website")
-                .ToList();
+            context.Fight.Load();
+            context.Fighter.Load();
+            context.FighterAltName.Load();
+            context.Pick.Load();
+            context.Webpage.Load();
+            context.Website.Load();
+            return context.Event.ToList();
         }
 
         public void AddEvent(Event eventObj)
