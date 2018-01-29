@@ -22,7 +22,12 @@ namespace FightData.Models.DataModels
 
         public bool HasPick(Fight fight)
         {
-            return fight.Picks.Any(p => p.Analyst == this);
+            if (fight.Picks!=null)
+            {
+                return fight.Picks.Any(p => p.Analyst == this);
+            }
+            else
+                return false;
         }
 
         public Pick GetPick(Fight fight)
