@@ -183,7 +183,9 @@ namespace FightDataProcessor
                     Fighter fighter1 = dataUtilities.FindFighter(fighter1Str, eventObj);
                     if (fighter1 == null)
                     {
-                        fighter1 = FindUnknownFighter(fighter1Str);
+                        bool duplicateNames = dataUtilities.CheckForDuplicateNames(fighter1Str, eventObj.GetAllFighters());
+                        if(!duplicateNames)
+                            fighter1 = FindUnknownFighter(fighter1Str);
                     }
                     Fight fight = dataUtilities.FindFight(fighter1, eventObj);
 
@@ -204,7 +206,9 @@ namespace FightDataProcessor
                     Fighter fighter2 = dataUtilities.FindFighter(fighter2Str, eventObj);
                     if (fighter2 == null)
                     {
-                        fighter2 = FindUnknownFighter(fighter2Str);
+                        bool duplicateNames = dataUtilities.CheckForDuplicateNames(fighter1Str, eventObj.GetAllFighters());
+                        if(!duplicateNames)
+                            fighter2 = FindUnknownFighter(fighter2Str);
                     }
 
                     analystMatch = Regex.Match(fighter2text, analystRegex);

@@ -96,6 +96,15 @@ namespace FightData.DataLayer
         #endregion
 
         #region Fighters
+        public bool CheckForDuplicateNames(string name, List<Fighter> fighters)
+        {
+            int fighterSameNames = fighters.Count(f => f.LastName == name);
+            if (fighterSameNames > 1)
+                return true;
+            else
+                return false;
+        }
+
         public void AddFighter(Fighter fighter)
         {
             context.Fighter.Add(fighter);
@@ -124,9 +133,6 @@ namespace FightData.DataLayer
             Fighter fighter = fighters.SingleOrDefault(f => f.FullName == fighterName);
             if (fighter == null)
             {
-                int fighterSameNames = fighters.Count(f => f.LastName == fighterName);
-                if (fighterSameNames > 1) //just skip the pick for now if another fighter on the card has the same last name
-                    return null;
                 fighter = fighters.SingleOrDefault(f => f.LastName == fighterName);
             }
             if (fighter == null)
