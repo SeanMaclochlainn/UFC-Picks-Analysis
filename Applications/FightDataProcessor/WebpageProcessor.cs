@@ -184,7 +184,7 @@ namespace FightDataProcessor
                     if (fighter1 == null)
                     {
                         bool duplicateNames = dataUtilities.CheckForDuplicateNames(fighter1Str, eventObj.GetAllFighters());
-                        if(!duplicateNames)
+                        if (!duplicateNames)
                             fighter1 = FindUnknownFighter(fighter1Str);
                     }
                     Fight fight = dataUtilities.FindFight(fighter1, eventObj);
@@ -207,7 +207,7 @@ namespace FightDataProcessor
                     if (fighter2 == null)
                     {
                         bool duplicateNames = dataUtilities.CheckForDuplicateNames(fighter1Str, eventObj.GetAllFighters());
-                        if(!duplicateNames)
+                        if (!duplicateNames)
                             fighter2 = FindUnknownFighter(fighter2Str);
                     }
 
@@ -297,22 +297,22 @@ namespace FightDataProcessor
         }
 
         ///<summary>
-        ///Combines the baseXpath and each optionalXpath and returns the frst one that finds a valid node in the document
+        ///Combines the xpath with each xpathEnding and returns the first one that finds a valid node in the document
         ///</summary>
-        private static string GetCorrectXpath(string baseXpath, List<string> optionalXpaths, HtmlDocument document, int formatNo)
+        public static string GetCorrectXpath(string xpath, List<string> xpathEndings, HtmlDocument document, int formatNo)
         {
-            string xPath = "";
-            foreach (var optxPath in optionalXpaths)
+            string finalXpath = "";
+            foreach (var xpathEnding in xpathEndings)
             {
-                string optxPathForm = string.Format(optxPath, formatNo);
-                xPath = baseXpath + optxPathForm;
-                HtmlNode htmlNode = document.DocumentNode.SelectSingleNode(xPath);
+                string xPathFormatted = string.Format(xpathEnding, formatNo);
+                finalXpath = xpath + xPathFormatted;
+                HtmlNode htmlNode = document.DocumentNode.SelectSingleNode(finalXpath);
                 if (htmlNode != null)
                     break;
                 else
-                    xPath = "";
+                    finalXpath = "";
             }
-            return xPath;
+            return finalXpath;
         }
     }
 }
