@@ -1,7 +1,12 @@
+using FightData.DataLayer;
 using FightDataProcessor;
 using HtmlAgilityPack;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using FightData.Models.DataModels;
+using System.Linq;
 
 namespace FightDataProcessorTest
 {
@@ -25,6 +30,42 @@ namespace FightDataProcessorTest
             string result = WebpageProcessor.GetCorrectXpath(baseXpath, optionalXpaths, htmlDocument, lineNo);
 
             Assert.AreEqual(@"//*[@class='toccolours']/tr[" + lineNo + "]", result);
+        }
+
+        [TestMethod]
+        public void AddEvent()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+
+            try
+            {
+                var options = new DbContextOptionsBuilder<FightPicksContext>()
+                    .UseSqlite(connection)
+                    .Options;
+
+                using (var context = new FightPicksContext(options))
+                {
+                    context.Database.EnsureCreated();
+                }
+
+                DataUtilities dataUtilities = new DataUtilities(options);
+                dataUtilities.AddEvent(new Event
+                {
+                    EventName = "ufc 100",
+                    Fights = new List<Fight>(),
+                    Webpages = new List<Webpage>()
+                });
+
+                using (var context = new FightPicksContext(options))
+                {
+                    Assert.AreEqual(1, context.Event.Count());
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
 

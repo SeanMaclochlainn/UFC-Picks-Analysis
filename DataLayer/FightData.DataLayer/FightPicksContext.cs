@@ -7,6 +7,10 @@ namespace FightData.DataLayer
 {
     public class FightPicksContext : DbContext
     {
+        public FightPicksContext() { }
+
+        public FightPicksContext(DbContextOptions<FightPicksContext> options) : base(options) { }
+
         public DbSet<FighterAltName> FighterAltName { get; set; }
         public DbSet<AnalystAltName> AnalystAltName { get; set; }
         public DbSet<Analyst> Analyst { get; set; }

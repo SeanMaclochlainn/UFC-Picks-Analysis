@@ -20,6 +20,11 @@ namespace FightData.DataLayer
             context = new FightPicksContext();
         }
 
+        public DataUtilities(DbContextOptions<FightPicksContext> options)
+        {
+            context = new FightPicksContext(options);
+        }
+
         #region Events
         public List<Event> GetAllEvents()
         {
