@@ -1,6 +1,7 @@
 ﻿using FightData.DataLayer;
 using FightData.Models.DataModels;
 using HtmlAgilityPack;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,10 @@ namespace FightDataProcessor
         private Event eventObj;
         private DataUtilities dataUtilities;
 
-        public WebpageProcessor(Event eventObj)
+        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities)
         {
             this.eventObj = eventObj;
-            dataUtilities = new DataUtilities();
+            this.dataUtilities = dataUtilities;
         }
 
         public void ProcessWebpages()
@@ -27,10 +28,10 @@ namespace FightDataProcessor
             ProcessByFightsXAnalyst(3);
         }
 
-        private void ProcessWikipediaEntry()
+        public void ProcessWikipediaEntry()
         {
             List<Webpage> webpages = dataUtilities.GetAllWebpages();
-            Webpage wikipediaPage = webpages.First(w => w.Event.Id == eventObj.Id && w.Website.WebsiteName == WebsiteName.Wikipedia);
+            Webpage wikipediaPage = eventObj.Webpages.First(w => w.Event.Id == eventObj.Id && w.Website.WebsiteName == WebsiteName.Wikipedia);
             HtmlDocument wikiDoc = new HtmlDocument();
             wikiDoc.LoadHtml(wikipediaPage.Data);
 
@@ -229,33 +230,33 @@ namespace FightDataProcessor
 
         private Fighter FindUnknownFighter(string name)
         {
-            Console.WriteLine("Cannot match fighter {0}. Please select from the list: ", name);
-            List<Fighter> fighters = new List<Fighter>();
-            eventObj.Fights.ForEach(f => fighters.AddRange(new List<Fighter>() { f.Winner, f.Loser }));
-            fighters.ForEach(f => Console.WriteLine("{0}. {1}", fighters.IndexOf(f) + 1, f.FullName));
+                    Console.WriteLine("Cannot match fighter {0}. Please select from the list: ", name);
+                    List<Fighter> fighters = new List<Fighter>();
+                    eventObj.Fights.ForEach(f => fighters.AddRange(new List<Fighter>() { f.Winner, f.Loser }));
+                    fighters.ForEach(f => Console.WriteLine("{0}. {1}", fighters.IndexOf(f) + 1, f.FullName));
 
-            int number = 0;
-            while (number == 0)
-            {
-                Console.WriteLine("Enter correct fighter number or enter n if not present:");
-                string fighterNo = Console.ReadLine();
-                if (fighterNo == "n")
-                {
-                    return null;
-                }
-                else
-                {
-                    int.TryParse(fighterNo, out number);
-                    if (number == 0 || number > fighters.Count)
-                        Console.WriteLine("Incorrect input, please try again");
-                }
-            }
+                    int number = 0;
+                    while (number == 0)
+                    {
+                        Console.WriteLine("Enter correct fighter number or enter n if not present:");
+                        string fighterNo = Console.ReadLine();
+                        if (fighterNo == "n")
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            int.TryParse(fighterNo, out number);
+                            if (number == 0 || number > fighters.Count)
+                                Console.WriteLine("Incorrect input, please try again");
+                        }
+                    }
 
-            number--;
+                    number--;
             Fighter fighter = fighters.ElementAt(number);
             dataUtilities.AddAltFighterName(name, fighter);
-            return fighter;
-        }
+                    return fighter;
+                }
 
         private Analyst FindOrAddAnalyst(string analystName)
         {

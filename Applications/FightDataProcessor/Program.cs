@@ -38,7 +38,7 @@ namespace FightDataProcessor
                 List<Event> events = dataUtilities.GetAllEvents();
                 foreach (var eventObj in events)
                 {
-                    WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj);
+                    WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities);
                     webpageProcessor.ProcessWebpages();
                 }
             }
