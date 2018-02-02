@@ -77,7 +77,8 @@ namespace FightDataProcessorTest
             HtmlDocument htmlDocument = new HtmlDocument();
             int lineNo = 3;
 
-            htmlDocument.LoadHtml(wikipediaPage);
+            Webpage wikiWebpage = dataUtilities.GetAllWebpages().First(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
+            htmlDocument.LoadHtml(wikiWebpage.Data);
             string result = WebpageProcessor.GetCorrectXpath(baseXpath, optionalXpaths, htmlDocument, lineNo);
 
             Assert.AreEqual(@"//*[@class='toccolours']/tr[" + lineNo + "]", result);
