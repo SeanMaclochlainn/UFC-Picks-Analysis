@@ -5,6 +5,13 @@ namespace FightData.Models.DataModels
 {
     public class Fighter
     {
+        public Fighter()
+        {
+            FighterAltNames = new List<FighterAltName>();
+            Wins = new List<Fight>();
+            Losses = new List<Fight>();
+            Picks = new List<Pick>();
+        }
         public int Id { get; set; }
         public string FullName { get; set; }
         public string FirstName { get; set; }

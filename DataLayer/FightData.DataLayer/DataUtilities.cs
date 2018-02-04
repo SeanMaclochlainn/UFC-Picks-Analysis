@@ -189,7 +189,7 @@ namespace FightData.DataLayer
         ///</summary>
         public Fight FindFight(Fighter fighter, Event eventObj)
         {
-            return eventObj.Fights.FirstOrDefault(f => f.Winner == fighter || f.Loser == fighter);
+            return eventObj.Fights.FirstOrDefault(f => f.Winner.FullName == fighter.FullName || f.Loser.FullName == fighter.FullName);
         }
 
         public void AddFight(Fight fight)

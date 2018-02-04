@@ -14,11 +14,18 @@ namespace FightDataProcessor
     {
         private Event eventObj;
         private DataUtilities dataUtilities;
+        private InputReceiver inputReceiver;
 
-        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities)
+        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities) 
+            : this(eventObj, dataUtilities, new InputReceiver())
+        {
+        }
+
+        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities, InputReceiver inputReceiver)
         {
             this.eventObj = eventObj;
             this.dataUtilities = dataUtilities;
+            this.inputReceiver = inputReceiver;
         }
 
         public void ProcessWebpages()
@@ -154,7 +161,7 @@ namespace FightDataProcessor
             Console.WriteLine("Processed AnalystXFights for {0}", eventObj.EventName);
         }
 
-        private void ProcessByFightsXAnalyst(int websiteId)
+        public void ProcessByFightsXAnalyst(int websiteId)
         {
             eventObj = dataUtilities.RefreshEvent(eventObj);
             Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
@@ -240,7 +247,7 @@ namespace FightDataProcessor
                     {
                         Console.WriteLine("Enter correct fighter number or enter n if not present:");
                         string fighterNo = Console.ReadLine();
-                        if (fighterNo == "n")
+                if (fighterNo == "n")
                         {
                             return null;
                         }
@@ -270,7 +277,7 @@ namespace FightDataProcessor
                 bool validInput = false;
                 while (!validInput)
                 {
-                    string analystInput = Console.ReadLine();
+                    string analystInput = inputReceiver.GetInput();
                     if (analystInput == "n")
                     {
                         validInput = true;
