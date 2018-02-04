@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <None Remove="WebsiteData\FN55BloodyElbow.html" />
+    <None Remove="WebsiteData\FN55Wikipedia.html" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="WebsiteData\FN55BloodyElbow.html" />
+    <EmbeddedResource Include="WebsiteData\FN55Wikipedia.html" />
   </ItemGroup>
 
   <ItemGroup>
