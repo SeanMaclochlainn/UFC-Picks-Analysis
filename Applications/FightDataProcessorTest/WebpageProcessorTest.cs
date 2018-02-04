@@ -16,8 +16,6 @@ namespace FightDataProcessorTest
     [TestClass]
     public class WebpageProcessorTest
     {
-
-
         private static SqliteConnection connection;
         private static DbContextOptions<FightPicksContext> options;
         private static DataUtilities dataUtilities;
@@ -141,11 +139,17 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                var picks = context.Pick
+                List<Pick> picks = context.Pick
                     .Include(p => p.Fight)
                     .ThenInclude(f => f.Winner)
+                    .Include(p => p.Fight)
+                    .ThenInclude(f => f.Event)
                     .Include(p => p.Analyst)
-                    .Include(p => p.FighterPick);
+                    .Include(p => p.FighterPick)
+                    .ToList()
+                    .Where(p => p.Event.Id == eventObj.Id)
+                    .ToList();
+                
                 Assert.AreEqual("Anton", picks.Single(p => p.FighterPick.LastName == "Bisping").Analyst.Name);
                 Assert.AreEqual(10, picks.Count(p => p.Fight.Winner.LastName == "Rockhold" && p.FighterPick.LastName == "Rockhold"));
             }

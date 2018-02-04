@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace FightData.Models.DataModels
 {
@@ -9,6 +10,14 @@ namespace FightData.Models.DataModels
         public Analyst Analyst { get; set; }
         public Fight Fight { get; set; }
         public Fighter FighterPick { get; set; }
+
+        public Event Event
+        {
+            get
+            {
+                return Fight?.Event;
+            }
+        }
 
         public bool Correct()
         {
