@@ -8,6 +8,7 @@ namespace FightData.Models.DataModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Website Website { get; set; }
         public List<Pick> Picks { get; set; }
         public List<AnalystAltName> AltNames { get; set; }
         

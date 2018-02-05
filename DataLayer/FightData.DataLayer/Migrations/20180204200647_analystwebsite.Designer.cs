@@ -12,9 +12,10 @@ using System;
 namespace FightData.DataLayer.Migrations
 {
     [DbContext(typeof(FightPicksContext))]
-    partial class FightPicksContextModelSnapshot : ModelSnapshot
+    [Migration("20180204200647_analystwebsite")]
+    partial class analystwebsite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

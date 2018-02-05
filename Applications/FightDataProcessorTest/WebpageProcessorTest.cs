@@ -45,6 +45,7 @@ namespace FightDataProcessorTest
 
             string bloodyElbowPageData = GetResourceFile("FN55BloodyElbow.html");
             string wikipediaPage = GetResourceFile("FN55Wikipedia.html");
+            string mmaJunkiPage = GetResourceFile("FN55MmaJunkie.html");
 
             List<Webpage> webpages = new List<Webpage>()
             {
@@ -53,14 +54,36 @@ namespace FightDataProcessorTest
                     Event = eventObj,
                     Data = wikipediaPage,
                     Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
-                    Website = new Website { Id = 1, DomainName = "wikipedia.org", WebsiteName = WebsiteName.Wikipedia }
+                    Website = new Website
+                    {
+                        Id = 1,
+                        DomainName = "wikipedia.org",
+                        WebsiteName = WebsiteName.Wikipedia
+                    }
+                },
+                new Webpage()
+                {
+                    Event = eventObj,
+                    Data = mmaJunkiPage,
+                    Url = "http://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
+                    Website = new Website()
+                    {
+                        Id = 2,
+                        DomainName = "mmajunkie.com",
+                        WebsiteName = WebsiteName.MMAJunkie
+                    }
                 },
                 new Webpage()
                 {
                     Event = eventObj,
                     Data = bloodyElbowPageData,
                     Url = "https://www.bloodyelbow.com/2014/11/6/7171527/ufc-fight-night-bisping-vs-rockhold-staff-picks-and-predictions",
-                    Website = new Website { Id = 3, DomainName = "bloodyelbow.com", WebsiteName = WebsiteName.BloodyElbow }
+                    Website = new Website
+                    {
+                        Id = 3,
+                        DomainName = "bloodyelbow.com",
+                        WebsiteName = WebsiteName.BloodyElbow
+                    }
                 }
             };
 
@@ -149,9 +172,44 @@ namespace FightDataProcessorTest
                     .ToList()
                     .Where(p => p.Event.Id == eventObj.Id)
                     .ToList();
-                
+
                 Assert.AreEqual("Anton", picks.Single(p => p.FighterPick.LastName == "Bisping").Analyst.Name);
                 Assert.AreEqual(10, picks.Count(p => p.Fight.Winner.LastName == "Rockhold" && p.FighterPick.LastName == "Rockhold"));
+            }
+        }
+
+        [TestMethod]
+        public void ProcessByAnalystXFightsTest()
+        {
+            Event eventObj = dataUtilities.GetAllEvents().First();
+            List<string> inputs = new List<string>()
+            {
+                "n","n","n","n","n","n","n","n"
+            };
+            TestInputReceiver inputReceiver = new TestInputReceiver(inputs);
+            WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities, inputReceiver);
+
+            webpageProcessor.ProcessWikipediaEntry();
+            webpageProcessor.ProcessByAnalystXFights(2);
+
+            using (var context = new FightPicksContext(options))
+            {
+                List<Pick> picks = context.Pick
+                    .Include(p => p.Fight)
+                    .ThenInclude(f => f.Winner)
+                    .Include(p => p.Fight)
+                    .ThenInclude(f => f.Event)
+                    .Include(p => p.Analyst)
+                    .Include(p => p.FighterPick)
+                    .Include(p=>p.Analyst)
+                    .ThenInclude(a=>a.Website)
+                    .ToList()
+                    .Where(p => p.Event.Id == eventObj.Id && p.Analyst.Website.WebsiteName == WebsiteName.MMAJunkie)
+                    .ToList();
+
+                var test = picks.Where(p => p.FighterPick.LastName == "Whittaker");
+                Assert.AreEqual("Matt Erickson", picks.Single(p => p.FighterPick.LastName == "Whittaker").Analyst.Name);
+                Assert.AreEqual(2, picks.Count(p => p.Fight.Winner.LastName == "Iaquinta" && p.FighterPick.LastName == "Iaquinta"));
             }
 
         }
@@ -161,7 +219,7 @@ namespace FightDataProcessorTest
             string fileData = "";
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
             string folderName = "WebsiteData";
-            using (Stream stream = currentAssembly.GetManifestResourceStream(String.Format("{0}.{1}.{2}",currentAssembly.GetName().Name, folderName, fileName)))
+            using (Stream stream = currentAssembly.GetManifestResourceStream(String.Format("{0}.{1}.{2}", currentAssembly.GetName().Name, folderName, fileName)))
             {
                 using (StreamReader sr = new StreamReader(stream))
                 {

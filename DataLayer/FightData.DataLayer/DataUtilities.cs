@@ -66,6 +66,11 @@ namespace FightData.DataLayer
         {
             return context.Website.ToList();
         }
+
+        public Website GetWebsite(int id)
+        {
+            return context.Website.FirstOrDefault(w => w.Id == id);
+        }
         #endregion
 
         #region Webpages
@@ -214,11 +219,13 @@ namespace FightData.DataLayer
                 .ToList();
         }
 
-        public Analyst AddAnalyst(string name)
+        public Analyst AddAnalyst(string name, int websiteId)
         {
+            Website website = GetWebsite(websiteId);
             Analyst analyst = new Analyst()
             {
-                Name = name
+                Name = name, 
+                Website = website
             };
             context.Analyst.Add(analyst);
             context.SaveChanges();

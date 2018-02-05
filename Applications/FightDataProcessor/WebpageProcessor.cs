@@ -110,7 +110,7 @@ namespace FightDataProcessor
             Console.WriteLine("Processed wikipedia entry for {0}", eventObj.EventName);
         }
 
-        private void ProcessByAnalystXFights(int websiteId)
+        public void ProcessByAnalystXFights(int websiteId)
         {
             eventObj = dataUtilities.RefreshEvent(eventObj);
             Webpage webPage = dataUtilities.GetAllWebpages().FirstOrDefault(wp => wp.Event.Id == eventObj.Id && wp.Website.Id == websiteId);
@@ -128,7 +128,7 @@ namespace FightDataProcessor
                 if (analystNode != null)
                 {
                     string analystName = analystNode.InnerText.Trim();
-                    Analyst analyst = FindOrAddAnalyst(analystName);
+                    Analyst analyst = FindOrAddAnalyst(analystName, websiteId);
 
                     int fighterStartPt = 2;
                     foreach (var fight in eventObj.Fights.ToList())
@@ -204,7 +204,7 @@ namespace FightDataProcessor
                     while (analystMatch.Success)
                     {
                         string analystStr = analystMatch.Value;
-                        Analyst analyst = FindOrAddAnalyst(analystStr);
+                        Analyst analyst = FindOrAddAnalyst(analystStr, websiteId);
 
                         Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter1 };
                         dataUtilities.AddPick(pick);
@@ -223,7 +223,7 @@ namespace FightDataProcessor
                     while (analystMatch.Success)
                     {
                         string analystStr = analystMatch.Value;
-                        Analyst analyst = FindOrAddAnalyst(analystStr);
+                        Analyst analyst = FindOrAddAnalyst(analystStr, websiteId);
                         Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter2 };
                         dataUtilities.AddPick(pick);
                         analystMatch = analystMatch.NextMatch();
@@ -265,7 +265,7 @@ namespace FightDataProcessor
                     return fighter;
                 }
 
-        private Analyst FindOrAddAnalyst(string analystName)
+        private Analyst FindOrAddAnalyst(string analystName, int websiteId)
         {
             Analyst analyst = dataUtilities.FindAnalyst(analystName);
             if (analyst == null)
@@ -281,7 +281,7 @@ namespace FightDataProcessor
                     if (analystInput == "n")
                     {
                         validInput = true;
-                        analyst = dataUtilities.AddAnalyst(analystName);
+                        analyst = dataUtilities.AddAnalyst(analystName, websiteId);
                     }
                     else
                     {
