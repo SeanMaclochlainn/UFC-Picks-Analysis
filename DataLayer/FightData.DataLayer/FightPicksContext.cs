@@ -64,6 +64,8 @@ namespace FightData.DataLayer
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Event>().Ignore(e=>e.CancelledFighters);
+
             modelBuilder.Entity<Fighter>(entity =>
             {
                 entity.Property(e => e.FirstName)

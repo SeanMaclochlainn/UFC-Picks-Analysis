@@ -16,7 +16,7 @@ namespace FightDataProcessor
         private DataUtilities dataUtilities;
         private InputReceiver inputReceiver;
 
-        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities) 
+        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities)
             : this(eventObj, dataUtilities, new InputReceiver())
         {
         }
@@ -139,11 +139,7 @@ namespace FightDataProcessor
                         if (fightNode != null)
                         {
                             string fighterName = fightNode.InnerText.Trim();
-                            Fighter fighter = dataUtilities.FindFighter(fighterName, eventObj);
-                            if (fighter == null)
-                            {
-                                fighter = FindUnknownFighter(fighterName);
-                            }
+                            Fighter fighter = FindFighter(fighterName);
                             if (fighter != null)
                             {
                                 Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
@@ -188,13 +184,7 @@ namespace FightDataProcessor
 
                     string fighter1Text = fightNode.InnerText.Substring(0, index);
 
-                    Fighter fighter1 = dataUtilities.FindFighter(fighter1Str, eventObj);
-                    if (fighter1 == null)
-                    {
-                        bool duplicateNames = dataUtilities.CheckForDuplicateNames(fighter1Str, eventObj.GetAllFighters());
-                        if (!duplicateNames)
-                            fighter1 = FindUnknownFighter(fighter1Str);
-                    }
+                    Fighter fighter1 = FindFighter(fighter1Str);
                     Fight fight = dataUtilities.FindFight(fighter1, eventObj);
 
                     string analystRegex = "(?<=(,|:) ).*?(?=(,|Staff|$))";
@@ -211,13 +201,7 @@ namespace FightDataProcessor
                         analystMatch = analystMatch.NextMatch();
                     }
 
-                    Fighter fighter2 = dataUtilities.FindFighter(fighter2Str, eventObj);
-                    if (fighter2 == null)
-                    {
-                        bool duplicateNames = dataUtilities.CheckForDuplicateNames(fighter1Str, eventObj.GetAllFighters());
-                        if (!duplicateNames)
-                            fighter2 = FindUnknownFighter(fighter2Str);
-                    }
+                    Fighter fighter2 = FindFighter(fighter2Str);
 
                     analystMatch = Regex.Match(fighter2text, analystRegex);
                     while (analystMatch.Success)
@@ -235,35 +219,45 @@ namespace FightDataProcessor
             Console.WriteLine("Processed FightsXAnalyst for {0}", eventObj.EventName);
         }
 
-        private Fighter FindUnknownFighter(string name)
+        private Fighter FindFighter(string name)
         {
-                    Console.WriteLine("Cannot match fighter {0}. Please select from the list: ", name);
-                    List<Fighter> fighters = new List<Fighter>();
-                    eventObj.Fights.ForEach(f => fighters.AddRange(new List<Fighter>() { f.Winner, f.Loser }));
-                    fighters.ForEach(f => Console.WriteLine("{0}. {1}", fighters.IndexOf(f) + 1, f.FullName));
+            bool duplicateNames = dataUtilities.CheckForDuplicateNames(name, eventObj.GetAllFighters());
+            if (duplicateNames) //no functionality at present to deal with duplicate surnames on a card
+                return null;
+            Fighter fighter = dataUtilities.FindFighter(name, eventObj);
+            if (fighter != null)
+                return fighter;
+            if (eventObj.CancelledFighters.Contains(name))
+                return null;
+            
+            Console.WriteLine("Cannot match fighter {0}. Please select from the list: ", name);
+            List<Fighter> fighters = new List<Fighter>();
+            eventObj.Fights.ForEach(f => fighters.AddRange(new List<Fighter>() { f.Winner, f.Loser }));
+            fighters.ForEach(f => Console.WriteLine("{0}. {1}", fighters.IndexOf(f) + 1, f.FullName));
 
-                    int number = 0;
-                    while (number == 0)
-                    {
-                        Console.WriteLine("Enter correct fighter number or enter n if not present:");
-                        string fighterNo = Console.ReadLine();
-                if (fighterNo == "n")
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            int.TryParse(fighterNo, out number);
-                            if (number == 0 || number > fighters.Count)
-                                Console.WriteLine("Incorrect input, please try again");
-                        }
-                    }
-
-                    number--;
-            Fighter fighter = fighters.ElementAt(number);
-            dataUtilities.AddAltFighterName(name, fighter);
-                    return fighter;
+            int number = 0;
+            while (number == 0)
+            {
+                Console.WriteLine("Enter correct fighter number or enter w if they were withdrawn from card");
+                string fighterNo = Console.ReadLine();
+                if (fighterNo == "w")
+                {
+                    eventObj.CancelledFighters.Add(name);
+                    return null;
                 }
+                else
+                {
+                    int.TryParse(fighterNo, out number);
+                    if (number == 0 || number > fighters.Count)
+                        Console.WriteLine("Incorrect input, please try again");
+                }
+            }
+
+            number--;
+            fighter = fighters.ElementAt(number);
+            dataUtilities.AddAltFighterName(name, fighter);
+            return fighter;
+        }
 
         private Analyst FindOrAddAnalyst(string analystName, int websiteId)
         {
