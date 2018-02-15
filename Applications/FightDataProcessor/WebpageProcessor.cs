@@ -14,18 +14,18 @@ namespace FightDataProcessor
     {
         private Event eventObj;
         private DataUtilities dataUtilities;
-        private InputReceiver inputReceiver;
+        private DataProcessorUI dataProcessorUI;
 
         public WebpageProcessor(Event eventObj, DataUtilities dataUtilities)
-            : this(eventObj, dataUtilities, new InputReceiver())
+            : this(eventObj, dataUtilities, new DataProcessorUI())
         {
         }
 
-        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities, InputReceiver inputReceiver)
+        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities, DataProcessorUI dataProcessorUI)
         {
             this.eventObj = eventObj;
             this.dataUtilities = dataUtilities;
-            this.inputReceiver = inputReceiver;
+            this.dataProcessorUI = dataProcessorUI;
         }
 
         public void ProcessWebpages()
@@ -107,7 +107,7 @@ namespace FightDataProcessor
                 else
                     validXpath = false;
             }
-            Console.WriteLine("Processed wikipedia entry for {0}", eventObj.EventName);
+            dataProcessorUI.OutputMessage(string.Format("Processed wikipedia entry for {0}", eventObj.EventName));
         }
 
         public void ProcessByAnalystXFights(int websiteId)
@@ -130,23 +130,21 @@ namespace FightDataProcessor
                     string analystName = analystNode.InnerText.Trim();
                     Analyst analyst = FindOrAddAnalyst(analystName, websiteId);
 
-                    int fighterStartPt = 2;
-                    foreach (var fight in eventObj.Fights.ToList())
+                    int fighterStartPt = 1;
+                    for (int i = 0; i <= eventObj.Fights.Count; i++)
                     {
-                        //fighter xpath
+                        fighterStartPt++;
                         string fighterXPath = string.Format("//div[@class='articleBody']/table/tbody/tr[{0}]/td[{1}]", analystStartPt, fighterStartPt);
                         HtmlNode fightNode = htmlDoc.DocumentNode.SelectSingleNode(fighterXPath);
-                        if (fightNode != null)
-                        {
-                            string fighterName = fightNode.InnerText.Trim();
-                            Fighter fighter = FindFighter(fighterName);
-                            if (fighter != null)
-                            {
-                                Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
-                                dataUtilities.AddPick(pick);
-                            }
-                            fighterStartPt++;
-                        }
+                        if (fightNode == null)
+                            continue;
+                        string fighterName = fightNode.InnerText.Trim();
+                        Fighter fighter = FindFighter(fighterName);
+                        if (fighter == null)
+                            continue;
+                        Fight fight = dataUtilities.FindFight(fighter, eventObj);
+                        Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
+                        dataUtilities.AddPick(pick);
                     }
                 }
                 else
@@ -154,7 +152,7 @@ namespace FightDataProcessor
 
                 analystStartPt++;
             }
-            Console.WriteLine("Processed AnalystXFights for {0}", eventObj.EventName);
+            dataProcessorUI.OutputMessage(string.Format("Processed AnalystXFights for {0}", eventObj.EventName));
         }
 
         public void ProcessByFightsXAnalyst(int websiteId)
@@ -165,58 +163,64 @@ namespace FightDataProcessor
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(webPage.Data);
 
-            int fightStartNo = 1;
+            int fightStartNo = 0;
             int i = 0;
-            while (i <= eventObj.Fights.Count)
+            do
             {
-                string fightXPath = String.Format("//div[@class='c-entry-content']/p[contains(text(),'Staff picking')][{0}]", fightStartNo);
-                HtmlNode fightNode = htmlDoc.DocumentNode.SelectSingleNode(fightXPath);
-                if (fightNode != null)
-                {
-                    string fighterRegex = "(?<=Staff picking ).*?(?=:)";
-
-                    Match fighterMatch = Regex.Match(fightNode.InnerText, fighterRegex);
-                    string fighter1Str = fighterMatch.Value;
-
-                    string fighter2Str = fighterMatch.NextMatch().Value;
-                    int index = fightNode.InnerText.IndexOf(fighter2Str);
-                    string fighter2text = fightNode.InnerText.Substring(index);
-
-                    string fighter1Text = fightNode.InnerText.Substring(0, index);
-
-                    Fighter fighter1 = FindFighter(fighter1Str);
-                    Fight fight = dataUtilities.FindFight(fighter1, eventObj);
-
-                    string analystRegex = "(?<=(,|:) ).*?(?=(,|Staff|$))";
-
-                    Match analystMatch = Regex.Match(fighter1Text, analystRegex);
-
-                    while (analystMatch.Success)
-                    {
-                        string analystStr = analystMatch.Value;
-                        Analyst analyst = FindOrAddAnalyst(analystStr, websiteId);
-
-                        Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter1 };
-                        dataUtilities.AddPick(pick);
-                        analystMatch = analystMatch.NextMatch();
-                    }
-
-                    Fighter fighter2 = FindFighter(fighter2Str);
-
-                    analystMatch = Regex.Match(fighter2text, analystRegex);
-                    while (analystMatch.Success)
-                    {
-                        string analystStr = analystMatch.Value;
-                        Analyst analyst = FindOrAddAnalyst(analystStr, websiteId);
-                        Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter2 };
-                        dataUtilities.AddPick(pick);
-                        analystMatch = analystMatch.NextMatch();
-                    }
-                }
                 i++;
                 fightStartNo++;
-            }
-            Console.WriteLine("Processed FightsXAnalyst for {0}", eventObj.EventName);
+                string fightXPath = String.Format("//div[@class='c-entry-content']/p[contains(text(),'Staff picking')][{0}]", fightStartNo);
+                HtmlNode fightNode = htmlDoc.DocumentNode.SelectSingleNode(fightXPath);
+                if (fightNode == null)
+                    continue;
+                string fighterRegex = "(?<=Staff picking ).*?(?=:)";
+
+                Match fighterMatch = Regex.Match(fightNode.InnerText, fighterRegex);
+                string fighter1Str = fighterMatch.Value;
+
+                string fighter2Str = fighterMatch.NextMatch().Value;
+                int index = fightNode.InnerText.IndexOf(fighter2Str);
+                string fighter2text = fightNode.InnerText.Substring(index);
+
+                string fighter1Text = fightNode.InnerText.Substring(0, index);
+
+                Fighter fighter1 = FindFighter(fighter1Str);
+                if (fighter1 == null)
+                    continue;
+
+                Fight fight = dataUtilities.FindFight(fighter1, eventObj);
+
+                string analystRegex = "(?<=(,|:) ).*?(?=(,|Staff|$))";
+
+                Match analystMatch = Regex.Match(fighter1Text, analystRegex);
+
+                while (analystMatch.Success)
+                {
+                    string analystStr = analystMatch.Value;
+                    Analyst analyst = FindOrAddAnalyst(analystStr, websiteId);
+
+                    Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter1 };
+                    dataUtilities.AddPick(pick);
+                    analystMatch = analystMatch.NextMatch();
+                }
+
+                Fighter fighter2 = FindFighter(fighter2Str);
+
+                if (fighter2 == null)
+                    continue;
+
+                analystMatch = Regex.Match(fighter2text, analystRegex);
+                while (analystMatch.Success)
+                {
+                    string analystStr = analystMatch.Value;
+                    Analyst analyst = FindOrAddAnalyst(analystStr, websiteId);
+                    Pick pick = new Pick() { Fight = fight, Analyst = analyst, FighterPick = fighter2 };
+                    dataUtilities.AddPick(pick);
+                    analystMatch = analystMatch.NextMatch();
+                }
+
+            } while (i <= eventObj.Fights.Count);
+            dataProcessorUI.OutputMessage(string.Format("Processed FightsXAnalyst for {0}", eventObj.EventName));
         }
 
         private Fighter FindFighter(string name)
@@ -229,17 +233,17 @@ namespace FightDataProcessor
                 return fighter;
             if (eventObj.CancelledFighters.Contains(name))
                 return null;
-            
-            Console.WriteLine("Cannot match fighter {0}. Please select from the list: ", name);
+
+            dataProcessorUI.OutputMessage(string.Format("Cannot match fighter {0}. Please select from the list: ", name));
             List<Fighter> fighters = new List<Fighter>();
             eventObj.Fights.ForEach(f => fighters.AddRange(new List<Fighter>() { f.Winner, f.Loser }));
-            fighters.ForEach(f => Console.WriteLine("{0}. {1}", fighters.IndexOf(f) + 1, f.FullName));
+            fighters.ForEach(f => dataProcessorUI.OutputMessage(string.Format("{0}. {1}", fighters.IndexOf(f) + 1, f.FullName)));
 
             int number = 0;
             while (number == 0)
             {
-                Console.WriteLine("Enter correct fighter number or enter w if they were withdrawn from card");
-                string fighterNo = Console.ReadLine();
+                dataProcessorUI.OutputMessage(string.Format("Enter correct fighter number or enter w if they were withdrawn from card"));
+                string fighterNo = dataProcessorUI.GetInput();
                 if (fighterNo == "w")
                 {
                     eventObj.CancelledFighters.Add(name);
@@ -249,7 +253,7 @@ namespace FightDataProcessor
                 {
                     int.TryParse(fighterNo, out number);
                     if (number == 0 || number > fighters.Count)
-                        Console.WriteLine("Incorrect input, please try again");
+                        dataProcessorUI.OutputMessage(string.Format("Incorrect input, please try again"));
                 }
             }
 
@@ -264,14 +268,14 @@ namespace FightDataProcessor
             Analyst analyst = dataUtilities.FindAnalyst(analystName);
             if (analyst == null)
             {
-                Console.WriteLine("Cannot find analyst: {0}\n\nPlease select from existing analysts or press n to add add as a new analyst:", analystName);
+                dataProcessorUI.OutputMessage(string.Format("Cannot find analyst: {0}\n\nPlease select from existing analysts or press n to add add as a new analyst:", analystName));
                 List<Analyst> analysts = dataUtilities.GetAllAnalysts();
-                analysts.ForEach(a => Console.WriteLine("{0}. {1}", analysts.IndexOf(a) + 1, a.Name));
+                analysts.ForEach(a => dataProcessorUI.OutputMessage(string.Format("{0}. {1}", analysts.IndexOf(a) + 1, a.Name)));
 
                 bool validInput = false;
                 while (!validInput)
                 {
-                    string analystInput = inputReceiver.GetInput();
+                    string analystInput = dataProcessorUI.GetInput();
                     if (analystInput == "n")
                     {
                         validInput = true;
@@ -282,7 +286,7 @@ namespace FightDataProcessor
                         int.TryParse(analystInput, out int number);
                         if (number == 0 || number > analysts.Count)
                         {
-                            Console.WriteLine("Incorrect input, please try again");
+                            dataProcessorUI.OutputMessage(string.Format("Incorrect input, please try again"));
                             validInput = false;
                         }
                         else
