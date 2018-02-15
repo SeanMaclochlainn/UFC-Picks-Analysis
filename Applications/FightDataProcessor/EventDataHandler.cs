@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FightDataProcessor
 {
-    public class EventDataCollector
+    public class EventDataHandler
     {
         private DataUtilities dataUtilities;
 
-        public EventDataCollector()
+        public EventDataHandler()
         {
             dataUtilities = new DataUtilities();
         }
@@ -81,6 +81,11 @@ namespace FightDataProcessor
                     }
                 }
             }
+        }
+
+        public void DeleteAllPicks()
+        {
+            dataUtilities.DeleteAllPicks();
         }
     }
 }

@@ -26,22 +26,40 @@ namespace FightDataProcessor
         //.Build();
         //string connectionString = Configuration.GetSection("ConnectionStrings")["DefaultConnection"];
 
-        Console.WriteLine("Choose from the following options: \n\n1: Collect Data\n2: Process Events");
-            string input = Console.ReadLine();
-            if (input == "1")
+        Console.WriteLine("Enter command:");
+            bool validInput = false;
+            while (!validInput)
             {
-                EventDataCollector eventDataCollector = new EventDataCollector();
-                eventDataCollector.CollectEventData();
-            }
-            else if (input == "2")
-            {
-                List<Event> events = dataUtilities.GetAllEvents();
-                foreach (var eventObj in events)
+                validInput = true;
+                string input = Console.ReadLine();
+                input = input.ToLower();
+                EventDataHandler eventDataHandler = new EventDataHandler();
+
+                if (input == "collect")
                 {
-                    WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities);
-                    webpageProcessor.ProcessWebpages();
+                    eventDataHandler.CollectEventData();
+                }
+                else if (input == "process" || input == "process -clearexisting")
+                {
+                    if (input == "process -clearexisting")
+                    {
+                        eventDataHandler.DeleteAllPicks();
+                    }
+
+                    List<Event> events = dataUtilities.GetAllEvents();
+                    foreach (var eventObj in events)
+                    {
+                        WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities);
+                        webpageProcessor.ProcessWebpages();
+                    }
+                }
+                else
+                {
+                    validInput = false;
+                    Console.WriteLine("Invalid input. Please re-enter");
                 }
             }
+
             Console.WriteLine("Finished processing data");
             Console.ReadLine();
         }        

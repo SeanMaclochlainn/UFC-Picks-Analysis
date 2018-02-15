@@ -280,6 +280,12 @@ namespace FightData.DataLayer
                 .Include("Fight")
                 .ToList();
         }
+
+        public void DeleteAllPicks()
+        {
+            context.Pick.RemoveRange(context.Pick.ToList());
+            context.SaveChanges();
+        }
         #endregion
 
         #region ViewModels
