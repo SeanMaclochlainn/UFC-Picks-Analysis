@@ -118,39 +118,38 @@ namespace FightDataProcessor
             htmlDoc.LoadHtml(webPage.Data);
 
             bool validXpath = true;
-            int analystStartPt = 2;
+            int analystStartPt = 1;
             while (validXpath)
             {
-                //analysts xpath
+                analystStartPt++;
                 string analystXPath = string.Format("//div[@class='articleBody']/table/tbody/tr[{0}]/td/strong", analystStartPt);
 
                 HtmlNode analystNode = htmlDoc.DocumentNode.SelectSingleNode(analystXPath);
-                if (analystNode != null)
+                if (analystNode == null)
                 {
-                    string analystName = analystNode.InnerText.Trim();
-                    Analyst analyst = FindOrAddAnalyst(analystName, websiteId);
-
-                    int fighterStartPt = 1;
-                    for (int i = 0; i <= eventObj.Fights.Count; i++)
-                    {
-                        fighterStartPt++;
-                        string fighterXPath = string.Format("//div[@class='articleBody']/table/tbody/tr[{0}]/td[{1}]", analystStartPt, fighterStartPt);
-                        HtmlNode fightNode = htmlDoc.DocumentNode.SelectSingleNode(fighterXPath);
-                        if (fightNode == null)
-                            continue;
-                        string fighterName = fightNode.InnerText.Trim();
-                        Fighter fighter = FindFighter(fighterName);
-                        if (fighter == null)
-                            continue;
-                        Fight fight = dataUtilities.FindFight(fighter, eventObj);
-                        Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
-                        dataUtilities.AddPick(pick);
-                    }
-                }
-                else
                     validXpath = false;
+                    continue;
+                }
 
-                analystStartPt++;
+                string analystName = analystNode.InnerText.Trim();
+                Analyst analyst = FindOrAddAnalyst(analystName, websiteId);
+
+                int fighterStartPt = 1;
+                for (int i = 0; i <= eventObj.Fights.Count; i++)
+                {
+                    fighterStartPt++;
+                    string fighterPickXPath = string.Format("//div[@class='articleBody']/table/tbody/tr[{0}]/td[{1}]", analystStartPt, fighterStartPt);
+                    HtmlNode fighterPickNode = htmlDoc.DocumentNode.SelectSingleNode(fighterPickXPath);
+                    if (fighterPickNode == null)
+                        continue;
+                    string fighterName = fighterPickNode.InnerText.Trim();
+                    Fighter fighter = FindFighter(fighterName);
+                    if (fighter == null)
+                        continue;
+                    Fight fight = dataUtilities.FindFight(fighter, eventObj);
+                    Pick pick = new Pick { Analyst = analyst, Fight = fight, FighterPick = fighter };
+                    dataUtilities.AddPick(pick);
+                }
             }
             dataProcessorUI.OutputMessage(string.Format("Processed AnalystXFights for {0}", eventObj.EventName));
         }
