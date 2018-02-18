@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using FightData.Models.DataModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FightData.DataLayer
 {
@@ -11,16 +12,16 @@ namespace FightData.DataLayer
 
         public FightPicksContext(DbContextOptions<FightPicksContext> options) : base(options) { }
 
-        public DbSet<FighterAltName> FighterAltName { get; set; }
-        public DbSet<AnalystAltName> AnalystAltName { get; set; }
-        public DbSet<Analyst> Analyst { get; set; }
-        public DbSet<CardType> CardType { get; set; }
-        public DbSet<Event> Event { get; set; }
-        public DbSet<Fight> Fight { get; set; }
-        public DbSet<Fighter> Fighter { get; set; }
-        public DbSet<Pick> Pick { get; set; }
-        public DbSet<Webpage> Webpage { get; set; }
-        public DbSet<Website> Website { get; set; }
+        public DbSet<FighterAltName> FighterAltNames { get; set; }
+        public DbSet<AnalystAltName> AnalystAltNames { get; set; }
+        public DbSet<Analyst> Analysts { get; set; }
+        public DbSet<CardType> CardTypes { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Fight> Fights { get; set; }
+        public DbSet<Fighter> Fighters { get; set; }
+        public DbSet<Pick> Picks { get; set; }
+        public DbSet<Webpage> Webpages { get; set; }
+        public DbSet<Website> Websites { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +33,12 @@ namespace FightData.DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                entity.Relational().TableName = entity.DisplayName();
+            }
+
             modelBuilder.Entity<FighterAltName>(entity =>
             {
                 entity.Property(e => e.Name)

@@ -28,18 +28,18 @@ namespace FightData.DataLayer
         #region Events
         public List<Event> GetAllEvents()
         {
-            context.Fight.Load();
-            context.Fighter.Load();
-            context.FighterAltName.Load();
-            context.Pick.Load();
-            context.Webpage.Load();
-            context.Website.Load();
-            return context.Event.ToList();
+            context.Fights.Load();
+            context.Fighters.Load();
+            context.FighterAltNames.Load();
+            context.Picks.Load();
+            context.Webpages.Load();
+            context.Websites.Load();
+            return context.Events.ToList();
         }
 
         public void AddEvent(Event eventObj)
         {
-            context.Event.Add(eventObj);
+            context.Events.Add(eventObj);
             context.SaveChanges();
         }
 
@@ -62,7 +62,7 @@ namespace FightData.DataLayer
 
         public void RemoveMatchingLastNameFightersPicks(Event eventObj)
         {
-            var list = context.Pick.Where(p => p.Fight.Winner.LastName == "Silva");
+            var list = context.Picks.Where(p => p.Fight.Winner.LastName == "Silva");
             foreach (Fight fight in eventObj.Fights)
             {
                 foreach (Fighter fighter in fight.GetAllFighters())
@@ -79,24 +79,24 @@ namespace FightData.DataLayer
         #region Websites
         public List<Website> GetAllWebsites()
         {
-            return context.Website.ToList();
+            return context.Websites.ToList();
         }
 
         public Website GetWebsite(int id)
         {
-            return context.Website.FirstOrDefault(w => w.Id == id);
+            return context.Websites.FirstOrDefault(w => w.Id == id);
         }
         #endregion
 
         #region Webpages
         public List<Webpage> GetAllWebpages()
         {
-            return context.Webpage.Include(w => w.Event).Include(w => w.Website).ToList();
+            return context.Webpages.Include(w => w.Event).Include(w => w.Website).ToList();
         }
 
         public void AddWebpage(Webpage webpage)
         {
-            context.Webpage.Add(webpage);
+            context.Webpages.Add(webpage);
             context.SaveChanges();
         }
 
@@ -139,13 +139,13 @@ namespace FightData.DataLayer
 
         public void AddFighter(Fighter fighter)
         {
-            context.Fighter.Add(fighter);
+            context.Fighters.Add(fighter);
             context.SaveChanges();
         }
 
         public void AddAltFighterName(string name, Fighter fighter)
         {
-            context.FighterAltName.Add(new FighterAltName() { Name = name, Fighter = fighter });
+            context.FighterAltNames.Add(new FighterAltName() { Name = name, Fighter = fighter });
             context.SaveChanges();
         }
 
@@ -201,14 +201,14 @@ namespace FightData.DataLayer
 
         public List<Fighter> GetAllFighters()
         {
-            return context.Fighter.Include("FighterAltNames").ToList();
+            return context.Fighters.Include("FighterAltNames").ToList();
         }
         #endregion
 
         #region Fights
         public List<Fight> GetAllFights()
         {
-            return context.Fight.ToList();
+            return context.Fights.ToList();
         }
 
         ///<summary>
@@ -221,7 +221,7 @@ namespace FightData.DataLayer
 
         public void AddFight(Fight fight)
         {
-            context.Fight.Add(fight);
+            context.Fights.Add(fight);
             context.SaveChanges();
         }
         #endregion
@@ -229,14 +229,14 @@ namespace FightData.DataLayer
         #region CardTypes
         public CardType GetCardType(string cardName)
         {
-            return context.CardType.FirstOrDefault(ct => ct.Name == cardName);
+            return context.CardTypes.FirstOrDefault(ct => ct.Name == cardName);
         }
         #endregion
 
         #region Analysts
         public List<Analyst> GetAllAnalysts()
         {
-            return context.Analyst
+            return context.Analysts
                 .Include("AltNames")
                 .ToList();
         }
@@ -249,7 +249,7 @@ namespace FightData.DataLayer
                 Name = name, 
                 Website = website
             };
-            context.Analyst.Add(analyst);
+            context.Analysts.Add(analyst);
             context.SaveChanges();
             return analyst;
         }
@@ -261,7 +261,7 @@ namespace FightData.DataLayer
                 Name = name,
                 Analyst = analyst
             };
-            context.AnalystAltName.Add(analystAltName);
+            context.AnalystAltNames.Add(analystAltName);
             context.SaveChanges();
         }
 
@@ -290,14 +290,14 @@ namespace FightData.DataLayer
                 p.Fight.Id == pick.Fight.Id);
             if (existingPicks == 0)
             {
-                context.Pick.Add(pick);
+                context.Picks.Add(pick);
                 context.SaveChanges();
             }
         }
 
         public List<Pick> GetAllPicks()
         {
-            return context.Pick
+            return context.Picks
                 .Include("Analyst")
                 .Include("Fight")
                 .ToList();
@@ -305,13 +305,13 @@ namespace FightData.DataLayer
 
         public void DeleteAllPicks()
         {
-            context.Pick.RemoveRange(context.Pick.ToList());
+            context.Picks.RemoveRange(context.Picks.ToList());
             context.SaveChanges();
         }
 
         public void DeletePicks(List<Pick> picks)
         {
-            context.Pick.RemoveRange(picks);
+            context.Picks.RemoveRange(picks);
             context.SaveChanges();
         }
         #endregion

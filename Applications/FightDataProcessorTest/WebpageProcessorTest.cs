@@ -132,8 +132,8 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                context.Event.AddRange(events);
-                context.Webpage.AddRange(webpages);
+                context.Events.AddRange(events);
+                context.Webpages.AddRange(webpages);
                 context.SaveChanges();
             }
         }
@@ -171,7 +171,7 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                Assert.AreEqual(1, context.Event.Count(e => e.EventName == "ufc xyz"));
+                Assert.AreEqual(1, context.Events.Count(e => e.EventName == "ufc xyz"));
             }
         }
 
@@ -184,7 +184,7 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                Assert.AreEqual(11, context.Fight.Count());
+                Assert.AreEqual(11, context.Fights.Count());
                 Assert.AreEqual(22, dataUtilities.GetAllEvents().Single(e => e.Id == eventObj.Id).GetAllFighters().Count);
             }
         }
@@ -205,7 +205,7 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                List<Pick> picks = context.Pick
+                List<Pick> picks = context.Picks
                     .Include(p => p.Fight)
                     .ThenInclude(f => f.Winner)
                     .Include(p => p.Fight)
@@ -238,7 +238,7 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                List<Pick> picks = context.Pick
+                List<Pick> picks = context.Picks
                     .Include(p => p.Fight)
                     .ThenInclude(f => f.Winner)
                     .Include(p => p.Fight)
@@ -272,7 +272,7 @@ namespace FightDataProcessorTest
 
             using (var context = new FightPicksContext(options))
             {
-                List<Pick> picks = context.Pick
+                List<Pick> picks = context.Picks
                     .Include(p => p.Fight)
                     .ThenInclude(f => f.Winner)
                     .Include(p => p.Fight)
