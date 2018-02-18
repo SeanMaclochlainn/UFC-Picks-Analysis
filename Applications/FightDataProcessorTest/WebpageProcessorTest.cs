@@ -263,14 +263,12 @@ namespace FightDataProcessorTest
             Event eventObj = dataUtilities.GetAllEvents().Single(e => e.EventName.ToLower() == "fn 56");
             List<string> inputs = new List<string>()
             {
-                "n","n","n","n","n","n","1","n","n","n","n","w","w","n","w","n","n","n","1","n","n","n","n"
+                "n","w","n","w","n","n","1","n","n","n","n","n","n","n","n","n","n","1","n","n","n","n","13"
             };
             TestDataProcessorUI dataProcessorUi = new TestDataProcessorUI(inputs, testSuiteSetup.Configuration);
             WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities, dataProcessorUi);
 
-            webpageProcessor.ProcessWikipediaEntry();
-            webpageProcessor.ProcessByFightsXAnalyst(3);
-            webpageProcessor.ProcessByAnalystXFights(2);
+            webpageProcessor.ProcessWebpages();
 
             using (var context = new FightPicksContext(options))
             {
@@ -292,7 +290,7 @@ namespace FightDataProcessorTest
                         p.Fight.Winner.LastName == "Alves" &&
                         p.FighterPick.LastName == "Alves"));
 
-                //Assert.AreEqual(0, picks.Count(p=>p.Fight.Winner.LastName == "Silva"));
+                Assert.AreEqual(0, picks.Count(p=>p.Fight.Winner.LastName == "Silva"));
             }
 
         }

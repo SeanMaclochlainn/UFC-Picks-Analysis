@@ -6,12 +6,22 @@ namespace FightData.Models.DataModels
 {
     public class Fight
     {
+        public Fight()
+        {
+            this.Picks = new List<Pick>();
+        }
+
         public int Id { get; set; }
         public Fighter Winner { get; set; }
         public Fighter Loser { get; set; }
         public Event Event { get; set; }
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; }
+
+        public List<Fighter> GetAllFighters()
+        {
+            return new List<Fighter>() { Winner, Loser };
+        }
 
         public static bool FightInList(List<Fight> fights, Fight fight)
         {

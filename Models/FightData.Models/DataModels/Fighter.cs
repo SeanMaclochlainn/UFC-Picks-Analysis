@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.Models.DataModels
 {
@@ -21,5 +22,14 @@ namespace FightData.Models.DataModels
         public List<Fight> Wins { get; set; }
         public List<Fight> Losses { get; set; }
         public List<Pick> Picks { get; set; }
+
+        public static bool IsFighterInList(List<Fighter> fighters, Fighter fighter)
+        {
+            int count = fighters.Count(f => f.FullName == fighter.FullName);
+            if (count > 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

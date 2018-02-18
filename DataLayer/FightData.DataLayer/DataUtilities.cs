@@ -59,6 +59,21 @@ namespace FightData.DataLayer
             fighters.AddRange(eventObj.Fights.Select(f => f.Loser).ToList());
             return fighters;
         }
+
+        public void RemoveMatchingLastNameFightersPicks(Event eventObj)
+        {
+            var list = context.Pick.Where(p => p.Fight.Winner.LastName == "Silva");
+            foreach (Fight fight in eventObj.Fights)
+            {
+                foreach (Fighter fighter in fight.GetAllFighters())
+                {
+                    if (Fighter.IsFighterInList(eventObj.FightersWithMatchingLastNames, fighter))
+                    {
+                        DeletePicks(fight.Picks);
+                    }
+                }
+            }
+        }
         #endregion
 
         #region Websites
@@ -106,13 +121,20 @@ namespace FightData.DataLayer
         #endregion
 
         #region Fighters
-        public bool CheckForDuplicateNames(string name, List<Fighter> fighters)
+        public bool IsLastNameDuplicated(string lastName, List<Fighter> fighters)
         {
-            int fighterSameNames = fighters.Count(f => f.LastName == name);
+            int fighterSameNames = fighters.Count(f => f.LastName == lastName);
             if (fighterSameNames > 1)
                 return true;
             else
                 return false;
+        }
+
+        public List<Fighter> GetFightersWithMatchingLastName(string lastName, List<Fighter> fighters)
+        {
+            List<Fighter> fightersWithMatchingLastName = new List<Fighter>();
+            fightersWithMatchingLastName.AddRange(fighters.Where(f => f.LastName == lastName).ToList());
+            return fightersWithMatchingLastName;
         }
 
         public void AddFighter(Fighter fighter)
@@ -284,6 +306,12 @@ namespace FightData.DataLayer
         public void DeleteAllPicks()
         {
             context.Pick.RemoveRange(context.Pick.ToList());
+            context.SaveChanges();
+        }
+
+        public void DeletePicks(List<Pick> picks)
+        {
+            context.Pick.RemoveRange(picks);
             context.SaveChanges();
         }
         #endregion

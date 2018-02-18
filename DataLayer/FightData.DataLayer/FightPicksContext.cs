@@ -64,7 +64,8 @@ namespace FightData.DataLayer
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Event>().Ignore(e=>e.CancelledFighters);
+            modelBuilder.Entity<Event>().Ignore(e=>e.CancelledFighterNames);
+            modelBuilder.Entity<Event>().Ignore(e => e.FightersWithMatchingLastNames);
 
             modelBuilder.Entity<Fighter>(entity =>
             {

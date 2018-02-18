@@ -7,7 +7,8 @@ namespace FightData.Models.DataModels
     {
         public Event()
         {
-            CancelledFighters = new List<string>();
+            CancelledFighterNames = new List<string>();
+            FightersWithMatchingLastNames = new List<Fighter>();
         }
 
         public int Id { get; set; }
@@ -22,6 +23,9 @@ namespace FightData.Models.DataModels
             return winners;
         }
 
-        public List<string> CancelledFighters { get; set; }
+        public List<string> CancelledFighterNames { get; set; }
+        public List<Fighter> FightersWithMatchingLastNames { get; set; }
+
+
     }
 }

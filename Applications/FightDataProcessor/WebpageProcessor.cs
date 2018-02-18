@@ -33,6 +33,7 @@ namespace FightDataProcessor
             ProcessWikipediaEntry();
             ProcessByAnalystXFights(2);
             ProcessByFightsXAnalyst(3);
+            dataUtilities.RemoveMatchingLastNameFightersPicks(eventObj);
         }
 
         public void ProcessWikipediaEntry()
@@ -143,6 +144,8 @@ namespace FightDataProcessor
                     if (fighterPickNode == null)
                         continue;
                     string fighterName = fighterPickNode.InnerText.Trim();
+
+                    FlagLastNameConflicts(fighterName);
                     Fighter fighter = FindFighter(fighterName);
                     if (fighter == null)
                         continue;
@@ -183,6 +186,9 @@ namespace FightDataProcessor
 
                 string fighter1Text = fightNode.InnerText.Substring(0, index);
 
+                FlagLastNameConflicts(fighter1Str);
+                FlagLastNameConflicts(fighter2Str);
+                
                 Fighter fighter1 = FindFighter(fighter1Str);
                 if (fighter1 == null)
                     continue;
@@ -208,7 +214,7 @@ namespace FightDataProcessor
                 if (fighter2 == null)
                     continue;
 
-                analystMatch = Regex.Match(fighter2text, analystRegex);
+                analystMatch = Regex.Match(fighter2text, analystRegex); 
                 while (analystMatch.Success)
                 {
                     string analystStr = analystMatch.Value;
@@ -224,13 +230,13 @@ namespace FightDataProcessor
 
         private Fighter FindFighter(string name)
         {
-            bool duplicateNames = dataUtilities.CheckForDuplicateNames(name, eventObj.GetAllFighters());
+            bool duplicateNames = dataUtilities.IsLastNameDuplicated(name, eventObj.GetAllFighters());
             if (duplicateNames) //no functionality at present to deal with duplicate surnames on a card
                 return null;
             Fighter fighter = dataUtilities.FindFighter(name, eventObj);
             if (fighter != null)
                 return fighter;
-            if (eventObj.CancelledFighters.Contains(name))
+            if (eventObj.CancelledFighterNames.Contains(name))
                 return null;
 
             dataProcessorUI.OutputMessage(string.Format("Cannot match fighter {0}. Please select from the list: ", name));
@@ -245,7 +251,7 @@ namespace FightDataProcessor
                 string fighterNo = dataProcessorUI.GetInput();
                 if (fighterNo == "w")
                 {
-                    eventObj.CancelledFighters.Add(name);
+                    eventObj.CancelledFighterNames.Add(name);
                     return null;
                 }
                 else
@@ -301,10 +307,19 @@ namespace FightDataProcessor
             return analyst;
         }
 
-        ///<summary>
-        ///Combines the xpath with each xpathEnding and returns the first one that finds a valid node in the document
-        ///</summary>
-        public static string GetCorrectXpath(string xpath, List<string> xpathEndings, HtmlDocument document, int formatNo)
+        private void FlagLastNameConflicts(string lastName)
+        {
+            List<Fighter> fightersWithMatchingLastName = dataUtilities.GetFightersWithMatchingLastName(lastName, eventObj.GetAllFighters());
+            if (fightersWithMatchingLastName.Count() > 1)
+            {
+                eventObj.FightersWithMatchingLastNames.AddRange(fightersWithMatchingLastName.Except(eventObj.FightersWithMatchingLastNames));
+            }
+        }
+
+    ///<summary>
+    ///Combines the xpath with each xpathEnding and returns the first one that finds a valid node in the document
+    ///</summary>
+    public static string GetCorrectXpath(string xpath, List<string> xpathEndings, HtmlDocument document, int formatNo)
         {
             string finalXpath = "";
             foreach (var xpathEnding in xpathEndings)
