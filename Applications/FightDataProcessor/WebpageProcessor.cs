@@ -1,5 +1,4 @@
-﻿using FightData.DataLayer;
-using FightData.Models.DataModels;
+﻿using FightData.Domain;
 using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,16 +11,16 @@ namespace FightDataProcessor
 {
     public class WebpageProcessor
     {
-        private Event eventObj;
+        private UfcEvent eventObj;
         private DataUtilities dataUtilities;
-        private DataProcessorUI dataProcessorUI;
+        private AppUi dataProcessorUI;
 
-        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities)
-            : this(eventObj, dataUtilities, new DataProcessorUI())
+        public WebpageProcessor(UfcEvent eventObj, DataUtilities dataUtilities)
+            : this(eventObj, dataUtilities, new AppUi())
         {
         }
 
-        public WebpageProcessor(Event eventObj, DataUtilities dataUtilities, DataProcessorUI dataProcessorUI)
+        public WebpageProcessor(UfcEvent eventObj, DataUtilities dataUtilities, AppUi dataProcessorUI)
         {
             this.eventObj = eventObj;
             this.dataUtilities = dataUtilities;
@@ -248,7 +247,7 @@ namespace FightDataProcessor
             while (number == 0)
             {
                 dataProcessorUI.OutputMessage(string.Format("Enter correct fighter number or enter w if they were withdrawn from card"));
-                string fighterNo = dataProcessorUI.GetInput();
+                string fighterNo = dataProcessorUI.GetNextInput();
                 if (fighterNo == "w")
                 {
                     eventObj.CancelledFighterNames.Add(name);
@@ -280,7 +279,7 @@ namespace FightDataProcessor
                 bool validInput = false;
                 while (!validInput)
                 {
-                    string analystInput = dataProcessorUI.GetInput();
+                    string analystInput = dataProcessorUI.GetNextInput();
                     if (analystInput == "n")
                     {
                         validInput = true;

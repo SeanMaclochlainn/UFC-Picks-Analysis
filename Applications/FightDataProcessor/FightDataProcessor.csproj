@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DataLayer\FightData.DataLayer\FightData.DataLayer.csproj" />
-    <ProjectReference Include="..\..\Models\FightData.Models\FightData.Models.csproj" />
+    <ProjectReference Include="..\..\Domain\FightData.Domain\FightData.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DocumentParsing\" />
   </ItemGroup>
 
 </Project>

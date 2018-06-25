@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FightDataUI", "FightDataUI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.Models", "..\..\Models\FightData.Models\FightData.Models.csproj", "{A067BC68-6561-4814-A181-38317BAC0EB2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.DataLayer", "..\..\DataLayer\FightData.DataLayer\FightData.DataLayer.csproj", "{69755669-C702-4F23-B1BD-0DF0F8448516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.DataLayer", "..\..\Domain\FightData.Domain\FightData.Domain.csproj", "{69755669-C702-4F23-B1BD-0DF0F8448516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

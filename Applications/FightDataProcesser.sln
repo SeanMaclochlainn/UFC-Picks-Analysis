@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightDataProcessor", "FightDataProcessor\FightDataProcessor.csproj", "{5C94BFA2-177E-48AB-B3DF-6B84BFCCF9D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.Models", "..\Models\FightData.Models\FightData.Models.csproj", "{C9A4EC20-79CE-4CA3-B090-9E168477BF56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.Domain", "..\Domain\FightData.Domain\FightData.Domain.csproj", "{4D12245D-5CB1-4532-9617-FCB92CDF7B60}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.DataLayer", "..\DataLayer\FightData.DataLayer\FightData.DataLayer.csproj", "{4D12245D-5CB1-4532-9617-FCB92CDF7B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightDataProcessor.Test", "FightDataProcessor.Test\FightDataProcessor.Test.csproj", "{FA551CAB-9C95-422B-A6FC-B9A9250AA24B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FightDataProcessorTest", "FightDataProcessorTest\FightDataProcessorTest.csproj", "{FA551CAB-9C95-422B-A6FC-B9A9250AA24B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FightData.Domain.Test", "..\Domain\FightData.Domain.Test\FightData.Domain.Test.csproj", "{A8BB3020-3760-4FA8-9402-F8622828CE6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{5C94BFA2-177E-48AB-B3DF-6B84BFCCF9D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C94BFA2-177E-48AB-B3DF-6B84BFCCF9D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C94BFA2-177E-48AB-B3DF-6B84BFCCF9D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9A4EC20-79CE-4CA3-B090-9E168477BF56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9A4EC20-79CE-4CA3-B090-9E168477BF56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9A4EC20-79CE-4CA3-B090-9E168477BF56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9A4EC20-79CE-4CA3-B090-9E168477BF56}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D12245D-5CB1-4532-9617-FCB92CDF7B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D12245D-5CB1-4532-9617-FCB92CDF7B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D12245D-5CB1-4532-9617-FCB92CDF7B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{FA551CAB-9C95-422B-A6FC-B9A9250AA24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA551CAB-9C95-422B-A6FC-B9A9250AA24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA551CAB-9C95-422B-A6FC-B9A9250AA24B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8BB3020-3760-4FA8-9402-F8622828CE6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8BB3020-3760-4FA8-9402-F8622828CE6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8BB3020-3760-4FA8-9402-F8622828CE6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8BB3020-3760-4FA8-9402-F8622828CE6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
