@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
-    public class Fight
+    public class Fight : Entity
     {
-        public Fight()
+        public Fight() { }
+
+        public Fight(FightPicksContext context) : base(context) { }
+
+        public Fight(Fighter winner, Fighter loser, UfcEvent ufcEvent) : this(new FightPicksContext(), winner, loser, ufcEvent) { }
+
+        public Fight(FightPicksContext context, Fighter winner, Fighter loser, UfcEvent ufcEvent) : base(context)
         {
-            this.Picks = new List<Pick>();
+            Winner = winner;
+            Loser = loser;
+            UfcEvent = ufcEvent;
         }
 
         public int Id { get; set; }
         public Fighter Winner { get; set; }
         public Fighter Loser { get; set; }
-        public UfcEvent Event { get; set; }
+        public UfcEvent UfcEvent { get; set; }
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; }
 
@@ -28,7 +36,7 @@ namespace FightData.Domain
         {
             List<Fight> matchingFights = fights
                 .Where(f =>
-                f.Event.Id == fight.Event.Id &&
+                f.UfcEvent.Id == fight.UfcEvent.Id &&
                 f.Winner.Id == fight.Winner.Id &&
                 f.Loser.Id == fight.Loser.Id)
                 .ToList();
@@ -39,6 +47,12 @@ namespace FightData.Domain
             }
             else
                 return false;
+        }
+
+        public void Add()
+        {
+            context.Fights.Add(this);
+            context.SaveChanges();
         }
     }
 }

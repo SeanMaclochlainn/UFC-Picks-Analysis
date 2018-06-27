@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using FightData.Domain.Entities;
 
 namespace FightData.Domain
 {
@@ -13,7 +14,7 @@ namespace FightData.Domain
 
         public List<UfcEvent> GetAllEvents()
         {
-            return context.Events.ToList();
+            return context.UfcEvents.ToList();
         }
     }
 }

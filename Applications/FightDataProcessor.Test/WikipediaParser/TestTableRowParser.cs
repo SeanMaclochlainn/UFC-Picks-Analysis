@@ -8,11 +8,11 @@ using System.Text;
 namespace FightDataProcessor.Test.WikipediaParser
 {
     [TestClass]
-    public class TestLineParser
+    public class TestTableRowParser
     {
         private HtmlDocument htmlDocument;
 
-        public TestLineParser()
+        public TestTableRowParser()
         {
             htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(MockWikipediaPages.GetStandardPage());
@@ -21,9 +21,9 @@ namespace FightDataProcessor.Test.WikipediaParser
         [TestMethod]
         public void TestIsFight()
         {
-            LineParser lineParser = new LineParser(htmlDocument, 3);
+            TableRowParser lineParser = new TableRowParser(htmlDocument, 3);
 
-            bool isfight = lineParser.ValidLine();
+            bool isfight = lineParser.IsValidRow();
 
             Assert.IsTrue(isfight);
         }
@@ -31,7 +31,7 @@ namespace FightDataProcessor.Test.WikipediaParser
         [TestMethod]
         public void TestWinner()
         {
-            LineParser lineParser = new LineParser(htmlDocument, 3);
+            TableRowParser lineParser = new TableRowParser(htmlDocument, 3);
 
             string winner = lineParser.WinnersName;
 
@@ -41,7 +41,7 @@ namespace FightDataProcessor.Test.WikipediaParser
         [TestMethod]
         public void TestLoser()
         {
-            LineParser lineParser = new LineParser(htmlDocument, 4);
+            TableRowParser lineParser = new TableRowParser(htmlDocument, 4);
 
             string loser = lineParser.LosersName;
 

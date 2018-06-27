@@ -2,22 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
-    public class UfcEvent
+    public class UfcEvent : Entity
     {
-        private FightPicksContext context;
-
         public UfcEvent () { }
 
         public UfcEvent(string EventName) : this(EventName, new FightPicksContext()) { }
 
-        public UfcEvent(string EventName, FightPicksContext context)
+        public UfcEvent(string EventName, FightPicksContext context) : base(context)
         {
             this.context = context;
             this.EventName = EventName;
-            CancelledFighterNames = new List<string>();
-            FightersWithMatchingLastNames = new List<Fighter>();
         }
 
         public int Id { get; set; }
@@ -29,7 +25,7 @@ namespace FightData.Domain
 
         public void Add()
         {
-            context.Events.Add(this);
+            context.UfcEvents.Add(this);
             context.SaveChanges();
         }
 

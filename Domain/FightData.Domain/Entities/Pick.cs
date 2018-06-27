@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
     public class Pick
     {
@@ -16,7 +16,7 @@ namespace FightData.Domain
         {
             get
             {
-                return Fight?.Event;
+                return Fight?.UfcEvent;
             }
         }
 

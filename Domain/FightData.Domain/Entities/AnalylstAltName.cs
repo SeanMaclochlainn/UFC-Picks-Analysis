@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
-    public class CardType
+    public class AnalystAltName
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Fight> Fights { get; set; }
+        public Analyst Analyst { get; set; }
     }
 }

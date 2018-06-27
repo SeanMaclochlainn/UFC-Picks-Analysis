@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
     public class Website
     {

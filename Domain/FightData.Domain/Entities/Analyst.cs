@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
     public class Analyst
     {

@@ -32,12 +32,12 @@ namespace FightDataProcessor
                 {
                     dataRemover.RemoveAllPicks();
                 }
-                List<UfcEvent> events = dataUtilities.GetAllEvents();
-                foreach (var eventObj in events)
-                {
-                    WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities);
-                    webpageProcessor.ProcessWebpages();
-                }
+                //List<UfcEvent> events = dataUtilities.GetAllEvents();
+                //foreach (var eventObj in events)
+                //{
+                //    WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities);
+                //    webpageProcessor.ProcessWebpages();
+                //}
             }
         }
     }

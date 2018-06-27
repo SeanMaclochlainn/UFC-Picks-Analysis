@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FightData.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace FightData.Domain
         public DbSet<AnalystAltName> AnalystAltNames { get; set; }
         public DbSet<Analyst> Analysts { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
-        public DbSet<UfcEvent> Events { get; set; }
+        public DbSet<UfcEvent> UfcEvents { get; set; }
         public DbSet<Fight> Fights { get; set; }
         public DbSet<Fighter> Fighters { get; set; }
         public DbSet<Pick> Picks { get; set; }
@@ -134,7 +135,7 @@ namespace FightData.Domain
                 .WithMany(ft => ft.Losses);
 
             modelBuilder.Entity<Fight>()
-                .HasOne(f => f.Event)
+                .HasOne(f => f.UfcEvent)
                 .WithMany(e => e.Fights)
                 .IsRequired();
 

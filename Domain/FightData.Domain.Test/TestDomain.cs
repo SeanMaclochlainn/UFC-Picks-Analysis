@@ -5,17 +5,19 @@ using System.Text;
 
 namespace FightData.Domain.Test
 {
-    public class TestDataEntity
+    public class TestDomain
     {
         private Database database;
         protected FightPicksContext context;
-        protected DatabaseDataGenerator databaseDataGenerator;
+        protected DatabaseDataAdder databaseDataGenerator;
+        protected EntityDataGenerator entityDataGenerator;
 
-        public TestDataEntity()
+        public TestDomain()
         {
             database = new Database();
             context = database.Context;
-            databaseDataGenerator = new DatabaseDataGenerator(context);
+            databaseDataGenerator = new DatabaseDataAdder(context);
+            entityDataGenerator = new EntityDataGenerator(context);
         }
     }
 }

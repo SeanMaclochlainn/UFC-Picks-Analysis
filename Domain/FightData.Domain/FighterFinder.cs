@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using FightData.Domain.Entities;
 
 namespace FightData.Domain
 {
@@ -9,9 +10,9 @@ namespace FightData.Domain
     {
         private string name;
 
-        public FighterFinder(string name) : this(new FightPicksContext(), name) { }
+        public FighterFinder(string name) : this(name, new FightPicksContext()) { }
 
-        public FighterFinder(FightPicksContext context, string name) : base(context)
+        public FighterFinder(string name, FightPicksContext context) : base(context)
         {
             this.name = name;
             Fighter = FindFighter();

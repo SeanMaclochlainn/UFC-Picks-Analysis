@@ -7,16 +7,12 @@ using System.Linq;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestDataRemover
+    public class TestDataRemover : TestDomain
     {
-        private DatabaseDataGenerator databaseDataGenerator;
-        private FightPicksContext context;
         private DataRemover dataRemover;
 
         public TestDataRemover()
         {
-            this.context = new Database().Context;
-            databaseDataGenerator = new DatabaseDataGenerator(context);
             dataRemover = new DataRemover(context);
             AddTestData();
         }

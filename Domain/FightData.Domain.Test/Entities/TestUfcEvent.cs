@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,7 +11,7 @@ using System.Text;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestUfcEvent : TestDataEntity
+    public class TestUfcEvent : TestDomain
     {
         public TestUfcEvent()
         {
@@ -24,15 +25,15 @@ namespace FightData.Domain.Test
 
             ufcEvent.Add();
 
-            Assert.IsTrue(context.Events.Count() == 2);
+            Assert.IsTrue(context.UfcEvents.Count() == 2);
         }
 
         [TestMethod]
         public void TestUpdateEvent()
         {
-            UfcEvent ufcEvent = context.Events.First();
+            UfcEvent ufcEvent = context.UfcEvents.First();
 
-            ufcEvent.Webpages.Add(EntityDataGenerator.Webpage());
+            ufcEvent.Webpages.Add(entityDataGenerator.GetWebpage());
             ufcEvent.Update();
 
             Assert.IsTrue(ufcEvent.Webpages.Count() == 2);

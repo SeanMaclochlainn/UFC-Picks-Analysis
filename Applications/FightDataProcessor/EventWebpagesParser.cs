@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using FightData.Domain.Entities;
 
-namespace FightDataProcessor
+namespace FightDataProcessor.WikipediaParser
 {
     public class EventWebpagesParser
     {
@@ -17,8 +18,8 @@ namespace FightDataProcessor
 
         public void ParseWebpages()
         {
-            Parser wikipediaParser = new Parser(GetWikipediaPage());
-            wikipediaParser.Parse();
+            PageParser wikipediaParser = new PageParser(GetWikipediaPage());
+            wikipediaParser.ParseResultsTable();
         }
 
         private Webpage GetWikipediaPage()

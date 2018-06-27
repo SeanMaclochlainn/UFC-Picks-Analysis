@@ -6,7 +6,7 @@ using System.Text;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestFighterFinder : TestDataEntity
+    public class TestFighterFinder : TestDomain
     {
 
         public TestFighterFinder()
@@ -17,7 +17,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestSimpleName()
         {
-            FighterFinder fighterFinder = new FighterFinder(context, "testfname testlname");
+            FighterFinder fighterFinder = new FighterFinder("testfname testlname", context);
 
             bool fighterExists = fighterFinder.FighterExists;
 

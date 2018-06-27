@@ -1,42 +1,50 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FightData.Domain.Test
 {
-    public static class EntityDataGenerator
+    public class EntityDataGenerator
     {
-        public static UfcEvent UfcEvent()
+        private FightPicksContext context;
+
+        public EntityDataGenerator(FightPicksContext context)
         {
-            UfcEvent ufcEvent = new UfcEvent("test event")
+            this.context = context;
+        }
+
+        public UfcEvent GetUfcEvent()
+        {
+            UfcEvent ufcEvent = new UfcEvent("test event", context)
             {
-                Webpages = new List<Webpage>() { Webpage() }
+                Webpages = new List<Webpage>() { GetWebpage() }
             };
             return ufcEvent;
         }
 
-        public static Webpage Webpage()
+        public Webpage GetWebpage()
         {
-            return new Webpage("url", Website(), "test data");
+            return new Webpage("url", GetWebsite(), "test data", context);
         }
 
-        public static Website Website()
+        public Website GetWebsite()
         {
             return new Website() { DomainName = "test name", WebsiteName = WebsiteName.Wikipedia };
         }
 
-        public static Analyst Analyst()
+        public Analyst GetAnalyst()
         {
             Analyst analyst = new Analyst();
-            analyst.AltNames = new List<AnalystAltName>() { AnalystAltName(analyst) };
+            analyst.AltNames = new List<AnalystAltName>() { GetAnalystAltName(analyst) };
             analyst.Name = "test analyst";
             analyst.Picks = new List<Pick>();
-            analyst.Website = Website();
+            analyst.Website = GetWebsite();
             return analyst;
         }
 
-        public static AnalystAltName AnalystAltName(Analyst analyst)
+        public static AnalystAltName GetAnalystAltName(Analyst analyst)
         {
             AnalystAltName analystAltName = new AnalystAltName();
             analystAltName.Name = "test alt name";
@@ -44,28 +52,27 @@ namespace FightData.Domain.Test
             return analystAltName;
         }
 
-        public static Pick Pick()
+        public Pick GetPick()
         {
             Pick pick = new Pick();
-            pick.Analyst = Analyst();
-            pick.Fight = Fight();
-            pick.FighterPick = Fighter();
+            pick.Analyst = GetAnalyst();
+            pick.Fight = GetFight();
+            pick.FighterPick = GetFighter();
             return pick;
         }
 
-        public static Fight Fight()
+        public Fight GetFight()
         {
-            Fight fight = new Fight();
-            fight.Event = UfcEvent();
+            Fight fight = new Fight(context);
+            fight.UfcEvent = GetUfcEvent();
             return fight;
         }
 
-        public static Fighter Fighter()
+        public Fighter GetFighter()
         {
-            Fighter fighter = new Fighter();
-            fighter.FirstName = "testfname";
-            fighter.FullName = "testfname testlname";
-            fighter.LastName = "testlname";
+            Fighter fighter = new Fighter("testfname testlname", context);
+            //fighter.FirstName = "testfname";
+            //fighter.LastName = "testlname";
             return fighter;
         }
     }

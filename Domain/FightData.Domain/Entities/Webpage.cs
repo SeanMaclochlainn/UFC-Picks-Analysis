@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FightData.Domain
+namespace FightData.Domain.Entities
 {
     public class Webpage
     {
@@ -15,11 +15,14 @@ namespace FightData.Domain
             this.context = context;
         }
 
-        public Webpage(string Url, Website website, string data)
+        public Webpage(string Url, Website website, string data) : this(Url, website, data, new FightPicksContext()) { }
+
+        public Webpage(string Url, Website website, string data, FightPicksContext context)
         {
             this.Url = Url;
             this.Website = website;
             this.Data = data;
+            this.context = context;
         }
 
         public int Id { get; set; }
