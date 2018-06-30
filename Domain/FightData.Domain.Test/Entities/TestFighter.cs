@@ -1,8 +1,5 @@
 ﻿using FightData.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace FightData.Domain.Test.Entities

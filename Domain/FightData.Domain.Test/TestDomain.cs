@@ -1,8 +1,4 @@
-﻿using FightData.Domain;
-using FightData.TestData;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FightData.TestData;
 
 namespace FightData.Domain.Test
 {

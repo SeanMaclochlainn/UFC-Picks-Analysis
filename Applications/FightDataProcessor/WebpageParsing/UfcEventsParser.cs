@@ -1,9 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightDataProcessor.WikipediaParser;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FightDataProcessor
 {

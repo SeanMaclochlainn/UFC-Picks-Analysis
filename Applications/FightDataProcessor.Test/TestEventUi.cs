@@ -1,9 +1,6 @@
 ﻿using FightDataProcessor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using FightData.Domain;
 using FightData.Domain.Entities;
 
 namespace FightDataProcessorTest

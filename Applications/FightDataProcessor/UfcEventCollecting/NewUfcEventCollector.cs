@@ -1,8 +1,4 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FightData.Domain.Entities;
 
 namespace FightDataProcessor
 {

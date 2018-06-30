@@ -1,5 +1,4 @@
-﻿using FightData.Domain.Entities;
-using System;
+﻿using System;
 
 namespace FightDataProcessor
 {

@@ -1,9 +1,6 @@
 ﻿using FightData.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FightData.Domain
 {

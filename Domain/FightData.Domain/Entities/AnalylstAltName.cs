@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FightData.Domain.Entities
+﻿namespace FightData.Domain.Entities
 {
     public class AnalystAltName
     {

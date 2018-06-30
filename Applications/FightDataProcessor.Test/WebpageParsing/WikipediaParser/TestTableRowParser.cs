@@ -1,9 +1,6 @@
 ﻿using FightDataProcessor.WikipediaParser;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FightDataProcessor.Test.WikipediaParser
 {
