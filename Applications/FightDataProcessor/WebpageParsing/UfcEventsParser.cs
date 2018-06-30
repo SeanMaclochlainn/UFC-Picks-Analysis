@@ -7,21 +7,21 @@ using System.Text;
 
 namespace FightDataProcessor
 {
-    public class EventsParser
+    public class UfcEventsParser
     {
         private UfcEventFinder ufcEventFinder;
 
-        public EventsParser()
+        public UfcEventsParser()
         {
             ufcEventFinder = new UfcEventFinder();
         }
 
-        public void ParseEvents()
+        public void ParseAllEvents()
         {
             foreach (UfcEvent ufcEvent in ufcEventFinder.GetAllEvents())
             {
-                EventWebpagesParser eventWebpagesParser = new EventWebpagesParser(ufcEvent);
-                eventWebpagesParser.ParseWebpages();
+                EventWebpagesParser eventWebpagesDataCollector = new EventWebpagesParser(ufcEvent);
+                eventWebpagesDataCollector.ParseAllWebpages();
             }
         }
     }

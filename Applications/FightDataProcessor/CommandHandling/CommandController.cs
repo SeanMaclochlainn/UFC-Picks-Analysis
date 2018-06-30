@@ -1,4 +1,6 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Entities;
+using FightDataProcessor.WikipediaParser;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,13 +34,15 @@ namespace FightDataProcessor
                 {
                     dataRemover.RemoveAllPicks();
                 }
-                //List<UfcEvent> events = dataUtilities.GetAllEvents();
-                //foreach (var eventObj in events)
-                //{
-                //    WebpageProcessor webpageProcessor = new WebpageProcessor(eventObj, dataUtilities);
-                //    webpageProcessor.ProcessWebpages();
-                //}
+
+                CollectAllUfcEventsData();
             }
+        }
+
+        private void CollectAllUfcEventsData()
+        {
+            UfcEventsParser ufcEventsParser = new UfcEventsParser();
+            ufcEventsParser.ParseAllEvents();
         }
     }
 }

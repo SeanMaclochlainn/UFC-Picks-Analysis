@@ -13,7 +13,6 @@ namespace FightDataProcessorTest
     {
         private int index;
         private List<string> inputsList;
-        private IConfigurationRoot appConfiguration;
 
         public TestUI(List<string> inputs)
         {

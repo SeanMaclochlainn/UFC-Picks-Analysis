@@ -1,10 +1,7 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FightData.Domain.Test
+namespace FightData.TestData
 {
     public class DatabaseDataAdder
     {

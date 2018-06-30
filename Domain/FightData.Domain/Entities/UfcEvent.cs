@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace FightData.Domain.Entities
 {
@@ -32,6 +33,11 @@ namespace FightData.Domain.Entities
         public void Update()
         {
             context.SaveChanges();
+        }
+
+        public Webpage GetWikipediaPage()
+        {
+            return Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
         }
 
         public List<Fighter> GetAllFighters()

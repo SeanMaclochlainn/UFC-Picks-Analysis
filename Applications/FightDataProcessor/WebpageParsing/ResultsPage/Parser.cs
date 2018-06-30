@@ -1,26 +1,24 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using HtmlAgilityPack;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FightDataProcessor.WikipediaParser
 {
-    public class TableParser
+    public class Parser
     {
         private HtmlDocument document;
         private EventDataUpdater eventDataUpdater;
+        private static int maxNoOfRows = 20;
 
-        public TableParser(HtmlDocument document, UfcEvent ufcEvent)
+        public Parser(HtmlDocument document, UfcEvent ufcEvent)
         {
             this.document = document;
             eventDataUpdater = new EventDataUpdater(ufcEvent);
         }
 
-        public void Parse()
+        public void ParseResultsTableRows()
         {
-            for (int i = 1; i <= 20; i++)
+            for (int i = 1; i <= maxNoOfRows; i++)
             {
                 ProcessRow(i);
             }

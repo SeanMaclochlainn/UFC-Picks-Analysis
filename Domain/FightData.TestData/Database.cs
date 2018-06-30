@@ -1,13 +1,10 @@
 ﻿using FightData.Domain;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FightData.Domain.Test
+namespace FightData.TestData
 {
-    class Database
+    public class Database
     {
         private SqliteConnection connection;
         private DbContextOptions<FightPicksContext> options;
@@ -26,8 +23,7 @@ namespace FightData.Domain.Test
             Context.Database.EnsureCreated();
         }
 
-        
+
         public FightPicksContext Context { get; private set; }
     }
 }
-
