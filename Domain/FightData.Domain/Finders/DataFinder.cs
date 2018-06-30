@@ -1,5 +1,5 @@
 ﻿
-namespace FightData.Domain
+namespace FightData.Domain.Finders
 {
     public class DataFinder
     {

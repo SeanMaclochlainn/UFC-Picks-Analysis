@@ -1,8 +1,7 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
-using FightDataProcessor.WikipediaParser;
+﻿using FightData.Domain.Entities;
+using FightData.Domain.Finders;
 
-namespace FightDataProcessor
+namespace FightDataProcessor.WebpageParsing
 {
     public class UfcEventsParser
     {

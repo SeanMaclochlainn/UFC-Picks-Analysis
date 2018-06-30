@@ -1,7 +1,7 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
+﻿using FightData.Domain.Entities;
+using FightDataProcessor.WebpageParsing.ResultsPage;
 
-namespace FightDataProcessor.WikipediaParser
+namespace FightDataProcessor.WebpageParsing
 {
     public class EventWebpagesParser
     {

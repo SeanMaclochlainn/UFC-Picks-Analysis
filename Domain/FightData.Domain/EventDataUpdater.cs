@@ -1,4 +1,5 @@
 ﻿using FightData.Domain.Entities;
+using FightData.Domain.Finders;
 
 namespace FightData.Domain
 {

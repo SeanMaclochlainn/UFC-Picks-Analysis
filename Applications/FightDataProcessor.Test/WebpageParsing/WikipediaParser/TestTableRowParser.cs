@@ -1,4 +1,4 @@
-﻿using FightDataProcessor.WikipediaParser;
+﻿using FightDataProcessor.WebpageParsing.ResultsPage;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

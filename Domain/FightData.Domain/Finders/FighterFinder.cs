@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using FightData.Domain.Entities;
 
-namespace FightData.Domain
+namespace FightData.Domain.Finders
 {
     public class FighterFinder : DataFinder
     {

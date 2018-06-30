@@ -2,7 +2,7 @@
 using FightData.Domain.Entities;
 using HtmlAgilityPack;
 
-namespace FightDataProcessor.WikipediaParser
+namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
     public class Parser
     {

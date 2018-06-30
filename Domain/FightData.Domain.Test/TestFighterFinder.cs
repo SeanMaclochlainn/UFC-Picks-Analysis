@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FightData.Domain.Finders;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FightData.Domain.Test
 {

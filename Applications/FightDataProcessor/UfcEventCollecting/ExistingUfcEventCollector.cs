@@ -1,4 +1,4 @@
-﻿using FightData.Domain;
+﻿using FightData.Domain.Finders;
 using FightData.Domain.Entities;
 
 namespace FightDataProcessor

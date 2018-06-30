@@ -1,4 +1,4 @@
-﻿namespace FightDataProcessor.WikipediaParser
+﻿namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
     public class XpathGenerator
     {

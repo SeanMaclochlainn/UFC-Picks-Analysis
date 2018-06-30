@@ -1,7 +1,7 @@
 ﻿using FightData.Domain.Entities;
 using HtmlAgilityPack;
 
-namespace FightDataProcessor
+namespace FightDataProcessor.WebpageParsing
 {
     public class HtmlDocumentGenerator
     {

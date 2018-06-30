@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using FightDataProcessor.WebpageParsing;
 
 namespace FightDataProcessor
 {
