@@ -20,7 +20,7 @@ namespace FightDataProcessor.Test.WikipediaParser
         {
             TableRowParser lineParser = new TableRowParser(htmlDocument, 3);
 
-            bool isfight = lineParser.IsValidRow();
+            bool isfight = lineParser.ContainsResult();
 
             Assert.IsTrue(isfight);
         }

@@ -33,7 +33,7 @@ namespace FightData.Domain.Entities
             context.SaveChanges();
         }
 
-        public Webpage GetWikipediaPage()
+        public Webpage GetResultsPage()
         {
             return Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
         }

@@ -8,11 +8,11 @@ namespace FightData.Domain.Test
     [TestClass]
     public class TestEventDataUpdater : TestDomain
     {
-        private EventDataUpdater eventDataUpdater;
+        private EventUpdater eventDataUpdater;
 
         public TestEventDataUpdater()
         {
-            eventDataUpdater = new EventDataUpdater(entityDataGenerator.GetUfcEvent(), context);
+            eventDataUpdater = new EventUpdater(entityDataGenerator.GetUfcEvent(), context);
         }
 
         [TestMethod]

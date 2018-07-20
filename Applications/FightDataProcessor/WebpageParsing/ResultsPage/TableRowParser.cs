@@ -2,6 +2,14 @@
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
+    public class ResultsTableParser
+    {
+        public ResultsTableParser(HtmlDocument document)
+        {
+
+        }
+    }
+
     public class TableRowParser
     {
         HtmlDocument document;
@@ -20,7 +28,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         public string WinnersName { get; private set; }
         public string LosersName { get; private set; }
 
-        public bool IsValidRow()
+        public bool ContainsResult()
         {
             return !(winnerNode == null);
         }
@@ -33,7 +41,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         private void PopulateFighterNames()
         {
-            if (IsValidRow())
+            if (ContainsResult())
             {
                 WinnersName = GetWinner();
                 LosersName = GetLoser();

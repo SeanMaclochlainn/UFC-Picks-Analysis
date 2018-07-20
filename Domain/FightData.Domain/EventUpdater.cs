@@ -3,14 +3,14 @@ using FightData.Domain.Finders;
 
 namespace FightData.Domain
 {
-    public class EventDataUpdater
+    public class EventUpdater
     {
         private UfcEvent ufcEvent;
         private FightPicksContext context;
 
-        public EventDataUpdater(UfcEvent ufcEvent) : this(ufcEvent, new FightPicksContext()) { }
+        public EventUpdater(UfcEvent ufcEvent) : this(ufcEvent, new FightPicksContext()) { }
 
-        public EventDataUpdater(UfcEvent ufcEvent, FightPicksContext context)
+        public EventUpdater(UfcEvent ufcEvent, FightPicksContext context)
         {
             this.ufcEvent = ufcEvent;
             this.context = context;
@@ -24,8 +24,9 @@ namespace FightData.Domain
 
         private void ProcessFighterDetails(string name)
         {
-            FighterFinder fighterFinder = new FighterFinder(name, context);
-            if(!fighterFinder.FighterExists)
+            FighterFinder fighterFinder = FighterFinder.WithCustomContext(context);
+            fighterFinder.FindFighter(name);
+            if(!fighterFinder.Found)
                 AddFighter(name);
         }
 

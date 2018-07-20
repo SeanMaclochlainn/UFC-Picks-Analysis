@@ -17,7 +17,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         [TestMethod]
         public void GenerateHtmlDocument()
         {
-            HtmlDocumentGenerator htmlDocumentGenerator = new HtmlDocumentGenerator(entityDataGenerator.GetWebpage());
+            HtmlDocumentGenerator htmlDocumentGenerator = HtmlDocumentGenerator.FromWebpage(entityDataGenerator.GetWebpage());
 
             Assert.IsNotNull(htmlDocumentGenerator.HtmlDocument);
         }

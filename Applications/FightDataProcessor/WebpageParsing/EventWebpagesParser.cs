@@ -14,13 +14,18 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ParseAllWebpages()
         {
-            ParseWikipediaPage();
+            ParseResultsPage();
         }
 
-        private void ParseWikipediaPage()
+        private void ParseResultsPage()
         {
-            Parser pageParser = new Parser(new HtmlDocumentGenerator(ufcEvent.GetWikipediaPage()).HtmlDocument, ufcEvent);
-            pageParser.ParseResultsTableRows();
+            ResultsPageParser resultsTableParser = new ResultsPageParser(ufcEvent);
+            resultsTableParser.ParseResults();
+        }
+
+        private void ParsePicksPage()
+        {
+            
         }
 
     }
