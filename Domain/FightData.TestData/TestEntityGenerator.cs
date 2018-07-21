@@ -4,11 +4,16 @@ using System.Collections.Generic;
 
 namespace FightData.TestData
 {
-    public class EntityDataGenerator
+    public class TestEntityGenerator
     {
         private FightPicksContext context;
 
-        public EntityDataGenerator(FightPicksContext context)
+        public TestEntityGenerator()
+        {
+            context = new TestDatabase().Context;
+        }
+
+        public TestEntityGenerator(FightPicksContext context)
         {
             this.context = context;
         }

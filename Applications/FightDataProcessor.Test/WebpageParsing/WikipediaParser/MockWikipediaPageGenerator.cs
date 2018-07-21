@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace FightDataProcessor.Test.WikipediaParser
 {
-    public class MockWikipediaPages
+    public class MockWikipediaPageGenerator
     {
         public static string GetStandardPage()
         {

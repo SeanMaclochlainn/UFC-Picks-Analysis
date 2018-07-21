@@ -3,15 +3,20 @@ using FightData.Domain.Entities;
 
 namespace FightData.TestData
 {
-    public class DatabaseDataAdder
+    public class TestDatabaseDataAdder
     {
         private FightPicksContext context;
-        private EntityDataGenerator entityDataGenerator;
+        private TestEntityGenerator entityDataGenerator;
 
-        public DatabaseDataAdder(FightPicksContext context)
+        public TestDatabaseDataAdder()
+        {
+            context = new TestDatabase().Context;
+            entityDataGenerator = new TestEntityGenerator(context);
+        }
+        public TestDatabaseDataAdder(FightPicksContext context)
         {
             this.context = context;
-            entityDataGenerator = new EntityDataGenerator(context);
+            entityDataGenerator = new TestEntityGenerator(context);
         }
 
         public void AddEvent()

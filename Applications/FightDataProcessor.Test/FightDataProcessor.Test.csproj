@@ -7,17 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AppSettings.json" />
     <None Remove="WebsiteData\FN55BloodyElbow.html" />
     <None Remove="WebsiteData\FN55MmaJunkie.html" />
     <None Remove="WebsiteData\FN55Wikipedia.html" />
     <None Remove="WebsiteData\FN56BloodyElbow.html" />
     <None Remove="WebsiteData\FN56MMAJunkie.html" />
     <None Remove="WebsiteData\FN56Wikipedia.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="AppSettings.json" />
   </ItemGroup>
 
   <ItemGroup>

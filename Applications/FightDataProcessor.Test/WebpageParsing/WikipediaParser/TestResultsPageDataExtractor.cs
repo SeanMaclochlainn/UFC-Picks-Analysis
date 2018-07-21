@@ -8,11 +8,11 @@ namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
     public class TestResultsPageDataExtractor
     {
         private ResultsPageDataExtractor resultsPageDataExtractor;
-        private EntityDataGenerator entityDataGenerator;
+        private TestEntityGenerator entityDataGenerator;
 
         public TestResultsPageDataExtractor()
         {
-            entityDataGenerator = new EntityDataGenerator(new TestDatabase().Context);
+            entityDataGenerator = new TestEntityGenerator();
 
         }
 

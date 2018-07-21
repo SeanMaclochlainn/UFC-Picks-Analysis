@@ -6,15 +6,15 @@ namespace FightData.Domain.Test
     {
         private TestDatabase database;
         protected FightPicksContext context;
-        protected DatabaseDataAdder databaseDataGenerator;
-        protected EntityDataGenerator entityDataGenerator;
+        protected TestDatabaseDataAdder databaseDataGenerator;
+        protected TestEntityGenerator entityDataGenerator;
 
         public TestDomain()
         {
             database = new TestDatabase();
             context = database.Context;
-            databaseDataGenerator = new DatabaseDataAdder(context);
-            entityDataGenerator = new EntityDataGenerator(context);
+            databaseDataGenerator = new TestDatabaseDataAdder(context);
+            entityDataGenerator = new TestEntityGenerator(context);
         }
     }
 }
