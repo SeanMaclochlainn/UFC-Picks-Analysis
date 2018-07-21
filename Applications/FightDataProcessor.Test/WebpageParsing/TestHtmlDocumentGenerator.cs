@@ -11,7 +11,7 @@ namespace FightDataProcessor.Test.WebpageParsing
 
         public TestHtmlDocumentGenerator()
         {
-            entityDataGenerator = new EntityDataGenerator(new Database().Context);
+            entityDataGenerator = new EntityDataGenerator(new TestDatabase().Context);
         }
 
         [TestMethod]

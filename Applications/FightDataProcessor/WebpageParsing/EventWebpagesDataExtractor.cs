@@ -3,11 +3,11 @@ using FightDataProcessor.WebpageParsing.ResultsPage;
 
 namespace FightDataProcessor.WebpageParsing
 {
-    public class EventWebpagesParser
+    public class EventWebpagesDataExtractor
     {
         private UfcEvent ufcEvent;
 
-        public EventWebpagesParser(UfcEvent ufcEvent)
+        public EventWebpagesDataExtractor(UfcEvent ufcEvent)
         {
             this.ufcEvent = ufcEvent;
         }
@@ -19,8 +19,8 @@ namespace FightDataProcessor.WebpageParsing
 
         private void ParseResultsPage()
         {
-            ResultsPageParser resultsTableParser = new ResultsPageParser(ufcEvent);
-            resultsTableParser.ParseResults();
+            ResultsPageDataExtractor resultsPageDataExtractor = new ResultsPageDataExtractor(ufcEvent);
+            resultsPageDataExtractor.ExtractResults();
         }
 
         private void ParsePicksPage()

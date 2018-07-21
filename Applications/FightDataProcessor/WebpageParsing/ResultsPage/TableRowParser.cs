@@ -4,59 +4,34 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
     public class ResultsTableParser
     {
+        private HtmlDocument document;
+        private int currentRowNo;
+        private HtmlNode currentRowWinner;
+        private HtmlNode currentRowLoser;
+
         public ResultsTableParser(HtmlDocument document)
         {
-
-        }
-    }
-
-    public class TableRowParser
-    {
-        HtmlDocument document;
-        private int rowNo;
-        private HtmlNode winnerNode;
-        private HtmlNode loserNode;
-
-        public TableRowParser(HtmlDocument document, int rowNo)
-        {
             this.document = document;
-            this.rowNo = rowNo;
-            PopulateFighterNodes();
-            PopulateFighterNames();
         }
 
-        public string WinnersName { get; private set; }
-        public string LosersName { get; private set; }
-
-        public bool ContainsResult()
+        public TableRowResult ParseRow(int rowNo)
         {
-            return !(winnerNode == null);
+            currentRowNo = rowNo;
+            PopulateCurrentRowNodes();
+            if (AreNodesValid())
+                return TableRowResult.AsFightRow(currentRowWinner.InnerText, currentRowLoser.InnerText);
+            return TableRowResult.AsNonFightRow();
         }
 
-        private void PopulateFighterNodes()
+        private void PopulateCurrentRowNodes()
         {
-            winnerNode = document.DocumentNode.SelectSingleNode(XpathGenerator.GetWinnerXpath(rowNo));
-            loserNode = document.DocumentNode.SelectSingleNode(XpathGenerator.GetLoserXpath(rowNo));
+            currentRowWinner = document.DocumentNode.SelectSingleNode(ResultsTableXpathGenerator.GetWinnerXpath(currentRowNo));
+            currentRowLoser = document.DocumentNode.SelectSingleNode(ResultsTableXpathGenerator.GetLoserXpath(currentRowNo));
         }
 
-        private void PopulateFighterNames()
+        private bool AreNodesValid()
         {
-            if (ContainsResult())
-            {
-                WinnersName = GetWinner();
-                LosersName = GetLoser();
-            }
+            return !(currentRowWinner == null && currentRowLoser == null);
         }
-
-        private string GetWinner()
-        {
-            return winnerNode.InnerText;
-        }
-
-        private string GetLoser()
-        {
-            return loserNode.InnerText;
-        }
-
     }
 }

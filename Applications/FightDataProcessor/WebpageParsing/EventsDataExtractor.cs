@@ -3,11 +3,11 @@ using FightData.Domain.Finders;
 
 namespace FightDataProcessor.WebpageParsing
 {
-    public class EventsParser
+    public class EventsDataExtractor
     {
         private EventFinder eventFinder;
 
-        public EventsParser()
+        public EventsDataExtractor()
         {
             eventFinder = new EventFinder();
         }
@@ -16,8 +16,8 @@ namespace FightDataProcessor.WebpageParsing
         {
             foreach (UfcEvent ufcEvent in eventFinder.GetAllEvents())
             {
-                EventWebpagesParser eventWebpagesDataCollector = new EventWebpagesParser(ufcEvent);
-                eventWebpagesDataCollector.ParseAllWebpages();
+                EventWebpagesDataExtractor eventWebpagesDataExractor = new EventWebpagesDataExtractor(ufcEvent);
+                eventWebpagesDataExractor.ParseAllWebpages();
             }
         }
     }

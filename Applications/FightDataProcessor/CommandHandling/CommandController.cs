@@ -37,7 +37,7 @@ namespace FightDataProcessor
 
         private void CollectAllUfcEventsData()
         {
-            EventsParser ufcEventsParser = new EventsParser();
+            EventsDataExtractor ufcEventsParser = new EventsDataExtractor();
             ufcEventsParser.ParseAllEvents();
         }
     }

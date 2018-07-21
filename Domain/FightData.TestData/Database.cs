@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FightData.TestData
 {
-    public class Database
+    public class TestDatabase
     {
         private SqliteConnection connection;
         private DbContextOptions<FightPicksContext> options;
 
-        public Database()
+        public TestDatabase()
         {
             connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
