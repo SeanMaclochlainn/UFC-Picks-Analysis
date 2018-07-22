@@ -14,7 +14,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
         {
             this.htmlDocument = htmlDocument;
             this.rowNo = rowNo;
-
+            fighterNodes = new List<HtmlNode>();
         }
 
         public List<string> FighterNames { get; private set; }

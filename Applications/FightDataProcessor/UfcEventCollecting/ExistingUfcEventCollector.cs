@@ -33,7 +33,7 @@ namespace FightDataProcessor
 
         private void SelectExistingEvent()
         {
-            ufcEvent = eventUi.SelectEvent(ufcEventFinder.GetAllEvents());
+            ufcEvent = eventUi.SelectEvent(ufcEventFinder.FindAllEvents());
         }
     }
 }

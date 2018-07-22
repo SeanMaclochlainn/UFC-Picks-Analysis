@@ -8,7 +8,7 @@ namespace FightData.Domain.Finders
     {
         public EventFinder(FightPicksContext context) : base(context) { }
 
-        public List<UfcEvent> GetAllEvents()
+        public List<UfcEvent> FindAllEvents()
         {
             return context.UfcEvents.ToList();
         }

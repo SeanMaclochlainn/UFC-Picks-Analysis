@@ -17,7 +17,7 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractAllEvents()
         {
-            foreach (UfcEvent ufcEvent in eventFinder.GetAllEvents())
+            foreach (UfcEvent ufcEvent in eventFinder.FindAllEvents())
             {
                 EventWebpagesDataExtractor eventWebpagesDataExractor = new EventWebpagesDataExtractor(ufcEvent, context);
                 eventWebpagesDataExractor.ParseAllWebpages();

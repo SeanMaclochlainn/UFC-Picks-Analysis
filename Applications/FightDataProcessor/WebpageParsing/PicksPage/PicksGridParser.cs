@@ -5,24 +5,26 @@ using HtmlAgilityPack;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
-    public class PicksPageParser
+    public class PicksGridParser
     {
         private HtmlDocument htmlDocument;
         private int maxNoOfGridRows = 20;
+        private UfcEvent ufcEvent;
 
-        public PicksPageParser(HtmlDocument htmlDocument, UfcEvent ufcEvent)
+        public PicksGridParser(HtmlDocument htmlDocument, UfcEvent ufcEvent)
         {
             this.htmlDocument = htmlDocument;
+            this.ufcEvent = ufcEvent;
         }
 
-        public void ParsePickGrid()
+        public void Parse()
         {
             for (int rowNo = 0; rowNo <= maxNoOfGridRows; rowNo++)
             {
                 GridRowParser gridRowParser = new GridRowParser(htmlDocument, rowNo);
                 if(gridRowParser.IsValidRow())
                 {
-                    //PicksGenerator picksGenerator = new PicksGenerator(gridRowParser.GridRowResult);
+                    PicksCollector picksCollector = new PicksCollector(gridRowParser.GridRowResult, ufcEvent);
                 }
                 
                 //Analyst analyst;

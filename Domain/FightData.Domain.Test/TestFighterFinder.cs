@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Finders;
+﻿using FightData.Domain.Entities;
+using FightData.Domain.Finders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FightData.Domain.Test
@@ -17,10 +18,9 @@ namespace FightData.Domain.Test
         {
             FighterFinder fighterFinder = new FighterFinder(context); 
 
-            fighterFinder.FindFighter("testfname testlname");
-            bool fighterExists = fighterFinder.Found;
+            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("testfname testlname");
 
-            Assert.IsTrue(fighterExists);
+            Assert.IsTrue(finderResult.IsFound());
         }
 
         private void AddTestFighters()

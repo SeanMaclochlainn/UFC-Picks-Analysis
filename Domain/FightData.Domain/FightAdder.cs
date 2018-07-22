@@ -8,40 +8,30 @@ namespace FightDataProcessor.FightData.Domain
     {
         private FightPicksContext context;
         private UfcEvent ufcEvent;
+        private FighterFinder fighterFinder;
 
         public FightAdder(UfcEvent ufcEvent, FightPicksContext context)
         {
             this.context = context;
             this.ufcEvent = ufcEvent;
+            fighterFinder = new FighterFinder(context);
         }
 
         public void AddFight(string winnerName, string loserName)
         {
             AddFighter(winnerName);
             AddFighter(loserName);
-            AddFight(GetFighter(winnerName), GetFighter(loserName));
-        }
-
-        private FighterFinder FindFighter(string name)
-        {
-            FighterFinder fighterFinder = new FighterFinder(context);
-            fighterFinder.FindFighter(name);
-            return fighterFinder;
+            AddFight(fighterFinder.FindFighter(winnerName).Result, fighterFinder.FindFighter(loserName).Result);
         }
 
         private void AddFighter(string name)
         {
-            if (!FindFighter(name).Found)
+            if (!fighterFinder.FindFighter(name).IsFound())
             {
                 Fighter fighter = new Fighter(context);
                 fighter.PopulateNames(name);
                 fighter.Add();
             }
-        }
-
-        private Fighter GetFighter(string name)
-        {
-            return FindFighter(name).Fighter;
         }
 
         private void AddFight(Fighter winner, Fighter loser)

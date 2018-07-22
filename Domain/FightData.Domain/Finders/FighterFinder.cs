@@ -5,23 +5,12 @@ namespace FightData.Domain.Finders
 {
     public class FighterFinder : DataFinder
     {
-        public FighterFinder() { }
-
         public FighterFinder(FightPicksContext context) : base(context) { }
 
-        public bool Found { get; private set; }
-
-        public Fighter Fighter { get; private set; }
-
-        public void FindFighter(string name)
+        public FinderResult<Fighter> FindFighter(string name)
         {
-            Fighter = context.Fighters.FirstOrDefault(f => f.FullName == name);
-            Found = IsFound();
-        }
-
-        private bool IsFound()
-        {
-            return !(Fighter == null);
+            Fighter fighter = context.Fighters.FirstOrDefault(f => f.FullName == name);
+            return new FinderResult<Fighter>(fighter);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
-    public class PicksGenerator
+    public class PicksCollector
     {
         private string analystName;
         private List<string> fighterNames;
@@ -15,11 +15,16 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
         private List<Fighter> Fighters;
         
 
-        public PicksGenerator(GridRowResult gridRowResult, UfcEvent ufcEvent)
+        public PicksCollector(GridRowResult gridRowResult, UfcEvent ufcEvent)
         {
             analystName = gridRowResult.AnalystName;
             fighterNames = gridRowResult.FighterNames;
             this.ufcEvent = ufcEvent;
+        }
+
+        public void AddPick(string analystName, List<string> fighterNames)
+        {
+
         }
 
         //public List<Pick> GetPicks()
