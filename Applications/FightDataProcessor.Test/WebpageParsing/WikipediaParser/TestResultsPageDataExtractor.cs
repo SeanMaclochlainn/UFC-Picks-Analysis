@@ -1,6 +1,8 @@
 ﻿using FightDataProcessor.WebpageParsing.ResultsPage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FightData.TestData;
+using FightData.Domain;
+using System.Linq;
 
 namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
 {
@@ -9,17 +11,22 @@ namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
     {
         private ResultsPageDataExtractor resultsPageDataExtractor;
         private TestEntityGenerator entityDataGenerator;
+        private FightPicksContext context;
 
         public TestResultsPageDataExtractor()
         {
-            entityDataGenerator = new TestEntityGenerator();
-
+            context = new TestDatabase().Context;
+            entityDataGenerator = new TestEntityGenerator(context);
         }
 
         //[TestMethod]
         //public void TestExtractResults()
         //{
-        //    resultsPageDataExtractor = new ResultsPageDataExtractor(entityDataGenerator.GetUfcEvent());
+        //    resultsPageDataExtractor = new ResultsPageDataExtractor(entityDataGenerator.GetStandardUfcEvent(), context);
+
+        //    resultsPageDataExtractor.ExtractResults();
+
+        //    Assert.IsTrue(context.Fights.Count() > 1);
         //}
     }
 }

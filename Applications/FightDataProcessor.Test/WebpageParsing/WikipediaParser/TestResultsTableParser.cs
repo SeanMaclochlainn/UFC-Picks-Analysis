@@ -1,4 +1,5 @@
-﻿using FightDataProcessor.WebpageParsing.ResultsPage;
+﻿using FightData.TestData;
+using FightDataProcessor.WebpageParsing.ResultsPage;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +14,7 @@ namespace FightDataProcessor.Test.WikipediaParser
         public TestResultsTableParser()
         {
             htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(MockWikipediaPageGenerator.GetStandardPage());
+            htmlDocument.LoadHtml(MockWikipediaPageGenerator.GetStandardPageHtml());
             resultsTableParser = new ResultsTableParser(htmlDocument);
         }
 

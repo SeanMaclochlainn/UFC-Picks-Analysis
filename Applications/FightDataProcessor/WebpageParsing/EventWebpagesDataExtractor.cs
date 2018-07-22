@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain;
+using FightData.Domain.Entities;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 
 namespace FightDataProcessor.WebpageParsing
@@ -6,10 +7,12 @@ namespace FightDataProcessor.WebpageParsing
     public class EventWebpagesDataExtractor
     {
         private UfcEvent ufcEvent;
+        private FightPicksContext context;
 
-        public EventWebpagesDataExtractor(UfcEvent ufcEvent)
+        public EventWebpagesDataExtractor(UfcEvent ufcEvent, FightPicksContext context)
         {
             this.ufcEvent = ufcEvent;
+            this.context = context;
         }
 
         public void ParseAllWebpages()
@@ -19,7 +22,7 @@ namespace FightDataProcessor.WebpageParsing
 
         private void ParseResultsPage()
         {
-            ResultsPageDataExtractor resultsPageDataExtractor = new ResultsPageDataExtractor(ufcEvent);
+            ResultsPageDataExtractor resultsPageDataExtractor = new ResultsPageDataExtractor(ufcEvent, context);
             resultsPageDataExtractor.ExtractResults();
         }
 

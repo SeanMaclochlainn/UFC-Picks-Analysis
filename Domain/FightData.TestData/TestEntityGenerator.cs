@@ -20,16 +20,49 @@ namespace FightData.TestData
 
         public UfcEvent GetUfcEvent()
         {
-            UfcEvent ufcEvent = new UfcEvent("test event", context)
+            UfcEvent ufcEvent = new UfcEvent(context)
             {
+                EventName = "test event",
                 Webpages = new List<Webpage>() { GetWebpage() }
             };
             return ufcEvent;
         }
 
+        public UfcEvent GetStandardUfcEvent()
+        {
+            UfcEvent ufcEvent = new UfcEvent(context)
+            {
+                EventName = "FN55",
+                Webpages = new List<Webpage>() { GetStandardWikipidiaPage() }
+            };
+            return ufcEvent;
+        }
+
+        public Webpage GetStandardWikipidiaPage()
+        {
+            Webpage webpage = new Webpage(context)
+            {
+                Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
+                Website = GetResultsPageWebsite(),
+                Data = MockWikipediaPageGenerator.GetStandardPageHtml()
+            };
+            return webpage;
+        }
+
+        public Website GetResultsPageWebsite()
+        {
+            return new Website { DomainName = "wikipedia", WebsiteName = WebsiteName.Wikipedia };
+        }
+
         public Webpage GetWebpage()
         {
-            return new Webpage("url", GetWebsite(), "test data", context);
+            Webpage webpage = new Webpage(context)
+            {
+                Url = "url",
+                Website = GetWebsite(),
+                Data = "test data"
+            };
+            return webpage;
         }
 
         public Website GetWebsite()
@@ -73,7 +106,8 @@ namespace FightData.TestData
 
         public Fighter GetFighter()
         {
-            Fighter fighter = new Fighter("testfname testlname", context);
+            Fighter fighter = new Fighter(context);
+            fighter.PopulateNames("testfname testlname");
             //fighter.FirstName = "testfname";
             //fighter.LastName = "testlname";
             return fighter;

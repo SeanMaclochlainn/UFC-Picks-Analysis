@@ -2,11 +2,11 @@
 using System.IO;
 using System.Reflection;
 
-namespace FightDataProcessor.Test.WikipediaParser
+namespace FightData.TestData
 {
     public class MockWikipediaPageGenerator
     {
-        public static string GetStandardPage()
+        public static string GetStandardPageHtml()
         {
             return GetResourceFile("FN55Wikipedia.html");
         }

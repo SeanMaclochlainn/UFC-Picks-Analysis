@@ -15,7 +15,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestSimpleName()
         {
-            FighterFinder fighterFinder = FighterFinder.WithCustomContext(context); 
+            FighterFinder fighterFinder = new FighterFinder(context); 
 
             fighterFinder.FindFighter("testfname testlname");
             bool fighterExists = fighterFinder.Found;

@@ -1,5 +1,6 @@
 ﻿using FightData.Domain.Finders;
 using FightData.Domain.Entities;
+using FightData.Domain;
 
 namespace FightDataProcessor
 {
@@ -9,10 +10,11 @@ namespace FightDataProcessor
         private UfcEventCollectingUi eventUi;
         private UfcEvent ufcEvent;
         private UfcEventWebpagesCollector ufcEventWebpagesCollector;
+        private FightPicksContext context;
 
-        public ExistingUfcEventCollector() : this(new UfcEventCollectingUi(), new EventFinder(), new UfcEventWebpagesCollector())
+        public ExistingUfcEventCollector(FightPicksContext context) : this(new UfcEventCollectingUi(), new EventFinder(context), new UfcEventWebpagesCollector())
         {
-
+            this.context = context;
         }
 
         public ExistingUfcEventCollector(UfcEventCollectingUi eventUi, EventFinder ufcEventFinder, UfcEventWebpagesCollector ufcEventWebpagesCollector)

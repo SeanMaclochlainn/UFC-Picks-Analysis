@@ -14,7 +14,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
         public PicksPageParser(HtmlDocument htmlDocument, UfcEvent ufcEvent)
         {
             this.htmlDocument = htmlDocument;
-            eventDataUpdater = new EventUpdater(ufcEvent);
+            //eventDataUpdater = new EventUpdater(ufcEvent);
         }
 
         public void ParsePickGrid()

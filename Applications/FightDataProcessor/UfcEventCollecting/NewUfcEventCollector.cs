@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain;
+using FightData.Domain.Entities;
 
 namespace FightDataProcessor
 {
@@ -16,7 +17,7 @@ namespace FightDataProcessor
         public NewUfcEventCollector(UfcEventCollectingUi ufcEventUi)
         {
             this.eventUi = ufcEventUi;
-            this.ufcEvent = new UfcEvent();
+            this.ufcEvent = new UfcEvent(new FightPicksContext());
             this.ufcEventWebpagesCollector = new UfcEventWebpagesCollector();
         }
 

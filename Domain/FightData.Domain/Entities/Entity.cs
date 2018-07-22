@@ -5,7 +5,7 @@ namespace FightData.Domain.Entities
     {
         protected FightPicksContext context;
 
-        public Entity() : this(new FightPicksContext()) { }
+        public Entity() { }
 
         public Entity(FightPicksContext context)
         {

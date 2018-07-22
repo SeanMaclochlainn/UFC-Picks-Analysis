@@ -7,24 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="WebsiteData\FN55BloodyElbow.html" />
-    <None Remove="WebsiteData\FN55MmaJunkie.html" />
-    <None Remove="WebsiteData\FN55Wikipedia.html" />
-    <None Remove="WebsiteData\FN56BloodyElbow.html" />
-    <None Remove="WebsiteData\FN56MMAJunkie.html" />
-    <None Remove="WebsiteData\FN56Wikipedia.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="WebsiteData\FN55BloodyElbow.html" />
-    <EmbeddedResource Include="WebsiteData\FN55MmaJunkie.html" />
-    <EmbeddedResource Include="WebsiteData\FN55Wikipedia.html" />
-    <EmbeddedResource Include="WebsiteData\FN56BloodyElbow.html" />
-    <EmbeddedResource Include="WebsiteData\FN56MMAJunkie.html" />
-    <EmbeddedResource Include="WebsiteData\FN56Wikipedia.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />

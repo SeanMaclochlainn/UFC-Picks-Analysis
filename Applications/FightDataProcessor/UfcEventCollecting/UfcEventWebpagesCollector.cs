@@ -2,6 +2,7 @@
 using FightData.Domain.Entities;
 using System.Collections.Generic;
 using System.Net;
+using FightData.Domain;
 
 namespace FightDataProcessor
 {
@@ -29,7 +30,12 @@ namespace FightDataProcessor
                     continue;
                 else
                 {
-                    webpages.Add(new Webpage(websiteUrl, website, DownloadWebpage(websiteUrl)));
+                    webpages.Add(new Webpage(new FightPicksContext())
+                    {
+                        Url = websiteUrl,
+                        Website = website,
+                        Data = DownloadWebpage(websiteUrl)
+                    });
                 }
             }
             return webpages;

@@ -10,7 +10,8 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestAddFighter()
         {
-            Fighter fighter = new Fighter("fname lname", context);
+            Fighter fighter = new Fighter(context);
+            fighter.PopulateNames("fname lname");
 
             fighter.Add();
 

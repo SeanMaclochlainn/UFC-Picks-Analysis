@@ -15,7 +15,8 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestAddEvent()
         {
-            UfcEvent ufcEvent = new UfcEvent("test event", context);
+            UfcEvent ufcEvent = new UfcEvent(context);
+            ufcEvent.EventName = "test event";
 
             ufcEvent.Add();
 

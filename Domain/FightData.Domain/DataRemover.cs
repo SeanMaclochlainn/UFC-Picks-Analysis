@@ -6,11 +6,6 @@ namespace FightData.Domain
     {
         private FightPicksContext context;
 
-        public DataRemover()
-        {
-            context = new FightPicksContext();
-        }
-
         public DataRemover(FightPicksContext context)
         {
             this.context = context;

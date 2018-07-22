@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using FightData.Domain.Entities;
+using FightData.Domain;
 
 namespace FightDataProcessorTest
 {
@@ -33,8 +34,8 @@ namespace FightDataProcessorTest
         {
             List<UfcEvent> ufcEvents = new List<UfcEvent>()
             {
-                new UfcEvent("ufc 100"),
-                new UfcEvent("ufc 101")
+                new UfcEvent(new FightPicksContext()){ EventName = "ufc 100" },
+                new UfcEvent(new FightPicksContext()){ EventName = "ufc 101"}
             };
             return ufcEvents;
         }

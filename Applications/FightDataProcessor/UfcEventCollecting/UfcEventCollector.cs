@@ -10,11 +10,11 @@ namespace FightDataProcessor
 
         public UfcEventCollector() : this(new UfcEventCollectingUi(), new FightPicksContext()) { }
 
-        public UfcEventCollector(UfcEventCollectingUi ufcEventUi, FightPicksContext fightPicksContext)
+        public UfcEventCollector(UfcEventCollectingUi ufcEventUi, FightPicksContext context)
         {
             this.eventUi = ufcEventUi;
             this.newEventCollector = new NewUfcEventCollector();
-            this.existingUfcEventCollector = new ExistingUfcEventCollector();
+            this.existingUfcEventCollector = new ExistingUfcEventCollector(context);
         }
 
         public void ContinuouslyCollectEvents()

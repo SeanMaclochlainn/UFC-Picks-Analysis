@@ -10,11 +10,11 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         private EventUpdater eventUpdater;
         private static int maxNoOfRows = 20;
 
-        public ResultsPageDataExtractor(UfcEvent ufcEvent)
+        public ResultsPageDataExtractor(UfcEvent ufcEvent, FightPicksContext context)
         {
             HtmlDocument resultsPage = HtmlDocumentGenerator.FromWebpage(ufcEvent.GetResultsPage()).HtmlDocument;
             resultsTableParser = new ResultsTableParser(resultsPage);
-            eventUpdater = new EventUpdater(ufcEvent);
+            eventUpdater = new EventUpdater(ufcEvent, context);
         }
 
         public void ExtractResults()

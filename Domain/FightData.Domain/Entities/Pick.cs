@@ -8,21 +8,5 @@ namespace FightData.Domain.Entities
         public Analyst Analyst { get; set; }
         public Fight Fight { get; set; }
         public Fighter FighterPick { get; set; }
-
-        public UfcEvent Event
-        {
-            get
-            {
-                return Fight?.UfcEvent;
-            }
-        }
-
-        public bool Correct()
-        {
-            if (Fight.Winner == FighterPick)
-                return true;
-            else
-                return false;
-        }
     }
 }

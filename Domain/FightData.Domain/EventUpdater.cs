@@ -8,8 +8,6 @@ namespace FightData.Domain
         private UfcEvent ufcEvent;
         private FightPicksContext context;
 
-        public EventUpdater(UfcEvent ufcEvent) : this(ufcEvent, new FightPicksContext()) { }
-
         public EventUpdater(UfcEvent ufcEvent, FightPicksContext context)
         {
             this.ufcEvent = ufcEvent;
@@ -24,7 +22,7 @@ namespace FightData.Domain
 
         private void ProcessFighterDetails(string name)
         {
-            FighterFinder fighterFinder = FighterFinder.WithCustomContext(context);
+            FighterFinder fighterFinder = new FighterFinder(context);
             fighterFinder.FindFighter(name);
             if(!fighterFinder.Found)
                 AddFighter(name);
@@ -32,7 +30,8 @@ namespace FightData.Domain
 
         private void AddFighter(string name)
         {
-            Fighter fighter = new Fighter(name, context);
+            Fighter fighter = new Fighter(context);
+            fighter.PopulateNames(name);
             fighter.Add();
         }
     }

@@ -7,12 +7,7 @@ namespace FightData.Domain.Finders
     {
         public FighterFinder() { }
 
-        private FighterFinder(FightPicksContext context) : base(context) { }
-
-        public static FighterFinder WithCustomContext(FightPicksContext context)
-        {
-            return new FighterFinder(context);
-        }
+        public FighterFinder(FightPicksContext context) : base(context) { }
 
         public bool Found { get; private set; }
 

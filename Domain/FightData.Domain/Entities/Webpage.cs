@@ -1,26 +1,11 @@
 ﻿
 namespace FightData.Domain.Entities
 {
-    public class Webpage
+    public class Webpage : Entity
     {
-        private FightPicksContext context;
+        private Webpage() { }
 
-        public Webpage() : this(new FightPicksContext()) { }
-
-        public Webpage(FightPicksContext context)
-        {
-            this.context = context;
-        }
-
-        public Webpage(string Url, Website website, string data) : this(Url, website, data, new FightPicksContext()) { }
-
-        public Webpage(string Url, Website website, string data, FightPicksContext context)
-        {
-            this.Url = Url;
-            this.Website = website;
-            this.Data = data;
-            this.context = context;
-        }
+        public Webpage(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }
         public string Url { get; set; }

@@ -5,17 +5,7 @@ namespace FightData.Domain.Entities
 {
     public class Fighter : Entity
     {
-        public Fighter()
-        {
-        }
-
-        public Fighter(string fullName) : this(fullName, new FightPicksContext()) { }
-
-        public Fighter(string fullName, FightPicksContext context) : base(context)
-        {
-            FullName = fullName;
-            PopulateNames();
-        }
+        public Fighter(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }
         public string FullName { get; private set; }
@@ -27,23 +17,15 @@ namespace FightData.Domain.Entities
         public List<Fight> Losses { get; set; }
         public List<Pick> Picks { get; set; }
 
-        public static bool IsFighterInList(List<Fighter> fighters, Fighter fighter)
-        {
-            int count = fighters.Count(f => f.FullName == fighter.FullName);
-            if (count > 0)
-                return true;
-            else
-                return false;
-        }
-
         public void Add()
         {
             context.Fighters.Add(this);
             context.SaveChanges();
         }
 
-        private void PopulateNames()
+        public void PopulateNames(string fullName)
         {
+            FullName = fullName;
             NameParser nameParser = new NameParser(FullName);
             FirstName = nameParser.FirstName;
             LastName = nameParser.LastName;

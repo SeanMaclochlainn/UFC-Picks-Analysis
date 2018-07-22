@@ -13,7 +13,7 @@ namespace FightDataProcessor
         {
             this.appCommand = appCommand;
             ufcEventCollector = new UfcEventCollector();
-            dataRemover = new DataRemover();
+            dataRemover = new DataRemover(new FightPicksContext());
         }
 
         public void HandleCommand()
@@ -37,7 +37,7 @@ namespace FightDataProcessor
 
         private void CollectAllUfcEventsData()
         {
-            EventsDataExtractor ufcEventsParser = new EventsDataExtractor();
+            EventsDataExtractor ufcEventsParser = new EventsDataExtractor(new FightPicksContext());
             ufcEventsParser.ParseAllEvents();
         }
     }
