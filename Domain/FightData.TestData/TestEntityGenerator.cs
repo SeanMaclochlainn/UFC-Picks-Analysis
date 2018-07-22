@@ -8,11 +8,6 @@ namespace FightData.TestData
     {
         private FightPicksContext context;
 
-        public TestEntityGenerator()
-        {
-            context = new TestDatabase().Context;
-        }
-
         public TestEntityGenerator(FightPicksContext context)
         {
             this.context = context;

@@ -8,13 +8,11 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
     public class PicksPageParser
     {
         private HtmlDocument htmlDocument;
-        private EventUpdater eventDataUpdater;
         private int maxNoOfGridRows = 20;
 
         public PicksPageParser(HtmlDocument htmlDocument, UfcEvent ufcEvent)
         {
             this.htmlDocument = htmlDocument;
-            //eventDataUpdater = new EventUpdater(ufcEvent);
         }
 
         public void ParsePickGrid()

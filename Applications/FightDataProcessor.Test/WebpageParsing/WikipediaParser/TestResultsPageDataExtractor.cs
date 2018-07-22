@@ -19,14 +19,14 @@ namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
             entityDataGenerator = new TestEntityGenerator(context);
         }
 
-        //[TestMethod]
-        //public void TestExtractResults()
-        //{
-        //    resultsPageDataExtractor = new ResultsPageDataExtractor(entityDataGenerator.GetStandardUfcEvent(), context);
+        [TestMethod]
+        public void TestExtractResults()
+        {
+            resultsPageDataExtractor = new ResultsPageDataExtractor(entityDataGenerator.GetStandardUfcEvent(), context);
 
-        //    resultsPageDataExtractor.ExtractResults();
+            resultsPageDataExtractor.ExtractResults();
 
-        //    Assert.IsTrue(context.Fights.Count() > 1);
-        //}
+            Assert.IsTrue(context.Fights.Count() == 11);
+        }
     }
 }

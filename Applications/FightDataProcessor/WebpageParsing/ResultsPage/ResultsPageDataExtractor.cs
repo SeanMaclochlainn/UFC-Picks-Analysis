@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
+using FightDataProcessor.FightData.Domain;
 using HtmlAgilityPack;
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
@@ -7,14 +8,14 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
     public class ResultsPageDataExtractor
     {
         private ResultsTableParser resultsTableParser;
-        private EventUpdater eventUpdater;
         private static int maxNoOfRows = 20;
+        private FightAdder fightAdder;
 
         public ResultsPageDataExtractor(UfcEvent ufcEvent, FightPicksContext context)
         {
             HtmlDocument resultsPage = HtmlDocumentGenerator.FromWebpage(ufcEvent.GetResultsPage()).HtmlDocument;
             resultsTableParser = new ResultsTableParser(resultsPage);
-            eventUpdater = new EventUpdater(ufcEvent, context);
+            fightAdder = new FightAdder(ufcEvent, context);
         }
 
         public void ExtractResults()
@@ -29,7 +30,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         {
             TableRowResult tableRowResult = resultsTableParser.ParseRow(rowNo);
             if (tableRowResult.IsRowContainingFight)
-                eventUpdater.AddFightData(tableRowResult.Winner, tableRowResult.Loser);
+                fightAdder.AddFight(tableRowResult.Winner, tableRowResult.Loser);
         }
 
     }

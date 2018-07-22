@@ -4,15 +4,13 @@ namespace FightData.Domain.Test
 {
     public class TestDomain
     {
-        private TestDatabase database;
         protected FightPicksContext context;
         protected TestDatabaseDataAdder databaseDataGenerator;
         protected TestEntityGenerator entityDataGenerator;
 
         public TestDomain()
         {
-            database = new TestDatabase();
-            context = database.Context;
+            context = new TestDatabase().Context;
             databaseDataGenerator = new TestDatabaseDataAdder(context);
             entityDataGenerator = new TestEntityGenerator(context);
         }

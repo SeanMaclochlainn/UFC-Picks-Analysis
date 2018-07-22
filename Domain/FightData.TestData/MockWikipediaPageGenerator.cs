@@ -16,7 +16,7 @@ namespace FightData.TestData
             string fileData = "";
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
             string currentAssemblyName = currentAssembly.GetName().Name;
-            string folderName = "WebsiteData";
+            string folderName = "WebsiteHtml";
             using (Stream stream = currentAssembly.GetManifestResourceStream(String.Format("{0}.{1}.{2}", currentAssemblyName, folderName, fileName)))
             {
                 using (StreamReader sr = new StreamReader(stream))

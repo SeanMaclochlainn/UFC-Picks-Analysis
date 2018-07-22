@@ -15,7 +15,7 @@ namespace FightDataProcessor.WebpageParsing
             this.context = context;
         }
 
-        public void ParseAllEvents()
+        public void ExtractAllEvents()
         {
             foreach (UfcEvent ufcEvent in eventFinder.GetAllEvents())
             {
