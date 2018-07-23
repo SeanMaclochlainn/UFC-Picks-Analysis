@@ -6,28 +6,12 @@ namespace FightData.Domain.Finders
 {
     public class AnalystFinder : DataFinder
     {
-        private string name;
+        public AnalystFinder(FightPicksContext context) : base(context) { }
 
-        public AnalystFinder(string name) : this(name, new FightPicksContext()) { }
-
-        public AnalystFinder(string name, FightPicksContext context) : base(context)
+        private FinderResult<Analyst> FindAnalyst(string name)
         {
-            this.name = name;
-            Analyst = FindAnalyst();
-            AnalystExists = DoesAnalystExist();
-        }
-
-        public Analyst Analyst { get; set; }
-        public bool AnalystExists { get; set; }
-
-        private Analyst FindAnalyst()
-        {
-            return context.Analysts.FirstOrDefault(a => a.Name == name);
-        }
-
-        private bool DoesAnalystExist()
-        {
-            return !(Analyst == null);
+            Analyst analyst = context.Analysts.FirstOrDefault(a => a.Name == name);
+            return new FinderResult<Analyst>(analyst);
         }
     }
 }
