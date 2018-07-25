@@ -142,7 +142,7 @@ namespace FightData.Domain
                 .IsRequired();
 
             modelBuilder.Entity<Pick>()
-                .HasOne(p => p.FighterPick)
+                .HasOne(p => p.Fighter)
                 .WithMany(fp => fp.Picks)
                 .IsRequired();
 

@@ -8,7 +8,7 @@ namespace FightData.Domain.Finders
     {
         public AnalystFinder(FightPicksContext context) : base(context) { }
 
-        private FinderResult<Analyst> FindAnalyst(string name)
+        public FinderResult<Analyst> FindAnalyst(string name)
         {
             Analyst analyst = context.Analysts.FirstOrDefault(a => a.Name == name);
             return new FinderResult<Analyst>(analyst);

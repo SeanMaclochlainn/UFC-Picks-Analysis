@@ -1,5 +1,6 @@
 ﻿using FightData.TestData;
 using FightDataProcessor.WebpageParsing;
+using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FightDataProcessor.Test.WebpageParsing
@@ -17,9 +18,9 @@ namespace FightDataProcessor.Test.WebpageParsing
         [TestMethod]
         public void GenerateHtmlDocument()
         {
-            HtmlDocumentGenerator htmlDocumentGenerator = HtmlDocumentGenerator.FromWebpage(entityDataGenerator.GetWebpage());
+            HtmlDocument htmlDocument = HtmlDocumentGenerator.FromWebpage(entityDataGenerator.GetWebpage());
 
-            Assert.IsNotNull(htmlDocumentGenerator.HtmlDocument);
+            Assert.IsNotNull(htmlDocument);
         }
     }
 }

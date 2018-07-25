@@ -2,6 +2,8 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using HtmlAgilityPack;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
@@ -9,12 +11,13 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
     {
         private HtmlDocument htmlDocument;
         private int maxNoOfGridRows = 20;
-        private UfcEvent ufcEvent;
+        private FightPicksContext context;
+        private PickAdder pickAdder;
 
-        public PicksGridParser(HtmlDocument htmlDocument, UfcEvent ufcEvent)
+        public PicksGridParser(HtmlDocument htmlDocument, UfcEvent ufcEvent, FightPicksContext context)
         {
             this.htmlDocument = htmlDocument;
-            this.ufcEvent = ufcEvent;
+            pickAdder = new PickAdder(ufcEvent, context);
         }
 
         public void Parse()
@@ -24,17 +27,12 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
                 GridRowParser gridRowParser = new GridRowParser(htmlDocument, rowNo);
                 if(gridRowParser.IsValidRow())
                 {
-                    PicksCollector picksCollector = new PicksCollector(gridRowParser.GridRowResult, ufcEvent);
+                    string analystName = gridRowParser.GridRowResult.AnalystName;
+                    List<string> fightersNames = gridRowParser.GridRowResult.FighterNames;
+                    foreach (string fighterNames in fightersNames)
+                        pickAdder.AddPick(analystName, fighterNames);
                 }
-                
-                //Analyst analyst;
-                //AnalystFinder analystFinder = new AnalystFinder(gridRowParser.AnalystName);
-                //if (analystFinder.AnalystExists)
-                //    analyst = analystFinder.Analyst;
-
             }
         }
-
-        
     }
 }

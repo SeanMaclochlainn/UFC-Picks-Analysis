@@ -1,6 +1,8 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
+using FightDataProcessor.WebpageParsing.PicksPage;
 using FightDataProcessor.WebpageParsing.ResultsPage;
+using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
@@ -18,6 +20,7 @@ namespace FightDataProcessor.WebpageParsing
         public void ParseAllWebpages()
         {
             ParseResultsPage();
+
         }
 
         private void ParseResultsPage()
@@ -26,9 +29,10 @@ namespace FightDataProcessor.WebpageParsing
             resultsPageDataExtractor.ExtractResults();
         }
 
-        private void ParsePicksPage()
+        private void ParseAllPicksPages()
         {
             
+            PicksGridParser picksGridParser = new PicksGridParser(HtmlDocumentGenerator.FromWebpage(ufcEvent.Webpages.Last()), ufcEvent, context);
         }
 
     }
