@@ -1,5 +1,6 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using FightData.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FightData.Domain.Test
@@ -7,9 +8,11 @@ namespace FightData.Domain.Test
     [TestClass]
     public class TestFighterFinder : TestDomain
     {
+        private TestDatabaseDataAdder databaseDataAdder;
 
         public TestFighterFinder()
         {
+            databaseDataAdder = new TestDatabaseDataAdder(context);
             AddTestFighters();
         }
 
@@ -25,7 +28,7 @@ namespace FightData.Domain.Test
 
         private void AddTestFighters()
         {
-            databaseDataGenerator.AddRegularFighter();
+            databaseDataAdder.AddRegularFighter();
         }
 
     }

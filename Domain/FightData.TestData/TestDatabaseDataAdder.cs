@@ -1,40 +1,40 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
+using FightData.TestData.EntityGenerators;
 
 namespace FightData.TestData
 {
     public class TestDatabaseDataAdder
     {
         private FightPicksContext context;
-        private TestEntityGenerator entityDataGenerator;
+        private UfcEventGenerator ufcEventGenerator;
+        private PickGenerator pickGenerator;
+        private FighterGenerator fighterGenerator;
 
-        public TestDatabaseDataAdder()
-        {
-            context = new TestDatabase().Context;
-            entityDataGenerator = new TestEntityGenerator(context);
-        }
         public TestDatabaseDataAdder(FightPicksContext context)
         {
             this.context = context;
-            entityDataGenerator = new TestEntityGenerator(context);
+            ufcEventGenerator = new UfcEventGenerator(context);
+            pickGenerator = new PickGenerator(context);
+            fighterGenerator = new FighterGenerator(context);
         }
 
         public void AddEvent()
         {
-            UfcEvent ufcEvent = entityDataGenerator.GetPopulatedUfcEvent();
+            UfcEvent ufcEvent = ufcEventGenerator.GetPopulatedUfcEvent();
             context.Add(ufcEvent);
             context.SaveChanges();
         }
 
         public void AddPick()
         {
-            context.Add(entityDataGenerator.GetPick());
+            context.Add(pickGenerator.GetPick());
             context.SaveChanges();
         }
 
         public void AddRegularFighter()
         {
-            context.Add(entityDataGenerator.GetFighter());
+            context.Add(fighterGenerator.GetFighter());
             context.SaveChanges();
         }
     }

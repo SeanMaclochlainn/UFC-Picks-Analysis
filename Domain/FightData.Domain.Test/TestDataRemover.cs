@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FightData.TestData;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace FightData.Domain.Test
@@ -7,9 +8,11 @@ namespace FightData.Domain.Test
     public class TestDataRemover : TestDomain
     {
         private DataRemover dataRemover;
+        private TestDatabaseDataAdder databaseDataAdder;
 
         public TestDataRemover()
         {
+            databaseDataAdder = new TestDatabaseDataAdder(context);
             dataRemover = new DataRemover(context);
             AddTestData();
         }
@@ -24,7 +27,7 @@ namespace FightData.Domain.Test
 
         private void AddTestData()
         {
-            databaseDataGenerator.AddPick();
+            databaseDataAdder.AddPick();
         }
     }
 }

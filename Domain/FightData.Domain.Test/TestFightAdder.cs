@@ -1,4 +1,5 @@
-﻿using FightDataProcessor.FightData.Domain;
+﻿using FightData.TestData.EntityGenerators;
+using FightDataProcessor.FightData.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -8,10 +9,12 @@ namespace FightData.Domain.Test
     public class TestFightAdder : TestDomain
     {
         private FightAdder fightAdder;
+        private UfcEventGenerator ufcEventGenerator;
 
         public TestFightAdder()
         {
-            fightAdder = new FightAdder(entityDataGenerator.GetPopulatedUfcEvent(), context);
+            ufcEventGenerator = new UfcEventGenerator(context);
+            fightAdder = new FightAdder(ufcEventGenerator.GetPopulatedUfcEvent(), context);
         }
 
         [TestMethod]
