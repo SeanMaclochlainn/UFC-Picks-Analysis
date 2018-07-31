@@ -13,33 +13,37 @@ namespace FightData.TestData
             this.context = context;
         }
 
-        public UfcEvent GetUfcEvent()
-        {
-            UfcEvent ufcEvent = new UfcEvent(context)
-            {
-                EventName = "test event",
-                Webpages = new List<Webpage>() { GetWebpage() }
-            };
-            return ufcEvent;
-        }
-
-        public UfcEvent GetStandardUfcEvent()
+        public UfcEvent GetPopulatedUfcEvent()
         {
             UfcEvent ufcEvent = new UfcEvent(context)
             {
                 EventName = "FN55",
-                Webpages = new List<Webpage>() { GetStandardWikipidiaPage() }
+                Webpages = new List<Webpage>() { GetWikipediaPage() }, 
             };
+            ufcEvent = AddFightsToUfcEvent(ufcEvent);
             return ufcEvent;
         }
 
-        public Webpage GetStandardWikipidiaPage()
+        public UfcEvent GetEmptyUfcEvent()
+        {
+            return new UfcEvent(context) { EventName = "test event" };
+        }
+
+        private UfcEvent AddFightsToUfcEvent(UfcEvent ufcEvent)
+        {
+            Fighter winner = Fighter.GenerateFighter("Luke Rockhold", context);
+            Fighter loser = Fighter.GenerateFighter("Michael Bisping", context);
+            ufcEvent.AddFight(winner, loser);
+            return ufcEvent;
+        }
+
+        public Webpage GetWikipediaPage()
         {
             Webpage webpage = new Webpage(context)
             {
                 Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
                 Website = GetResultsPageWebsite(),
-                Data = MockWikipediaPageGenerator.GetStandardPageHtml()
+                Data = MockWikipediaPageGenerator.GetHtml()
             };
             return webpage;
         }
@@ -54,13 +58,13 @@ namespace FightData.TestData
             Webpage webpage = new Webpage(context)
             {
                 Url = "url",
-                Website = GetWebsite(),
+                Website = GetResultsWebsite(),
                 Data = "test data"
             };
             return webpage;
         }
 
-        public Website GetWebsite()
+        public Website GetResultsWebsite()
         {
             return new Website() { DomainName = "test name", WebsiteName = WebsiteName.Wikipedia };
         }
@@ -71,7 +75,7 @@ namespace FightData.TestData
             analyst.AltNames = new List<AnalystAltName>() { GetAnalystAltName(analyst) };
             analyst.Name = "test analyst";
             analyst.Picks = new List<Pick>();
-            analyst.Website = GetWebsite();
+            analyst.Website = GetResultsWebsite();
             return analyst;
         }
 
@@ -85,26 +89,29 @@ namespace FightData.TestData
 
         public Pick GetPick()
         {
-            Pick pick = new Pick();
+            Pick pick = new Pick(context);
             pick.Analyst = GetAnalyst();
             pick.Fight = GetFight();
-            pick.FighterPick = GetFighter();
+            pick.Fighter = GetFighter();
             return pick;
         }
 
         public Fight GetFight()
         {
             Fight fight = new Fight(context);
-            fight.UfcEvent = GetUfcEvent();
+            fight.UfcEvent = GetPopulatedUfcEvent();
             return fight;
+        }
+
+        public Fight GetEmptyFight()
+        {
+            return new Fight(context);
         }
 
         public Fighter GetFighter()
         {
             Fighter fighter = new Fighter(context);
             fighter.PopulateNames("testfname testlname");
-            //fighter.FirstName = "testfname";
-            //fighter.LastName = "testlname";
             return fighter;
         }
     }

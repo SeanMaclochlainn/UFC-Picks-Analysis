@@ -21,7 +21,7 @@ namespace FightData.TestData
 
         public void AddEvent()
         {
-            UfcEvent ufcEvent = entityDataGenerator.GetUfcEvent();
+            UfcEvent ufcEvent = entityDataGenerator.GetPopulatedUfcEvent();
             context.Add(ufcEvent);
             context.SaveChanges();
         }

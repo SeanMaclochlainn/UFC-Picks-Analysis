@@ -1,5 +1,6 @@
 ﻿using FightData.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Test
@@ -32,6 +33,16 @@ namespace FightData.Domain.Test
             ufcEvent.Update();
 
             Assert.IsTrue(ufcEvent.Webpages.Count() == 2);
+        }
+
+        [TestMethod]
+        public void TestGetFighters()
+        {
+            UfcEvent ufcEvent = entityDataGenerator.GetPopulatedUfcEvent();
+
+            List<Fighter> fighters = ufcEvent.GetFighters();
+
+            Assert.IsTrue(fighters.Count == 2);
         }
 
         private void AddEvent()

@@ -14,6 +14,11 @@ namespace FightData.Domain.Entities
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; }
 
+        public List<Fighter> GetFighters()
+        {
+            return new List<Fighter>() { Winner, Loser };
+        }
+
         public void Add()
         {
             context.Fights.Add(this);

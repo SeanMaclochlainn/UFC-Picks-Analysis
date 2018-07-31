@@ -17,6 +17,13 @@ namespace FightData.Domain.Entities
         public List<Fight> Losses { get; set; }
         public List<Pick> Picks { get; set; }
 
+        public static Fighter GenerateFighter(string name, FightPicksContext context)
+        {
+            Fighter fighter = new Fighter(context);
+            fighter.PopulateNames(name);
+            return fighter;
+        }
+
         public void Add()
         {
             context.Fighters.Add(this);

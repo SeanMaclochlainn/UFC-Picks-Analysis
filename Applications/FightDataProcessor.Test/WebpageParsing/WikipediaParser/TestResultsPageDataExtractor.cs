@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FightData.TestData;
 using FightData.Domain;
 using System.Linq;
+using FightData.Domain.Entities;
 
 namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
 {
@@ -22,11 +23,13 @@ namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
         [TestMethod]
         public void TestExtractResults()
         {
-            resultsPageDataExtractor = new ResultsPageDataExtractor(entityDataGenerator.GetStandardUfcEvent(), context);
+            UfcEvent ufcEvent = entityDataGenerator.GetPopulatedUfcEvent();
+            int existingFights = ufcEvent.Fights.Count;
+            resultsPageDataExtractor = new ResultsPageDataExtractor(ufcEvent, context);
 
             resultsPageDataExtractor.ExtractResults();
 
-            Assert.IsTrue(context.Fights.Count() == 11);
+            Assert.IsTrue(ufcEvent.Fights.Count == existingFights + 11);
         }
     }
 }

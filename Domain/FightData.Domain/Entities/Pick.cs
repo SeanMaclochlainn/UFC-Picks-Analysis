@@ -1,12 +1,19 @@
 ﻿
 namespace FightData.Domain.Entities
 {
-    public class Pick
+    public class Pick : Entity
     {
-        //TD rename pick to Analyst pick
+        public Pick(FightPicksContext context) : base(context) { }
+
         public int Id { get; set; }
         public Analyst Analyst { get; set; }
         public Fight Fight { get; set; }
-        public Fighter FighterPick { get; set; }
+        public Fighter Fighter { get; set; }
+
+        public void Add()
+        {
+            context.Picks.Add(this);
+            context.SaveChanges();
+        }
     }
 }

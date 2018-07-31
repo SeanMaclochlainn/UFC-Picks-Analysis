@@ -6,7 +6,7 @@ namespace FightData.TestData
 {
     public class MockWikipediaPageGenerator
     {
-        public static string GetStandardPageHtml()
+        public static string GetHtml()
         {
             return GetResourceFile("FN55Wikipedia.html");
         }
