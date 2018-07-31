@@ -16,12 +16,12 @@ namespace FightData.TestData.EntityGenerators
             fighterGenerator = new FighterGenerator(context);
         }
 
-        public Pick GetPick()
+        public Pick GetPopulatedPick()
         {
             Pick pick = new Pick(context);
-            pick.Analyst = analystGenerator.GetAnalyst();
-            pick.Fight = fightGenerator.GetFight();
-            pick.Fighter = fighterGenerator.GetFighter();
+            pick.Analyst = analystGenerator.GetPopulatedAnalyst();
+            pick.Fight = fightGenerator.GetPopulatedFight();
+            pick.Fighter = fighterGenerator.GetPopulatedFighter();
             return pick;
         }
     }

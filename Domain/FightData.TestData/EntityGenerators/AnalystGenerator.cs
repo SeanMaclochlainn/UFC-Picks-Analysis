@@ -13,17 +13,16 @@ namespace FightData.TestData.EntityGenerators
             websiteGenerator = new WebsiteGenerator(context);
         }
 
-        public Analyst GetAnalyst()
+        public Analyst GetPopulatedAnalyst()
         {
             Analyst analyst = new Analyst();
-            analyst.AltNames = new List<AnalystAltName>() { GetAnalystAltName(analyst) };
+            analyst.AltNames = new List<AnalystAltName>() { GetAltName(analyst) };
             analyst.Name = "test analyst";
-            analyst.Picks = new List<Pick>();
-            analyst.Website = websiteGenerator.GetResultsWebsite();
+            analyst.Website = websiteGenerator.GetResultsPageWebsite();
             return analyst;
         }
 
-        public static AnalystAltName GetAnalystAltName(Analyst analyst)
+        private static AnalystAltName GetAltName(Analyst analyst)
         {
             AnalystAltName analystAltName = new AnalystAltName();
             analystAltName.Name = "test alt name";

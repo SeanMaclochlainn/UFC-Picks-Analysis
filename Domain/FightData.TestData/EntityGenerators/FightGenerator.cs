@@ -12,10 +12,12 @@ namespace FightData.TestData.EntityGenerators
             ufcEventGenerator = new UfcEventGenerator(context);
         }
 
-        public Fight GetFight()
+        public Fight GetPopulatedFight()
         {
             Fight fight = new Fight(context);
             fight.UfcEvent = ufcEventGenerator.GetPopulatedUfcEvent();
+            fight.Winner = Fighter.GenerateFighter("Luke Rockhold", context);
+            fight.Loser = Fighter.GenerateFighter("Michael Bisping", context);
             return fight;
         }
 

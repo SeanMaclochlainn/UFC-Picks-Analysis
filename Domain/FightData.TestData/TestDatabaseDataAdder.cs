@@ -28,13 +28,13 @@ namespace FightData.TestData
 
         public void AddPick()
         {
-            context.Add(pickGenerator.GetPick());
+            context.Add(pickGenerator.GetPopulatedPick());
             context.SaveChanges();
         }
 
         public void AddRegularFighter()
         {
-            context.Add(fighterGenerator.GetFighter());
+            context.Add(fighterGenerator.GetPopulatedFighter());
             context.SaveChanges();
         }
     }

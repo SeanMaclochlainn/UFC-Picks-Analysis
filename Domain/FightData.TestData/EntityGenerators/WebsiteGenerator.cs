@@ -12,10 +12,5 @@ namespace FightData.TestData.EntityGenerators
         {
             return new Website { DomainName = "wikipedia", WebsiteName = WebsiteName.Wikipedia };
         }
-
-        public Website GetResultsWebsite()
-        {
-            return new Website() { DomainName = "test name", WebsiteName = WebsiteName.Wikipedia };
-        }
     }
 }

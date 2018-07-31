@@ -33,7 +33,7 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestGetFighters()
         {
-            Fight fight = fightGenerator.GetFight();
+            Fight fight = fightGenerator.GetPopulatedFight();
 
             List<Fighter> fighters = fight.GetFighters();
 

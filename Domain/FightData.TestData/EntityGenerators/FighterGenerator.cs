@@ -5,12 +5,9 @@ namespace FightData.TestData.EntityGenerators
 {
     public class FighterGenerator : EntityGenerator
     {
-        public FighterGenerator(FightPicksContext context) : base(context)
-        {
+        public FighterGenerator(FightPicksContext context) : base(context) { }
 
-        }
-
-        public Fighter GetFighter()
+        public Fighter GetPopulatedFighter()
         {
             Fighter fighter = new Fighter(context);
             fighter.PopulateNames("testfname testlname");

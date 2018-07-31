@@ -18,7 +18,7 @@ namespace FightData.TestData.EntityGenerators
             UfcEvent ufcEvent = new UfcEvent(context)
             {
                 EventName = "FN55",
-                Webpages = new List<Webpage>() { webpageGenerator.GetPopulatedWikipediaPage() },
+                Webpages = new List<Webpage>() { webpageGenerator.GetPopulatedResultsPage() },
             };
             ufcEvent = AddFightsToUfcEvent(ufcEvent);
             return ufcEvent;

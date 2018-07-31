@@ -12,7 +12,7 @@ namespace FightData.TestData.EntityGenerators
             websiteGenerator = new WebsiteGenerator(context);
         }
 
-        public Webpage GetPopulatedWikipediaPage()
+        public Webpage GetPopulatedResultsPage()
         {
             Webpage webpage = new Webpage(context)
             {
@@ -28,7 +28,7 @@ namespace FightData.TestData.EntityGenerators
             Webpage webpage = new Webpage(context)
             {
                 Url = "url",
-                Website = websiteGenerator.GetResultsWebsite(),
+                Website = websiteGenerator.GetResultsPageWebsite(),
                 Data = "test data"
             };
             return webpage;
