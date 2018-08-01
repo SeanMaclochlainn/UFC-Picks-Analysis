@@ -2,6 +2,8 @@
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FightDataProcessor.Test.WikipediaParser
 {
@@ -21,33 +23,34 @@ namespace FightDataProcessor.Test.WikipediaParser
         [TestMethod]
         public void TestRowContainsFight()
         {
-            TableRowResult result = resultsTableParser.ParseRow(3);
+            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsTrue(result.IsRowContainingFight);
+            Assert.IsTrue(parserResults.ElementAt(3).IsRowContainingFight);
         }
 
         [TestMethod]
         public void TestRowDoesNotContainFight()
         {
-            TableRowResult result = resultsTableParser.ParseRow(1);
+            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsFalse(result.IsRowContainingFight);
+            Assert.IsFalse(parserResults.ElementAt(1).IsRowContainingFight);
         }
 
         [TestMethod]
         public void TestWinner()
         {
-            TableRowResult result = resultsTableParser.ParseRow(3);
+            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsTrue(result.Winner == "Luke Rockhold");
+            Assert.IsTrue(parserResults.ElementAt(2).Winner == "Luke Rockhold");
         }
 
         [TestMethod]
         public void TestLoser()
         {
-            TableRowResult result = resultsTableParser.ParseRow(4);
+            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsTrue(result.Loser == "Ross Pearson");
+            Assert.IsTrue(parserResults.ElementAt(3).Loser == "Ross Pearson");
+
         }
     }
 }

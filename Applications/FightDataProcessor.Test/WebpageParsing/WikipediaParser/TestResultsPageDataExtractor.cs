@@ -10,7 +10,7 @@ namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
     [TestClass]
     public class TestResultsPageDataExtractor
     {
-        private ResultsPageDataExtractor resultsPageDataExtractor;
+        private ResultsPageFightExtractor resultsPageDataExtractor;
         private UfcEventGenerator ufcEventGenerator;
         private FightPicksContext context;
 
@@ -25,9 +25,9 @@ namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
         {
             UfcEvent ufcEvent = ufcEventGenerator.GetPopulatedUfcEvent();
             int existingFights = ufcEvent.Fights.Count;
-            resultsPageDataExtractor = new ResultsPageDataExtractor(ufcEvent, context);
+            resultsPageDataExtractor = new ResultsPageFightExtractor(ufcEvent, context);
 
-            resultsPageDataExtractor.ExtractResults();
+            resultsPageDataExtractor.ExtractFights();
 
             Assert.IsTrue(ufcEvent.Fights.Count == existingFights + 11);
         }

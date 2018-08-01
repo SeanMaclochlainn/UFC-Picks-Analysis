@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using System.Collections.Generic;
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
@@ -8,19 +9,32 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         private int currentRowNo;
         private HtmlNode currentRowWinner;
         private HtmlNode currentRowLoser;
+        private static int maxNoOfRows = 20;
 
         public ResultsTableParser(HtmlDocument document)
         {
             this.document = document;
         }
 
-        public TableRowResult ParseRow(int rowNo)
+        public List<TableRowParserResult> ParseTable()
         {
-            currentRowNo = rowNo;
+            List<TableRowParserResult> parserResults = new List<TableRowParserResult>();
+
+            for (int i = 1; i <= maxNoOfRows; i++)
+            {
+                currentRowNo = i;
+                parserResults.Add(ParseCurrentRow());
+            }
+
+            return parserResults;
+        }
+
+        private TableRowParserResult ParseCurrentRow()
+        {
             PopulateCurrentRowNodes();
             if (AreNodesValid())
-                return TableRowResult.AsFightRow(currentRowWinner.InnerText, currentRowLoser.InnerText);
-            return TableRowResult.AsNonFightRow();
+                return TableRowParserResult.AsFightRow(currentRowWinner.InnerText, currentRowLoser.InnerText);
+            return TableRowParserResult.AsNonFightRow();
         }
 
         private void PopulateCurrentRowNodes()
