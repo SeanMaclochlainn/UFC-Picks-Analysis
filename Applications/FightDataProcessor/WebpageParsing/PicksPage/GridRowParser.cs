@@ -1,6 +1,5 @@
 ﻿
 using HtmlAgilityPack;
-using System;
 using System.Collections.Generic;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage

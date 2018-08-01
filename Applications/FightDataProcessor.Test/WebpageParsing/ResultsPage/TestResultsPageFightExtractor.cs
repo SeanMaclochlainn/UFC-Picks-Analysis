@@ -5,16 +5,16 @@ using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.TestData.EntityGenerators;
 
-namespace FightDataProcessor.Test.WebpageParsing.WikipediaParser
+namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
     [TestClass]
-    public class TestResultsPageDataExtractor
+    public class TestResultsPageFightExtractor
     {
         private ResultsPageFightExtractor resultsPageDataExtractor;
         private UfcEventGenerator ufcEventGenerator;
         private FightPicksContext context;
 
-        public TestResultsPageDataExtractor()
+        public TestResultsPageFightExtractor()
         {
             context = new TestDatabase().Context;
             ufcEventGenerator = new UfcEventGenerator(context);

@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FightDataProcessor.Test.WikipediaParser
+namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
     [TestClass]
     public class TestResultsTableParser
