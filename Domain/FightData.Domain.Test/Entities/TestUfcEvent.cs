@@ -38,7 +38,7 @@ namespace FightData.Domain.Test
         {
             UfcEvent ufcEvent = context.UfcEvents.First();
 
-            ufcEvent.Webpages.Add(webpageGenerator.GetWebpage());
+            ufcEvent.Webpages.Add(webpageGenerator.GetEmptyWebpage());
             ufcEvent.Update();
 
             Assert.IsTrue(ufcEvent.Webpages.Count() == 2);

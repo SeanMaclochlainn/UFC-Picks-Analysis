@@ -7,34 +7,25 @@ namespace FightData.TestData.EntityGenerators
     public class UfcEventGenerator : EntityGenerator
     {
         private WebpageGenerator webpageGenerator;
+        private FighterGenerator fighterGenerator;
 
         public UfcEventGenerator(FightPicksContext context) : base(context)
         {
             webpageGenerator = new WebpageGenerator(context);
+            fighterGenerator = new FighterGenerator(context);
         }
 
         public UfcEvent GetPopulatedUfcEvent()
         {
-            UfcEvent ufcEvent = new UfcEvent(context)
-            {
-                EventName = "FN55",
-                Webpages = new List<Webpage>() { webpageGenerator.GetPopulatedResultsPage() },
-            };
-            ufcEvent = AddFightsToUfcEvent(ufcEvent);
+            UfcEvent ufcEvent = GetEmptyUfcEvent();
+            ufcEvent.Webpages = new List<Webpage>() { webpageGenerator.GetPopulatedResultsPage() };
+            ufcEvent.AddFight(fighterGenerator.GetWinner(), fighterGenerator.GetLoser());
             return ufcEvent;
         }
 
         public UfcEvent GetEmptyUfcEvent()
         {
-            return new UfcEvent(context) { EventName = "test event" };
-        }
-
-        private UfcEvent AddFightsToUfcEvent(UfcEvent ufcEvent)
-        {
-            Fighter winner = Fighter.GenerateFighter("Luke Rockhold", context);
-            Fighter loser = Fighter.GenerateFighter("Michael Bisping", context);
-            ufcEvent.AddFight(winner, loser);
-            return ufcEvent;
+            return new UfcEvent(context) { EventName = "FN55" };
         }
     }
 }

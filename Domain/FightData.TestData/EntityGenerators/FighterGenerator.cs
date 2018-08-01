@@ -9,9 +9,17 @@ namespace FightData.TestData.EntityGenerators
 
         public Fighter GetPopulatedFighter()
         {
-            Fighter fighter = new Fighter(context);
-            fighter.PopulateNames("testfname testlname");
-            return fighter;
+            return Fighter.GenerateFighter("testfname testlname", context);
+        }
+
+        public Fighter GetWinner()
+        {
+            return Fighter.GenerateFighter("Luke Rockhold", context);
+        }
+
+        public Fighter GetLoser()
+        {
+            return Fighter.GenerateFighter("Michael Bisping", context);
         }
     }
 }

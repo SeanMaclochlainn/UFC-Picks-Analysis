@@ -19,7 +19,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         [TestMethod]
         public void GenerateHtmlDocument()
         {
-            HtmlDocument htmlDocument = HtmlDocumentGenerator.FromWebpage(webpageGenerator.GetWebpage());
+            HtmlDocument htmlDocument = HtmlDocumentGenerator.FromWebpage(webpageGenerator.GetEmptyWebpage());
 
             Assert.IsNotNull(htmlDocument);
         }

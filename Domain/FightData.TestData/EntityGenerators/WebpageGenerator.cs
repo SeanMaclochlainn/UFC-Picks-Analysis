@@ -23,7 +23,7 @@ namespace FightData.TestData.EntityGenerators
             return webpage;
         }
 
-        public Webpage GetWebpage()
+        public Webpage GetEmptyWebpage()
         {
             Webpage webpage = new Webpage(context)
             {
