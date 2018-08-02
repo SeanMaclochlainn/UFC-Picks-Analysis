@@ -12,6 +12,7 @@ namespace FightData.Domain.Entities
         public Website Website { get; set; }
         public UfcEvent Event { get; set; }
         public string Data { get; set; }
+        public WebpageType WebpageType { get; set; }
 
         //public void UpdateWebpage(string data, string url)
         //{
