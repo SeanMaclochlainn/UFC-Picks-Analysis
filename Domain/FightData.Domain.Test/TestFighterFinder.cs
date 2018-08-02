@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestFighterFinder : TestDomain
+    public class TestFighterFinder : TestDataLayer
     {
         private TestDatabaseDataAdder databaseDataAdder;
 

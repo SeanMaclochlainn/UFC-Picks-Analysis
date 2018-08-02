@@ -2,11 +2,11 @@
 
 namespace FightData.Domain.Test
 {
-    public class TestDomain
+    public class TestDataLayer
     {
         protected FightPicksContext context;
 
-        public TestDomain()
+        public TestDataLayer()
         {
             context = new TestDatabase().Context;
         }

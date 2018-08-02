@@ -1,22 +1,19 @@
 ﻿using FightDataProcessor.WebpageParsing.ResultsPage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FightData.TestData;
-using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.TestData.EntityGenerators;
+using FightData.Domain.Test;
 
 namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
     [TestClass]
-    public class TestResultsPageFightExtractor
+    public class TestResultsPageFightExtractor : TestDataLayer
     {
         private ResultsPageFightExtractor resultsPageDataExtractor;
         private UfcEventGenerator ufcEventGenerator;
-        private FightPicksContext context;
 
         public TestResultsPageFightExtractor()
         {
-            context = new TestDatabase().Context;
             ufcEventGenerator = new UfcEventGenerator(context);
         }
 

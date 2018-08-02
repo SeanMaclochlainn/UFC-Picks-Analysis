@@ -7,7 +7,7 @@ using System.Linq;
 namespace FightData.Domain.Test.Entities
 {
     [TestClass]
-    public class TestFight : TestDomain
+    public class TestFight : TestDataLayer
     {
         private FightGenerator fightGenerator;
         private UfcEventGenerator ufcEventGenerator;

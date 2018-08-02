@@ -1,7 +1,6 @@
 using System;
 using FightData.Domain;
 using FightDataProcessor;
-using HtmlAgilityPack;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

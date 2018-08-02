@@ -1,5 +1,4 @@
-﻿using FightData.Domain;
-using FightData.TestData;
+﻿using FightData.Domain.Test;
 using FightData.TestData.EntityGenerators;
 using FightDataProcessor.WebpageParsing;
 using FightDataProcessor.WebpageParsing.PicksPage;
@@ -10,14 +9,12 @@ using System.Linq;
 namespace FightDataProcessor.Test.WebpageParsing.PicksPage
 {
     [TestClass]
-    public class TestGridParser
+    public class TestGridParser : TestDataLayer
     {
         private WebpageGenerator webpageGenerator;
-        private FightPicksContext context;
 
         public TestGridParser()
         {
-            context = new TestDatabase().Context;
             webpageGenerator = new WebpageGenerator(context);
         }
 

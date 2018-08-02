@@ -5,7 +5,7 @@ using System.Linq;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestDataRemover : TestDomain
+    public class TestDataRemover : TestDataLayer
     {
         private DataRemover dataRemover;
         private TestDatabaseDataAdder databaseDataAdder;

@@ -8,7 +8,7 @@ using System.Linq;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestUfcEvent : TestDomain
+    public class TestUfcEvent : TestDataLayer
     {
         private WebpageGenerator webpageGenerator;
         private UfcEventGenerator ufcEventGenerator;

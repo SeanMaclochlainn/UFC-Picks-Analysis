@@ -6,7 +6,7 @@ using System.Linq;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestFightAdder : TestDomain
+    public class TestFightAdder : TestDataLayer
     {
         private FightAdder fightAdder;
         private UfcEventGenerator ufcEventGenerator;

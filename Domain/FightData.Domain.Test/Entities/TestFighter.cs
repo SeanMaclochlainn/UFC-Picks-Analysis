@@ -5,7 +5,7 @@ using System.Linq;
 namespace FightData.Domain.Test.Entities
 {
     [TestClass]
-    public class TestFighter : TestDomain
+    public class TestFighter : TestDataLayer
     {
         [TestMethod]
         public void TestAddFighter()
