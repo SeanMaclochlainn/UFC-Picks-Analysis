@@ -1,4 +1,4 @@
-﻿namespace FightDataProcessor.WebpageParsing.PicksPage
+﻿namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class XpathGenerator
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace FightDataProcessor.WebpageParsing.PicksPage
+namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class GridParser
     {

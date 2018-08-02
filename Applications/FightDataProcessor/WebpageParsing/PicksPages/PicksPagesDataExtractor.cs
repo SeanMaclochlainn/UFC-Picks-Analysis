@@ -5,24 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace FightDataProcessor.WebpageParsing.PicksPage
+namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class PicksPageDataExtractor
+    public class PicksPagesDataExtractor
     {
-        private XDocument htmlDocument;
         private PickAdder pickAdder;
         private AnalystFinder analystFinder;
+        private UfcEvent ufcEvent;
 
-        public PicksPageDataExtractor(XDocument htmlDocument, UfcEvent ufcEvent, FightPicksContext context)
+        public PicksPagesDataExtractor(UfcEvent ufcEvent, FightPicksContext context)
         {
-            this.htmlDocument = htmlDocument;
+            this.ufcEvent = ufcEvent;
             pickAdder = new PickAdder(ufcEvent, context);
             analystFinder = new AnalystFinder(context);
         }
 
-        public void ExtractGridData()
+        public void ExtractAllPages()
         {
-            GridParser gridParser = new GridParser(htmlDocument);
+            List<Webpage> picksPages = ufcEvent.Webpages.Where(w => w.WebpageType == WebpageType.PicksPage).ToList();
+            foreach (Webpage picksPage in picksPages)
+            {
+                ExtractGridData(XDocument.Parse(picksPage.Data));
+            }
+        }
+
+        private void ExtractGridData(XDocument picksPageHtml)
+        {
+            GridParser gridParser = new GridParser(picksPageHtml);
             List<GridRowResult> gridRowResults = gridParser.ParseRows();
             foreach (GridRowResult gridRowResult in gridRowResults)
             {

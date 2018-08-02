@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace FightDataProcessor.WebpageParsing.PicksPage
+namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class FightersParser
     {

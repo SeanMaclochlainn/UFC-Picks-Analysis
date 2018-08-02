@@ -1,6 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
-using FightDataProcessor.WebpageParsing.PicksPage;
+using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +32,8 @@ namespace FightDataProcessor.WebpageParsing
 
         private void ParseAllPicksPages()
         {
-            List<Webpage> picksPages = ufcEvent.Webpages.Where(w => w.WebpageType == WebpageType.PicksPage).ToList();
-            foreach (Webpage picksPage in picksPages)
-            {
-                PicksPageDataExtractor picksPageDataExtractor = new PicksPageDataExtractor(XDocumentGenerator.FromWebpage(picksPage), ufcEvent, context);
-                picksPageDataExtractor.ExtractGridData();
-            }
+            PicksPagesDataExtractor picksPagesDataExtractor = new PicksPagesDataExtractor(ufcEvent, context);
+            picksPagesDataExtractor.ExtractAllPages();
         }
 
     }

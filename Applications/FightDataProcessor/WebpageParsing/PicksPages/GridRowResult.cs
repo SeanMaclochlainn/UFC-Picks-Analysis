@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FightDataProcessor.WebpageParsing.PicksPage
+namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class GridRowResult
     {

@@ -13,7 +13,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         public ResultsPageFightExtractor(UfcEvent ufcEvent, FightPicksContext context)
         {
-            XDocument resultsPage = XDocumentGenerator.FromWebpage(ufcEvent.GetResultsPage());
+            XDocument resultsPage = XDocument.Parse(ufcEvent.GetResultsPage().Data);
             resultsTableParser = new ResultsTableParser(resultsPage);
             fightAdder = new FightAdder(ufcEvent, context);
         }
