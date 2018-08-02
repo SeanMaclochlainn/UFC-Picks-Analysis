@@ -1,19 +1,19 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
-using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
     public class PicksPageDataExtractor
     {
-        private HtmlDocument htmlDocument;
+        private XDocument htmlDocument;
         private PickAdder pickAdder;
         private AnalystFinder analystFinder;
 
-        public PicksPageDataExtractor(HtmlDocument htmlDocument, UfcEvent ufcEvent, FightPicksContext context)
+        public PicksPageDataExtractor(XDocument htmlDocument, UfcEvent ufcEvent, FightPicksContext context)
         {
             this.htmlDocument = htmlDocument;
             pickAdder = new PickAdder(ufcEvent, context);

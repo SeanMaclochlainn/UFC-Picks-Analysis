@@ -1,5 +1,5 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
@@ -7,15 +7,15 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
     {
         private static int maxNoOfRows = 20;
         private int currentRow;
-        private HtmlDocument htmlDocument;
+        private XDocument htmlPage;
         private FightersParser fightersParser;
         private AnalystParser analystParser;
 
-        public GridParser(HtmlDocument htmlDocument)
+        public GridParser(XDocument htmlPage)
         {
-            this.htmlDocument = htmlDocument;
-            fightersParser = new FightersParser(htmlDocument);
-            analystParser = new AnalystParser(htmlDocument);
+            this.htmlPage = htmlPage;
+            fightersParser = new FightersParser(htmlPage);
+            analystParser = new AnalystParser(htmlPage);
         }
 
         public List<GridRowResult> ParseRows()

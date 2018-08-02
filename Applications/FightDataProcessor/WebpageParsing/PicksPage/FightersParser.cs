@@ -1,45 +1,46 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
     public class FightersParser
     {
-        private HtmlDocument htmlDocument;
+        private XDocument htmlDocument;
         private static int maxNoOfFights = 10;
         private int currentRow;
         private int columnNo;
 
-        public FightersParser(HtmlDocument htmlDocument)
+        public FightersParser(XDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }
 
-        public List<string> ParseFighters(int currentRow)
+        public List<string> ParseFighters(int rowNo)
         {
-            this.currentRow = currentRow;
+            this.currentRow = rowNo;
             List<string> fighters = new List<string>();
-            foreach (HtmlNode fighterNode in ParseFighterNodes())
-                fighters.Add(fighterNode.InnerText.Trim());
+            foreach (XElement fighterElement in GetFighterElements())
+                fighters.Add(fighterElement.Value.Trim());
             return fighters;
         }
 
-        private List<HtmlNode> ParseFighterNodes()
+        private List<XElement> GetFighterElements()
         {
-            List<HtmlNode> fighterNodes = new List<HtmlNode>();
+            List<XElement> fighterElements = new List<XElement>();
             for (int i = 1; i <= maxNoOfFights; i++)
             {
                 columnNo = i;
-                HtmlNode parsedFighter = ParseFighter();
+                XElement parsedFighter = ParseFighter();
                 if (parsedFighter != null)
-                    fighterNodes.Add(parsedFighter);
+                    fighterElements.Add(parsedFighter);
             }
-            return fighterNodes;
+            return fighterElements;
         }
 
-        private HtmlNode ParseFighter()
+        private XElement ParseFighter()
         {
-            return htmlDocument.DocumentNode.SelectSingleNode(XpathGenerator.GetFighterXpath(currentRow, columnNo));
+            return htmlDocument.XPathSelectElement(XpathGenerator.GetFighterXpath(currentRow, columnNo));
         }
     }
 }

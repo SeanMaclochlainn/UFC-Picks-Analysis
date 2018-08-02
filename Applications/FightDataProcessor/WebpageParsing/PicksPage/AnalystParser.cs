@@ -1,21 +1,22 @@
-﻿using HtmlAgilityPack;
+﻿using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.PicksPage
 {
     public class AnalystParser
     {
-        private HtmlDocument htmlDocument;
+        private XDocument htmlDocument;
 
-        public AnalystParser(HtmlDocument htmlDocument)
+        public AnalystParser(XDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }
 
         public string ParseAnalyst(int currentRow)
         {
-            HtmlNode analystNode = htmlDocument.DocumentNode.SelectSingleNode(XpathGenerator.GetAnalystXpath(currentRow));
-            if (analystNode != null)
-                return analystNode.InnerText;
+            XElement analystElement = htmlDocument.XPathSelectElement(XpathGenerator.GetAnalystXpath(currentRow));
+            if (analystElement != null)
+                return analystElement.Value;
             else
                 return "";
         }

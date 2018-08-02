@@ -1,8 +1,8 @@
 ﻿using FightData.TestData;
 using FightData.TestData.EntityGenerators;
 using FightDataProcessor.WebpageParsing;
-using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.Test.WebpageParsing
 {
@@ -19,7 +19,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         [TestMethod]
         public void GenerateHtmlDocument()
         {
-            HtmlDocument htmlDocument = HtmlDocumentGenerator.FromWebpage(webpageGenerator.GetEmptyWebpage());
+            XDocument htmlDocument = XDocumentGenerator.FromWebpage(webpageGenerator.GetPopulatedResultsPage());
 
             Assert.IsNotNull(htmlDocument);
         }

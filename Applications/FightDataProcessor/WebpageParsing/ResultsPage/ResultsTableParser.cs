@@ -1,17 +1,18 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
     public class ResultsTableParser
     {
-        private HtmlDocument document;
+        private XDocument document;
         private int currentRowNo;
-        private HtmlNode currentRowWinner;
-        private HtmlNode currentRowLoser;
+        private XElement currentRowWinner;
+        private XElement currentRowLoser;
         private static int maxNoOfRows = 20;
 
-        public ResultsTableParser(HtmlDocument document)
+        public ResultsTableParser(XDocument document)
         {
             this.document = document;
         }
@@ -31,19 +32,19 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         private TableRowParserResult ParseCurrentRow()
         {
-            PopulateCurrentRowNodes();
-            if (AreNodesValid())
-                return TableRowParserResult.AsFightRow(currentRowWinner.InnerText, currentRowLoser.InnerText);
+            PopulateCurrentRowElements();
+            if (AreElementsValid())
+                return TableRowParserResult.AsFightRow(currentRowWinner.Value, currentRowLoser.Value);
             return TableRowParserResult.AsNonFightRow();
         }
 
-        private void PopulateCurrentRowNodes()
+        private void PopulateCurrentRowElements()
         {
-            currentRowWinner = document.DocumentNode.SelectSingleNode(ResultsTableXpathGenerator.GetWinnerXpath(currentRowNo));
-            currentRowLoser = document.DocumentNode.SelectSingleNode(ResultsTableXpathGenerator.GetLoserXpath(currentRowNo));
+            currentRowWinner = document.XPathSelectElement(ResultsTableXpathGenerator.GetWinnerXpath(currentRowNo));
+            currentRowLoser = document.XPathSelectElement(ResultsTableXpathGenerator.GetLoserXpath(currentRowNo));
         }
 
-        private bool AreNodesValid()
+        private bool AreElementsValid()
         {
             return !(currentRowWinner == null && currentRowLoser == null);
         }

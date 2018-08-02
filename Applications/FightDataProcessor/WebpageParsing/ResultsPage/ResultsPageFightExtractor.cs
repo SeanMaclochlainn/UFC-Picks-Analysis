@@ -1,8 +1,8 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightDataProcessor.FightData.Domain;
-using HtmlAgilityPack;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
@@ -13,7 +13,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         public ResultsPageFightExtractor(UfcEvent ufcEvent, FightPicksContext context)
         {
-            HtmlDocument resultsPage = HtmlDocumentGenerator.FromWebpage(ufcEvent.GetResultsPage());
+            XDocument resultsPage = XDocumentGenerator.FromWebpage(ufcEvent.GetResultsPage());
             resultsTableParser = new ResultsTableParser(resultsPage);
             fightAdder = new FightAdder(ufcEvent, context);
         }

@@ -1,22 +1,21 @@
 ﻿using FightData.TestData;
 using FightDataProcessor.WebpageParsing.ResultsPage;
-using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
     [TestClass]
     public class TestResultsTableParser
     {
-        private HtmlDocument htmlDocument;
+        private XDocument htmlDocument;
         private ResultsTableParser resultsTableParser;
 
         public TestResultsTableParser()
         {
-            htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(HtmlPageGenerator.GetWikipediaPage());
+            htmlDocument = XDocument.Parse(HtmlPageGenerator.GetWikipediaPage());
             resultsTableParser = new ResultsTableParser(htmlDocument);
         }
 
