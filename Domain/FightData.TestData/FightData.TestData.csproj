@@ -20,6 +20,7 @@
     <EmbeddedResource Include="WebsiteHtml\FN56BloodyElbow.html" />
     <EmbeddedResource Include="WebsiteHtml\FN56MMAJunkie.html" />
     <EmbeddedResource Include="WebsiteHtml\FN56Wikipedia.html" />
+    <EmbeddedResource Include="WebsiteHtml\ResultsPage.html" />
   </ItemGroup>
 
   <ItemGroup>

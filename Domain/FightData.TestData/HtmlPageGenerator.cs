@@ -8,7 +8,7 @@ namespace FightData.TestData
     {
         public static string GetWikipediaPage()
         {
-            return GetResourceFile("FN55Wikipedia.html");
+            return GetResourceFile("ResultsPage.html");
         }
 
         public static string GetPicksPage()

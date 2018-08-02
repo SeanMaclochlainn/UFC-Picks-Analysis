@@ -29,7 +29,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 
             resultsPageDataExtractor.ExtractFights();
 
-            Assert.IsTrue(ufcEvent.Fights.Count == existingFights + 11);
+            Assert.IsTrue(ufcEvent.Fights.Count == existingFights + 2);
         }
     }
 }

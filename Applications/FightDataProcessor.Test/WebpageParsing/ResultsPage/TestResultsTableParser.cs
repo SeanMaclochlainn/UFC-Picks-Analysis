@@ -25,7 +25,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         {
             List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsTrue(parserResults.ElementAt(3).IsRowContainingFight);
+            Assert.IsTrue(parserResults.ElementAt(1).IsRowContainingFight);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         {
             List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsFalse(parserResults.ElementAt(1).IsRowContainingFight);
+            Assert.IsFalse(parserResults.ElementAt(0).IsRowContainingFight);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         {
             List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsTrue(parserResults.ElementAt(2).Winner == "Luke Rockhold");
+            Assert.IsTrue(parserResults.ElementAt(1).Winner == "Luke Rockhold");
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         {
             List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
 
-            Assert.IsTrue(parserResults.ElementAt(3).Loser == "Ross Pearson");
+            Assert.IsTrue(parserResults.ElementAt(2).Loser == "Ross Pearson");
 
         }
     }
