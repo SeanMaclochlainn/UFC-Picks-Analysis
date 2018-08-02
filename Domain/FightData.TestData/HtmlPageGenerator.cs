@@ -13,7 +13,7 @@ namespace FightData.TestData
 
         public static string GetPicksPage()
         {
-            return GetResourceFile("FN55MmaJunkie.html");
+            return GetResourceFile("PicksPage.html");
         }
 
         private static string GetResourceFile(string fileName)

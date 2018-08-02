@@ -5,22 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="WebsiteHtml\FN55BloodyElbow.html" />
-    <None Remove="WebsiteHtml\FN55MmaJunkie.html" />
-    <None Remove="WebsiteHtml\FN55Wikipedia.html" />
-    <None Remove="WebsiteHtml\FN56BloodyElbow.html" />
-    <None Remove="WebsiteHtml\FN56MMAJunkie.html" />
-    <None Remove="WebsiteHtml\FN56Wikipedia.html" />
+    <None Remove="WebsiteHtml\ResultsPage.html" />
+    <None Remove="WebsiteHtml\PicksPage.html" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="WebsiteHtml\FN55BloodyElbow.html" />
-    <EmbeddedResource Include="WebsiteHtml\FN55MmaJunkie.html" />
-    <EmbeddedResource Include="WebsiteHtml\FN55Wikipedia.html" />
-    <EmbeddedResource Include="WebsiteHtml\FN56BloodyElbow.html" />
-    <EmbeddedResource Include="WebsiteHtml\FN56MMAJunkie.html" />
-    <EmbeddedResource Include="WebsiteHtml\FN56Wikipedia.html" />
     <EmbeddedResource Include="WebsiteHtml\ResultsPage.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPage.html" />
   </ItemGroup>
 
   <ItemGroup>
