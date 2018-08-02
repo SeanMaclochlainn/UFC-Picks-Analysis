@@ -18,10 +18,10 @@ namespace FightData.Domain
             fightFinder = FightFinder.WithinEvent(ufcEvent, context);
         }
 
-        public void AddPick(string analystName, string pickName)
+        public void AddPick(Analyst analyst, string pickName)
         {
             Pick pick = new Pick(context);
-            pick.Analyst = analystFinder.FindAnalyst(analystName).Result;
+            pick.Analyst = analyst;
             pick.Fighter = fighterFinder.FindFighter(pickName).Result; 
             pick.Fight = fightFinder.FindFight(pick.Fighter).Result;
             pick.Add();

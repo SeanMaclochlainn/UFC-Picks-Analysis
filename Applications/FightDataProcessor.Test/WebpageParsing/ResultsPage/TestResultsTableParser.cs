@@ -16,7 +16,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         public TestResultsTableParser()
         {
             htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(MockWikipediaPageGenerator.GetHtml());
+            htmlDocument.LoadHtml(HtmlPageGenerator.GetWikipediaPage());
             resultsTableParser = new ResultsTableParser(htmlDocument);
         }
 

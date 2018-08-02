@@ -12,5 +12,10 @@ namespace FightData.TestData.EntityGenerators
         {
             return new Website { DomainName = "wikipedia", WebsiteName = WebsiteName.Wikipedia };
         }
+
+        public Website GetPicksPageWebsite()
+        {
+            return new Website { DomainName = "mmajunkie", WebsiteName = WebsiteName.MMAJunkie };
+        }
     }
 }

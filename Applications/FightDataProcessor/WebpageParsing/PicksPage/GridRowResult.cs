@@ -12,5 +12,10 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
 
         public string AnalystName { get; private set; }
         public List<string> FighterNames { get; private set; }
+
+        public bool IsValidRow()
+        {
+            return !string.IsNullOrEmpty(AnalystName);
+        }
     }
 }

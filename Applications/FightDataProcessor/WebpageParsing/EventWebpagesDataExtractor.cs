@@ -32,7 +32,7 @@ namespace FightDataProcessor.WebpageParsing
         private void ParseAllPicksPages()
         {
             
-            PicksGridParser picksGridParser = new PicksGridParser(HtmlDocumentGenerator.FromWebpage(ufcEvent.Webpages.Last()), ufcEvent, context);
+            PicksPageDataExtractor picksGridParser = new PicksPageDataExtractor(HtmlDocumentGenerator.FromWebpage(ufcEvent.Webpages.Last()), ufcEvent, context);
         }
 
     }

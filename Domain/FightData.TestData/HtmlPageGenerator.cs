@@ -4,11 +4,16 @@ using System.Reflection;
 
 namespace FightData.TestData
 {
-    public class MockWikipediaPageGenerator
+    public class HtmlPageGenerator
     {
-        public static string GetHtml()
+        public static string GetWikipediaPage()
         {
             return GetResourceFile("FN55Wikipedia.html");
+        }
+
+        public static string GetPicksPage()
+        {
+            return GetResourceFile("FN55MmaJunkie.html");
         }
 
         private static string GetResourceFile(string fileName)

@@ -20,7 +20,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         {
             List<TableRowParserResult> parserResults = new List<TableRowParserResult>();
 
-            for (int i = 1; i <= maxNoOfRows; i++)
+            for (int i = 1; i < maxNoOfRows; i++)
             {
                 currentRowNo = i;
                 parserResults.Add(ParseCurrentRow());

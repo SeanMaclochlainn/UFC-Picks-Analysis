@@ -6,37 +6,40 @@ namespace FightDataProcessor.WebpageParsing.PicksPage
     public class FightersParser
     {
         private HtmlDocument htmlDocument;
-        private int rowNo;
-        private int maxNoOfFights = 10;
-        private List<HtmlNode> fighterNodes;
+        private static int maxNoOfFights = 10;
+        private int currentRow;
+        private int columnNo;
 
-        public FightersParser(HtmlDocument htmlDocument, int rowNo)
+        public FightersParser(HtmlDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
-            this.rowNo = rowNo;
-            fighterNodes = new List<HtmlNode>();
         }
 
-        public List<string> FighterNames { get; private set; }
-
-        private void PopulateFighterNodes()
+        public List<string> ParseFighters(int currentRow)
         {
-            for (int columnNo = 0; columnNo <= maxNoOfFights; columnNo++)
+            this.currentRow = currentRow;
+            List<string> fighters = new List<string>();
+            foreach (HtmlNode fighterNode in ParseFighterNodes())
+                fighters.Add(fighterNode.InnerText.Trim());
+            return fighters;
+        }
+
+        private List<HtmlNode> ParseFighterNodes()
+        {
+            List<HtmlNode> fighterNodes = new List<HtmlNode>();
+            for (int i = 1; i <= maxNoOfFights; i++)
             {
-                fighterNodes.Add(htmlDocument.DocumentNode.SelectSingleNode(XpathGenerator.GetFighterXpath(rowNo, columnNo)));
+                columnNo = i;
+                HtmlNode parsedFighter = ParseFighter();
+                if (parsedFighter != null)
+                    fighterNodes.Add(parsedFighter);
             }
+            return fighterNodes;
         }
 
-        private void PopulateFighterNames()
+        private HtmlNode ParseFighter()
         {
-            RemoveEmptyNodes();
-            foreach (HtmlNode node in fighterNodes)
-                FighterNames.Add(node.InnerText);
-        }
-
-        private void RemoveEmptyNodes()
-        {
-            fighterNodes.RemoveAll(n => n == null);
+            return htmlDocument.DocumentNode.SelectSingleNode(XpathGenerator.GetFighterXpath(currentRow, columnNo));
         }
     }
 }
