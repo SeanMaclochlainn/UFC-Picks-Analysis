@@ -10,9 +10,9 @@ namespace FightData.Domain
         private FighterFinder fighterFinder;
         private FightFinder fightFinder;
 
-        public PickAdder(UfcEvent ufcEvent, FightPicksContext context)
+        public PickAdder(UfcEvent ufcEvent)
         {
-            this.context = context;
+            context = ufcEvent.Context;
             analystFinder = new AnalystFinder(context);
             fighterFinder = FighterFinder.WithinEvent(ufcEvent, context);
             fightFinder = FightFinder.WithinEvent(ufcEvent, context);

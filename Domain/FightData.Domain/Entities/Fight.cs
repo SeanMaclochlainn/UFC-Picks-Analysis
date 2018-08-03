@@ -21,8 +21,8 @@ namespace FightData.Domain.Entities
 
         public void Add()
         {
-            context.Fights.Add(this);
-            context.SaveChanges();
+            Context.Fights.Add(this);
+            Context.SaveChanges();
         }
     }
 }

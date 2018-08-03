@@ -26,13 +26,13 @@ namespace FightDataProcessor.WebpageParsing
 
         private void ParseResultsPage()
         {
-            ResultsPageFightExtractor resultsPageDataExtractor = new ResultsPageFightExtractor(ufcEvent, context);
+            ResultsPageFightExtractor resultsPageDataExtractor = new ResultsPageFightExtractor(ufcEvent);
             resultsPageDataExtractor.ExtractFights();
         }
 
         private void ParseAllPicksPages()
         {
-            PicksPagesDataExtractor picksPagesDataExtractor = new PicksPagesDataExtractor(ufcEvent, context);
+            PicksPagesDataExtractor picksPagesDataExtractor = new PicksPagesDataExtractor(ufcEvent);
             picksPagesDataExtractor.ExtractAllPages();
         }
 

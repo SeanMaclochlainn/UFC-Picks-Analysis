@@ -26,8 +26,8 @@ namespace FightData.Domain.Entities
 
         public void Add()
         {
-            context.Fighters.Add(this);
-            context.SaveChanges();
+            Context.Fighters.Add(this);
+            Context.SaveChanges();
         }
 
         public void PopulateNames(string fullName)

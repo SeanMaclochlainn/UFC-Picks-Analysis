@@ -10,10 +10,10 @@ namespace FightDataProcessor.FightData.Domain
         private UfcEvent ufcEvent;
         private FighterFinder fighterFinder;
 
-        public FightAdder(UfcEvent ufcEvent, FightPicksContext context)
+        public FightAdder(UfcEvent ufcEvent)
         {
-            this.context = context;
             this.ufcEvent = ufcEvent;
+            context = ufcEvent.Context;
             fighterFinder = new FighterFinder(context);
         }
 

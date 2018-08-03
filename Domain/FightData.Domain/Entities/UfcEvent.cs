@@ -5,22 +5,19 @@ namespace FightData.Domain.Entities
 {
     public class UfcEvent : Entity
     {
-        public UfcEvent(FightPicksContext context) : base(context)
-        {
-            this.context = context;
-        }
+        public UfcEvent(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }
         public string EventName { get; set; }
         public List<Fight> Fights { get; set; } = new List<Fight>();
         public List<Webpage> Webpages { get; set; }
-        public List<string> CancelledFighterNames { get; set; } 
+        public List<string> CancelledFighterNames { get; set; }
         public List<Fighter> FightersWithMatchingLastNames { get; set; }
 
         public List<Fighter> GetFighters()
         {
             List<Fighter> fighters = new List<Fighter>();
-            foreach(Fight fight in Fights)
+            foreach (Fight fight in Fights)
             {
                 fighters.Add(fight.Winner);
                 fighters.Add(fight.Loser);
@@ -30,7 +27,7 @@ namespace FightData.Domain.Entities
 
         public void AddFight(Fighter winner, Fighter loser)
         {
-            Fight fight = new Fight(context);
+            Fight fight = new Fight(Context);
             fight.Winner = winner;
             fight.Loser = loser;
             fight.UfcEvent = this;
@@ -39,13 +36,13 @@ namespace FightData.Domain.Entities
 
         public void Add()
         {
-            context.UfcEvents.Add(this);
-            context.SaveChanges();
+            Context.UfcEvents.Add(this);
+            Context.SaveChanges();
         }
 
         public void Update()
         {
-            context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public Webpage GetResultsPage()

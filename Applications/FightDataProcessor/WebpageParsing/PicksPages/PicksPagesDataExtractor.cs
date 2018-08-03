@@ -13,11 +13,11 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         private AnalystFinder analystFinder;
         private UfcEvent ufcEvent;
 
-        public PicksPagesDataExtractor(UfcEvent ufcEvent, FightPicksContext context)
+        public PicksPagesDataExtractor(UfcEvent ufcEvent)
         {
             this.ufcEvent = ufcEvent;
-            pickAdder = new PickAdder(ufcEvent, context);
-            analystFinder = new AnalystFinder(context);
+            pickAdder = new PickAdder(ufcEvent);
+            analystFinder = new AnalystFinder(ufcEvent.Context);
         }
 
         public void ExtractAllPages()

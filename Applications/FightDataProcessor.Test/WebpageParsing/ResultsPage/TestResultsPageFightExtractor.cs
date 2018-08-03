@@ -22,7 +22,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         {
             UfcEvent ufcEvent = ufcEventGenerator.GetPopulatedUfcEvent();
             int existingFights = ufcEvent.Fights.Count;
-            resultsPageDataExtractor = new ResultsPageFightExtractor(ufcEvent, context);
+            resultsPageDataExtractor = new ResultsPageFightExtractor(ufcEvent);
 
             resultsPageDataExtractor.ExtractFights();
 
