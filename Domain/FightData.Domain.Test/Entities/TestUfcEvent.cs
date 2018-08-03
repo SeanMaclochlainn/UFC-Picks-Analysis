@@ -56,7 +56,7 @@ namespace FightData.Domain.Test
 
         private void AddEvent()
         {
-            databaseDataAdder.AddEvent();
+            databaseDataAdder.AddPopulatedEvent();
         }
     }
 }

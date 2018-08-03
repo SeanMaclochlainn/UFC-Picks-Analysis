@@ -16,7 +16,7 @@ namespace FightDataProcessor.WebpageParsing
             this.ufcEvent = ufcEvent;
         }
 
-        public void ParseAllWebpages()
+        public void ExtractWebpagesData()
         {
             ParseResultsPage();
             ParseAllPicksPages();

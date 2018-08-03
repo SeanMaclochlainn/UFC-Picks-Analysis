@@ -15,9 +15,9 @@ namespace FightData.TestData.EntityGenerators
 
         public Analyst GetPopulatedAnalyst()
         {
-            Analyst analyst = new Analyst();
+            Analyst analyst = new Analyst(context);
             analyst.AltNames = new List<AnalystAltName>() { GetAltName(analyst) };
-            analyst.Name = "test analyst";
+            analyst.Name = "Mike Bohn";
             analyst.Website = websiteGenerator.GetResultsPageWebsite();
             return analyst;
         }

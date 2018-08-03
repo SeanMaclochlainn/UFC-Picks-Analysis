@@ -24,7 +24,9 @@ namespace FightData.Domain.Finders
 
         public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, string name)
         {
-            Fighter fighter = specifiedFighters.FirstOrDefault(f => f.FullName == name);
+            Fighter fighter = specifiedFighters.SingleOrDefault(f => f.FullName == name);
+            if (fighter == null)
+                fighter = specifiedFighters.SingleOrDefault(f => f.LastName == name);
             return new FinderResult<Fighter>(fighter);
         }
 

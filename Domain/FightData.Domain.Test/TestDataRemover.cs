@@ -27,7 +27,7 @@ namespace FightData.Domain.Test
 
         private void AddTestData()
         {
-            databaseDataAdder.AddPick();
+            databaseDataAdder.AddPopulatedPick();
         }
     }
 }

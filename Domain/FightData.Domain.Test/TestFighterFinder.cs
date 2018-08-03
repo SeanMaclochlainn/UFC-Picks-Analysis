@@ -8,27 +8,31 @@ namespace FightData.Domain.Test
     [TestClass]
     public class TestFighterFinder : TestDataLayer
     {
-        private TestDatabaseDataAdder databaseDataAdder;
+        private FighterFinder fighterFinder;
 
         public TestFighterFinder()
         {
-            databaseDataAdder = new TestDatabaseDataAdder(context);
-            AddTestFighters();
+            fighterFinder = new FighterFinder(context);
         }
 
         [TestMethod]
-        public void TestSimpleName()
+        public void TestFindByFullName()
         {
-            FighterFinder fighterFinder = new FighterFinder(context); 
+            Fighter.GenerateFighter("testfname testlname", context).Add();
 
             FinderResult<Fighter> finderResult = fighterFinder.FindFighter("testfname testlname");
 
             Assert.IsTrue(finderResult.IsFound());
         }
 
-        private void AddTestFighters()
+        [TestMethod]
+        public void TestFindBySurname()
         {
-            databaseDataAdder.AddRegularFighter();
+            Fighter.GenerateFighter("Luke Rockhold", context).Add();
+
+            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold");
+
+            Assert.IsTrue(finderResult.IsFound());
         }
 
     }

@@ -10,7 +10,7 @@ namespace FightData.Domain.Entities
         public int Id { get; set; }
         public string EventName { get; set; }
         public List<Fight> Fights { get; set; } = new List<Fight>();
-        public List<Webpage> Webpages { get; set; }
+        public List<Webpage> Webpages { get; set; } = new List<Webpage>();
         public List<string> CancelledFighterNames { get; set; }
         public List<Fighter> FightersWithMatchingLastNames { get; set; }
 

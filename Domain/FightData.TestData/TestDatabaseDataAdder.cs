@@ -19,20 +19,20 @@ namespace FightData.TestData
             fighterGenerator = new FighterGenerator(context);
         }
 
-        public void AddEvent()
+        public void AddPopulatedEvent()
         {
             UfcEvent ufcEvent = ufcEventGenerator.GetPopulatedUfcEvent();
             context.Add(ufcEvent);
             context.SaveChanges();
         }
 
-        public void AddPick()
+        public void AddPopulatedPick()
         {
             context.Add(pickGenerator.GetPopulatedPick());
             context.SaveChanges();
         }
 
-        public void AddRegularFighter()
+        public void AddPopulatedFighter()
         {
             context.Add(fighterGenerator.GetPopulatedFighter());
             context.SaveChanges();
