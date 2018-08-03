@@ -10,12 +10,10 @@ namespace FightDataProcessor.WebpageParsing
     public class EventWebpagesDataExtractor
     {
         private UfcEvent ufcEvent;
-        private FightPicksContext context;
 
-        public EventWebpagesDataExtractor(UfcEvent ufcEvent, FightPicksContext context)
+        public EventWebpagesDataExtractor(UfcEvent ufcEvent)
         {
             this.ufcEvent = ufcEvent;
-            this.context = context;
         }
 
         public void ParseAllWebpages()
