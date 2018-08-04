@@ -12,11 +12,11 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             this.htmlDocument = htmlDocument;
         }
 
-        public string ParseAnalyst(int currentRow)
+        public string ParseAnalyst(int rowNo)
         {
-            XElement analystElement = htmlDocument.XPathSelectElement(XpathGenerator.GetAnalystXpath(currentRow));
+            XElement analystElement = htmlDocument.XPathSelectElement(XpathGenerator.GetAnalystXpath(rowNo));
             if (analystElement != null)
-                return analystElement.Value;
+                return DataSanitizer.GetElementValue(analystElement);
             else
                 return "";
         }

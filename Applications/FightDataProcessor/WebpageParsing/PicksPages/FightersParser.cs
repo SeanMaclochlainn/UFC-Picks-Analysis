@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -6,10 +7,9 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class FightersParser
     {
-        private XDocument htmlDocument;
         private static int maxNoOfFights = 10;
+        private XDocument htmlDocument;
         private int currentRow;
-        private int columnNo;
 
         public FightersParser(XDocument htmlDocument)
         {
@@ -20,27 +20,27 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         {
             this.currentRow = rowNo;
             List<string> fighters = new List<string>();
-            foreach (XElement fighterElement in GetFighterElements())
-                fighters.Add(fighterElement.Value.Trim());
+            foreach (XElement fighterElement in GetCurrentRowFighterElements())
+                fighters.Add(DataSanitizer.GetElementValue(fighterElement));
             return fighters;
         }
 
-        private List<XElement> GetFighterElements()
+        private List<XElement> GetCurrentRowFighterElements()
         {
             List<XElement> fighterElements = new List<XElement>();
-            for (int i = 1; i <= maxNoOfFights; i++)
+            for (int currentColumnNo = 1; currentColumnNo <= maxNoOfFights; currentColumnNo++)
             {
-                columnNo = i;
-                XElement parsedFighter = ParseFighter();
+                XElement parsedFighter = ParseFighter(currentColumnNo);
                 if (parsedFighter != null)
                     fighterElements.Add(parsedFighter);
             }
             return fighterElements;
         }
 
-        private XElement ParseFighter()
+        private XElement ParseFighter(int columnNo)
         {
             return htmlDocument.XPathSelectElement(XpathGenerator.GetFighterXpath(currentRow, columnNo));
         }
+
     }
 }
