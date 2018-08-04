@@ -11,13 +11,13 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         private ResultsTableParser resultsTableParser;
         private FightAdder fightAdder;
 
-        public ResultsPageFightExtractor(UfcEvent ufcEvent)
+        public ResultsPageFightExtractor(Webpage resultsPage)
         {
-            resultsTableParser = new ResultsTableParser(XDocument.Parse(ufcEvent.GetResultsPage().Data));
-            fightAdder = new FightAdder(ufcEvent);
+            resultsTableParser = new ResultsTableParser(XDocument.Parse(resultsPage.Data));
+            fightAdder = new FightAdder(resultsPage.Event);
         }
 
-        public void ExtractFights()
+        public void ExtractResults()
         {
             List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
             foreach(TableRowParserResult parserResult in parserResults)
