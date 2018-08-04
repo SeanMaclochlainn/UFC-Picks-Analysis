@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using FightData.Domain;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
-    public class ResultsTableParser
+    public class ResultsPageParser
     {
         private XDocument document;
         private int currentRowNo;
@@ -12,21 +13,21 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         private XElement currentRowLoser;
         private static int maxNoOfRows = 20;
 
-        public ResultsTableParser(XDocument document)
+        public ResultsPageParser(XDocument document)
         {
             this.document = document;
         }
 
-        public List<ParsedTableRow> ParseTableRows()
+        public List<FightResult> ParseTableRows()
         {
-            List<ParsedTableRow> parsedTableRows = new List<ParsedTableRow>();
+            List<FightResult> parsedTableRows = new List<FightResult>();
 
             for (int i = 1; i < maxNoOfRows; i++)
             {
                 currentRowNo = i;
                 PopulateCurrentRowElements();
                 if (AreElementsValid())
-                    parsedTableRows.Add(new ParsedTableRow(currentRowWinner.Value, currentRowLoser.Value));
+                    parsedTableRows.Add(new FightResult(currentRowWinner.Value, currentRowLoser.Value));
             }
 
             return parsedTableRows;

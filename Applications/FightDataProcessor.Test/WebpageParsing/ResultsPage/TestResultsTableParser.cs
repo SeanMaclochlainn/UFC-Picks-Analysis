@@ -1,4 +1,5 @@
-﻿using FightData.TestData;
+﻿using FightData.Domain;
+using FightData.TestData;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -11,36 +12,36 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
     public class TestResultsTableParser
     {
         private XDocument htmlDocument;
-        private ResultsTableParser resultsTableParser;
+        private ResultsPageParser resultsTableParser;
 
         public TestResultsTableParser()
         {
             htmlDocument = XDocument.Parse(HtmlPageGenerator.GetWikipediaPage());
-            resultsTableParser = new ResultsTableParser(htmlDocument);
+            resultsTableParser = new ResultsPageParser(htmlDocument);
         }
 
         [TestMethod]
         public void TestCorrectResultCount()
         {
-            List<ParsedTableRow> parsedTableRows = resultsTableParser.ParseTableRows();
+            List<FightResult> fightResults = resultsTableParser.ParseTableRows();
 
-            Assert.IsTrue(parsedTableRows.Count() == 2);
+            Assert.IsTrue(fightResults.Count() == 2);
         }
 
         [TestMethod]
         public void TestWinner()
         {
-            List<ParsedTableRow> parsedTableRows = resultsTableParser.ParseTableRows();
+            List<FightResult> fightResults = resultsTableParser.ParseTableRows();
 
-            Assert.IsTrue(parsedTableRows.ElementAt(0).Winner == "Luke Rockhold");
+            Assert.IsTrue(fightResults.ElementAt(0).Winner == "Luke Rockhold");
         }
 
         [TestMethod]
         public void TestLoser()
         {
-            List<ParsedTableRow> parseTableRows = resultsTableParser.ParseTableRows();
+            List<FightResult> fightResults = resultsTableParser.ParseTableRows();
 
-            Assert.IsTrue(parseTableRows.ElementAt(1).Loser == "Ross Pearson");
+            Assert.IsTrue(fightResults.ElementAt(1).Loser == "Ross Pearson");
 
         }
     }

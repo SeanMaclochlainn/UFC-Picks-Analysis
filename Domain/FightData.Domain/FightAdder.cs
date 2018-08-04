@@ -1,6 +1,7 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using System.Collections.Generic;
 
 namespace FightDataProcessor.FightData.Domain
 {
@@ -17,12 +18,18 @@ namespace FightDataProcessor.FightData.Domain
             fighterFinder = new FighterFinder(context);
         }
 
-        public void AddFight(string winnerName, string loserName)
+        public void AddFights(List<FightResult> fightResults)
         {
-            AddFighter(winnerName);
-            AddFighter(loserName);
-            Fighter winner = fighterFinder.FindFighter(winnerName).Result;
-            Fighter loser = fighterFinder.FindFighter(loserName).Result;
+            foreach (FightResult fightResult in fightResults)
+                AddFight(fightResult);
+        }
+
+        public void AddFight(FightResult fightResult)
+        {
+            AddFighter(fightResult.Winner);
+            AddFighter(fightResult.Loser);
+            Fighter winner = fighterFinder.FindFighter(fightResult.Winner).Result;
+            Fighter loser = fighterFinder.FindFighter(fightResult.Loser).Result;
             ufcEvent.AddFight(winner, loser);
         }
 

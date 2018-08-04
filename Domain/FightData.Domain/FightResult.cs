@@ -1,8 +1,8 @@
-﻿namespace FightDataProcessor.WebpageParsing.ResultsPage
+﻿namespace FightData.Domain
 {
-    public class ParsedTableRow
+    public class FightResult
     {
-        public ParsedTableRow(string winner, string loser)
+        public FightResult(string winner, string loser)
         {
             Winner = winner;
             Loser = loser;

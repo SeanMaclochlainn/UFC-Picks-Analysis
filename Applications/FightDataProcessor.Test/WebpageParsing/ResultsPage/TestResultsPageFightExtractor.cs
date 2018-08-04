@@ -1,8 +1,8 @@
-﻿using FightDataProcessor.WebpageParsing.ResultsPage;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FightData.Domain.Entities;
 using FightData.Domain.Test;
 using System.Linq;
+using FightDataProcessor.WebpageParsing;
 
 namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
@@ -12,14 +12,21 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         [TestMethod]
         public void TestExtractResults()
         {
-            Webpage resultsPage = entityGenerator.WebpageGenerator.GetPopulatedResultsPage();
-            resultsPage.Event.Add();
+            UfcEvent ufcEvent = GetResultsPageEvent();
+            ufcEvent.Add();
+            EventDataExtractor eventDataExtractor = new EventDataExtractor(ufcEvent);
             int existingFights = context.Fights.Count();
-            ResultsPageFightExtractor resultsPageFightExtractor = new ResultsPageFightExtractor(resultsPage);
 
-            resultsPageFightExtractor.ExtractResults();
+            eventDataExtractor.ExtractResultsPage();
 
             Assert.IsTrue(context.Fights.Count() == existingFights + 2);
+        }
+
+        private UfcEvent GetResultsPageEvent()
+        {
+            UfcEvent ufcEvent = entityGenerator.UfcEventGenerator.GetEmptyUfcEvent();
+            ufcEvent.Webpages.Add(entityGenerator.WebpageGenerator.GetPopulatedResultsPage());
+            return ufcEvent;
         }
     }
 }

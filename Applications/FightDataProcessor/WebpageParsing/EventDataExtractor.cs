@@ -1,8 +1,11 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain;
+using FightData.Domain.Entities;
+using FightDataProcessor.FightData.Domain;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
@@ -17,8 +20,16 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractAllWebpages()
         {
-            new ResultsPageFightExtractor(ufcEvent.GetResultsPage()).ExtractResults();
+            ExtractResultsPage();
             ExtractAllPicksPages();
+        }
+
+        public void ExtractResultsPage()
+        {
+            ResultsPageParser resultsPageParser = new ResultsPageParser(XDocument.Parse(ufcEvent.GetResultsPage().Data));
+            FightAdder fightAdder = new FightAdder(ufcEvent);
+            fightAdder.AddFights(resultsPageParser.ParseTableRows());
+            ufcEvent.Update();
         }
 
         private void ExtractAllPicksPages()
