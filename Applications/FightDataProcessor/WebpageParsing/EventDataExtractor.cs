@@ -7,28 +7,28 @@ using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
-    public class EventWebpagesDataExtractor
+    public class EventDataExtractor
     {
         private UfcEvent ufcEvent;
 
-        public EventWebpagesDataExtractor(UfcEvent ufcEvent)
+        public EventDataExtractor(UfcEvent ufcEvent)
         {
             this.ufcEvent = ufcEvent;
         }
 
-        public void ExtractWebpagesData()
+        public void ExtractAllWebpages()
         {
-            ParseResultsPage();
-            ParseAllPicksPages();
+            ExtractResultsPages();
+            ExtractAllPicksPages();
         }
 
-        private void ParseResultsPage()
+        private void ExtractResultsPages()
         {
             ResultsPageFightExtractor resultsPageDataExtractor = new ResultsPageFightExtractor(ufcEvent);
             resultsPageDataExtractor.ExtractFights();
         }
 
-        private void ParseAllPicksPages()
+        private void ExtractAllPicksPages()
         {
             PicksPagesDataExtractor picksPagesDataExtractor = new PicksPagesDataExtractor(ufcEvent);
             picksPagesDataExtractor.ExtractAllPages();

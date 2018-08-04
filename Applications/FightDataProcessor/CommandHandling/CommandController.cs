@@ -1,4 +1,6 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Entities;
+using FightData.Domain.Finders;
 using FightDataProcessor.WebpageParsing;
 
 namespace FightDataProcessor
@@ -37,8 +39,9 @@ namespace FightDataProcessor
 
         private void CollectAllUfcEventsData()
         {
-            EventsDataExtractor ufcEventsParser = new EventsDataExtractor(new FightPicksContext());
-            ufcEventsParser.ExtractAllEvents();
+            UfcEventFinder ufcEventFinder = new UfcEventFinder(new FightPicksContext());
+            foreach (UfcEvent ufcEvent in ufcEventFinder.FindAllEvents())
+                new EventDataExtractor(ufcEvent).ExtractAllWebpages();
         }
     }
 }

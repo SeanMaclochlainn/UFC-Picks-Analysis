@@ -6,18 +6,18 @@ namespace FightDataProcessor
 {
     public class ExistingUfcEventCollector
     {
-        private EventFinder ufcEventFinder;
+        private UfcEventFinder ufcEventFinder;
         private UfcEventCollectingUi eventUi;
         private UfcEvent ufcEvent;
         private UfcEventWebpagesCollector ufcEventWebpagesCollector;
         private FightPicksContext context;
 
-        public ExistingUfcEventCollector(FightPicksContext context) : this(new UfcEventCollectingUi(), new EventFinder(context), new UfcEventWebpagesCollector())
+        public ExistingUfcEventCollector(FightPicksContext context) : this(new UfcEventCollectingUi(), new UfcEventFinder(context), new UfcEventWebpagesCollector())
         {
             this.context = context;
         }
 
-        public ExistingUfcEventCollector(UfcEventCollectingUi eventUi, EventFinder ufcEventFinder, UfcEventWebpagesCollector ufcEventWebpagesCollector)
+        public ExistingUfcEventCollector(UfcEventCollectingUi eventUi, UfcEventFinder ufcEventFinder, UfcEventWebpagesCollector ufcEventWebpagesCollector)
         {
             this.eventUi = eventUi;
             this.ufcEventFinder = ufcEventFinder;

@@ -4,9 +4,9 @@ using FightData.Domain.Entities;
 
 namespace FightData.Domain.Finders
 {
-    public class EventFinder : DataFinder
+    public class UfcEventFinder : DataFinder
     {
-        public EventFinder(FightPicksContext context) : base(context) { }
+        public UfcEventFinder(FightPicksContext context) : base(context) { }
 
         public List<UfcEvent> FindAllEvents()
         {
