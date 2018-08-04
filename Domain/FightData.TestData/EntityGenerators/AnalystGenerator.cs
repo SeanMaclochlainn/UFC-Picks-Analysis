@@ -7,12 +7,10 @@ namespace FightData.TestData.EntityGenerators
     public class AnalystGenerator
     {
         private FightPicksContext context;
-        private WebsiteGenerator websiteGenerator;
 
         public AnalystGenerator(FightPicksContext context)
         {
             this.context = context;
-            websiteGenerator = new WebsiteGenerator(context);
         }
 
         public Analyst GetPopulatedAnalyst()
@@ -20,7 +18,7 @@ namespace FightData.TestData.EntityGenerators
             Analyst analyst = new Analyst(context);
             analyst.AltNames = new List<AnalystAltName>() { GetAltName(analyst) };
             analyst.Name = "Mike Bohn";
-            analyst.Website = websiteGenerator.GetResultsPageWebsite();
+            analyst.Website = new WebsiteGenerator(context).GetResultsPageWebsite();
             return analyst;
         }
 

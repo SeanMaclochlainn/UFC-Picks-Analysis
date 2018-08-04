@@ -10,11 +10,13 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
     {
         private ResultsTableParser resultsTableParser;
         private FightAdder fightAdder;
+        private Webpage resultsPage;
 
         public ResultsPageFightExtractor(Webpage resultsPage)
         {
             resultsTableParser = new ResultsTableParser(XDocument.Parse(resultsPage.Data));
             fightAdder = new FightAdder(resultsPage.Event);
+            this.resultsPage = resultsPage;
         }
 
         public void ExtractResults()
@@ -25,6 +27,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
                 if (parserResult.IsRowContainingFight)
                     fightAdder.AddFight(parserResult.Winner, parserResult.Loser);
             }
+            resultsPage.Event.Update();
         }
 
     }

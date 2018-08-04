@@ -9,15 +9,17 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
     [TestClass]
     public class TestResultsPageFightExtractor : TestDataLayer
     {
-        //[TestMethod]
-        //public void TestExtractResults()
-        //{
-        //    int existingFights = context.Fights.Count();
-        //    ResultsPageFightExtractor resultsPageFightExtractor = new ResultsPageFightExtractor(entityGenerator.WebpageGenerator.GetPopulatedResultsPage());
+        [TestMethod]
+        public void TestExtractResults()
+        {
+            Webpage resultsPage = entityGenerator.WebpageGenerator.GetPopulatedResultsPage();
+            resultsPage.Event.Add();
+            int existingFights = context.Fights.Count();
+            ResultsPageFightExtractor resultsPageFightExtractor = new ResultsPageFightExtractor(resultsPage);
 
-        //    resultsPageFightExtractor.ExtractResults();
+            resultsPageFightExtractor.ExtractResults();
 
-        //    Assert.IsTrue(context.Fights.Count() == existingFights + 2);
-        //}
+            Assert.IsTrue(context.Fights.Count() == existingFights + 2);
+        }
     }
 }

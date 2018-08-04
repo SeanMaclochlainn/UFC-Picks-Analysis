@@ -6,22 +6,18 @@ namespace FightData.TestData.EntityGenerators
     public class FightGenerator
     {
         private FightPicksContext context;
-        private UfcEventGenerator ufcEventGenerator;
-        private FighterGenerator fighterGenerator;
 
         public FightGenerator(FightPicksContext context)
         {
             this.context = context;
-            ufcEventGenerator = new UfcEventGenerator(context);
-            fighterGenerator = new FighterGenerator(context);
         }
 
         public Fight GetPopulatedFight()
         {
             Fight fight = new Fight(context);
-            fight.UfcEvent = ufcEventGenerator.GetEmptyUfcEvent();
-            fight.Winner = fighterGenerator.GetWinner();
-            fight.Loser = fighterGenerator.GetLoser();
+            fight.UfcEvent = new UfcEventGenerator(context).GetEmptyUfcEvent();
+            fight.Winner = new FighterGenerator(context).GetWinner();
+            fight.Loser = new FighterGenerator(context).GetLoser();
             return fight;
         }
 

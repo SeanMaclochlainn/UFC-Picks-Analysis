@@ -6,12 +6,10 @@ namespace FightData.TestData.EntityGenerators
     public class WebpageGenerator
     {
         private FightPicksContext context;
-        private WebsiteGenerator websiteGenerator;
 
         public WebpageGenerator(FightPicksContext context)
         {
             this.context = context;
-            websiteGenerator = new WebsiteGenerator(context);
         }
 
         public Webpage GetPopulatedResultsPage()
@@ -19,8 +17,9 @@ namespace FightData.TestData.EntityGenerators
             Webpage webpage = new Webpage(context)
             {
                 Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
-                Website = websiteGenerator.GetResultsPageWebsite(),
-                Data = HtmlPageGenerator.GetWikipediaPage()
+                Website = new WebsiteGenerator(context).GetResultsPageWebsite(),
+                Data = HtmlPageGenerator.GetWikipediaPage(),
+                Event = new UfcEventGenerator(context).GetEmptyUfcEvent()
             };
             return webpage;
         }
@@ -30,7 +29,7 @@ namespace FightData.TestData.EntityGenerators
             Webpage webpage = new Webpage(context)
             {
                 Url = "https://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
-                Website = websiteGenerator.GetPicksPageWebsite(),
+                Website = new WebsiteGenerator(context).GetPicksPageWebsite(),
                 Data = HtmlPageGenerator.GetPicksPage(),
                 WebpageType = WebpageType.PicksPage
             };
@@ -42,7 +41,7 @@ namespace FightData.TestData.EntityGenerators
             Webpage webpage = new Webpage(context)
             {
                 Url = "url",
-                Website = websiteGenerator.GetResultsPageWebsite(),
+                Website = new WebsiteGenerator(context).GetResultsPageWebsite(),
                 Data = "test data"
             };
             return webpage;

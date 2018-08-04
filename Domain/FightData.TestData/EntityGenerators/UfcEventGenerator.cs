@@ -7,21 +7,17 @@ namespace FightData.TestData.EntityGenerators
     public class UfcEventGenerator
     {
         private FightPicksContext context;
-        private WebpageGenerator webpageGenerator;
-        private FighterGenerator fighterGenerator;
 
         public UfcEventGenerator(FightPicksContext context)
         {
             this.context = context;
-            webpageGenerator = new WebpageGenerator(context);
-            fighterGenerator = new FighterGenerator(context);
         }
 
         public UfcEvent GetPopulatedUfcEvent()
         {
             UfcEvent ufcEvent = GetEmptyUfcEvent();
-            ufcEvent.Webpages = new List<Webpage>() { webpageGenerator.GetPopulatedResultsPage() };
-            ufcEvent.AddFight(fighterGenerator.GetWinner(), fighterGenerator.GetLoser());
+            ufcEvent.Webpages = new List<Webpage>() { new WebpageGenerator(context).GetPopulatedResultsPage() };
+            ufcEvent.AddFight(new FighterGenerator(context).GetWinner(), new FighterGenerator(context).GetLoser());
             return ufcEvent;
         }
 
