@@ -3,12 +3,14 @@ using FightData.Domain.Entities;
 
 namespace FightData.TestData.EntityGenerators
 {
-    public class WebpageGenerator : EntityGenerator
+    public class WebpageGenerator
     {
+        private FightPicksContext context;
         private WebsiteGenerator websiteGenerator;
 
-        public WebpageGenerator(FightPicksContext context) : base(context)
+        public WebpageGenerator(FightPicksContext context)
         {
+            this.context = context;
             websiteGenerator = new WebsiteGenerator(context);
         }
 

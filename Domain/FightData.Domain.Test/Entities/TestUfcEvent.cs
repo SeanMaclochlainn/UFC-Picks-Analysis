@@ -1,6 +1,4 @@
 ﻿using FightData.Domain.Entities;
-using FightData.TestData;
-using FightData.TestData.EntityGenerators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +8,6 @@ namespace FightData.Domain.Test
     [TestClass]
     public class TestUfcEvent : TestDataLayer
     {
-        private WebpageGenerator webpageGenerator;
-        private UfcEventGenerator ufcEventGenerator;
-
-        public TestUfcEvent()
-        {
-            webpageGenerator = new WebpageGenerator(context);
-            ufcEventGenerator = new UfcEventGenerator(context);
-        }
-
         [TestMethod]
         public void TestAddEvent()
         {
@@ -33,10 +22,10 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestUpdateEvent()
         {
-            ufcEventGenerator.GetPopulatedUfcEvent().Add();
+            entityGenerator.UfcEventGenerator.GetPopulatedUfcEvent().Add();
             UfcEvent ufcEvent = context.UfcEvents.First();
 
-            ufcEvent.Webpages.Add(webpageGenerator.GetEmptyWebpage());
+            ufcEvent.Webpages.Add(entityGenerator.WebpageGenerator.GetEmptyWebpage());
             ufcEvent.Update();
 
             Assert.IsTrue(ufcEvent.Webpages.Count() == 2);
@@ -45,7 +34,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestGetFighters()
         {
-            UfcEvent ufcEvent = ufcEventGenerator.GetPopulatedUfcEvent();
+            UfcEvent ufcEvent = entityGenerator.UfcEventGenerator.GetPopulatedUfcEvent();
 
             List<Fighter> fighters = ufcEvent.GetFighters();
 

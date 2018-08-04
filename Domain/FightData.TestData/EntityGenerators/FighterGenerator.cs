@@ -3,9 +3,14 @@ using FightData.Domain.Entities;
 
 namespace FightData.TestData.EntityGenerators
 {
-    public class FighterGenerator : EntityGenerator
+    public class FighterGenerator
     {
-        public FighterGenerator(FightPicksContext context) : base(context) { }
+        private FightPicksContext context;
+
+        public FighterGenerator(FightPicksContext context)
+        {
+            this.context = context;
+        }
 
         public Fighter GetPopulatedFighter()
         {

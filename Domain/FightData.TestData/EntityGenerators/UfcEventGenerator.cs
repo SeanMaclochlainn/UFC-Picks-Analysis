@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 namespace FightData.TestData.EntityGenerators
 {
-    public class UfcEventGenerator : EntityGenerator
+    public class UfcEventGenerator
     {
+        private FightPicksContext context;
         private WebpageGenerator webpageGenerator;
         private FighterGenerator fighterGenerator;
 
-        public UfcEventGenerator(FightPicksContext context) : base(context)
+        public UfcEventGenerator(FightPicksContext context)
         {
+            this.context = context;
             webpageGenerator = new WebpageGenerator(context);
             fighterGenerator = new FighterGenerator(context);
         }

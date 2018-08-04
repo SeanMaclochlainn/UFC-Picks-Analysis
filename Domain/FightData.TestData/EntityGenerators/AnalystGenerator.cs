@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 namespace FightData.TestData.EntityGenerators
 {
-    public class AnalystGenerator : EntityGenerator
+    public class AnalystGenerator
     {
+        private FightPicksContext context;
         private WebsiteGenerator websiteGenerator;
 
-        public AnalystGenerator(FightPicksContext context) : base(context)
+        public AnalystGenerator(FightPicksContext context)
         {
+            this.context = context;
             websiteGenerator = new WebsiteGenerator(context);
         }
 

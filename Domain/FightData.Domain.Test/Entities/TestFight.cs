@@ -1,5 +1,4 @@
 ﻿using FightData.Domain.Entities;
-using FightData.TestData.EntityGenerators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +8,11 @@ namespace FightData.Domain.Test.Entities
     [TestClass]
     public class TestFight : TestDataLayer
     {
-        private FightGenerator fightGenerator;
-        private UfcEventGenerator ufcEventGenerator;
-
-        public TestFight()
-        {
-            fightGenerator = new FightGenerator(context);
-            ufcEventGenerator = new UfcEventGenerator(context);
-        }
-
         [TestMethod]
         public void TestAddFight()
         {
-            Fight fight = fightGenerator.GetEmptyFight();
-            fight.UfcEvent = ufcEventGenerator.GetEmptyUfcEvent();
+            Fight fight = entityGenerator.FightGenerator.GetEmptyFight();
+            fight.UfcEvent = entityGenerator.UfcEventGenerator.GetEmptyUfcEvent();
             int currentFightCount = context.Fights.Count();
 
             fight.Add();
@@ -33,7 +23,7 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestGetFighters()
         {
-            Fight fight = fightGenerator.GetPopulatedFight();
+            Fight fight = entityGenerator.FightGenerator.GetPopulatedFight();
 
             List<Fighter> fighters = fight.GetFighters();
 

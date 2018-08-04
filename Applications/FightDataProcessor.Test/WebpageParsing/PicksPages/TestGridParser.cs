@@ -1,6 +1,4 @@
 ﻿using FightData.Domain.Test;
-using FightData.TestData.EntityGenerators;
-using FightDataProcessor.WebpageParsing;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -12,17 +10,10 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
     [TestClass]
     public class TestGridParser : TestDataLayer
     {
-        private WebpageGenerator webpageGenerator;
-
-        public TestGridParser()
-        {
-            webpageGenerator = new WebpageGenerator(context);
-        }
-
         [TestMethod]
         public void TestParseAnalyst()
         {
-            GridParser gridParser = new GridParser(XDocument.Parse(webpageGenerator.GetPopulatedPicksPage().Data));
+            GridParser gridParser = new GridParser(XDocument.Parse(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data));
 
             List<GridRowResult> gridRowResults = gridParser.ParseRows();
 
@@ -32,7 +23,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseFighters()
         {
-            GridParser gridParser = new GridParser(XDocument.Parse(webpageGenerator.GetPopulatedPicksPage().Data));
+            GridParser gridParser = new GridParser(XDocument.Parse(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data));
 
             List<GridRowResult> gridRowResults = gridParser.ParseRows().Where(r=>r.IsValidRow()).ToList();
 
