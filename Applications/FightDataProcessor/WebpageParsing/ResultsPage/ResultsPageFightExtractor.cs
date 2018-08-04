@@ -21,11 +21,10 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         public void ExtractResults()
         {
-            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
-            foreach(TableRowParserResult parserResult in parserResults)
+            List<ParsedTableRow> parserResults = resultsTableParser.ParseTableRows();
+            foreach (ParsedTableRow parserResult in parserResults)
             {
-                if (parserResult.IsRowContainingFight)
-                    fightAdder.AddFight(parserResult.Winner, parserResult.Loser);
+                fightAdder.AddFight(parserResult.Winner, parserResult.Loser);
             }
             resultsPage.Event.Update();
         }

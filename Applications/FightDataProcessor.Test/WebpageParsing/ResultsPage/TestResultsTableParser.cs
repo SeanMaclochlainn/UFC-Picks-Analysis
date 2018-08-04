@@ -20,35 +20,27 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         }
 
         [TestMethod]
-        public void TestRowContainsFight()
+        public void TestCorrectResultCount()
         {
-            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
+            List<ParsedTableRow> parsedTableRows = resultsTableParser.ParseTableRows();
 
-            Assert.IsTrue(parserResults.ElementAt(1).IsRowContainingFight);
-        }
-
-        [TestMethod]
-        public void TestRowDoesNotContainFight()
-        {
-            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
-
-            Assert.IsFalse(parserResults.ElementAt(0).IsRowContainingFight);
+            Assert.IsTrue(parsedTableRows.Count() == 2);
         }
 
         [TestMethod]
         public void TestWinner()
         {
-            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
+            List<ParsedTableRow> parsedTableRows = resultsTableParser.ParseTableRows();
 
-            Assert.IsTrue(parserResults.ElementAt(1).Winner == "Luke Rockhold");
+            Assert.IsTrue(parsedTableRows.ElementAt(0).Winner == "Luke Rockhold");
         }
 
         [TestMethod]
         public void TestLoser()
         {
-            List<TableRowParserResult> parserResults = resultsTableParser.ParseTable();
+            List<ParsedTableRow> parseTableRows = resultsTableParser.ParseTableRows();
 
-            Assert.IsTrue(parserResults.ElementAt(2).Loser == "Ross Pearson");
+            Assert.IsTrue(parseTableRows.ElementAt(1).Loser == "Ross Pearson");
 
         }
     }

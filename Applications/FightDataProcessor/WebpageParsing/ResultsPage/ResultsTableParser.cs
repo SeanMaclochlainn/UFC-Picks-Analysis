@@ -17,25 +17,19 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
             this.document = document;
         }
 
-        public List<TableRowParserResult> ParseTable()
+        public List<ParsedTableRow> ParseTableRows()
         {
-            List<TableRowParserResult> parserResults = new List<TableRowParserResult>();
+            List<ParsedTableRow> parsedTableRows = new List<ParsedTableRow>();
 
             for (int i = 1; i < maxNoOfRows; i++)
             {
                 currentRowNo = i;
-                parserResults.Add(ParseCurrentRow());
+                PopulateCurrentRowElements();
+                if (AreElementsValid())
+                    parsedTableRows.Add(new ParsedTableRow(currentRowWinner.Value, currentRowLoser.Value));
             }
 
-            return parserResults;
-        }
-
-        private TableRowParserResult ParseCurrentRow()
-        {
-            PopulateCurrentRowElements();
-            if (AreElementsValid())
-                return TableRowParserResult.AsFightRow(currentRowWinner.Value, currentRowLoser.Value);
-            return TableRowParserResult.AsNonFightRow();
+            return parsedTableRows;
         }
 
         private void PopulateCurrentRowElements()
