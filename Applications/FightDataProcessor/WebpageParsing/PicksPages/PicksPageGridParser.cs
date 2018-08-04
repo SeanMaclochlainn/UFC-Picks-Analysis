@@ -3,17 +3,14 @@ using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class GridParser
+    public class PicksPageGridParser
     {
         private static int maxNoOfRows = 20;
-        private int currentRow;
-        private XDocument htmlPage;
         private FightersParser fightersParser;
         private AnalystParser analystParser;
 
-        public GridParser(XDocument htmlPage)
+        public PicksPageGridParser(XDocument htmlPage)
         {
-            this.htmlPage = htmlPage;
             fightersParser = new FightersParser(htmlPage);
             analystParser = new AnalystParser(htmlPage);
         }
@@ -21,19 +18,25 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         public List<GridRowResult> ParseRows()
         {
             List<GridRowResult> parsedRows = new List<GridRowResult>();
-            for(int i=0;i<maxNoOfRows;i++)
+            for (int currentRow = 1; currentRow <= maxNoOfRows; currentRow++)
             {
-                currentRow = i;
-                parsedRows.Add(ParseCurrentRow());
+                GridRowResult parsedRowResult = ParseRow(currentRow);
+                if(IsValidResult(parsedRowResult))
+                    parsedRows.Add(parsedRowResult);
             }
             return parsedRows;
         }
 
-        private GridRowResult ParseCurrentRow()
+        private GridRowResult ParseRow(int rowNo)
         {
-            List<string> fighters = fightersParser.ParseFighters(currentRow);
-            string analyst = analystParser.ParseAnalyst(currentRow);
+            List<string> fighters = fightersParser.ParseFighters(rowNo);
+            string analyst = analystParser.ParseAnalyst(rowNo);
             return new GridRowResult(analyst, fighters);
+        }
+
+        private bool IsValidResult(GridRowResult result)
+        {
+            return !(result.AnalystName == null);
         }
     }
 }

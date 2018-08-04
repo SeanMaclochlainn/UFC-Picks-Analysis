@@ -31,13 +31,10 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 
         private void ExtractGridData(XDocument picksPageHtml)
         {
-            GridParser gridParser = new GridParser(picksPageHtml);
-            List<GridRowResult> gridRowResults = gridParser.ParseRows();
+            PicksPageGridParser picksPageGridParser = new PicksPageGridParser(picksPageHtml);
+            List<GridRowResult> gridRowResults = picksPageGridParser.ParseRows();
             foreach (GridRowResult gridRowResult in gridRowResults)
-            {
-                if (gridRowResult.IsValidRow())
-                    ExtractRowData(gridRowResult);
-            }
+                ExtractRowData(gridRowResult);
         }
 
         private void ExtractRowData(GridRowResult gridRowResult)
