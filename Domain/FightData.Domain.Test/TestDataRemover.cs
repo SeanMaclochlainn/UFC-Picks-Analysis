@@ -1,4 +1,5 @@
 ﻿using FightData.TestData;
+using FightData.TestData.EntityGenerators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -8,26 +9,23 @@ namespace FightData.Domain.Test
     public class TestDataRemover : TestDataLayer
     {
         private DataRemover dataRemover;
-        private TestDatabaseDataAdder databaseDataAdder;
+        private PickGenerator pickGenerator;
 
         public TestDataRemover()
         {
-            databaseDataAdder = new TestDatabaseDataAdder(context);
             dataRemover = new DataRemover(context);
-            AddTestData();
+            pickGenerator = new PickGenerator(context);
         }
 
         [TestMethod]
         public void TestRemovePick()
         {
+            pickGenerator.GetPopulatedPick().Add();
+
             dataRemover.RemoveAllPicks();
 
             Assert.IsTrue(context.Picks.Count() == 0);
         }
 
-        private void AddTestData()
-        {
-            databaseDataAdder.AddPopulatedPick();
-        }
     }
 }
