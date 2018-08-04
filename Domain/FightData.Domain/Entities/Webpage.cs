@@ -1,4 +1,6 @@
 ﻿
+using System.Xml.Linq;
+
 namespace FightData.Domain.Entities
 {
     public class Webpage : Entity
@@ -11,6 +13,11 @@ namespace FightData.Domain.Entities
         public UfcEvent Event { get; set; }
         public string Data { get; set; }
         public WebpageType WebpageType { get; set; }
+
+        public XDocument GetHtml()
+        {
+            return XDocument.Parse(Data);
+        }
 
         //public void UpdateWebpage(string data, string url)
         //{

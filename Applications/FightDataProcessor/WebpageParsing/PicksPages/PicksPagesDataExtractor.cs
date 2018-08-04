@@ -25,7 +25,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             List<Webpage> picksPages = ufcEvent.Webpages.Where(w => w.WebpageType == WebpageType.PicksPage).ToList();
             foreach (Webpage picksPage in picksPages)
             {
-                ExtractGridData(XDocument.Parse(picksPage.Data));
+                ExtractGridData(picksPage.GetHtml());
             }
         }
 

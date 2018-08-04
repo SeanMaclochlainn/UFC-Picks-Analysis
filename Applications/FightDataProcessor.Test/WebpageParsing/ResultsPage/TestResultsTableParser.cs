@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Test;
 using FightData.TestData;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,15 +10,13 @@ using System.Xml.Linq;
 namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
     [TestClass]
-    public class TestResultsTableParser
+    public class TestResultsTableParser : TestDataLayer
     {
-        private XDocument htmlDocument;
         private ResultsPageParser resultsTableParser;
 
         public TestResultsTableParser()
         {
-            htmlDocument = XDocument.Parse(HtmlPageGenerator.GetWikipediaPage());
-            resultsTableParser = new ResultsPageParser(htmlDocument);
+            resultsTableParser = new ResultsPageParser(entityGenerator.WebpageGenerator.GetPopulatedResultsPage().GetHtml());
         }
 
         [TestMethod]

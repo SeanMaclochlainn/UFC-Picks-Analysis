@@ -7,15 +7,15 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
     public class ResultsPageParser
     {
-        private XDocument document;
+        private XDocument resultsPageHtml;
         private int currentRowNo;
         private XElement currentRowWinner;
         private XElement currentRowLoser;
         private static int maxNoOfRows = 20;
 
-        public ResultsPageParser(XDocument document)
+        public ResultsPageParser(XDocument resultsPageHtml)
         {
-            this.document = document;
+            this.resultsPageHtml = resultsPageHtml;
         }
 
         public List<FightResult> ParseTableRows()
@@ -35,8 +35,8 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         private void PopulateCurrentRowElements()
         {
-            currentRowWinner = document.XPathSelectElement(ResultsTableXpathGenerator.GetWinnerXpath(currentRowNo));
-            currentRowLoser = document.XPathSelectElement(ResultsTableXpathGenerator.GetLoserXpath(currentRowNo));
+            currentRowWinner = resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetWinnerXpath(currentRowNo));
+            currentRowLoser = resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetLoserXpath(currentRowNo));
         }
 
         private bool AreElementsValid()

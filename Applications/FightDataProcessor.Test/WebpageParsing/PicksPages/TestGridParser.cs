@@ -13,7 +13,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseAnalyst()
         {
-            GridParser gridParser = new GridParser(XDocument.Parse(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data));
+            GridParser gridParser = new GridParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
 
             List<GridRowResult> gridRowResults = gridParser.ParseRows();
 
@@ -23,7 +23,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseFighters()
         {
-            GridParser gridParser = new GridParser(XDocument.Parse(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data));
+            GridParser gridParser = new GridParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
 
             List<GridRowResult> gridRowResults = gridParser.ParseRows().Where(r=>r.IsValidRow()).ToList();
 

@@ -1,5 +1,4 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
+﻿using FightData.Domain.Entities;
 using FightDataProcessor.FightData.Domain;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
@@ -26,7 +25,7 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractResultsPage()
         {
-            ResultsPageParser resultsPageParser = new ResultsPageParser(XDocument.Parse(ufcEvent.GetResultsPage().Data));
+            ResultsPageParser resultsPageParser = new ResultsPageParser(ufcEvent.GetResultsPage().GetHtml());
             FightAdder fightAdder = new FightAdder(ufcEvent);
             fightAdder.AddFights(resultsPageParser.ParseTableRows());
             ufcEvent.Update();
