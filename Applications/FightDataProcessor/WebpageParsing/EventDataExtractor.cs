@@ -3,8 +3,6 @@ using FightDataProcessor.FightData.Domain;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {

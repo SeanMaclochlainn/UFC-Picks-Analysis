@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -7,11 +8,8 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
     public class ResultsPageParser
     {
-        private XDocument resultsPageHtml;
-        private int currentRowNo;
-        private XElement currentRowWinner;
-        private XElement currentRowLoser;
         private static int maxNoOfRows = 20;
+        private XDocument resultsPageHtml;
 
         public ResultsPageParser(XDocument resultsPageHtml)
         {
@@ -20,28 +18,30 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         public List<FightResult> ParseTableRows()
         {
-            List<FightResult> parsedTableRows = new List<FightResult>();
-
-            for (int i = 1; i < maxNoOfRows; i++)
+            List<FightResult> fightResults = new List<FightResult>();
+            for (int currentRowNo = 1; currentRowNo <= maxNoOfRows; currentRowNo++)
             {
-                currentRowNo = i;
-                PopulateCurrentRowElements();
-                if (AreElementsValid())
-                    parsedTableRows.Add(new FightResult(currentRowWinner.Value, currentRowLoser.Value));
+                XElement winner = GetWinnerElement(currentRowNo);
+                XElement loser = GetLoserElement(currentRowNo);
+                if (IsValidElementList(new List<XElement>() { winner, loser })) 
+                    fightResults.Add(new FightResult(winner.Value, loser.Value));
             }
-
-            return parsedTableRows;
+            return fightResults;
         }
 
-        private void PopulateCurrentRowElements()
+        private XElement GetWinnerElement(int rowNo)
         {
-            currentRowWinner = resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetWinnerXpath(currentRowNo));
-            currentRowLoser = resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetLoserXpath(currentRowNo));
+            return resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetWinnerXpath(rowNo));
         }
 
-        private bool AreElementsValid()
+        private XElement GetLoserElement(int rowNo)
         {
-            return !(currentRowWinner == null && currentRowLoser == null);
+            return resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetLoserXpath(rowNo));
+        }
+
+        private bool IsValidElementList(List<XElement> elements)
+        {
+            return !elements.Any(e => e == null);
         }
     }
 }
