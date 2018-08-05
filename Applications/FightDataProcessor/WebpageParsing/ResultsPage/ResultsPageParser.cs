@@ -16,17 +16,17 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
             this.resultsPageHtml = resultsPageHtml;
         }
 
-        public List<FightResult> ParseTableRows()
+        public List<RawFightResult> ParseTableRows()
         {
-            List<FightResult> fightResults = new List<FightResult>();
+            List<RawFightResult> rawFightResults = new List<RawFightResult>();
             for (int currentRowNo = 1; currentRowNo <= maxNoOfRows; currentRowNo++)
             {
                 XElement winner = GetWinnerElement(currentRowNo);
                 XElement loser = GetLoserElement(currentRowNo);
                 if (IsValidElementList(new List<XElement>() { winner, loser })) 
-                    fightResults.Add(new FightResult(winner.Value, loser.Value));
+                    rawFightResults.Add(new RawFightResult(winner.Value, loser.Value));
             }
-            return fightResults;
+            return rawFightResults;
         }
 
         private XElement GetWinnerElement(int rowNo)

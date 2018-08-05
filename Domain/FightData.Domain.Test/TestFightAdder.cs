@@ -16,7 +16,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestAddingFight()
         {
-            fightAdder.AddFight(new FightResult("test winner", "test loser"));
+            fightAdder.AddFight(new RawFightResult("test winner", "test loser"));
 
             Assert.IsTrue(context.Fighters.Count(f => f.FullName == "test winner") == 1);
         }

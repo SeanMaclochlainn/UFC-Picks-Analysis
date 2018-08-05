@@ -1,8 +1,8 @@
 ﻿namespace FightData.Domain
 {
-    public class FightResult
+    public class RawFightResult
     {
-        public FightResult(string winner, string loser)
+        public RawFightResult(string winner, string loser)
         {
             Winner = winner;
             Loser = loser;

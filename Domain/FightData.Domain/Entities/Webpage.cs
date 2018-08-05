@@ -1,5 +1,4 @@
-﻿
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace FightData.Domain.Entities
 {
@@ -18,18 +17,5 @@ namespace FightData.Domain.Entities
         {
             return XDocument.Parse(Data);
         }
-
-        //public void UpdateWebpage(string data, string url)
-        //{
-        //    this.Data = data;
-        //    this.Url = url;
-        //    context.SaveChanges();
-        //}
-
-        //public void AddWebpage()
-        //{
-        //    context.Webpages.Add(this);
-        //    context.SaveChanges();
-        //}
     }
 }

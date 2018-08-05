@@ -17,18 +17,18 @@ namespace FightData.Domain
             fighterFinder = new FighterFinder(context);
         }
 
-        public void AddFights(List<FightResult> fightResults)
+        public void AddFights(List<RawFightResult> rawFightResults)
         {
-            foreach (FightResult fightResult in fightResults)
+            foreach (RawFightResult fightResult in rawFightResults)
                 AddFight(fightResult);
         }
 
-        public void AddFight(FightResult fightResult)
+        public void AddFight(RawFightResult rawFightResult)
         {
-            AddFighter(fightResult.Winner);
-            AddFighter(fightResult.Loser);
-            Fighter winner = fighterFinder.FindFighter(fightResult.Winner).Result;
-            Fighter loser = fighterFinder.FindFighter(fightResult.Loser).Result;
+            AddFighter(rawFightResult.Winner);
+            AddFighter(rawFightResult.Loser);
+            Fighter winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
+            Fighter loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
             ufcEvent.AddFight(winner, loser);
         }
 
