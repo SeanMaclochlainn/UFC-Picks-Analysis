@@ -14,7 +14,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 
         public string ParseAnalyst(int rowNo)
         {
-            XElement analystElement = htmlDocument.XPathSelectElement(XpathGenerator.GetAnalystXpath(rowNo));
+            XElement analystElement = htmlDocument.XPathSelectElement(XpathGenerator.PicksPageAnalystXpath(rowNo));
             if (analystElement != null)
                 return DataSanitizer.GetElementValue(analystElement);
             else

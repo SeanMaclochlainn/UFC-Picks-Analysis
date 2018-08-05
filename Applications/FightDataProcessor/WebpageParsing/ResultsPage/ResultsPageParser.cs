@@ -31,12 +31,12 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
         private XElement GetWinnerElement(int rowNo)
         {
-            return resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetWinnerXpath(rowNo));
+            return resultsPageHtml.XPathSelectElement(XpathGenerator.ResultsPageWinnerXpath(rowNo));
         }
 
         private XElement GetLoserElement(int rowNo)
         {
-            return resultsPageHtml.XPathSelectElement(ResultsTableXpathGenerator.GetLoserXpath(rowNo));
+            return resultsPageHtml.XPathSelectElement(XpathGenerator.ResultsPageLoserXpath(rowNo));
         }
 
         private bool IsValidElementList(List<XElement> elements)

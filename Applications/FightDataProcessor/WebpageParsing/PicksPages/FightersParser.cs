@@ -39,7 +39,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 
         private XElement ParseFighter(int columnNo)
         {
-            return htmlDocument.XPathSelectElement(XpathGenerator.GetFighterXpath(currentRow, columnNo));
+            return htmlDocument.XPathSelectElement(XpathGenerator.PicksPageFighterXpath(currentRow, columnNo));
         }
 
     }
