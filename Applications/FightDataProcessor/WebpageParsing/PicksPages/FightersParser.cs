@@ -18,7 +18,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 
         public List<string> ParseFighters(int rowNo)
         {
-            this.currentRow = rowNo;
+            currentRow = rowNo;
             List<string> fighters = new List<string>();
             foreach (XElement fighterElement in GetCurrentRowFighterElements())
                 fighters.Add(DataSanitizer.GetElementValue(fighterElement));

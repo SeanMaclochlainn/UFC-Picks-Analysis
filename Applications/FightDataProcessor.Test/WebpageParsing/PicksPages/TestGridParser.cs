@@ -14,7 +14,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         {
             PicksPageGridParser gridParser = new PicksPageGridParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
 
-            List<GridRowResult> gridRowResults = gridParser.ParseRows();
+            List<ParsedGridRow> gridRowResults = gridParser.ParseRows();
 
             Assert.IsTrue(gridRowResults.First().AnalystName == "Mike Bohn");
         }
@@ -24,7 +24,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         {
             PicksPageGridParser gridParser = new PicksPageGridParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
 
-            List<GridRowResult> gridRowResults = gridParser.ParseRows().ToList();
+            List<ParsedGridRow> gridRowResults = gridParser.ParseRows().ToList();
 
             Assert.IsTrue(gridRowResults.First().FighterNames.First() == "Rockhold");
         }

@@ -32,12 +32,12 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         private void ExtractGridData(XDocument picksPageHtml)
         {
             PicksPageGridParser picksPageGridParser = new PicksPageGridParser(picksPageHtml);
-            List<GridRowResult> gridRowResults = picksPageGridParser.ParseRows();
-            foreach (GridRowResult gridRowResult in gridRowResults)
+            List<ParsedGridRow> gridRowResults = picksPageGridParser.ParseRows();
+            foreach (ParsedGridRow gridRowResult in gridRowResults)
                 ExtractRowData(gridRowResult);
         }
 
-        private void ExtractRowData(GridRowResult gridRowResult)
+        private void ExtractRowData(ParsedGridRow gridRowResult)
         {
             Analyst analyst = analystFinder.FindAnalyst(gridRowResult.AnalystName).Result;
             foreach (string fighterName in gridRowResult.FighterNames)

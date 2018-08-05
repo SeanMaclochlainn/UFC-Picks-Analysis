@@ -2,9 +2,9 @@
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class GridRowResult
+    public class ParsedGridRow
     {
-        public GridRowResult(string analystName, List<string> fighterNames)
+        public ParsedGridRow(string analystName, List<string> fighterNames)
         {
             AnalystName = analystName;
             FighterNames = fighterNames;

@@ -15,26 +15,26 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             analystParser = new AnalystParser(htmlPage);
         }
 
-        public List<GridRowResult> ParseRows()
+        public List<ParsedGridRow> ParseRows()
         {
-            List<GridRowResult> parsedRows = new List<GridRowResult>();
+            List<ParsedGridRow> parsedRows = new List<ParsedGridRow>();
             for (int currentRow = 1; currentRow <= maxNoOfRows; currentRow++)
             {
-                GridRowResult parsedRowResult = ParseRow(currentRow);
+                ParsedGridRow parsedRowResult = ParseRow(currentRow);
                 if(IsValidResult(parsedRowResult))
                     parsedRows.Add(parsedRowResult);
             }
             return parsedRows;
         }
 
-        private GridRowResult ParseRow(int rowNo)
+        private ParsedGridRow ParseRow(int rowNo)
         {
             List<string> fighters = fightersParser.ParseFighters(rowNo);
             string analyst = analystParser.ParseAnalyst(rowNo);
-            return new GridRowResult(analyst, fighters);
+            return new ParsedGridRow(analyst, fighters);
         }
 
-        private bool IsValidResult(GridRowResult result)
+        private bool IsValidResult(ParsedGridRow result)
         {
             return !(result.AnalystName == null);
         }
