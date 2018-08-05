@@ -17,7 +17,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
             EventDataExtractor eventDataExtractor = new EventDataExtractor(ufcEvent);
             int existingFights = context.Fights.Count();
 
-            eventDataExtractor.ExtractResultsPage();
+            eventDataExtractor.ExtractResultsPageData();
 
             Assert.IsTrue(context.Fights.Count() == existingFights + 2);
         }

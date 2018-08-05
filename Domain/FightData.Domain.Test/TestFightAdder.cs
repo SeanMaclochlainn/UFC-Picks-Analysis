@@ -1,5 +1,4 @@
-﻿using FightDataProcessor.FightData.Domain;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace FightData.Domain.Test

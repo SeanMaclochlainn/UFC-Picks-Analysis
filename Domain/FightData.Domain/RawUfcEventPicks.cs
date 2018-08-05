@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace FightDataProcessor.WebpageParsing.PicksPages
+namespace FightData.Domain
 {
-    public class ParsedGridRow
+    public class RawUfcEventPicks
     {
-        public ParsedGridRow(string analystName, List<string> fighterNames)
+        public RawUfcEventPicks(string analystName, List<string> fighterNames)
         {
             AnalystName = analystName;
             FighterNames = fighterNames;

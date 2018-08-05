@@ -1,9 +1,8 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
+﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using System.Collections.Generic;
 
-namespace FightDataProcessor.FightData.Domain
+namespace FightData.Domain
 {
     public class FightAdder
     {

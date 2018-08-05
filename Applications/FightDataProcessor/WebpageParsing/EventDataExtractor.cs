@@ -1,8 +1,9 @@
-﻿using FightData.Domain.Entities;
-using FightDataProcessor.FightData.Domain;
+﻿using FightData.Domain;
+using FightData.Domain.Entities;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
@@ -17,23 +18,25 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractAllWebpages()
         {
-            ExtractResultsPage();
-            ExtractAllPicksPages();
+            ExtractResultsPageData();
+            ExtractPicksPagesData();
         }
 
-        public void ExtractResultsPage()
+        public void ExtractResultsPageData()
         {
             ResultsPageParser resultsPageParser = new ResultsPageParser(ufcEvent.GetResultsPage().GetHtml());
-            FightAdder fightAdder = new FightAdder(ufcEvent);
-            fightAdder.AddFights(resultsPageParser.ParseTableRows());
+            new FightAdder(ufcEvent).AddFights(resultsPageParser.ParseTableRows());
             ufcEvent.Update();
         }
 
-        private void ExtractAllPicksPages()
+        public void ExtractPicksPagesData()
         {
-            PicksPagesDataExtractor picksPagesDataExtractor = new PicksPagesDataExtractor(ufcEvent);
-            picksPagesDataExtractor.ExtractAllPages();
+            PickAdder pickAdder = new PickAdder(ufcEvent); 
+            foreach (Webpage picksPage in ufcEvent.GetPicksPages())
+            {
+                List<RawUfcEventPicks> rawUfcEventPicks = new PicksPageGridParser(picksPage.GetHtml()).ParseRows();
+                pickAdder.AddPicks(rawUfcEventPicks);
+            }
         }
-
     }
 }

@@ -49,5 +49,10 @@ namespace FightData.Domain.Entities
         {
             return Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
         }
+
+        public List<Webpage> GetPicksPages()
+        {
+            return Webpages.Where(w => w.WebpageType == WebpageType.PicksPage).ToList();
+        }
     }
 }
