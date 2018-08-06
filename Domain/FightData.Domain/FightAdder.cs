@@ -19,26 +19,24 @@ namespace FightData.Domain
 
         public void AddFights(List<RawFightResult> rawFightResults)
         {
-            foreach (RawFightResult fightResult in rawFightResults)
-                AddFight(fightResult);
+            foreach (RawFightResult rawFightResult in rawFightResults)
+                AddFight(rawFightResult);
         }
 
         public void AddFight(RawFightResult rawFightResult)
         {
-            AddFighter(rawFightResult.Winner);
-            AddFighter(rawFightResult.Loser);
+            EnsureFighterIsAdded(rawFightResult.Winner);
+            EnsureFighterIsAdded(rawFightResult.Loser);
             Fighter winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
             Fighter loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
             ufcEvent.AddFight(winner, loser);
         }
 
-        private void AddFighter(string name)
+        private void EnsureFighterIsAdded(string name)
         {
             if (!fighterFinder.FindFighter(name).IsFound())
             {
-                Fighter fighter = new Fighter(context);
-                fighter.PopulateNames(name);
-                fighter.Add();
+                new FighterAdder(context).AddFighter(name);
             }
         }
     }
