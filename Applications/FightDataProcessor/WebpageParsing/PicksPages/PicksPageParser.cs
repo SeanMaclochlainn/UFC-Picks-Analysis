@@ -7,13 +7,13 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
     public class PicksPageParser
     {
         private static int maxNoOfRows = 20;
-        private FightersParser fightersParser;
-        private AnalystParser analystParser;
+        private PicksPageFightersParser fightersParser;
+        private PicksPageAnalystParser analystParser;
 
         public PicksPageParser(XDocument htmlPage)
         {
-            fightersParser = new FightersParser(htmlPage);
-            analystParser = new AnalystParser(htmlPage);
+            fightersParser = new PicksPageFightersParser(htmlPage);
+            analystParser = new PicksPageAnalystParser(htmlPage);
         }
 
         public List<RawUfcEventPicks> ParsePicksGrid()

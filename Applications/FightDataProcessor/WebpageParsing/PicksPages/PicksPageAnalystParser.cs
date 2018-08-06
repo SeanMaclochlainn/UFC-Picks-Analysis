@@ -3,11 +3,11 @@ using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class AnalystParser
+    public class PicksPageAnalystParser
     {
         private XDocument htmlDocument;
 
-        public AnalystParser(XDocument htmlDocument)
+        public PicksPageAnalystParser(XDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }

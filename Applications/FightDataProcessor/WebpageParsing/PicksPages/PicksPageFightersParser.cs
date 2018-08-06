@@ -5,13 +5,13 @@ using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class FightersParser
+    public class PicksPageFightersParser
     {
         private static int maxNoOfFights = 10;
         private XDocument htmlDocument;
         private int currentRow;
 
-        public FightersParser(XDocument htmlDocument)
+        public PicksPageFightersParser(XDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }

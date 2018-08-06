@@ -30,11 +30,10 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractPicksPagesData()
         {
-            PickAdder pickAdder = new PickAdder(ufcEvent); 
             foreach (Webpage picksPage in ufcEvent.GetPicksPages())
             {
                 List<RawUfcEventPicks> rawUfcEventPicks = new PicksPageParser(picksPage.GetHtml()).ParsePicksGrid();
-                pickAdder.AddPicks(rawUfcEventPicks);
+                new PickAdder(ufcEvent).AddPicks(rawUfcEventPicks);
             }
         }
     }
