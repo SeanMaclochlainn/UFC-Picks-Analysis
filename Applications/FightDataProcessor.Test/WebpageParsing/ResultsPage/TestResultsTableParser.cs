@@ -20,7 +20,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         [TestMethod]
         public void TestCorrectResultCount()
         {
-            List<RawFightResult> rawFightResults = resultsTableParser.ParseTableRows();
+            List<RawFightResult> rawFightResults = resultsTableParser.ParseResultTable();
 
             Assert.IsTrue(rawFightResults.Count() == 2);
         }
@@ -28,7 +28,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         [TestMethod]
         public void TestWinner()
         {
-            List<RawFightResult> rawFightResults = resultsTableParser.ParseTableRows();
+            List<RawFightResult> rawFightResults = resultsTableParser.ParseResultTable();
 
             Assert.IsTrue(rawFightResults.ElementAt(0).Winner == "Luke Rockhold");
         }
@@ -36,7 +36,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         [TestMethod]
         public void TestLoser()
         {
-            List<RawFightResult> rawFightResults = resultsTableParser.ParseTableRows();
+            List<RawFightResult> rawFightResults = resultsTableParser.ParseResultTable();
 
             Assert.IsTrue(rawFightResults.ElementAt(1).Loser == "Ross Pearson");
 

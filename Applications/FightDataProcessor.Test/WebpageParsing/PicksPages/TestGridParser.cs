@@ -13,9 +13,9 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseAnalyst()
         {
-            PicksPageGridParser gridParser = new PicksPageGridParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
+            PicksPageParser picksPageParser = new PicksPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
 
-            List<RawUfcEventPicks> gridRowResults = gridParser.ParseRows();
+            List<RawUfcEventPicks> gridRowResults = picksPageParser.ParsePicksGrid();
 
             Assert.IsTrue(gridRowResults.First().AnalystName == "Mike Bohn");
         }
@@ -23,9 +23,9 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseFighters()
         {
-            PicksPageGridParser gridParser = new PicksPageGridParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
+            PicksPageParser picksPageParser = new PicksPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
 
-            List<RawUfcEventPicks> gridRowResults = gridParser.ParseRows().ToList();
+            List<RawUfcEventPicks> gridRowResults = picksPageParser.ParsePicksGrid().ToList();
 
             Assert.IsTrue(gridRowResults.First().FighterNames.First() == "Rockhold");
         }

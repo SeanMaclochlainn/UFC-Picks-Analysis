@@ -16,7 +16,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
             this.resultsPageHtml = resultsPageHtml;
         }
 
-        public List<RawFightResult> ParseTableRows()
+        public List<RawFightResult> ParseResultTable()
         {
             List<RawFightResult> rawFightResults = new List<RawFightResult>();
             for (int currentRowNo = 1; currentRowNo <= maxNoOfRows; currentRowNo++)
@@ -24,7 +24,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
                 XElement winner = GetWinnerElement(currentRowNo);
                 XElement loser = GetLoserElement(currentRowNo);
                 if (IsValidElementList(new List<XElement>() { winner, loser })) 
-                    rawFightResults.Add(new RawFightResult(winner.Value, loser.Value));
+                    rawFightResults.Add(new RawFightResult(DataSanitizer.GetElementValue(winner), DataSanitizer.GetElementValue(loser)));
             }
             return rawFightResults;
         }

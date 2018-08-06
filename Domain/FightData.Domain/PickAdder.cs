@@ -32,7 +32,7 @@ namespace FightData.Domain
                 AddPick(rawUfcEventPick.AnalystName, fighterName);
         }
 
-        public void AddPick(string analystName, string fighterName)
+        private void AddPick(string analystName, string fighterName)
         {
             this.analystName = analystName;
             this.fighterName = fighterName;

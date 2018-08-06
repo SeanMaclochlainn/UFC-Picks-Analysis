@@ -9,6 +9,8 @@ namespace FightData.Domain
         private FightPicksContext context;
         private UfcEvent ufcEvent;
         private FighterFinder fighterFinder;
+        private Fighter winner;
+        private Fighter loser;
 
         public FightAdder(UfcEvent ufcEvent)
         {
@@ -27,9 +29,9 @@ namespace FightData.Domain
         {
             EnsureFighterIsAdded(rawFightResult.Winner);
             EnsureFighterIsAdded(rawFightResult.Loser);
-            Fighter winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
-            Fighter loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
-            ufcEvent.AddFight(winner, loser);
+            winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
+            loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
+            AddFight();
         }
 
         private void EnsureFighterIsAdded(string name)
@@ -38,6 +40,15 @@ namespace FightData.Domain
             {
                 new FighterAdder(context).AddFighter(name);
             }
+        }
+
+        private void AddFight()
+        {
+            Fight fight = new Fight(context);
+            fight.Winner = winner;
+            fight.Loser = loser;
+            fight.UfcEvent = ufcEvent;
+            fight.Add();
         }
     }
 }

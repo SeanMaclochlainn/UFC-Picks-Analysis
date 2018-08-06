@@ -25,8 +25,7 @@ namespace FightDataProcessor.WebpageParsing
         public void ExtractResultsPageData()
         {
             ResultsPageParser resultsPageParser = new ResultsPageParser(ufcEvent.GetResultsPage().GetHtml());
-            new FightAdder(ufcEvent).AddFights(resultsPageParser.ParseTableRows());
-            ufcEvent.Update();
+            new FightAdder(ufcEvent).AddFights(resultsPageParser.ParseResultTable());
         }
 
         public void ExtractPicksPagesData()
@@ -34,7 +33,7 @@ namespace FightDataProcessor.WebpageParsing
             PickAdder pickAdder = new PickAdder(ufcEvent); 
             foreach (Webpage picksPage in ufcEvent.GetPicksPages())
             {
-                List<RawUfcEventPicks> rawUfcEventPicks = new PicksPageGridParser(picksPage.GetHtml()).ParseRows();
+                List<RawUfcEventPicks> rawUfcEventPicks = new PicksPageParser(picksPage.GetHtml()).ParsePicksGrid();
                 pickAdder.AddPicks(rawUfcEventPicks);
             }
         }

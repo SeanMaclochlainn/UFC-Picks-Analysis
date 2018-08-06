@@ -4,19 +4,19 @@ using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class PicksPageGridParser
+    public class PicksPageParser
     {
         private static int maxNoOfRows = 20;
         private FightersParser fightersParser;
         private AnalystParser analystParser;
 
-        public PicksPageGridParser(XDocument htmlPage)
+        public PicksPageParser(XDocument htmlPage)
         {
             fightersParser = new FightersParser(htmlPage);
             analystParser = new AnalystParser(htmlPage);
         }
 
-        public List<RawUfcEventPicks> ParseRows()
+        public List<RawUfcEventPicks> ParsePicksGrid()
         {
             List<RawUfcEventPicks> parsedRows = new List<RawUfcEventPicks>();
             for (int currentRow = 1; currentRow <= maxNoOfRows; currentRow++)
