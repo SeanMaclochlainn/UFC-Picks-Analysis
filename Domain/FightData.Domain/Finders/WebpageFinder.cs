@@ -21,9 +21,9 @@ namespace FightData.Domain.Finders
             return context.Webpages.ToList();
         }
 
-        public Webpage GetWebpage(int ufcEventId, int websiteId)
+        public Webpage GetWebpage(int exhibitionId, int websiteId)
         {
-            return context.Webpages.Single(w => w.Event.Id == ufcEventId && w.Website.Id == websiteId);
+            return context.Webpages.Single(w => w.Exhibition.Id == exhibitionId && w.Website.Id == websiteId);
         }
 
         public List<Website> GetAllWebsites()
@@ -31,9 +31,9 @@ namespace FightData.Domain.Finders
             return context.Websites.ToList();
         }
 
-        public bool WebpageExists(int ufcEventId, int websiteId)
+        public bool WebpageExists(int exhibitionId, int websiteId)
         {
-            return context.Webpages.Any(wp => wp.Event.Id == ufcEventId && wp.Website.Id == websiteId);
+            return context.Webpages.Any(wp => wp.Exhibition.Id == exhibitionId && wp.Website.Id == websiteId);
         }
 
 

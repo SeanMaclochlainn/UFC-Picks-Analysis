@@ -10,7 +10,7 @@ namespace FightData.Domain.Entities
         public int Id { get; set; }
         public Fighter Winner { get; set; }
         public Fighter Loser { get; set; }
-        public UfcEvent UfcEvent { get; set; }
+        public Exhibition Exhibition { get; set; }
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; }
 

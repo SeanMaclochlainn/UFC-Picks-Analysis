@@ -15,7 +15,7 @@ namespace FightData.TestData.EntityGenerators
         public Fight GetPopulatedFight()
         {
             Fight fight = new Fight(context);
-            fight.UfcEvent = new UfcEventGenerator(context).GetEmptyUfcEvent();
+            fight.Exhibition = new ExhibitionGenerator(context).GetEmptyExhibition();
             fight.Winner = new FighterGenerator(context).GetWinner();
             fight.Loser = new FighterGenerator(context).GetLoser();
             return fight;

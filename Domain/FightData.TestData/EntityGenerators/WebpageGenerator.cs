@@ -19,7 +19,7 @@ namespace FightData.TestData.EntityGenerators
                 Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
                 Website = new WebsiteGenerator(context).GetResultsPageWebsite(),
                 Data = HtmlPageGenerator.GetWikipediaPage(),
-                Event = new UfcEventGenerator(context).GetEmptyUfcEvent()
+                Exhibition = new ExhibitionGenerator(context).GetEmptyExhibition()
             };
             return webpage;
         }

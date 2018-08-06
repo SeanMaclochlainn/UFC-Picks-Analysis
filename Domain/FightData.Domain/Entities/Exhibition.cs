@@ -3,12 +3,12 @@ using System.Linq;
 
 namespace FightData.Domain.Entities
 {
-    public class UfcEvent : Entity
+    public class Exhibition : Entity
     {
-        public UfcEvent(FightPicksContext context) : base(context) { }
+        public Exhibition(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }
-        public string EventName { get; set; }
+        public string Name { get; set; }
         public List<Fight> Fights { get; set; } = new List<Fight>();
         public List<Webpage> Webpages { get; set; } = new List<Webpage>();
         public List<string> CancelledFighterNames { get; set; }
@@ -30,13 +30,13 @@ namespace FightData.Domain.Entities
             Fight fight = new Fight(Context);
             fight.Winner = winner;
             fight.Loser = loser;
-            fight.UfcEvent = this;
+            fight.Exhibition = this;
             Fights.Add(fight);
         }
 
         public void Add()
         {
-            Context.UfcEvents.Add(this);
+            Context.Exhibitions.Add(this);
             Context.SaveChanges();
         }
 

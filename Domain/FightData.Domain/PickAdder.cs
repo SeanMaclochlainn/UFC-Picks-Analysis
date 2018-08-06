@@ -7,29 +7,29 @@ namespace FightData.Domain
     public class PickAdder
     {
         private FightPicksContext context;
-        private UfcEvent ufcEvent;
+        private Exhibition exhibition;
         private string analystName;
         private string fighterName;
         private Analyst analyst;
         private Fighter fighter;
         private Fight fight;
 
-        public PickAdder(UfcEvent ufcEvent)
+        public PickAdder(Exhibition exhibition)
         {
-            context = ufcEvent.Context;
-            this.ufcEvent = ufcEvent;
+            context = exhibition.Context;
+            this.exhibition = exhibition;
         }
         
-        public void AddPicks(List<RawUfcEventPicks> rawUfcEventPicks)
+        public void AddPicks(List<RawExhibitionPicks> rawExhibitionPicks)
         {
-            foreach (RawUfcEventPicks rawUfcEventPick in rawUfcEventPicks)
-                AddPicks(rawUfcEventPick);
+            foreach (RawExhibitionPicks rawExhibitionPick in rawExhibitionPicks)
+                AddPicks(rawExhibitionPick);
         }
 
-        public void AddPicks(RawUfcEventPicks rawUfcEventPick)
+        public void AddPicks(RawExhibitionPicks rawExhibitionPick)
         {
-            foreach (string fighterName in rawUfcEventPick.FighterNames)
-                AddPick(rawUfcEventPick.AnalystName, fighterName);
+            foreach (string fighterName in rawExhibitionPick.FighterNames)
+                AddPick(rawExhibitionPick.AnalystName, fighterName);
         }
 
         private void AddPick(string analystName, string fighterName)
@@ -60,12 +60,12 @@ namespace FightData.Domain
 
         private Fighter GetFighter()
         {
-            return FighterFinder.WithinEvent(ufcEvent, context).FindFighter(fighterName).Result;
+            return FighterFinder.WithinExhibition(exhibition, context).FindFighter(fighterName).Result;
         }
         
         private Fight GetFight()
         {
-            return FightFinder.WithinEvent(ufcEvent, context).FindFight(fighter).Result;
+            return FightFinder.WithinExhibition(exhibition, context).FindFight(fighter).Result;
         }
     }
 }

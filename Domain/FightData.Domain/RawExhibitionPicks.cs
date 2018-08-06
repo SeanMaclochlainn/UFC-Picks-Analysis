@@ -2,9 +2,9 @@
 
 namespace FightData.Domain
 {
-    public class RawUfcEventPicks
+    public class RawExhibitionPicks
     {
-        public RawUfcEventPicks(string analystName, List<string> fighterNames)
+        public RawExhibitionPicks(string analystName, List<string> fighterNames)
         {
             AnalystName = analystName;
             FighterNames = fighterNames;

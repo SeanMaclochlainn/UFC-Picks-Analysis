@@ -11,7 +11,7 @@ namespace FightData.TestData.EntityGenerators
             FighterGenerator = new FighterGenerator(context);
             FightGenerator = new FightGenerator(context);
             PickGenerator = new PickGenerator(context);
-            UfcEventGenerator = new UfcEventGenerator(context);
+            ExhibitionGenerator = new ExhibitionGenerator(context);
             WebpageGenerator = new WebpageGenerator(context);
             WebsiteGenerator = new WebsiteGenerator(context);
         }
@@ -20,7 +20,7 @@ namespace FightData.TestData.EntityGenerators
         public FighterGenerator FighterGenerator { get; private set; }
         public FightGenerator FightGenerator { get; private set; }
         public PickGenerator PickGenerator { get; private set; }
-        public UfcEventGenerator UfcEventGenerator { get; private set; }
+        public ExhibitionGenerator ExhibitionGenerator { get; private set; }
         public WebpageGenerator WebpageGenerator { get; private set; }
         public WebsiteGenerator WebsiteGenerator { get; private set; }
         

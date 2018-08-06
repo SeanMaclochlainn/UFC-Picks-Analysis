@@ -8,13 +8,13 @@ namespace FightDataProcessor
     public class CommandController
     {
         private AppCommand appCommand;
-        private UfcEventCollector ufcEventCollector;
+        private ExhibitionCollector exhibitionCollector;
         private DataRemover dataRemover;
 
         public CommandController(AppCommand appCommand)
         {
             this.appCommand = appCommand;
-            ufcEventCollector = new UfcEventCollector();
+            exhibitionCollector = new ExhibitionCollector();
             dataRemover = new DataRemover(new FightPicksContext());
         }
 
@@ -24,7 +24,7 @@ namespace FightDataProcessor
             
             if (appCommand.Command == Commands.Collect)
             {
-                ufcEventCollector.ContinuouslyCollectEvents();
+                exhibitionCollector.ContinuouslyCollectExhibitions();
             }
             else if(appCommand.Command == Commands.Process)
             {
@@ -33,15 +33,15 @@ namespace FightDataProcessor
                     dataRemover.RemoveAllPicks();
                 }
 
-                CollectAllUfcEventsData();
+                CollectAllExhibitionData();
             }
         }
 
-        private void CollectAllUfcEventsData()
+        private void CollectAllExhibitionData()
         {
-            UfcEventFinder ufcEventFinder = new UfcEventFinder(new FightPicksContext());
-            foreach (UfcEvent ufcEvent in ufcEventFinder.FindAllEvents())
-                new EventDataExtractor(ufcEvent).ExtractAllWebpages();
+            ExhibitionFinder exhibitionFinder = new ExhibitionFinder(new FightPicksContext());
+            foreach (Exhibition exhibition in exhibitionFinder.FindAllExhibitions())
+                new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
         }
     }
 }

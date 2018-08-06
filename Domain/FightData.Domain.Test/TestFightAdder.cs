@@ -10,7 +10,7 @@ namespace FightData.Domain.Test
 
         public TestFightAdder()
         {
-            fightAdder = new FightAdder(entityGenerator.UfcEventGenerator.GetPopulatedUfcEvent());
+            fightAdder = new FightAdder(entityGenerator.ExhibitionGenerator.GetPopulatedExhibition());
         }
 
         [TestMethod]

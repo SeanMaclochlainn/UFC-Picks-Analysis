@@ -7,15 +7,15 @@ namespace FightData.Domain
     public class FightAdder
     {
         private FightPicksContext context;
-        private UfcEvent ufcEvent;
+        private Exhibition exhibition;
         private FighterFinder fighterFinder;
         private Fighter winner;
         private Fighter loser;
 
-        public FightAdder(UfcEvent ufcEvent)
+        public FightAdder(Exhibition exhibition)
         {
-            this.ufcEvent = ufcEvent;
-            context = ufcEvent.Context;
+            this.exhibition = exhibition;
+            context = exhibition.Context;
             fighterFinder = new FighterFinder(context);
         }
 
@@ -47,7 +47,7 @@ namespace FightData.Domain
             Fight fight = new Fight(context);
             fight.Winner = winner;
             fight.Loser = loser;
-            fight.UfcEvent = ufcEvent;
+            fight.Exhibition = exhibition;
             fight.Add();
         }
     }

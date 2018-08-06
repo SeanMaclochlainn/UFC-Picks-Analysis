@@ -9,7 +9,7 @@ namespace FightData.Domain.Entities
         public int Id { get; set; }
         public string Url { get; set; }
         public Website Website { get; set; }
-        public UfcEvent Event { get; set; }
+        public Exhibition Exhibition { get; set; }
         public string Data { get; set; }
         public WebpageType WebpageType { get; set; }
 

@@ -12,7 +12,7 @@ namespace FightData.Domain.Test.Entities
         public void TestAddFight()
         {
             Fight fight = entityGenerator.FightGenerator.GetEmptyFight();
-            fight.UfcEvent = entityGenerator.UfcEventGenerator.GetEmptyUfcEvent();
+            fight.Exhibition = entityGenerator.ExhibitionGenerator.GetEmptyExhibition();
             int currentFightCount = context.Fights.Count();
 
             fight.Add();

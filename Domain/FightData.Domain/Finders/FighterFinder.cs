@@ -6,20 +6,20 @@ namespace FightData.Domain.Finders
 {
     public class FighterFinder : DataFinder
     {
-        private UfcEvent ufcEvent;
-        private bool searchWithinEvent;
+        private Exhibition exhibition;
+        private bool searchWithinExhibition;
 
         public FighterFinder(FightPicksContext context) : base(context) { }
 
-        private FighterFinder(UfcEvent ufcEvent, FightPicksContext context) : this(context)
+        private FighterFinder(Exhibition exhibition, FightPicksContext context) : this(context)
         {
-            this.ufcEvent = ufcEvent;
-            searchWithinEvent = true;
+            this.exhibition = exhibition;
+            searchWithinExhibition = true;
         }
 
-        public static FighterFinder WithinEvent(UfcEvent ufcEvent, FightPicksContext context)
+        public static FighterFinder WithinExhibition(Exhibition exhibition, FightPicksContext context)
         {
-            return new FighterFinder(ufcEvent, context);
+            return new FighterFinder(exhibition, context);
         }
 
         public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, string name)
@@ -37,8 +37,8 @@ namespace FightData.Domain.Finders
 
         private List<Fighter> GetFightersToSearch()
         {
-            if (searchWithinEvent)
-                return ufcEvent.GetFighters();
+            if (searchWithinExhibition)
+                return exhibition.GetFighters();
             else
                 return context.Fighters.ToList();
         }

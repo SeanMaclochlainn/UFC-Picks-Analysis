@@ -16,26 +16,26 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             analystParser = new PicksPageAnalystParser(htmlPage);
         }
 
-        public List<RawUfcEventPicks> ParsePicksGrid()
+        public List<RawExhibitionPicks> ParsePicksGrid()
         {
-            List<RawUfcEventPicks> parsedRows = new List<RawUfcEventPicks>();
+            List<RawExhibitionPicks> parsedRows = new List<RawExhibitionPicks>();
             for (int currentRow = 1; currentRow <= maxNoOfRows; currentRow++)
             {
-                RawUfcEventPicks parsedRowResult = ParseRow(currentRow);
+                RawExhibitionPicks parsedRowResult = ParseRow(currentRow);
                 if(IsValidResult(parsedRowResult))
                     parsedRows.Add(parsedRowResult);
             }
             return parsedRows;
         }
 
-        private RawUfcEventPicks ParseRow(int rowNo)
+        private RawExhibitionPicks ParseRow(int rowNo)
         {
             List<string> fighters = fightersParser.ParseFighters(rowNo);
             string analyst = analystParser.ParseAnalyst(rowNo);
-            return new RawUfcEventPicks(analyst, fighters);
+            return new RawExhibitionPicks(analyst, fighters);
         }
 
-        private bool IsValidResult(RawUfcEventPicks result)
+        private bool IsValidResult(RawExhibitionPicks result)
         {
             return !(result.AnalystName == null);
         }

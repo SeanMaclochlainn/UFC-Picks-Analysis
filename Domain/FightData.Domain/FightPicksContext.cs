@@ -14,7 +14,7 @@ namespace FightData.Domain
         public DbSet<AnalystAltName> AnalystAltNames { get; set; }
         public DbSet<Analyst> Analysts { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
-        public DbSet<UfcEvent> UfcEvents { get; set; }
+        public DbSet<Exhibition> Exhibitions { get; set; }
         public DbSet<Fight> Fights { get; set; }
         public DbSet<Fighter> Fighters { get; set; }
         public DbSet<Pick> Picks { get; set; }
@@ -61,16 +61,16 @@ namespace FightData.Domain
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<UfcEvent>(entity =>
+            modelBuilder.Entity<Exhibition>(entity =>
             {
-                entity.Property(e => e.EventName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<UfcEvent>().Ignore(e => e.CancelledFighterNames);
-            modelBuilder.Entity<UfcEvent>().Ignore(e => e.FightersWithMatchingLastNames);
+            modelBuilder.Entity<Exhibition>().Ignore(e => e.CancelledFighterNames);
+            modelBuilder.Entity<Exhibition>().Ignore(e => e.FightersWithMatchingLastNames);
 
             modelBuilder.Entity<Fighter>(entity =>
             {
@@ -119,7 +119,7 @@ namespace FightData.Domain
                 .IsRequired();
 
             modelBuilder.Entity<Webpage>()
-                .HasOne(wp => wp.Event)
+                .HasOne(wp => wp.Exhibition)
                 .WithMany(e => e.Webpages)
                 .IsRequired();
 
@@ -132,7 +132,7 @@ namespace FightData.Domain
                 .WithMany(ft => ft.Losses);
 
             modelBuilder.Entity<Fight>()
-                .HasOne(f => f.UfcEvent)
+                .HasOne(f => f.Exhibition)
                 .WithMany(e => e.Fights)
                 .IsRequired();
 

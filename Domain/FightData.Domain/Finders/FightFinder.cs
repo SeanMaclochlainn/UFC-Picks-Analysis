@@ -6,23 +6,23 @@ namespace FightData.Domain.Finders
 {
     public class FightFinder : DataFinder
     {
-        private UfcEvent ufcEvent;
+        private Exhibition exhibition;
         private FighterFinder fighterFinder;
 
-        private FightFinder(UfcEvent ufcEvent, FightPicksContext context)
+        private FightFinder(Exhibition exhibition, FightPicksContext context)
         {
-            this.ufcEvent = ufcEvent;
+            this.exhibition = exhibition;
             fighterFinder = new FighterFinder(context);
         }
 
-        public static FightFinder WithinEvent(UfcEvent ufcEvent, FightPicksContext context)
+        public static FightFinder WithinExhibition(Exhibition exhibition, FightPicksContext context)
         {
-            return new FightFinder(ufcEvent, context);
+            return new FightFinder(exhibition, context);
         }
 
         public FinderResult<Fight> FindFight(Fighter fighterFromFight)
         {
-            foreach(Fight fight in ufcEvent.Fights.ToList())
+            foreach(Fight fight in exhibition.Fights.ToList())
             {
                 if (FighterFinder.FindFighter(fight.GetFighters(), fighterFromFight.FullName).IsFound())
                     return new FinderResult<Fight>(fight);

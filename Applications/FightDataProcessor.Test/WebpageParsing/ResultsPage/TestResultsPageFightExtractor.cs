@@ -12,21 +12,21 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         [TestMethod]
         public void TestExtractResults()
         {
-            UfcEvent ufcEvent = GetResultsPageEvent();
-            ufcEvent.Add();
-            EventDataExtractor eventDataExtractor = new EventDataExtractor(ufcEvent);
+            Exhibition exhibition = GetResultsPageExhibition();
+            exhibition.Add();
+            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
             int existingFights = context.Fights.Count();
 
-            eventDataExtractor.ExtractResultsPageData();
+            exhibitionDataExtractor.ExtractResultsPageData();
 
             Assert.IsTrue(context.Fights.Count() == existingFights + 2);
         }
 
-        private UfcEvent GetResultsPageEvent()
+        private Exhibition GetResultsPageExhibition()
         {
-            UfcEvent ufcEvent = entityGenerator.UfcEventGenerator.GetEmptyUfcEvent();
-            ufcEvent.Webpages.Add(entityGenerator.WebpageGenerator.GetPopulatedResultsPage());
-            return ufcEvent;
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetEmptyExhibition();
+            exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetPopulatedResultsPage());
+            return exhibition;
         }
     }
 }

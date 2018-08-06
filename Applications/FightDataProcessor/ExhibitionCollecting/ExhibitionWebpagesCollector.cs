@@ -6,26 +6,26 @@ using FightData.Domain;
 
 namespace FightDataProcessor
 {
-    public class UfcEventWebpagesCollector
+    public class ExhibitionWebpagesCollector
     {
-        private UfcEventCollectingUi eventUi;
+        private ExhibitionCollectingUi exhibitionUi;
         private WebpageFinder webpageFinder;
 
-        public UfcEventWebpagesCollector() : this(new AppUi()) { }
+        public ExhibitionWebpagesCollector() : this(new AppUi()) { }
 
-        public UfcEventWebpagesCollector(AppUi ui)
+        public ExhibitionWebpagesCollector(AppUi ui)
         {
-            this.eventUi = new UfcEventCollectingUi(ui);
+            this.exhibitionUi = new ExhibitionCollectingUi(ui);
             this.webpageFinder = new WebpageFinder();
         }
 
-        public List<Webpage> CollectEventWebpages()
+        public List<Webpage> CollectExhibitionWebpages()
         {
             List<Website> websites = webpageFinder.GetAllWebsites();
             List<Webpage> webpages = new List<Webpage>();
             foreach (var website in websites)
             {
-                string websiteUrl = eventUi.GetWebsiteUrl(website);
+                string websiteUrl = exhibitionUi.GetWebsiteUrl(website);
                 if (SkipWebsite(websiteUrl))
                     continue;
                 else
