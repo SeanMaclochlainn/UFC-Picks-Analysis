@@ -6,7 +6,7 @@ namespace FightData.Domain.Entities
     {
         public int Id { get; set; }
         public WebsiteName WebsiteName { get; set; }
-        public string DomainName { get; set; }
         public List<Webpage> Webpages { get; set; }
+        public WebsiteType WebsiteType { get; set; }
     }
 }

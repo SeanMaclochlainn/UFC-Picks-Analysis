@@ -34,7 +34,7 @@ namespace FightDataUI
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Exhibition/Error");
             }
 
             app.UseStaticFiles();
@@ -43,7 +43,7 @@ namespace FightDataUI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=FightEvents}/{action=Index}/{id?}");
+                    template: "{controller=Exhibition}/{action=Index}/{id?}");
             });
         }
     }

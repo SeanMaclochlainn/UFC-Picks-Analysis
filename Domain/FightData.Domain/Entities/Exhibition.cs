@@ -5,6 +5,8 @@ namespace FightData.Domain.Entities
 {
     public class Exhibition : Entity
     {
+        public Exhibition() : base(new FightPicksContext()) { }
+
         public Exhibition(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }
@@ -37,6 +39,7 @@ namespace FightData.Domain.Entities
         public void Add()
         {
             Context.Exhibitions.Add(this);
+            Context.Websites.AttachRange(Webpages.Select(w => w.Website));
             Context.SaveChanges();
         }
 
@@ -52,7 +55,7 @@ namespace FightData.Domain.Entities
 
         public List<Webpage> GetPicksPages()
         {
-            return Webpages.Where(w => w.WebpageType == WebpageType.PicksPage).ToList();
+            return Webpages.Where(w => w.Website.WebsiteType == WebsiteType.Pick).ToList();
         }
     }
 }

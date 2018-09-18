@@ -105,14 +105,6 @@ namespace FightData.Domain
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Website>(entity =>
-            {
-                entity.Property(e => e.DomainName)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
-
             modelBuilder.Entity<Webpage>()
                 .HasOne(wp => wp.Website)
                 .WithMany(ws => ws.Webpages)
