@@ -30,8 +30,7 @@ namespace FightData.TestData.EntityGenerators
             {
                 Url = "https://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
                 Website = new WebsiteGenerator(context).GetPicksPageWebsite(),
-                Data = HtmlPageGenerator.GetPicksPage(),
-                WebpageType = WebpageType.PicksPage
+                Data = HtmlPageGenerator.GetPicksPage()
             };
             return webpage;
         }

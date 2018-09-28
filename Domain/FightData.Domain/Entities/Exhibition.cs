@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FightData.Domain.Finders;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Entities
@@ -39,13 +40,19 @@ namespace FightData.Domain.Entities
         public void Add()
         {
             Context.Exhibitions.Add(this);
-            Context.Websites.AttachRange(Webpages.Select(w => w.Website));
+            //Context.Websites.AttachRange(Webpages.Select(w => w.Website));
             Context.SaveChanges();
         }
 
         public void Update()
         {
             Context.SaveChanges();
+        }
+
+        public void AddAllWebsiteWebpages()
+        {
+            foreach (Website website in new WebsiteFinder(Context).FindAllWebsites())
+                Webpages.Add(new Webpage(Context) { Website = website });
         }
 
         public Webpage GetResultsPage()

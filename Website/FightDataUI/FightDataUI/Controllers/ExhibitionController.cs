@@ -33,19 +33,15 @@ namespace FightDataUI.Controllers
         
         public ActionResult Create()
         {
-            ExhibitionData exhibitionData = new ExhibitionData();
-            foreach (Website website in websiteFinder.FindAllWebsites())
-                exhibitionData.Webpages.Add(new Webpage(context) { Website = website });
-            return View(exhibitionData);
+            Exhibition exhibition = new Exhibition(context);
+            exhibition.AddWebpagesForWebsites();
+            return View(exhibition);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ExhibitionData exhibitionData)
+        public ActionResult Create(Exhibition exhibition)
         {
-            Exhibition exhibition = new Exhibition(context);
-            exhibition.Name = exhibitionData.Name;
-            exhibition.Webpages = exhibitionData.Webpages;
             exhibition.Add();
             return RedirectToAction("Index");
         }

@@ -12,10 +12,10 @@
     <thead>
         <tr>
             <th>Name</th>
-            @foreach(var website in Model.First().Webpages)
+            @foreach(var website in new WebpageFinder().GetAllWebsites())
             {
                 <th>
-                    @website.Website.WebsiteName
+                    @website.WebsiteName
                 </th>
             }
         </tr>

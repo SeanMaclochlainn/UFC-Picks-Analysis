@@ -40,5 +40,16 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(fighters.Count == 2);
         }
+
+        [TestMethod]
+        public void TestAddAllWebsiteWebpages()
+        {
+            Exhibition exhibition = new Exhibition(context);
+            entityGenerator.WebsiteGenerator.GetResultsPageWebsite().Add();            
+
+            exhibition.AddAllWebsiteWebpages();
+
+            Assert.IsTrue(exhibition.Webpages.First().Website.WebsiteName == WebsiteName.Wikipedia);
+        }
     }
 }
