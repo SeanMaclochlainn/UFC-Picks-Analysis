@@ -34,7 +34,7 @@ namespace FightDataUI.Controllers
         public ActionResult Create()
         {
             Exhibition exhibition = new Exhibition(context);
-            exhibition.AddWebpagesForWebsites();
+            exhibition.AddAllWebsiteWebpages();
             return View(exhibition);
         }
         
