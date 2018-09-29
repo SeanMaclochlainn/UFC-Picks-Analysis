@@ -40,8 +40,13 @@ namespace FightData.Domain.Entities
         public void Add()
         {
             Context.Exhibitions.Add(this);
-            //Context.Websites.AttachRange(Webpages.Select(w => w.Website));
+            AddWebsitesToContext();
             Context.SaveChanges();
+        }
+
+        private void AddWebsitesToContext()
+        {
+            Context.Websites.AttachRange(Webpages.Select(w => w.Website));
         }
 
         public void Update()

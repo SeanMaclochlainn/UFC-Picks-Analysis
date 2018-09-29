@@ -12,11 +12,11 @@ namespace FightData.Domain.Test.Entities
         public void TestAddWebsite()
         {
             Website website = new Website(context);
-            website.WebsiteName = WebsiteName.Wikipedia;
+            website.Id = 555;
 
             website.Add();
 
-            Assert.IsTrue(context.Websites.Count() == 1);
+            Assert.IsTrue(context.Websites.Count(w => w.Id == 555) == 1);
         }
     }
 }

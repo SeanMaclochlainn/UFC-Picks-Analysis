@@ -13,7 +13,6 @@ namespace FightData.TestData.EntityGenerators
             PickGenerator = new PickGenerator(context);
             ExhibitionGenerator = new ExhibitionGenerator(context);
             WebpageGenerator = new WebpageGenerator(context);
-            WebsiteGenerator = new WebsiteGenerator(context);
         }
 
         public AnalystGenerator AnalystGenerator { get; private set; }
@@ -22,7 +21,5 @@ namespace FightData.TestData.EntityGenerators
         public PickGenerator PickGenerator { get; private set; }
         public ExhibitionGenerator ExhibitionGenerator { get; private set; }
         public WebpageGenerator WebpageGenerator { get; private set; }
-        public WebsiteGenerator WebsiteGenerator { get; private set; }
-        
     }
 }

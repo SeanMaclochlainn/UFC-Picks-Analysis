@@ -45,7 +45,6 @@ namespace FightData.Domain.Test
         public void TestAddAllWebsiteWebpages()
         {
             Exhibition exhibition = new Exhibition(context);
-            entityGenerator.WebsiteGenerator.GetResultsPageWebsite().Add();            
 
             exhibition.AddAllWebsiteWebpages();
 

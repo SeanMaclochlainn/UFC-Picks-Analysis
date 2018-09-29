@@ -1,4 +1,5 @@
-﻿using FightData.TestData;
+﻿using FightData.Domain.Entities;
+using FightData.TestData;
 using FightData.TestData.EntityGenerators;
 
 namespace FightData.Domain.Test
@@ -12,6 +13,13 @@ namespace FightData.Domain.Test
         {
             context = new TestDatabase().Context;
             entityGenerator = new EntityGenerator(context);
+            AddWebsites();
+        }
+
+        private void AddWebsites()
+        {
+            new Website(context) { Id = 1, WebsiteName = WebsiteName.Wikipedia, WebsiteType = WebsiteType.Result }.Add();
+            new Website(context) { Id = 2, WebsiteName = WebsiteName.MMAJunkie, WebsiteType = WebsiteType.Pick }.Add();
         }
     }
 }

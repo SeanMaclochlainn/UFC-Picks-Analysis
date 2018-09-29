@@ -1,6 +1,8 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
+using FightData.Domain.Finders;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.TestData.EntityGenerators
 {
@@ -18,7 +20,7 @@ namespace FightData.TestData.EntityGenerators
             Analyst analyst = new Analyst(context);
             analyst.AltNames = new List<AnalystAltName>() { GetAltName(analyst) };
             analyst.Name = "Mike Bohn";
-            analyst.Website = new WebsiteGenerator(context).GetResultsPageWebsite();
+            analyst.Website = new WebsiteFinder(context).FindAllWebsites().First(w => w.WebsiteType == WebsiteType.Result);
             return analyst;
         }
 
