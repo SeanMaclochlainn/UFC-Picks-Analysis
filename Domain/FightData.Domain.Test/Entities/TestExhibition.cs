@@ -50,5 +50,15 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(exhibition.Webpages.First().Website.WebsiteName == WebsiteName.Wikipedia);
         }
+
+        [TestMethod]
+        public void TestGetWebsiteUrl()
+        {
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();
+
+            string url = exhibition.GetWebsiteUrl(WebsiteName.Wikipedia);
+
+            Assert.IsTrue(url == entityGenerator.WebpageGenerator.GetPopulatedResultsPage().Url);
+        }
     }
 }

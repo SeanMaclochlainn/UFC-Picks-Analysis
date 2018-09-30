@@ -2,7 +2,6 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightDataUI.Models;
-using FightDataUI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

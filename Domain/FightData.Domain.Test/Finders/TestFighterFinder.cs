@@ -3,7 +3,7 @@ using FightData.Domain.Finders;
 using FightData.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FightData.Domain.Test
+namespace FightData.Domain.Test.Finders
 {
     [TestClass]
     public class TestFighterFinder : TestDataLayer

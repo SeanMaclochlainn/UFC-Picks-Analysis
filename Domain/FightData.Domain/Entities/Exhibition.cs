@@ -69,5 +69,10 @@ namespace FightData.Domain.Entities
         {
             return Webpages.Where(w => w.Website.WebsiteType == WebsiteType.Pick).ToList();
         }
+
+        public string GetWebsiteUrl(WebsiteName websiteName)
+        {
+            return Webpages.Any(w => w.Website.WebsiteName == websiteName) ? Webpages.Single(wp => wp.Website.WebsiteName == websiteName).Url : "";
+        }
     }
 }

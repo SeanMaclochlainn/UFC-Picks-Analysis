@@ -13,6 +13,12 @@ namespace FightData.Domain.Entities
         public Exhibition Exhibition { get; set; }
         public string Data { get; set; }
 
+        public void Add()
+        {
+            Context.Webpages.Add(this);
+            Context.SaveChanges();
+        }
+
         public XDocument GetHtml()
         {
             return XDocument.Parse(Data);

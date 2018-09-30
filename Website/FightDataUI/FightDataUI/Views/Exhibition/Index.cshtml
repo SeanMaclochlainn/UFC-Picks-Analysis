@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FightData.Domain.Entities.Exhibition>    
+﻿@model IEnumerable<FightData.Domain.Entities.Exhibition>
 @{
     ViewData["Title"] = "Index";
 }
@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            @foreach(var website in new WebpageFinder().GetAllWebsites())
+            @foreach (var website in new WebpageFinder().GetAllWebsites())
             {
                 <th>
                     @website.WebsiteName
@@ -27,6 +27,13 @@
                 <td>
                     @exhibition.Name
                 </td>
+
+                @foreach (var website in new WebpageFinder().GetAllWebsites())
+                {
+                    <td>
+                        @exhibition.GetWebsiteUrl(website.WebsiteName)
+                    </td>
+                }
             </tr>
         }
     </tbody>
