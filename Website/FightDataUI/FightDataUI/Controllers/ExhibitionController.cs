@@ -2,6 +2,7 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightDataUI.Models;
+using FightDataUI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -21,7 +22,7 @@ namespace FightDataUI.Controllers
 
         public ActionResult Index()
         {
-            return View(new ExhibitionFinder(context).FindAllExhibitions());
+            return View(new ExhibitionVM(new ExhibitionFinder(context).FindAllExhibitions(), context));
         }
         
         public ActionResult Details(int id)

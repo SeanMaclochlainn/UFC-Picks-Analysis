@@ -1,18 +1,15 @@
-﻿@model IEnumerable<FightData.Domain.Entities.Exhibition>
+﻿@model FightDataUI.ViewModels.ExhibitionVM
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Exhibitions</h2>
 
-
-
-
 <table>
     <thead>
         <tr>
             <th>Name</th>
-            @foreach (var website in WebpageFinder.WithCustomContext(Model.First().Context).GetAllWebsites())
+            @foreach (var website in WebpageFinder.WithCustomContext(Model.Context).GetAllWebsites())
             {
                 <th>
                     @website.WebsiteName
@@ -21,14 +18,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var exhibition in Model)
+        @foreach (var exhibition in Model.Exhibitions)
         {
             <tr>
                 <td>
                     @exhibition.Name
                 </td>
 
-                @foreach (var website in WebpageFinder.WithCustomContext(Model.First().Context).GetAllWebsites())
+                @foreach (var website in WebpageFinder.WithCustomContext(Model.Context).GetAllWebsites())
                 {
                     <td>
                         @exhibition.GetWebsiteUrl(website.WebsiteName)
