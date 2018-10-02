@@ -2,21 +2,28 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightDataProcessor.WebpageParsing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 
 namespace FightDataProcessor
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            //UserInputCollector userInputCollector = new UserInputCollector();
-            //InputParser inputParser = userInputCollector.RetrieveUserInput("Enter command: ", new CommandParser());
-            //AppCommand appCommand = new AppCommand(inputParser.InputText);
-            //CommandController commandController = new CommandController(appCommand);
-            //commandController.HandleCommand();
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-            ExhibitionFinder exhibitionFinder = new ExhibitionFinder(new FightPicksContext());
+            DbContextOptions<FightPicksContext> dbContextOptions = new DbContextOptionsBuilder<FightPicksContext>()
+               .UseSqlServer(configuration.GetConnectionString("FightPicks"))
+               .Options;
+
+            ExhibitionFinder exhibitionFinder = new ExhibitionFinder(new FightPicksContext(dbContextOptions));
             foreach (Exhibition exhibition in exhibitionFinder.FindAllExhibitions())
                 new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
 

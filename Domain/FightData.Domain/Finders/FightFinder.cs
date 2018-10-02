@@ -9,7 +9,7 @@ namespace FightData.Domain.Finders
         private Exhibition exhibition;
         private FighterFinder fighterFinder;
 
-        private FightFinder(Exhibition exhibition, FightPicksContext context)
+        private FightFinder(Exhibition exhibition, FightPicksContext context) : base(context)
         {
             this.exhibition = exhibition;
             fighterFinder = new FighterFinder(context);
@@ -22,7 +22,7 @@ namespace FightData.Domain.Finders
 
         public FinderResult<Fight> FindFight(Fighter fighterFromFight)
         {
-            foreach(Fight fight in exhibition.Fights.ToList())
+            foreach (Fight fight in exhibition.Fights.ToList())
             {
                 if (FighterFinder.FindFighter(fight.GetFighters(), fighterFromFight.FullName).IsFound())
                     return new FinderResult<Fight>(fight);

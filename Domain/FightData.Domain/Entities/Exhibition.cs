@@ -6,7 +6,7 @@ namespace FightData.Domain.Entities
 {
     public class Exhibition : Entity
     {
-        public Exhibition() : base(new FightPicksContext()) { }
+        private Exhibition() { }
 
         public Exhibition(FightPicksContext context) : base(context) { }
 

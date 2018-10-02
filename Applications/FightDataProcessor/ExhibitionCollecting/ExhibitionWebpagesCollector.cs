@@ -6,56 +6,56 @@ using FightData.Domain;
 
 namespace FightDataProcessor
 {
-    public class ExhibitionWebpagesCollector
-    {
-        private ExhibitionCollectingUi exhibitionUi;
-        private WebpageFinder webpageFinder;
+    //public class ExhibitionWebpagesCollector
+    //{
+    //    private ExhibitionCollectingUi exhibitionUi;
+    //    private WebpageFinder webpageFinder;
 
-        public ExhibitionWebpagesCollector() : this(new AppUi()) { }
+    //    public ExhibitionWebpagesCollector() : this(new AppUi()) { }
 
-        public ExhibitionWebpagesCollector(AppUi ui)
-        {
-            this.exhibitionUi = new ExhibitionCollectingUi(ui);
-            this.webpageFinder = new WebpageFinder();
-        }
+    //    public ExhibitionWebpagesCollector(AppUi ui)
+    //    {
+    //        this.exhibitionUi = new ExhibitionCollectingUi(ui);
+    //        this.webpageFinder = new WebpageFinder();
+    //    }
 
-        public List<Webpage> CollectExhibitionWebpages()
-        {
-            List<Website> websites = webpageFinder.GetAllWebsites();
-            List<Webpage> webpages = new List<Webpage>();
-            foreach (var website in websites)
-            {
-                string websiteUrl = exhibitionUi.GetWebsiteUrl(website);
-                if (SkipWebsite(websiteUrl))
-                    continue;
-                else
-                {
-                    webpages.Add(new Webpage(new FightPicksContext())
-                    {
-                        Url = websiteUrl,
-                        Website = website,
-                        Data = DownloadWebpage(websiteUrl)
-                    });
-                }
-            }
-            return webpages;
-        }
+    //    public List<Webpage> CollectExhibitionWebpages()
+    //    {
+    //        List<Website> websites = webpageFinder.GetAllWebsites();
+    //        List<Webpage> webpages = new List<Webpage>();
+    //        foreach (var website in websites)
+    //        {
+    //            string websiteUrl = exhibitionUi.GetWebsiteUrl(website);
+    //            if (SkipWebsite(websiteUrl))
+    //                continue;
+    //            else
+    //            {
+    //                webpages.Add(new Webpage(new FightPicksContext())
+    //                {
+    //                    Url = websiteUrl,
+    //                    Website = website,
+    //                    Data = DownloadWebpage(websiteUrl)
+    //                });
+    //            }
+    //        }
+    //        return webpages;
+    //    }
 
-        private string DownloadWebpage(string url)
-        {
-            string webPage = "";
-            using (WebClient client = new WebClient())
-            {
-                webPage = client.DownloadString(url);
-            }
-            return webPage;
-        }
+    //    private string DownloadWebpage(string url)
+    //    {
+    //        string webPage = "";
+    //        using (WebClient client = new WebClient())
+    //        {
+    //            webPage = client.DownloadString(url);
+    //        }
+    //        return webPage;
+    //    }
 
-        private bool SkipWebsite(string url)
-        {
-            return string.IsNullOrEmpty(url);
-        }
-    }
+    //    private bool SkipWebsite(string url)
+    //    {
+    //        return string.IsNullOrEmpty(url);
+    //    }
+    //}
 }
 
 

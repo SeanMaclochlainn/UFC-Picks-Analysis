@@ -22,7 +22,7 @@
         @for (int i = 0; i < Model.Webpages.Count; i++)
         {
             <div class="form-group">
-                @Html.LabelFor(m=> new WebsiteFinder().FindAllWebsites()[i].WebsiteName, (new WebsiteFinder().FindAllWebsites()[i].WebsiteName.ToString() + " URL"), htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(m=> new WebsiteFinder(Model.Context).FindAllWebsites()[i].WebsiteName, (new WebsiteFinder(Model.Context).FindAllWebsites()[i].WebsiteName.ToString() + " URL"), htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.HiddenFor(m=>m.Webpages[i].Id)
                     @Html.HiddenFor(m=>m.Webpages[i].Website.Id)

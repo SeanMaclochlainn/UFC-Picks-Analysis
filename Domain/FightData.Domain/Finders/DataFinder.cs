@@ -5,11 +5,6 @@ namespace FightData.Domain.Finders
     {
         protected FightPicksContext context;
 
-        public DataFinder()
-        {
-            context = new FightPicksContext();
-        }
-
         public DataFinder(FightPicksContext context)
         {
             this.context = context;

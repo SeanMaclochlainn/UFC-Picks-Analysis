@@ -12,7 +12,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            @foreach (var website in new WebpageFinder().GetAllWebsites())
+            @foreach (var website in WebpageFinder.WithCustomContext(Model.First().Context).GetAllWebsites())
             {
                 <th>
                     @website.WebsiteName
@@ -28,7 +28,7 @@
                     @exhibition.Name
                 </td>
 
-                @foreach (var website in new WebpageFinder().GetAllWebsites())
+                @foreach (var website in WebpageFinder.WithCustomContext(Model.First().Context).GetAllWebsites())
                 {
                     <td>
                         @exhibition.GetWebsiteUrl(website.WebsiteName)

@@ -5,43 +5,43 @@ using FightDataProcessor.WebpageParsing;
 
 namespace FightDataProcessor
 {
-    public class CommandController
-    {
-        private AppCommand appCommand;
-        private ExhibitionCollector exhibitionCollector;
-        private DataRemover dataRemover;
+    //public class CommandController
+    //{
+    //    private AppCommand appCommand;
+    //    private ExhibitionCollector exhibitionCollector;
+    //    private DataRemover dataRemover;
 
-        public CommandController(AppCommand appCommand)
-        {
-            this.appCommand = appCommand;
-            exhibitionCollector = new ExhibitionCollector();
-            dataRemover = new DataRemover(new FightPicksContext());
-        }
+    //    public CommandController(AppCommand appCommand)
+    //    {
+    //        this.appCommand = appCommand;
+    //        exhibitionCollector = new ExhibitionCollector();
+    //        dataRemover = new DataRemover(new FightPicksContext());
+    //    }
 
-        public void HandleCommand()
-        {
-            DataUtilities dataUtilities = new DataUtilities();
+    //    public void HandleCommand()
+    //    {
+    //        DataUtilities dataUtilities = new DataUtilities();
             
-            if (appCommand.Command == Commands.Collect)
-            {
-                exhibitionCollector.ContinuouslyCollectExhibitions();
-            }
-            else if(appCommand.Command == Commands.Process)
-            {
-                if(appCommand.Arguments.Contains(Arguments.ClearExisting))
-                {
-                    dataRemover.RemoveAllPicks();
-                }
+    //        if (appCommand.Command == Commands.Collect)
+    //        {
+    //            exhibitionCollector.ContinuouslyCollectExhibitions();
+    //        }
+    //        else if(appCommand.Command == Commands.Process)
+    //        {
+    //            if(appCommand.Arguments.Contains(Arguments.ClearExisting))
+    //            {
+    //                dataRemover.RemoveAllPicks();
+    //            }
 
-                CollectAllExhibitionData();
-            }
-        }
+    //            CollectAllExhibitionData();
+    //        }
+    //    }
 
-        private void CollectAllExhibitionData()
-        {
-            ExhibitionFinder exhibitionFinder = new ExhibitionFinder(new FightPicksContext());
-            foreach (Exhibition exhibition in exhibitionFinder.FindAllExhibitions())
-                new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
-        }
-    }
+    //    private void CollectAllExhibitionData()
+    //    {
+    //        ExhibitionFinder exhibitionFinder = new ExhibitionFinder(new FightPicksContext());
+    //        foreach (Exhibition exhibition in exhibitionFinder.FindAllExhibitions())
+    //            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+    //    }
+    //}
 }

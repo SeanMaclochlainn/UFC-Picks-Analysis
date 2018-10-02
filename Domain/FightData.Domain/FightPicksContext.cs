@@ -6,7 +6,6 @@ namespace FightData.Domain
 {
     public class FightPicksContext : DbContext
     {
-        public FightPicksContext() { }
 
         public FightPicksContext(DbContextOptions<FightPicksContext> options) : base(options) { }
 
@@ -21,13 +20,6 @@ namespace FightData.Domain
         public DbSet<Webpage> Webpages { get; set; }
         public DbSet<Website> Websites { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=LAPTOP-BM2NFSS0;Database=FightPicks.Dev;Integrated Security=SSPI;MultipleActiveResultSets=true");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

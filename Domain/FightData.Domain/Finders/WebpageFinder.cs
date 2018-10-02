@@ -6,8 +6,6 @@ namespace FightData.Domain.Finders
 {
     public class WebpageFinder : DataFinder
     {
-        public WebpageFinder() { }
-
         private WebpageFinder(FightPicksContext context) : base(context) { }
 
         public static WebpageFinder WithCustomContext(FightPicksContext context)

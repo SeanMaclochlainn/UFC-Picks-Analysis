@@ -6,8 +6,6 @@ namespace FightData.Domain.Finders
 {
     public class WebsiteFinder : DataFinder
     {
-        public WebsiteFinder() { }
-
         public WebsiteFinder(FightPicksContext context) : base(context) { }
 
         public List<Website> FindAllWebsites()

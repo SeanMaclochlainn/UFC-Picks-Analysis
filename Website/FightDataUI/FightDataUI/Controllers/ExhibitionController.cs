@@ -5,7 +5,6 @@ using FightDataUI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Linq;
 
 namespace FightDataUI.Controllers
 {
@@ -14,9 +13,9 @@ namespace FightDataUI.Controllers
         private FightPicksContext context;
         private WebsiteFinder websiteFinder;
 
-        public ExhibitionController()
+        public ExhibitionController(FightPicksContext context)
         {
-            context = new FightPicksContext();
+            this.context = context;
             websiteFinder = new WebsiteFinder(context);
         }
 
