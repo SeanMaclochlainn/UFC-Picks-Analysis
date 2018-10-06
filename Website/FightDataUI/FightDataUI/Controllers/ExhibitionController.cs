@@ -13,11 +13,13 @@ namespace FightDataUI.Controllers
     {
         private FightPicksContext context;
         private WebsiteFinder websiteFinder;
+        private ExhibitionFinder exhibitionFinder;
 
         public ExhibitionController(FightPicksContext context)
         {
             this.context = context;
             websiteFinder = new WebsiteFinder(context);
+            exhibitionFinder = new ExhibitionFinder(context);
         }
 
         public ActionResult Index()
@@ -70,16 +72,17 @@ namespace FightDataUI.Controllers
         
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(exhibitionFinder.FindExhibition(id));
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Exhibition exhibition)
         {
             try
             {
-
+                exhibition = exhibitionFinder.FindExhibition(exhibition.Id);
+                exhibition.Delete();
                 return RedirectToAction(nameof(Index));
             }
             catch

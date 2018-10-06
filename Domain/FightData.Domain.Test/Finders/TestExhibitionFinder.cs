@@ -28,5 +28,19 @@ namespace FightData.Domain.Test.Finders
             Assert.IsNotNull(exhibitions.First().Webpages.First().Website);
         }
 
+        [TestMethod]
+        public void TestFindExhibition()
+        {
+            int exhibitionId = 555;
+            Exhibition testExhibition = new ExhibitionGenerator(context).GetEmptyExhibition();
+            testExhibition.Id = exhibitionId;
+            testExhibition.Add();
+
+            Exhibition exhibition = exhibitionFinder.FindExhibition(exhibitionId);
+
+            Assert.IsNotNull(exhibition);
+
+        }
+
     }
 }

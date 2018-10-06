@@ -60,6 +60,12 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
+        public void Delete()
+        {
+            Context.Exhibitions.Remove(this);
+            Context.SaveChanges();
+        }
+
         public Webpage GetResultsPage()
         {
             return Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
