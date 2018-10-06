@@ -6,7 +6,6 @@ namespace FightData.Domain
 {
     public class FightPicksContext : DbContext
     {
-
         public FightPicksContext(DbContextOptions<FightPicksContext> options) : base(options) { }
 
         public DbSet<FighterAltName> FighterAltNames { get; set; }

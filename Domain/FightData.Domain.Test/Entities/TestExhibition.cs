@@ -42,16 +42,6 @@ namespace FightData.Domain.Test
         }
 
         [TestMethod]
-        public void TestAddAllWebsiteWebpages()
-        {
-            Exhibition exhibition = new Exhibition(context);
-
-            exhibition.AddAllWebsiteWebpages();
-
-            Assert.IsTrue(exhibition.Webpages.First().Website.WebsiteName == WebsiteName.Wikipedia);
-        }
-
-        [TestMethod]
         public void TestGetWebsiteUrl()
         {
             Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();

@@ -32,15 +32,16 @@ namespace FightDataUI.Controllers
         
         public ActionResult Create()
         {
-            Exhibition exhibition = new Exhibition(context);
-            exhibition.AddAllWebsiteWebpages();
-            return View(exhibition);
+            CreateExhibitionView createExhibitionView = new CreateExhibitionView();
+            createExhibitionView.LoadViewData(context);
+            return View(createExhibitionView);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Exhibition exhibition)
+        public ActionResult Create(CreateExhibitionView createExhibitionView)
         {
+            Exhibition exhibition = new Exhibition(context, createExhibitionView.Exhibition.Name, createExhibitionView.Exhibition.Webpages);
             exhibition.Add();
             return RedirectToAction("Index");
         }

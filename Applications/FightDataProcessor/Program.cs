@@ -11,7 +11,6 @@ namespace FightDataProcessor
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()

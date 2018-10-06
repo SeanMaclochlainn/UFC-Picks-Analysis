@@ -6,7 +6,13 @@ namespace FightData.Domain.Entities
 {
     public class Exhibition : Entity
     {
-        private Exhibition() { }
+        public Exhibition() { }
+
+        public Exhibition(FightPicksContext context, string name, List<Webpage> webpages) : this(context)
+        {
+            Webpages = webpages;
+            Name = name;
+        }
 
         public Exhibition(FightPicksContext context) : base(context) { }
 
@@ -52,12 +58,6 @@ namespace FightData.Domain.Entities
         public void Update()
         {
             Context.SaveChanges();
-        }
-
-        public void AddAllWebsiteWebpages()
-        {
-            foreach (Website website in new WebsiteFinder(Context).FindAllWebsites())
-                Webpages.Add(new Webpage(Context) { Website = website });
         }
 
         public Webpage GetResultsPage()

@@ -4,7 +4,8 @@ namespace FightData.Domain.Entities
 {
     public class Webpage : Entity
     {
-        private Webpage() { }
+        public Webpage() { }
+
         public Webpage(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }

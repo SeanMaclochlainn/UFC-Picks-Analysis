@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightDataUI", "FightDataUI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.Domain", "..\..\Domain\FightData.Domain\FightData.Domain.csproj", "{69755669-C702-4F23-B1BD-0DF0F8448516}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FightData.UI.Test", "FightData.UI.Test\FightData.UI.Test.csproj", "{0FAFDE9D-835B-4832-A8A1-522A0D56E2B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.TestData", "..\..\Domain\FightData.TestData\FightData.TestData.csproj", "{AA90F0BC-BA80-40E0-ABCD-EEFEC6C16334}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{69755669-C702-4F23-B1BD-0DF0F8448516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69755669-C702-4F23-B1BD-0DF0F8448516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69755669-C702-4F23-B1BD-0DF0F8448516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FAFDE9D-835B-4832-A8A1-522A0D56E2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAFDE9D-835B-4832-A8A1-522A0D56E2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAFDE9D-835B-4832-A8A1-522A0D56E2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAFDE9D-835B-4832-A8A1-522A0D56E2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA90F0BC-BA80-40E0-ABCD-EEFEC6C16334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA90F0BC-BA80-40E0-ABCD-EEFEC6C16334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA90F0BC-BA80-40E0-ABCD-EEFEC6C16334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA90F0BC-BA80-40E0-ABCD-EEFEC6C16334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
