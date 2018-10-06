@@ -5,7 +5,7 @@
 
 <h2>Exhibitions</h2>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -28,7 +28,7 @@
                 @foreach (var website in Model.Websites)
                 {
                     <td>
-                        @exhibition.GetWebsiteUrl(website.WebsiteName)
+                        <a href="@exhibition.GetWebsiteUrl(website.WebsiteName)">@exhibition.GetWebsiteUrl(website.WebsiteName)</a>
                     </td>
                 }
             </tr>
