@@ -1,4 +1,4 @@
-﻿@model FightDataUI.ViewModels.ExhibitionVM
+﻿@model FightDataUI.ViewModels.ExhibitionIndexView
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            @foreach (var website in WebpageFinder.WithCustomContext(Model.Context).GetAllWebsites())
+            @foreach (var website in Model.Websites)
             {
                 <th>
                     @website.WebsiteName
@@ -25,7 +25,7 @@
                     @exhibition.Name
                 </td>
 
-                @foreach (var website in WebpageFinder.WithCustomContext(Model.Context).GetAllWebsites())
+                @foreach (var website in Model.Websites)
                 {
                     <td>
                         @exhibition.GetWebsiteUrl(website.WebsiteName)

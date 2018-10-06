@@ -22,7 +22,9 @@ namespace FightDataUI.Controllers
 
         public ActionResult Index()
         {
-            return View(new ExhibitionVM(new ExhibitionFinder(context).FindAllExhibitions(), context));
+            ExhibitionIndexView exhibitionIndexView = new ExhibitionIndexView();
+            exhibitionIndexView.LoadViewData(context);
+            return View(exhibitionIndexView);
         }
         
         public ActionResult Details(int id)

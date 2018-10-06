@@ -6,7 +6,7 @@ using System.Linq;
 namespace FightData.UI.Test
 {
     [TestClass]
-    public class ExhibitionViewTest : TestDataLayer
+    public class CreateExhibitionViewTest : TestDataLayer
     {
         [TestMethod]
         public void TestAddAllWebsiteWebpages()
