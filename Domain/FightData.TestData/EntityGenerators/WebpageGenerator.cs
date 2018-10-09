@@ -41,9 +41,9 @@ namespace FightData.TestData.EntityGenerators
         {
             Webpage webpage = new Webpage(context)
             {
-                Url = "url",
+                Url = "",
                 Website = new WebsiteFinder(context).FindAllWebsites().First(w => w.WebsiteType == WebsiteType.Result),
-                Data = "test data"
+                Data = ""
             };
             return webpage;
         }
