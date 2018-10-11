@@ -1,5 +1,5 @@
 ﻿
-namespace FightDataUI.ViewModels
+namespace FightData.Domain.EntityCreation
 {
     public interface Client
     {

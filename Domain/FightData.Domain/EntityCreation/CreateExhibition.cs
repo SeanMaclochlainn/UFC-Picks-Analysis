@@ -1,8 +1,7 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
+﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 
-namespace FightDataUI.ViewModels
+namespace FightData.Domain.EntityCreation
 {
     public class CreateExhibition
     {

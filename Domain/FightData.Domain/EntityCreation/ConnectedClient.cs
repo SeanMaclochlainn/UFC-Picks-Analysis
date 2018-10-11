@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace FightDataUI.ViewModels
+namespace FightData.Domain.EntityCreation
 {
     public class ConnectedClient : Client
     {

@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
+using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
 using FightDataUI.Models;
 using FightDataUI.ViewModels;
