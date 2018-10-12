@@ -3,7 +3,7 @@ using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
 using System.Collections.Generic;
 
-namespace FightData.Domain.Adders
+namespace FightData.Domain.Updaters
 {
     public class ExhibitionUpdater
     {

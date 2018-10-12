@@ -1,4 +1,4 @@
-﻿using FightData.Domain.EntityCreation;
+﻿using FightData.Domain.Updaters;
 using System.Xml.Linq;
 
 namespace FightData.Domain.Entities

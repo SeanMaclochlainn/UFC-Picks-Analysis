@@ -1,4 +1,4 @@
-﻿using FightData.Domain.Adders;
+﻿using FightData.Domain.Updaters;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

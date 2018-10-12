@@ -1,5 +1,5 @@
 ﻿
-namespace FightData.Domain.EntityCreation
+namespace FightData.Domain.Updaters
 {
     public interface Client
     {

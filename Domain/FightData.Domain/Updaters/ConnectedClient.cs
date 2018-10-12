@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace FightData.Domain.EntityCreation
+namespace FightData.Domain.Updaters
 {
     public class ConnectedClient : Client
     {

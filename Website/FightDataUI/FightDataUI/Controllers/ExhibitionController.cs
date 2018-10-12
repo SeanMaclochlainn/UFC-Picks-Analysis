@@ -1,5 +1,5 @@
 ﻿using FightData.Domain;
-using FightData.Domain.Adders;
+using FightData.Domain.Updaters;
 using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;

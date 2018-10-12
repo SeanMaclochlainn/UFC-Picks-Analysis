@@ -1,4 +1,4 @@
-﻿using FightData.Domain.EntityCreation;
+﻿using FightData.Domain.Updaters;
 
 namespace FightData.UI.Test
 {
