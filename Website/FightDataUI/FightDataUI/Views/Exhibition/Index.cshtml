@@ -16,26 +16,30 @@
                 </th>
             }
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var exhibition in Model.Exhibitions)
         {
-            <tr>
-                <td>
-                    @exhibition.Name
-                </td>
+        <tr>
+            <td>
+                @exhibition.Name
+            </td>
 
-                @foreach (var website in Model.Websites)
-                {
-                    <td>
-                        <a href="@exhibition.GetWebsiteUrl(website.WebsiteName)">@exhibition.GetWebsiteUrl(website.WebsiteName)</a>
-                    </td>
-                }
+            @foreach (var website in Model.Websites)
+            {
                 <td>
-                    <a asp-action="Delete" asp-route-id="@exhibition.Id" class="btn btn-danger">Delete</a>
+                    <a href="@exhibition.GetWebsiteUrl(website.WebsiteName)">@exhibition.GetWebsiteUrl(website.WebsiteName)</a>
                 </td>
-            </tr>
+            }
+            <td>
+                <a asp-action="Edit" asp-route-id="@exhibition.Id" class="btn btn-info">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@exhibition.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

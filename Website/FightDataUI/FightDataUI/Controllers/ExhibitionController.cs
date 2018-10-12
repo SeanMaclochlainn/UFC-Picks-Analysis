@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Adders;
 using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
@@ -37,37 +38,33 @@ namespace FightDataUI.Controllers
         
         public ActionResult Create()
         {
-            CreateExhibition createExhibition = new CreateExhibition();
-            createExhibition.LoadViewData(context);
-            return View(createExhibition);
+            ExhibitionForm exhibitionForm = new ExhibitionForm();
+            exhibitionForm.LoadDataForInput(context, new Exhibition());
+            return View(exhibitionForm);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateExhibition createExhibition)
+        public ActionResult Create(ExhibitionForm exhibitionForm)
         {
-            createExhibition.ProcessViewData(context, new ConnectedClient());
+            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
+            exhibitionUpdater.AddExhibition(exhibitionForm, new ConnectedClient());
             return RedirectToAction("Index");
         }
         
         public ActionResult Edit(int id)
         {
-            return View();
+            ExhibitionForm exhibitionForm = new ExhibitionForm(exhibitionFinder.FindExhibition(id));
+            return View(exhibitionForm);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(ExhibitionForm exhibitionForm)
         {
-            try
-            {
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
+            exhibitionUpdater.UpdateExhibition(exhibitionForm, new ConnectedClient());
+            return RedirectToAction("Index");
         }
         
         public ActionResult Delete(int id)

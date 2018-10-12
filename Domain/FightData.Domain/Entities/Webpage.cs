@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using FightData.Domain.EntityCreation;
+using System.Xml.Linq;
 
 namespace FightData.Domain.Entities
 {
@@ -7,6 +8,12 @@ namespace FightData.Domain.Entities
         public Webpage() { }
 
         public Webpage(FightPicksContext context) : base(context) { }
+
+        public Webpage(FightPicksContext context, string url, Website website) : base(context)
+        {
+            Url = url;
+            Website = website;
+        }
 
         public int Id { get; set; }
         public string Url { get; set; }
@@ -23,6 +30,11 @@ namespace FightData.Domain.Entities
         public XDocument GetHtml()
         {
             return XDocument.Parse(Data);
+        }
+
+        public void DownloadData(Client client)
+        {
+            Data = client.Download(Url);
         }
     }
 }

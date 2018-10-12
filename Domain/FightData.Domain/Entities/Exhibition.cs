@@ -1,5 +1,4 @@
-﻿using FightData.Domain.Finders;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Entities
@@ -50,10 +49,6 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-        private void AddWebsitesToContext()
-        {
-            Context.Websites.AttachRange(Webpages.Select(w => w.Website));
-        }
 
         public void Update()
         {
@@ -79,6 +74,11 @@ namespace FightData.Domain.Entities
         public string GetWebsiteUrl(WebsiteName websiteName)
         {
             return Webpages.Any(w => w.Website.WebsiteName == websiteName) ? Webpages.Single(wp => wp.Website.WebsiteName == websiteName).Url : "";
+        }
+
+        private void AddWebsitesToContext()
+        {
+            Context.Websites.AttachRange(Webpages.Select(w => w.Website));
         }
     }
 }
