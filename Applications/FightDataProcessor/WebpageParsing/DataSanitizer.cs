@@ -1,12 +1,13 @@
-﻿using System.Xml.Linq;
+﻿using HtmlAgilityPack;
+using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
     public class DataSanitizer
     {
-        public static string GetElementValue(XElement element)
+        public static string GetElementValue(HtmlNode node)
         {
-            return element.Value.Trim();
+            return node.InnerText.Trim();
         }
     }
 }

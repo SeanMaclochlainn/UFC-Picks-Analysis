@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class PicksPageFightersParser
     {
         private static int maxNoOfFights = 10;
-        private XDocument htmlDocument;
+        private HtmlDocument htmlDocument;
         private int currentRow;
 
-        public PicksPageFightersParser(XDocument htmlDocument)
+        public PicksPageFightersParser(HtmlDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }
@@ -20,26 +19,26 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         {
             currentRow = rowNo;
             List<string> fighters = new List<string>();
-            foreach (XElement fighterElement in GetCurrentRowFighterElements())
-                fighters.Add(DataSanitizer.GetElementValue(fighterElement));
+            foreach (HtmlNode fighterNode in GetCurrentRowFighterElements())
+                fighters.Add(DataSanitizer.GetElementValue(fighterNode));
             return fighters;
         }
 
-        private List<XElement> GetCurrentRowFighterElements()
+        private List<HtmlNode> GetCurrentRowFighterElements()
         {
-            List<XElement> fighterElements = new List<XElement>();
+            List<HtmlNode> fighterNodes = new List<HtmlNode>();
             for (int currentColumnNo = 1; currentColumnNo <= maxNoOfFights; currentColumnNo++)
             {
-                XElement parsedFighter = ParseFighter(currentColumnNo);
+                HtmlNode parsedFighter = ParseFighter(currentColumnNo);
                 if (parsedFighter != null)
-                    fighterElements.Add(parsedFighter);
+                    fighterNodes.Add(parsedFighter);
             }
-            return fighterElements;
+            return fighterNodes;
         }
 
-        private XElement ParseFighter(int columnNo)
+        private HtmlNode ParseFighter(int columnNo)
         {
-            return htmlDocument.XPathSelectElement(XpathGenerator.PicksPageFighterXpath(currentRow, columnNo));
+            return htmlDocument.DocumentNode.SelectNodes(XpathGenerator.PicksPageFighterXpath(currentRow, columnNo))?.FirstOrDefault();
         }
 
     }

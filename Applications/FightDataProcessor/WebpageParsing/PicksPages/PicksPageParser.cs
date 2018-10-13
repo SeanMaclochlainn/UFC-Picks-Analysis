@@ -1,6 +1,6 @@
 ﻿using FightData.Domain;
+using HtmlAgilityPack;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
@@ -10,7 +10,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         private PicksPageFightersParser fightersParser;
         private PicksPageAnalystParser analystParser;
 
-        public PicksPageParser(XDocument htmlPage)
+        public PicksPageParser(HtmlDocument htmlPage)
         {
             fightersParser = new PicksPageFightersParser(htmlPage);
             analystParser = new PicksPageAnalystParser(htmlPage);

@@ -1,20 +1,23 @@
 ﻿using FightData.Domain.Entities;
+using HtmlAgilityPack;
 using System.Xml.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
     public class HtmlPageParser
     {
-        private Webpage webpage;
+        private string html;
 
-        public HtmlPageParser(Webpage webpage)
+        public HtmlPageParser(string html)
         {
-            this.webpage = webpage;
+            this.html = html;
         }
 
-        public XDocument ParseHtml()
+        public HtmlDocument ParseHtml()
         {
-            return XDocument.Parse(webpage.Data);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(html);
+            return htmlDocument;
         }
     }
 }

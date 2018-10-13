@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -9,9 +10,9 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
     public class ResultsPageParser
     {
         private static int maxNoOfRows = 20;
-        private XDocument resultsPageHtml;
+        private HtmlDocument resultsPageHtml;
 
-        public ResultsPageParser(XDocument resultsPageHtml)
+        public ResultsPageParser(HtmlDocument resultsPageHtml)
         {
             this.resultsPageHtml = resultsPageHtml;
         }
@@ -21,27 +22,27 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
             List<RawFightResult> rawFightResults = new List<RawFightResult>();
             for (int currentRowNo = 1; currentRowNo <= maxNoOfRows; currentRowNo++)
             {
-                XElement winner = GetWinnerElement(currentRowNo);
-                XElement loser = GetLoserElement(currentRowNo);
-                if (IsValidElementList(new List<XElement>() { winner, loser })) 
+                HtmlNode winner = GetWinnerElement(currentRowNo);
+                HtmlNode loser = GetLoserElement(currentRowNo);
+                if (IsValidElementList(new List<HtmlNode>() { winner, loser })) 
                     rawFightResults.Add(new RawFightResult(DataSanitizer.GetElementValue(winner), DataSanitizer.GetElementValue(loser)));
             }
             return rawFightResults;
         }
 
-        private XElement GetWinnerElement(int rowNo)
+        private HtmlNode GetWinnerElement(int rowNo)
         {
-            return resultsPageHtml.XPathSelectElement(XpathGenerator.ResultsPageWinnerXpath(rowNo));
+            return resultsPageHtml.DocumentNode.SelectNodes(XpathGenerator.ResultsPageWinnerXpath(rowNo))?.FirstOrDefault();
         }
 
-        private XElement GetLoserElement(int rowNo)
+        private HtmlNode GetLoserElement(int rowNo)
         {
-            return resultsPageHtml.XPathSelectElement(XpathGenerator.ResultsPageLoserXpath(rowNo));
+            return resultsPageHtml.DocumentNode.SelectNodes(XpathGenerator.ResultsPageLoserXpath(rowNo))?.FirstOrDefault();
         }
 
-        private bool IsValidElementList(List<XElement> elements)
+        private bool IsValidElementList(List<HtmlNode> nodes)
         {
-            return !elements.Any(e => e == null);
+            return !nodes.Any(e => e == null);
         }
     }
 }

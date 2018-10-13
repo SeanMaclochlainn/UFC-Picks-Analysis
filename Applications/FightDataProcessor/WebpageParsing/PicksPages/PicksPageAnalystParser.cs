@@ -1,22 +1,22 @@
-﻿using System.Xml.Linq;
-using System.Xml.XPath;
+﻿using HtmlAgilityPack;
+using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class PicksPageAnalystParser
     {
-        private XDocument htmlDocument;
+        private HtmlDocument htmlDocument;
 
-        public PicksPageAnalystParser(XDocument htmlDocument)
+        public PicksPageAnalystParser(HtmlDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }
 
         public string ParseAnalyst(int rowNo)
         {
-            XElement analystElement = htmlDocument.XPathSelectElement(XpathGenerator.PicksPageAnalystXpath(rowNo));
-            if (analystElement != null)
-                return DataSanitizer.GetElementValue(analystElement);
+            HtmlNode analystNode = htmlDocument.DocumentNode.SelectNodes(XpathGenerator.PicksPageAnalystXpath(rowNo))?.FirstOrDefault();
+            if (analystNode != null)
+                return DataSanitizer.GetElementValue(analystNode);
             else
                 return "";
         }

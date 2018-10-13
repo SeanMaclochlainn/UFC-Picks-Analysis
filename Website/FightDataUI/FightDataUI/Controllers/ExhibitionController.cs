@@ -68,7 +68,6 @@ namespace FightDataUI.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public ActionResult Process(int id)
         {
             ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibitionFinder.FindExhibition(id));

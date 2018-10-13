@@ -23,7 +23,7 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractResultsPageData()
         {
-            ResultsPageParser resultsPageParser = new ResultsPageParser(new HtmlPageParser(exhibition.GetResultsPage()).ParseHtml());
+            ResultsPageParser resultsPageParser = new ResultsPageParser(new HtmlPageParser(exhibition.GetResultsPage().Data).ParseHtml());
             new FightAdder(exhibition).AddFights(resultsPageParser.ParseResultTable());
         }
 
@@ -31,7 +31,7 @@ namespace FightDataProcessor.WebpageParsing
         {
             foreach (Webpage picksPage in exhibition.GetPicksPages())
             {
-                List<RawExhibitionPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage).ParseHtml()).ParsePicksGrid();
+                List<RawExhibitionPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
                 new PickAdder(exhibition).AddPicks(rawExhibitionPicks);
             }
         }

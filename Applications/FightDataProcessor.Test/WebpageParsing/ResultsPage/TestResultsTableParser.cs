@@ -15,7 +15,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 
         public TestResultsTableParser()
         {
-            resultsTableParser = new ResultsPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedResultsPage()).ParseHtml());
+            resultsTableParser = new ResultsPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedResultsPage().Data).ParseHtml());
         }
 
         [TestMethod]
