@@ -1,5 +1,7 @@
-﻿using HtmlAgilityPack;
+﻿using FightData.Domain.Finders;
+using HtmlAgilityPack;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
@@ -29,16 +31,19 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             List<HtmlNode> fighterNodes = new List<HtmlNode>();
             for (int currentColumnNo = 1; currentColumnNo <= maxNoOfFights; currentColumnNo++)
             {
-                HtmlNode parsedFighter = ParseFighter(currentColumnNo);
-                if (parsedFighter != null)
-                    fighterNodes.Add(parsedFighter);
+                FinderResult<HtmlNode> fighterResult = FindFighter(currentColumnNo);
+                if (fighterResult.IsFound())
+                    fighterNodes.Add(fighterResult.Result);
             }
             return fighterNodes;
         }
 
-        private HtmlNode ParseFighter(int columnNo)
+        private FinderResult<HtmlNode> FindFighter(int columnNo)
         {
-            return htmlDocument.DocumentNode.SelectNodes(XpathGenerator.PicksPageFighterXpath(currentRow, columnNo))?.FirstOrDefault();
+            string xpath = XpathGenerator.PicksPageFighterXpath(currentRow, columnNo);
+            FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
+            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
+            return result;
         }
 
     }

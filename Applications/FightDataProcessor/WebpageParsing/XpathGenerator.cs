@@ -14,12 +14,12 @@
 
         public static string PicksPageAnalystXpath(int rowNo)
         {
-            return string.Format("//table/tr[{0}]/td[1]", rowNo);
+            return string.Format("//table//tr[{0}]/td[1]", rowNo);
         }
 
         public static string PicksPageFighterXpath(int rowNo, int columnNo)
         {
-            return string.Format("//table/tr[{0}]/td[{1}+1]", rowNo, columnNo);
+            return string.Format("//table//tr[{0}]/td[{1}+1]", rowNo, columnNo);
         }
     }
 }

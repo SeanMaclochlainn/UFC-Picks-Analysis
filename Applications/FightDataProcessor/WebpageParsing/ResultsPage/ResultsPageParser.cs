@@ -1,6 +1,8 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Finders;
 using HtmlAgilityPack;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -22,27 +24,35 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
             List<RawFightResult> rawFightResults = new List<RawFightResult>();
             for (int currentRowNo = 1; currentRowNo <= maxNoOfRows; currentRowNo++)
             {
-                HtmlNode winner = GetWinnerElement(currentRowNo);
-                HtmlNode loser = GetLoserElement(currentRowNo);
-                if (IsValidElementList(new List<HtmlNode>() { winner, loser })) 
-                    rawFightResults.Add(new RawFightResult(DataSanitizer.GetElementValue(winner), DataSanitizer.GetElementValue(loser)));
+                FinderResult<HtmlNode> winnerResult = FindWinnerElement(currentRowNo);
+                FinderResult<HtmlNode> loserResult = FindLoserElement(currentRowNo);
+
+                if (IsValidElementList(new List<FinderResult<HtmlNode>>() { winnerResult, loserResult }))
+                    rawFightResults.Add(new RawFightResult(DataSanitizer.GetElementValue(winnerResult.Result), DataSanitizer.GetElementValue(loserResult.Result)));
+
             }
             return rawFightResults;
         }
 
-        private HtmlNode GetWinnerElement(int rowNo)
+        private FinderResult<HtmlNode> FindWinnerElement(int rowNo)
         {
-            return resultsPageHtml.DocumentNode.SelectNodes(XpathGenerator.ResultsPageWinnerXpath(rowNo))?.FirstOrDefault();
+            string xpath = XpathGenerator.ResultsPageWinnerXpath(rowNo);
+            FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
+            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
+            return result;
         }
 
-        private HtmlNode GetLoserElement(int rowNo)
+        private FinderResult<HtmlNode> FindLoserElement(int rowNo)
         {
-            return resultsPageHtml.DocumentNode.SelectNodes(XpathGenerator.ResultsPageLoserXpath(rowNo))?.FirstOrDefault();
+            string xpath = XpathGenerator.ResultsPageLoserXpath(rowNo);
+            FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
+            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
+            return result;
         }
 
-        private bool IsValidElementList(List<HtmlNode> nodes)
+        private bool IsValidElementList(List<FinderResult<HtmlNode>> nodes)
         {
-            return !nodes.Any(e => e == null);
+            return !nodes.Any(e => e.IsFound() == false);
         }
     }
 }

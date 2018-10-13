@@ -1,4 +1,6 @@
-﻿using HtmlAgilityPack;
+﻿using FightData.Domain.Finders;
+using HtmlAgilityPack;
+using System.Diagnostics;
 using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
@@ -14,9 +16,11 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 
         public string ParseAnalyst(int rowNo)
         {
-            HtmlNode analystNode = htmlDocument.DocumentNode.SelectNodes(XpathGenerator.PicksPageAnalystXpath(rowNo))?.FirstOrDefault();
-            if (analystNode != null)
-                return DataSanitizer.GetElementValue(analystNode);
+            string xpath = XpathGenerator.PicksPageAnalystXpath(rowNo);
+            FinderResult<HtmlNode> analystFinderResult = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
+            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {analystFinderResult.IsFound()}");
+            if (analystFinderResult.IsFound())
+                return DataSanitizer.GetElementValue(analystFinderResult.Result);
             else
                 return "";
         }
