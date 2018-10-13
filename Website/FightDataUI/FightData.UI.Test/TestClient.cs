@@ -8,7 +8,7 @@ namespace FightData.UI.Test
 
         public TestClient()
         {
-            downloadedData = "downloadedString";
+            downloadedData = "downloadedstring";
         }
 
         public TestClient(string downloadedData)

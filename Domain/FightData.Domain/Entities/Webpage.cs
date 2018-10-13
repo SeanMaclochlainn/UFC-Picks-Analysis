@@ -27,11 +27,6 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-        public XDocument GetHtml()
-        {
-            return XDocument.Parse(Data);
-        }
-
         public void DownloadData(Client client)
         {
             Data = client.Download(Url);

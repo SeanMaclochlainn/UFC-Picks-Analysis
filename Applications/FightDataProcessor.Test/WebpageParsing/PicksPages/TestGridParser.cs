@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Test;
+using FightDataProcessor.WebpageParsing;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseAnalyst()
         {
-            PicksPageParser picksPageParser = new PicksPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
+            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage()).ParseHtml());
 
             List<RawExhibitionPicks> gridRowResults = picksPageParser.ParsePicksGrid();
 
@@ -23,7 +24,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseFighters()
         {
-            PicksPageParser picksPageParser = new PicksPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().GetHtml());
+            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage()).ParseHtml());
 
             List<RawExhibitionPicks> gridRowResults = picksPageParser.ParsePicksGrid().ToList();
 

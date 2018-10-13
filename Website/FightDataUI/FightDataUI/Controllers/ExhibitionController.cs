@@ -8,6 +8,7 @@ using FightDataUI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using FightDataProcessor.WebpageParsing;
 
 namespace FightDataUI.Controllers
 {
@@ -64,6 +65,14 @@ namespace FightDataUI.Controllers
         {
             ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
             exhibitionUpdater.UpdateExhibition(exhibitionForm, new ConnectedClient());
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Process(int id)
+        {
+            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibitionFinder.FindExhibition(id));
+            exhibitionDataExtractor.ExtractAllWebpages();
             return RedirectToAction("Index");
         }
         

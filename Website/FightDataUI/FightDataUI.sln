@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.TestData", "..\..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightData.Domain.Test", "..\..\Domain\FightData.Domain.Test\FightData.Domain.Test.csproj", "{8BB05665-3EEF-4203-90C6-720F30689139}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightDataProcessor", "..\..\Applications\FightDataProcessor\FightDataProcessor.csproj", "{57874B02-BAD0-44C6-8267-271ABB1435A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightDataProcessor.Test", "..\..\Applications\FightDataProcessor.Test\FightDataProcessor.Test.csproj", "{C02CE3C0-9D85-47AA-A3D2-D6A5F098F13F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{8BB05665-3EEF-4203-90C6-720F30689139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BB05665-3EEF-4203-90C6-720F30689139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BB05665-3EEF-4203-90C6-720F30689139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57874B02-BAD0-44C6-8267-271ABB1435A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57874B02-BAD0-44C6-8267-271ABB1435A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57874B02-BAD0-44C6-8267-271ABB1435A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57874B02-BAD0-44C6-8267-271ABB1435A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C02CE3C0-9D85-47AA-A3D2-D6A5F098F13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C02CE3C0-9D85-47AA-A3D2-D6A5F098F13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C02CE3C0-9D85-47AA-A3D2-D6A5F098F13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C02CE3C0-9D85-47AA-A3D2-D6A5F098F13F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

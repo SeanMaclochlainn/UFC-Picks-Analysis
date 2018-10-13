@@ -3,7 +3,6 @@ using FightData.Domain.Entities;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
@@ -24,7 +23,7 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractResultsPageData()
         {
-            ResultsPageParser resultsPageParser = new ResultsPageParser(exhibition.GetResultsPage().GetHtml());
+            ResultsPageParser resultsPageParser = new ResultsPageParser(new HtmlPageParser(exhibition.GetResultsPage()).ParseHtml());
             new FightAdder(exhibition).AddFights(resultsPageParser.ParseResultTable());
         }
 
@@ -32,7 +31,7 @@ namespace FightDataProcessor.WebpageParsing
         {
             foreach (Webpage picksPage in exhibition.GetPicksPages())
             {
-                List<RawExhibitionPicks> rawExhibitionPicks = new PicksPageParser(picksPage.GetHtml()).ParsePicksGrid();
+                List<RawExhibitionPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage).ParseHtml()).ParsePicksGrid();
                 new PickAdder(exhibition).AddPicks(rawExhibitionPicks);
             }
         }

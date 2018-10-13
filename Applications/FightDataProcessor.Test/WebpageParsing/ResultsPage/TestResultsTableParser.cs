@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Test;
+using FightDataProcessor.WebpageParsing;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 
         public TestResultsTableParser()
         {
-            resultsTableParser = new ResultsPageParser(entityGenerator.WebpageGenerator.GetPopulatedResultsPage().GetHtml());
+            resultsTableParser = new ResultsPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedResultsPage()).ParseHtml());
         }
 
         [TestMethod]
