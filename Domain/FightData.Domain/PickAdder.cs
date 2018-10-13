@@ -10,16 +10,19 @@ namespace FightData.Domain
         private Exhibition exhibition;
         private string analystName;
         private string fighterName;
-        private Analyst analyst;
-        private Fighter fighter;
-        private Fight fight;
+        FinderResult<Analyst> analystFinderResult;
+        FinderResult<Fighter> fighterFinderResult;
+        FinderResult<Fight> fightFinderResult;
 
         public PickAdder(Exhibition exhibition)
         {
             context = exhibition.Context;
             this.exhibition = exhibition;
+            analystFinderResult = new FinderResult<Analyst>(null);
+            fighterFinderResult = new FinderResult<Fighter>(null);
+            fightFinderResult = new FinderResult<Fight>(null);
         }
-        
+
         public void AddPicks(List<RawExhibitionPicks> rawExhibitionPicks)
         {
             foreach (RawExhibitionPicks rawExhibitionPick in rawExhibitionPicks)
@@ -41,31 +44,46 @@ namespace FightData.Domain
 
         private void AddPick()
         {
-            analyst = GetAnalyst();
-            fighter = GetFighter();
-            fight = GetFight();
-            Pick pick = new Pick(context)
+            FindEntities();
+            if (AreEntitiesValid())
             {
-                Analyst = analyst,
-                Fighter = fighter,
-                Fight = fight
-            };
-            pick.Add();
+                Pick pick = new Pick(context)
+                {
+                    Analyst = analystFinderResult.Result,
+                    Fighter = fighterFinderResult.Result,
+                    Fight = fightFinderResult.Result
+                };
+                pick.Add();
+            }
+
         }
 
-        private Analyst GetAnalyst()
+        private void FindEntities()
         {
-            return new AnalystFinder(context).FindAnalyst(analystName).Result;
+            FindAnalyst();
+            FindFighter();
+            FindFight();
         }
 
-        private Fighter GetFighter()
+        private void FindAnalyst()
         {
-            return FighterFinder.WithinExhibition(exhibition, context).FindFighter(fighterName).Result;
+            analystFinderResult = new AnalystFinder(context).FindAnalyst(analystName);
         }
-        
-        private Fight GetFight()
+
+        private void FindFighter()
         {
-            return FightFinder.WithinExhibition(exhibition, context).FindFight(fighter).Result;
+            fighterFinderResult = FighterFinder.WithinExhibition(exhibition, context).FindFighter(fighterName);
+        }
+
+        private void FindFight()
+        {
+            if (fighterFinderResult.IsFound())
+                fightFinderResult = FightFinder.WithinExhibition(exhibition, context).FindFight(fighterFinderResult.Result);
+        }
+
+        private bool AreEntitiesValid()
+        {
+            return analystFinderResult.IsFound() && fighterFinderResult.IsFound() && fightFinderResult.IsFound();
         }
     }
 }
