@@ -2,7 +2,6 @@
 using FightDataProcessor.WebpageParsing;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Xml.Linq;
 
 namespace FightDataProcessor.Test
 {
