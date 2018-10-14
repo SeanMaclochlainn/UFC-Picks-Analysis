@@ -18,9 +18,13 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         {
             string xpath = XpathGenerator.PicksPageAnalystXpath(rowNo);
             FinderResult<HtmlNode> analystFinderResult = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
-            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {analystFinderResult.IsFound()}");
+            Debug.WriteLine($"Searched for analyst with xpath: {xpath} \r\n Successful result: {analystFinderResult.IsFound()}");
             if (analystFinderResult.IsFound())
-                return DataSanitizer.GetElementValue(analystFinderResult.Result);
+            {
+                string analystName = DataSanitizer.GetElementValue(analystFinderResult.Result);
+                Debug.WriteLine($"Found analyst {analystName}");
+                return analystName;
+            }
             else
                 return "";
         }

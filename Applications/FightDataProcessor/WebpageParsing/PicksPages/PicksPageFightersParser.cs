@@ -42,7 +42,7 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
         {
             string xpath = XpathGenerator.PicksPageFighterXpath(currentRow, columnNo);
             FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
-            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
+            Debug.WriteLine($"Searched for fighter with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
             return result;
         }
 

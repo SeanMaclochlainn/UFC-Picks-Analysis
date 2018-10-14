@@ -4,8 +4,6 @@ using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace FightDataProcessor.WebpageParsing.ResultsPage
 {
@@ -38,7 +36,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         {
             string xpath = XpathGenerator.ResultsPageWinnerXpath(rowNo);
             FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
-            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
+            Debug.WriteLine($"Searched for winner with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
             return result;
         }
 
@@ -46,7 +44,7 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
         {
             string xpath = XpathGenerator.ResultsPageLoserXpath(rowNo);
             FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
-            Debug.WriteLine($"Searched with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
+            Debug.WriteLine($"Searched for loser with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
             return result;
         }
 
