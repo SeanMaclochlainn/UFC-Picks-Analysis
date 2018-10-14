@@ -11,7 +11,10 @@ namespace FightData.Domain.Finders
 
         public List<Exhibition> FindAllExhibitions()
         {
-            return context.Exhibitions.Include(e => e.Webpages).ThenInclude(w => w.Website).ToList();
+            return context.Exhibitions.Include(e => e.Webpages)
+                .ThenInclude(w => w.Website)
+                .Include(e => e.Fights)
+                .ToList();
         }
 
         public Exhibition FindExhibition(int id)

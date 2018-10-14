@@ -1,6 +1,4 @@
-﻿using FightData.Domain.Entities;
-using HtmlAgilityPack;
-using System.Xml.Linq;
+﻿using HtmlAgilityPack;
 
 namespace FightDataProcessor.WebpageParsing
 {

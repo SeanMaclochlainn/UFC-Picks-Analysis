@@ -1,0 +1,35 @@
+﻿@model FightData.Domain.Views.PickView
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Picks</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var exhibition in Model.Exhibitions)
+        {
+            @foreach (var fight in exhibition.Fights)
+            {
+                <tr>
+                    <td>
+                        @fight.Winner
+                    </td>
+                    <td>
+                        @fight.Loser
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
