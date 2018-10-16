@@ -94,6 +94,9 @@ namespace FightData.Domain
                     .HasColumnName("URL")
                     .HasMaxLength(300)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Parsed)
+                .IsRequired();
             });
 
             modelBuilder.Entity<Webpage>()

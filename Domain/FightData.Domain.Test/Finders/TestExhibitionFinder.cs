@@ -21,7 +21,7 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindAllExhibitions()
         {
-            new ExhibitionGenerator(context).GetPopulatedExhibition().Add();
+            new ExhibitionGenerator(context).GetParsedExhibition().Add();
 
             List<Exhibition> exhibitions = exhibitionFinder.FindAllExhibitions();
 

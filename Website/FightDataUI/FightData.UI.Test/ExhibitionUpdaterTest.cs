@@ -42,7 +42,7 @@ namespace FightData.UI.Test
         [TestMethod]
         public void TestEditExhibitionFromForm()
         {
-            entityGenerator.ExhibitionGenerator.GetPopulatedExhibition().Add();
+            entityGenerator.ExhibitionGenerator.GetParsedExhibition().Add();
             ExhibitionForm exhibitionForm = new ExhibitionForm(context.Exhibitions.Last());
 
             string update = "editexhibition";

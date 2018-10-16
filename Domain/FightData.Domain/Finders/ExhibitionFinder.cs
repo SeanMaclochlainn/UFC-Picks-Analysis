@@ -14,6 +14,9 @@ namespace FightData.Domain.Finders
             return context.Exhibitions.Include(e => e.Webpages)
                 .ThenInclude(w => w.Website)
                 .Include(e => e.Fights)
+                .ThenInclude(f => f.Winner)
+                .Include(e => e.Fights)
+                .ThenInclude(f => f.Loser)
                 .ToList();
         }
 

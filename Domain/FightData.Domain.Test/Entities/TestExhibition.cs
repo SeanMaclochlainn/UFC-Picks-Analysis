@@ -22,7 +22,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestUpdateExhibition()
         {
-            entityGenerator.ExhibitionGenerator.GetPopulatedExhibition().Add();
+            entityGenerator.ExhibitionGenerator.GetParsedExhibition().Add();
             Exhibition exhibition = context.Exhibitions.First();
 
             exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetEmptyWebpage());
@@ -34,7 +34,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestGetFighters()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
 
             List<Fighter> fighters = exhibition.GetFighters();
 
@@ -44,7 +44,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestGetWebsiteUrl()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
 
             string url = exhibition.GetWebsiteUrl(WebsiteName.Wikipedia);
 
@@ -54,7 +54,7 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestDeleteExhibition()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
 
             exhibition.Add();
             exhibition.Delete();

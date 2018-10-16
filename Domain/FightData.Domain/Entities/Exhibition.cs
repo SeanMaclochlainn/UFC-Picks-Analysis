@@ -49,7 +49,6 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-
         public void Update()
         {
             Context.SaveChanges();
@@ -59,11 +58,6 @@ namespace FightData.Domain.Entities
         {
             Context.Exhibitions.Remove(this);
             Context.SaveChanges();
-        }
-
-        public Webpage GetResultsPage()
-        {
-            return Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
         }
 
         public List<Webpage> GetPicksPages()

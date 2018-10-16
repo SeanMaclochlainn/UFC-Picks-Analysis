@@ -19,6 +19,7 @@ namespace FightData.Domain.Entities
         public Website Website { get; set; }
         public Exhibition Exhibition { get; set; }
         public string Data { get; set; }
+        public bool Parsed { get; set; }
 
         public void Add()
         {

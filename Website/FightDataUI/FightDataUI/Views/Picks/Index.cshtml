@@ -18,18 +18,21 @@
     <tbody>
         @foreach (var exhibition in Model.Exhibitions)
         {
-            @foreach (var fight in exhibition.Fights)
+            @for (int i = 0; i < exhibition.Fights.Count; i++)
             {
                 <tr>
+                    @if(i==0)
+                    {
+                        <td rowspan="@exhibition.Fights.Count">@exhibition.Name</td>
+                    }
                     <td>
-                        @fight.Winner
+                        @exhibition.Fights[i].Winner.FullName
                     </td>
                     <td>
-                        @fight.Loser
+                        @exhibition.Fights[i].Loser.FullName
                     </td>
                 </tr>
             }
-
         }
     </tbody>
 </table>

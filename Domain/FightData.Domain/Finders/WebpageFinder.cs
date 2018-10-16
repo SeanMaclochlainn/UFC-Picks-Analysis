@@ -13,6 +13,10 @@ namespace FightData.Domain.Finders
             return new WebpageFinder(context);
         }
 
+        public Webpage GetResultsPage(Exhibition exhibition)
+        {
+            return exhibition.Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
+        }
 
         public List<Webpage> GetAllWebpages()
         {
@@ -33,7 +37,6 @@ namespace FightData.Domain.Finders
         {
             return context.Webpages.Any(wp => wp.Exhibition.Id == exhibitionId && wp.Website.Id == websiteId);
         }
-
 
     }
 }

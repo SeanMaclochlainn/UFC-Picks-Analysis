@@ -13,7 +13,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestExtractPick()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
             exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetPopulatedPicksPage());
             entityGenerator.AnalystGenerator.GetPopulatedAnalyst().Add();
 

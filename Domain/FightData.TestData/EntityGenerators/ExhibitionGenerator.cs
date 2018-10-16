@@ -13,10 +13,10 @@ namespace FightData.TestData.EntityGenerators
             this.context = context;
         }
 
-        public Exhibition GetPopulatedExhibition()
+        public Exhibition GetParsedExhibition()
         {
             Exhibition exhibition = GetEmptyExhibition();
-            exhibition.Webpages = new List<Webpage>() { new WebpageGenerator(context).GetPopulatedResultsPage() };
+            exhibition.Webpages = new List<Webpage>() { new WebpageGenerator(context).GetParsedPopulatedResultsPage() };
             exhibition.AddFight(new FighterGenerator(context).GetWinner(), new FighterGenerator(context).GetLoser());
             return exhibition;
         }
@@ -24,6 +24,13 @@ namespace FightData.TestData.EntityGenerators
         public Exhibition GetEmptyExhibition()
         {
             return new Exhibition(context) { Name = "FN55" };
+        }
+
+        public Exhibition GetUnparsedExhibition()
+        {
+            Exhibition exhibition = GetEmptyExhibition();
+            exhibition.Webpages = new List<Webpage>() { new WebpageGenerator(context).GetPopulatedResultsPage(), new WebpageGenerator(context).GetPopulatedPicksPage() };
+            return exhibition;
         }
     }
 }
