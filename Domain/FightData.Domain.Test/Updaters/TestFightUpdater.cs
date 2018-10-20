@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Test
@@ -6,17 +7,17 @@ namespace FightData.Domain.Test
     [TestClass]
     public class TestFightUpdater : TestDataLayer
     {
-        private FightUpdater fightAdder;
+        private FightUpdater fightUpdater;
 
         public TestFightUpdater()
         {
-            fightAdder = new FightUpdater(entityGenerator.ExhibitionGenerator.GetParsedExhibition());
+            fightUpdater = new FightUpdater(context);
         }
 
         [TestMethod]
-        public void TestAddingFight()
+        public void TestAddingFights()
         {
-            fightAdder.AddFight(new RawFightResult("test winner", "test loser"));
+            fightUpdater.AddFights(new List<RawFightResult>() { new RawFightResult("test winner", "test loser") }, entityGenerator.ExhibitionGenerator.GetParsedExhibition());
 
             Assert.IsTrue(context.Fighters.Count(f => f.FullName == "test winner") == 1);
         }

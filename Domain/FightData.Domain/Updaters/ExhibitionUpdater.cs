@@ -9,11 +9,13 @@ namespace FightData.Domain.Updaters
     {
         private FightPicksContext context;
         private ExhibitionFinder exhibitionFinder;
+        private FightUpdater fightUpdater;
 
         public ExhibitionUpdater(FightPicksContext context)
         {
             this.context = context;
             exhibitionFinder = new ExhibitionFinder(context);
+            fightUpdater = new FightUpdater(context);
         }
 
         public void AddExhibition(ExhibitionForm exhibitionForm, Client client)
@@ -35,6 +37,11 @@ namespace FightData.Domain.Updaters
         {
             context.Exhibitions.Remove(exhibition);
             context.SaveChanges();
+        }
+
+        public void DeleteParsedData(Exhibition exhibition)
+        {
+            fightUpdater.DeleteFights(exhibition.Fights);
         }
 
         private List<Webpage> DownloadWebpageData(List<Webpage> webpages, Client client)

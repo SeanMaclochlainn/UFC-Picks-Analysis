@@ -13,10 +13,12 @@ namespace FightDataProcessor.WebpageParsing
     {
         private Exhibition exhibition;
         private WebpageFinder webpageFinder;
+        private FightPicksContext context;
 
         public ExhibitionDataExtractor(Exhibition exhibition)
         {
             this.exhibition = exhibition;
+            context = exhibition.Context;
             webpageFinder = new WebpageFinder(exhibition.Context);
         }
 
@@ -33,7 +35,7 @@ namespace FightDataProcessor.WebpageParsing
             {
                 Debug.WriteLine($"Parsing results page {resultsPage.Url}");
                 ResultsPageParser resultsPageParser = new ResultsPageParser(new HtmlPageParser(resultsPage.Data).ParseHtml());
-                new FightUpdater(exhibition).AddFights(resultsPageParser.ParseResultTable());
+                new FightUpdater(context).AddFights(resultsPageParser.ParseResultTable(), exhibition);
                 new WebpageUpdater(resultsPage).MarkAsParsed();
             }
         }

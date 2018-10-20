@@ -7,31 +7,30 @@ namespace FightData.Domain
     public class FightUpdater
     {
         private FightPicksContext context;
-        private Exhibition exhibition;
         private FighterFinder fighterFinder;
-        private Fighter winner;
-        private Fighter loser;
 
-        public FightUpdater(Exhibition exhibition)
+        public FightUpdater(FightPicksContext context)
         {
-            this.exhibition = exhibition;
-            context = exhibition.Context;
+            this.context = context;
             fighterFinder = new FighterFinder(context);
         }
 
-        public void AddFights(List<RawFightResult> rawFightResults)
+        public void AddFights(List<RawFightResult> rawFightResults, Exhibition exhibition)
         {
             foreach (RawFightResult rawFightResult in rawFightResults)
-                AddFight(rawFightResult);
+            {
+                EnsureFighterIsAdded(rawFightResult.Winner);
+                EnsureFighterIsAdded(rawFightResult.Loser);
+                Fighter winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
+                Fighter loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
+                AddFight(winner, loser, exhibition);
+            }
         }
 
-        public void AddFight(RawFightResult rawFightResult)
+        public void DeleteFights(List<Fight> fights)
         {
-            EnsureFighterIsAdded(rawFightResult.Winner);
-            EnsureFighterIsAdded(rawFightResult.Loser);
-            winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
-            loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
-            AddFight();
+            context.Fights.RemoveRange(fights);
+            context.SaveChanges();
         }
 
         private void EnsureFighterIsAdded(string name)
@@ -42,7 +41,7 @@ namespace FightData.Domain
             }
         }
 
-        private void AddFight()
+        private void AddFight(Fighter winner, Fighter loser, Exhibition exhibition)
         {
             Fight fight = new Fight(context);
             fight.Winner = winner;

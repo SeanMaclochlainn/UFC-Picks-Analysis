@@ -14,11 +14,24 @@ namespace FightData.Domain.Test.Updaters
             int originalExhibitionCount = context.Exhibitions.Count();
             Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
             exhibition.Add();
-            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
 
+            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
             exhibitionUpdater.Delete(exhibition);
 
             Assert.IsTrue(originalExhibitionCount == context.Exhibitions.Count());
+        }
+
+        [TestMethod]
+        public void TestDeleteParsedData()
+        {
+            int originalFightCount = context.Fights.Count();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+            exhibition.Add();
+            
+            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
+            exhibitionUpdater.DeleteParsedData(exhibition);
+
+            Assert.IsTrue(originalFightCount == context.Fights.Count());
         }
 
     }
