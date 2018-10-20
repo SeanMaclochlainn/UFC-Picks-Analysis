@@ -22,15 +22,6 @@ namespace FightData.Domain.Entities
         public List<string> CancelledFighterNames { get; set; }
         public List<Fighter> FightersWithMatchingLastNames { get; set; }
 
-        public void AddFight(Fighter winner, Fighter loser)
-        {
-            Fight fight = new Fight(Context);
-            fight.Winner = winner;
-            fight.Loser = loser;
-            fight.Exhibition = this;
-            Fights.Add(fight);
-        }
-
         public void Add()
         {
             Context.Exhibitions.Add(this);

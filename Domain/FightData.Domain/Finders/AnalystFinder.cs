@@ -1,5 +1,5 @@
-﻿
-using FightData.Domain.Entities;
+﻿using FightData.Domain.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Finders
@@ -12,6 +12,11 @@ namespace FightData.Domain.Finders
         {
             Analyst analyst = context.Analysts.FirstOrDefault(a => a.Name == name);
             return new FinderResult<Analyst>(analyst);
+        }
+
+        public List<Analyst> GetAllAnalysts()
+        {
+            return context.Analysts.ToList();
         }
     }
 }

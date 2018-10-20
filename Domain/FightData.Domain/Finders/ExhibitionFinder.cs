@@ -17,6 +17,8 @@ namespace FightData.Domain.Finders
                 .ThenInclude(f => f.Winner)
                 .Include(e => e.Fights)
                 .ThenInclude(f => f.Loser)
+                .Include(e => e.Fights)
+                .ThenInclude(f => f.Picks)
                 .ToList();
         }
 

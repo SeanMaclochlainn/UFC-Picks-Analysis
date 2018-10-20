@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
+using FightData.Domain.Updaters;
 using System.Collections.Generic;
 
 namespace FightData.TestData.EntityGenerators
@@ -7,17 +8,36 @@ namespace FightData.TestData.EntityGenerators
     public class ExhibitionGenerator
     {
         private FightPicksContext context;
+        private FighterGenerator fighterGenerator;
+        private AnalystGenerator analystGenerator;
+
 
         public ExhibitionGenerator(FightPicksContext context)
         {
             this.context = context;
+            analystGenerator = new AnalystGenerator(context);
+            fighterGenerator = new FighterGenerator(context);
         }
 
         public Exhibition GetParsedExhibition()
         {
             Exhibition exhibition = GetEmptyExhibition();
             exhibition.Webpages = new List<Webpage>() { new WebpageGenerator(context).GetParsedPopulatedResultsPage() };
-            exhibition.AddFight(new FighterGenerator(context).GetWinner(), new FighterGenerator(context).GetLoser());
+            Fighter winner = fighterGenerator.GetWinner();
+            Fighter loser = fighterGenerator.GetLoser();
+            Fight fight = new Fight(context)
+            {
+                Winner = winner,
+                Loser = loser
+            };
+            Pick pick = new Pick(context)
+            {
+                Analyst = analystGenerator.GetPopulatedAnalyst(),
+                Fight = fight,
+                Fighter = winner
+            };
+            fight.Picks.Add(pick);
+            exhibition.Fights.Add(fight);
             return exhibition;
         }
 

@@ -31,6 +31,18 @@ namespace FightData.Domain.Updaters
             exhibition.Update();
         }
 
+        public void Delete(Exhibition exhibition)
+        {
+            context.Exhibitions.Remove(exhibition);
+            context.SaveChanges();
+        }
+
+        //public void AddFight(Fight fight, Exhibition exhibition)
+        //{
+        //    exhibition.Fights.Add(fight);
+        //    context.SaveChanges();
+        //}
+
         private List<Webpage> DownloadWebpageData(List<Webpage> webpages, Client client)
         {
             List<Webpage> populatedWebpages = new List<Webpage>();
@@ -41,12 +53,6 @@ namespace FightData.Domain.Updaters
                 populatedWebpages.Add(webpage);
             }
             return populatedWebpages;
-        }
-
-        public void Delete(Exhibition exhibition)
-        {
-            context.Exhibitions.Remove(exhibition);
-            context.SaveChanges();
         }
     }
 }

@@ -10,9 +10,13 @@
     <thead>
         <tr>
             <th>Name</th>
-            
             <th></th>
             <th></th>
+            <th></th>
+            @foreach(Analyst analyst in Model.AnalystFinder.GetAllAnalysts())
+            {
+                <th>@analyst.Name</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -28,9 +32,14 @@
                     <td>
                         @exhibition.Fights[i].Winner.FullName
                     </td>
+                    <td>def.</td>
                     <td>
                         @exhibition.Fights[i].Loser.FullName
                     </td>
+                    @foreach(Analyst analyst in Model.AnalystFinder.GetAllAnalysts())
+                    {
+                        <td>@Model.FindPickText(analyst, exhibition.Fights[i])</td>
+                    }
                 </tr>
             }
         }
