@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace FightData.Domain.Entities
 {
@@ -34,9 +33,9 @@ namespace FightData.Domain.Entities
         {
             FullName = fullName;
             NameParser nameParser = new NameParser(FullName);
-            FirstName = nameParser.FirstName;
-            LastName = nameParser.LastName;
-            MiddleName = nameParser.MiddleNames;
+            FirstName = nameParser.GetFirstName();
+            LastName = nameParser.GetLastName();
+            MiddleName = nameParser.GetMiddleNames();
         }
 
 
