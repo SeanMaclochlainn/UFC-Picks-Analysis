@@ -37,12 +37,6 @@ namespace FightData.Domain.Updaters
             context.SaveChanges();
         }
 
-        //public void AddFight(Fight fight, Exhibition exhibition)
-        //{
-        //    exhibition.Fights.Add(fight);
-        //    context.SaveChanges();
-        //}
-
         private List<Webpage> DownloadWebpageData(List<Webpage> webpages, Client client)
         {
             List<Webpage> populatedWebpages = new List<Webpage>();

@@ -37,5 +37,21 @@ namespace FightData.Domain.Views
                 return "";
         }
 
+        public string FindPickColour(Analyst analyst, Fight fight)
+        {
+            FinderResult<Pick> pickFinderResult = PickFinder.FindPick(analyst, fight);
+            if(pickFinderResult.IsFound())
+            {
+                if (pickFinderResult.Result.IsCorrect())
+                    return "bg-success";
+                else
+                    return "bg-danger";
+            }
+            else
+            {
+                return "";
+            }
+        }
+
     }
 }

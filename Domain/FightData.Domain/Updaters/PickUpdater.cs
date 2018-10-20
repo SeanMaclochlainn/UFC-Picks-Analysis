@@ -53,9 +53,9 @@ namespace FightData.Domain
                     Fighter = fighterFinderResult.Result,
                     Fight = fightFinderResult.Result
                 };
-                pick.Add();
+                context.Picks.Add(pick);
+                context.SaveChanges();
             }
-
         }
 
         private void FindEntities()

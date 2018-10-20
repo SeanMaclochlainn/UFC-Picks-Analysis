@@ -28,15 +28,23 @@ namespace FightData.TestData.EntityGenerators
             Fight fight = new Fight(context)
             {
                 Winner = winner,
-                Loser = loser
+                Loser = loser,
+                Exhibition = exhibition
             };
-            Pick pick = new Pick(context)
+            Pick correctPick = new Pick(context)
             {
                 Analyst = analystGenerator.GetPopulatedAnalyst(),
                 Fight = fight,
                 Fighter = winner
             };
-            fight.Picks.Add(pick);
+            Pick incorrectPick = new Pick(context)
+            {
+                Analyst = analystGenerator.GetPopulatedAnalyst(),
+                Fight = fight,
+                Fighter = loser
+            };
+            fight.Picks.Add(correctPick);
+            fight.Picks.Add(incorrectPick);
             exhibition.Fights.Add(fight);
             return exhibition;
         }

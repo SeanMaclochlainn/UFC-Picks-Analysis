@@ -24,23 +24,23 @@
         {
             @for (int i = 0; i < exhibition.Fights.Count; i++)
             {
-                <tr>
-                    @if(i==0)
-                    {
-                        <td rowspan="@exhibition.Fights.Count">@exhibition.Name</td>
-                    }
-                    <td>
-                        @exhibition.Fights[i].Winner.FullName
-                    </td>
-                    <td>def.</td>
-                    <td>
-                        @exhibition.Fights[i].Loser.FullName
-                    </td>
-                    @foreach(Analyst analyst in Model.AnalystFinder.GetAllAnalysts())
-                    {
-                        <td>@Model.FindPickText(analyst, exhibition.Fights[i])</td>
-                    }
-                </tr>
+        <tr>
+            @if (i == 0)
+            {
+                <td rowspan="@exhibition.Fights.Count">@exhibition.Name</td>
+            }
+            <td>
+                @exhibition.Fights[i].Winner.FullName
+            </td>
+            <td>def.</td>
+            <td>
+                @exhibition.Fights[i].Loser.FullName
+            </td>
+            @foreach (Analyst analyst in Model.AnalystFinder.GetAllAnalysts())
+            {
+                <td class="@Model.FindPickColour(analyst, exhibition.Fights[i])">@Model.FindPickText(analyst, exhibition.Fights[i])</td>
+            }
+        </tr>
             }
         }
     </tbody>

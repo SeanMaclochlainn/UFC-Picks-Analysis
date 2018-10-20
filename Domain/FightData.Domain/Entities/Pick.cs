@@ -10,10 +10,12 @@ namespace FightData.Domain.Entities
         public Fight Fight { get; set; }
         public Fighter Fighter { get; set; }
 
-        public void Add()
+        public bool IsCorrect()
         {
-            Context.Picks.Add(this);
-            Context.SaveChanges();
+            if (Fighter.Id == Fight.Winner.Id)
+                return true;
+            else
+                return false;
         }
     }
 }
