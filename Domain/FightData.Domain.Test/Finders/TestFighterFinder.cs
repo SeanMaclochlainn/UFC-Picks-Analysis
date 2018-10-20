@@ -2,6 +2,7 @@
 using FightData.Domain.Finders;
 using FightData.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace FightData.Domain.Test.Finders
 {
@@ -26,6 +27,17 @@ namespace FightData.Domain.Test.Finders
         }
 
         [TestMethod]
+        public void TestFindWithinExhibition()
+        {
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+            exhibition.Add();
+
+            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Luke Rockhold", exhibition);
+
+            Assert.IsTrue(finderResult.IsFound());
+        }
+
+        [TestMethod]
         public void TestFindBySurname()
         {
             Fighter.GenerateFighter("Luke Rockhold", context).Add();
@@ -33,6 +45,26 @@ namespace FightData.Domain.Test.Finders
             FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold");
 
             Assert.IsTrue(finderResult.IsFound());
+        }
+
+        [TestMethod]
+        public void TestGetFightersInExhibition()
+        {
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+
+            List<Fighter> fighters = fighterFinder.GetFighters(exhibition);
+
+            Assert.IsTrue(fighters.Count == 2);
+        }
+
+        [TestMethod]
+        public void TestGetFightersInFight()
+        {
+            Fight fight = entityGenerator.FightGenerator.GetPopulatedFight();
+
+            List<Fighter> fighters = fighterFinder.GetFighters(fight);
+
+            Assert.IsTrue(fighters.Count == 2);
         }
 
     }

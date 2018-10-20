@@ -20,7 +20,7 @@ namespace FightData.TestData.EntityGenerators
             Analyst analyst = new Analyst(context);
             analyst.AltNames = new List<AnalystAltName>() { GetAltName(analyst) };
             analyst.Name = "Mike Bohn";
-            analyst.Website = new WebsiteFinder(context).FindAllWebsites().First(w => w.WebsiteType == WebsiteType.Result);
+            analyst.Website = new WebsiteFinder(context).GetAllWebsites().First(w => w.WebsiteType == WebsiteType.Result);
             return analyst;
         }
 

@@ -17,7 +17,7 @@ namespace FightDataProcessor.WebpageParsing
         public ExhibitionDataExtractor(Exhibition exhibition)
         {
             this.exhibition = exhibition;
-            webpageFinder = WebpageFinder.WithCustomContext(exhibition.Context);
+            webpageFinder = new WebpageFinder(exhibition.Context);
         }
 
         public void ExtractAllWebpages()
@@ -40,7 +40,7 @@ namespace FightDataProcessor.WebpageParsing
 
         public void ExtractPicksPagesData()
         {
-            foreach (Webpage picksPage in exhibition.GetPicksPages())
+            foreach (Webpage picksPage in webpageFinder.GetPicksPages(exhibition))
             {
                 if (!picksPage.Parsed)
                 {

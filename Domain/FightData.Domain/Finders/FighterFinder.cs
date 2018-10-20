@@ -6,21 +6,7 @@ namespace FightData.Domain.Finders
 {
     public class FighterFinder : DataFinder
     {
-        private Exhibition exhibition;
-        private bool searchWithinExhibition;
-
         public FighterFinder(FightPicksContext context) : base(context) { }
-
-        private FighterFinder(Exhibition exhibition, FightPicksContext context) : this(context)
-        {
-            this.exhibition = exhibition;
-            searchWithinExhibition = true;
-        }
-
-        public static FighterFinder WithinExhibition(Exhibition exhibition, FightPicksContext context)
-        {
-            return new FighterFinder(exhibition, context);
-        }
 
         public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, string name)
         {
@@ -32,17 +18,34 @@ namespace FightData.Domain.Finders
 
         public FinderResult<Fighter> FindFighter(string name)
         {
-            return FindFighter(GetFightersToSearch(), name);
+            return FindFighter(GetAllFighters(), name);
         }
 
-        private List<Fighter> GetFightersToSearch()
+        public FinderResult<Fighter> FindFighter(string name, Exhibition exhibition)
         {
-            if (searchWithinExhibition)
-                return exhibition.GetFighters();
-            else
-                return context.Fighters.ToList();
+            return FindFighter(GetFighters(exhibition), name);
         }
 
+        public List<Fighter> GetAllFighters()
+        {
+            return context.Fighters.ToList();
+        }
+
+        public List<Fighter> GetFighters(Exhibition exhibition)
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            foreach (Fight fight in exhibition.Fights)
+            {
+                fighters.Add(fight.Winner);
+                fighters.Add(fight.Loser);
+            }
+            return fighters;
+        }
+
+        public List<Fighter> GetFighters(Fight fight)
+        {
+            return new List<Fighter>() { fight.Winner, fight.Loser };
+        }
 
     }
 }

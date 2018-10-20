@@ -18,7 +18,7 @@ namespace FightDataUI.ViewModels
 
         public void LoadViewData(FightPicksContext context)
         {
-            Websites = WebpageFinder.WithCustomContext(context).GetAllWebsites();
+            Websites = new WebsiteFinder(context).GetAllWebsites();
             Exhibitions = new ExhibitionFinder(context).FindAllExhibitions();
         }
         

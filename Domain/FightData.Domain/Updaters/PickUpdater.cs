@@ -72,13 +72,13 @@ namespace FightData.Domain
 
         private void FindFighter()
         {
-            fighterFinderResult = FighterFinder.WithinExhibition(exhibition, context).FindFighter(fighterName);
+            fighterFinderResult = new FighterFinder(context).FindFighter(fighterName, exhibition);
         }
 
         private void FindFight()
         {
             if (fighterFinderResult.IsFound())
-                fightFinderResult = FightFinder.WithinExhibition(exhibition, context).FindFight(fighterFinderResult.Result);
+                fightFinderResult = new FightFinder(context).FindFight(fighterFinderResult.Result, exhibition);
         }
 
         private bool AreEntitiesValid()

@@ -32,16 +32,6 @@ namespace FightData.Domain.Test
         }
 
         [TestMethod]
-        public void TestGetFighters()
-        {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
-
-            List<Fighter> fighters = exhibition.GetFighters();
-
-            Assert.IsTrue(fighters.Count == 2);
-        }
-
-        [TestMethod]
         public void TestGetWebsiteUrl()
         {
             Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();

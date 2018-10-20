@@ -8,7 +8,7 @@ namespace FightData.Domain.Finders
     {
         public WebsiteFinder(FightPicksContext context) : base(context) { }
 
-        public List<Website> FindAllWebsites()
+        public List<Website> GetAllWebsites()
         {
             return context.Websites.ToList();
         }

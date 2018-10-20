@@ -15,7 +15,7 @@ namespace FightDataProcessor.Test.WebpageParsing
 
         public TestExhibitionDataExtractor()
         {
-            webpageFinder = WebpageFinder.WithCustomContext(context);
+            webpageFinder = new WebpageFinder(context);
         }
 
         [TestMethod]

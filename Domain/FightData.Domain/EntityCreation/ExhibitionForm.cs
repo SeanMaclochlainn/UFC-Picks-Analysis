@@ -25,7 +25,7 @@ namespace FightData.Domain.EntityCreation
 
         private void AddAllWebsiteWebpages(FightPicksContext context)
         {
-            foreach (Website website in new WebsiteFinder(context).FindAllWebsites())
+            foreach (Website website in new WebsiteFinder(context).GetAllWebsites())
                 Exhibition.Webpages.Add(new Webpage(context) { Website = website });
         }
 
