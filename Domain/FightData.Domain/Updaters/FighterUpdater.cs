@@ -2,11 +2,11 @@
 
 namespace FightData.Domain
 {
-    public class FighterAdder
+    public class FighterUpdater
     {
         private FightPicksContext context;
 
-        public FighterAdder(FightPicksContext context)
+        public FighterUpdater(FightPicksContext context)
         {
             this.context = context;
         }

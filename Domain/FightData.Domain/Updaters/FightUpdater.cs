@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FightData.Domain
 {
-    public class FightAdder
+    public class FightUpdater
     {
         private FightPicksContext context;
         private Exhibition exhibition;
@@ -12,7 +12,7 @@ namespace FightData.Domain
         private Fighter winner;
         private Fighter loser;
 
-        public FightAdder(Exhibition exhibition)
+        public FightUpdater(Exhibition exhibition)
         {
             this.exhibition = exhibition;
             context = exhibition.Context;
@@ -38,7 +38,7 @@ namespace FightData.Domain
         {
             if (!fighterFinder.FindFighter(name).IsFound())
             {
-                new FighterAdder(context).AddFighter(name);
+                new FighterUpdater(context).AddFighter(name);
             }
         }
 

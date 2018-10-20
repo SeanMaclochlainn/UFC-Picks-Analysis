@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FightData.Domain
 {
-    public class PickAdder
+    public class PickUpdater
     {
         private FightPicksContext context;
         private Exhibition exhibition;
@@ -14,7 +14,7 @@ namespace FightData.Domain
         FinderResult<Fighter> fighterFinderResult;
         FinderResult<Fight> fightFinderResult;
 
-        public PickAdder(Exhibition exhibition)
+        public PickUpdater(Exhibition exhibition)
         {
             context = exhibition.Context;
             this.exhibition = exhibition;

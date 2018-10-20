@@ -42,5 +42,11 @@ namespace FightData.Domain.Updaters
             }
             return populatedWebpages;
         }
+
+        public void Delete(Exhibition exhibition)
+        {
+            context.Exhibitions.Remove(exhibition);
+            context.SaveChanges();
+        }
     }
 }

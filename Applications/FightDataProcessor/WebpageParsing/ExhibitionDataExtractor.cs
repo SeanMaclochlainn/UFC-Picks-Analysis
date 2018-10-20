@@ -33,7 +33,7 @@ namespace FightDataProcessor.WebpageParsing
             {
                 Debug.WriteLine($"Parsing results page {resultsPage.Url}");
                 ResultsPageParser resultsPageParser = new ResultsPageParser(new HtmlPageParser(resultsPage.Data).ParseHtml());
-                new FightAdder(exhibition).AddFights(resultsPageParser.ParseResultTable());
+                new FightUpdater(exhibition).AddFights(resultsPageParser.ParseResultTable());
                 new WebpageUpdater(resultsPage).MarkAsParsed();
             }
         }
@@ -46,7 +46,7 @@ namespace FightDataProcessor.WebpageParsing
                 {
                     Debug.WriteLine($"Parsing picks page {picksPage.Url}");
                     List<RawExhibitionPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
-                    new PickAdder(exhibition).AddPicks(rawExhibitionPicks);
+                    new PickUpdater(exhibition).AddPicks(rawExhibitionPicks);
                     new WebpageUpdater(picksPage).MarkAsParsed();
                 }
             }

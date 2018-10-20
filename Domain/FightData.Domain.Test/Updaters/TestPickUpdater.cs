@@ -12,7 +12,7 @@ namespace FightData.Domain.Test
         public void TestEmptyPickNotAdded()
         {
             Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetEmptyExhibition();
-            PickAdder pickAdder = new PickAdder(exhibition);
+            PickUpdater pickAdder = new PickUpdater(exhibition);
             int originalNoPicks = exhibition.Fights.Select(f => f.Picks).Count();
 
             RawExhibitionPicks rawExhibitionPicks = new RawExhibitionPicks("", new List<string>() { "" });

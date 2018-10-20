@@ -51,15 +51,6 @@ namespace FightData.Domain.Test
             Assert.IsTrue(url == entityGenerator.WebpageGenerator.GetPopulatedResultsPage().Url);
         }
 
-        [TestMethod]
-        public void TestDeleteExhibition()
-        {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
-
-            exhibition.Add();
-            exhibition.Delete();
-
-            Assert.IsNull(context.Exhibitions.FirstOrDefault(e => e.Id == exhibition.Id));
-        }
+        
     }
 }

@@ -17,12 +17,14 @@ namespace FightDataUI.Controllers
         private FightPicksContext context;
         private WebsiteFinder websiteFinder;
         private ExhibitionFinder exhibitionFinder;
+        private ExhibitionUpdater exhibitionUpdater;
 
         public ExhibitionController(FightPicksContext context)
         {
             this.context = context;
             websiteFinder = new WebsiteFinder(context);
             exhibitionFinder = new ExhibitionFinder(context);
+            exhibitionUpdater = new ExhibitionUpdater(context);
         }
 
         public ActionResult Index()
@@ -87,7 +89,7 @@ namespace FightDataUI.Controllers
             try
             {
                 exhibition = exhibitionFinder.FindExhibition(exhibition.Id);
-                exhibition.Delete();
+                exhibitionUpdater.Delete(exhibition);
                 return RedirectToAction(nameof(Index));
             }
             catch

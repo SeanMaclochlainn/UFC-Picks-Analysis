@@ -54,12 +54,6 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-        public void Delete()
-        {
-            Context.Exhibitions.Remove(this);
-            Context.SaveChanges();
-        }
-
         public List<Webpage> GetPicksPages()
         {
             return Webpages.Where(w => w.Website.WebsiteType == WebsiteType.Pick).ToList();

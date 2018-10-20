@@ -4,13 +4,13 @@ using System.Linq;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestFightAdder : TestDataLayer
+    public class TestFightUpdater : TestDataLayer
     {
-        private FightAdder fightAdder;
+        private FightUpdater fightAdder;
 
-        public TestFightAdder()
+        public TestFightUpdater()
         {
-            fightAdder = new FightAdder(entityGenerator.ExhibitionGenerator.GetParsedExhibition());
+            fightAdder = new FightUpdater(entityGenerator.ExhibitionGenerator.GetParsedExhibition());
         }
 
         [TestMethod]
