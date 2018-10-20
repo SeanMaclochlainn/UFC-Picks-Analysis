@@ -3,7 +3,7 @@ using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using System.Collections.Generic;
 
-namespace FightDataUI.ViewModels
+namespace FightData.UI.ViewModels
 {
     public class ExhibitionIndexView
     {

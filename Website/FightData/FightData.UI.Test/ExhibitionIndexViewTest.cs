@@ -1,5 +1,5 @@
 ﻿using FightData.Domain.Test;
-using FightDataUI.ViewModels;
+using FightData.UI.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 

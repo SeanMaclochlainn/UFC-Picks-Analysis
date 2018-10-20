@@ -1,6 +1,6 @@
 using System;
 
-namespace FightDataUI.Models
+namespace FightData.UI.Models
 {
     public class ErrorViewModel
     {

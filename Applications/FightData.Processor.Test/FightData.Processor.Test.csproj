@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\FightData.TestData\FightData.TestData.csproj" />
-    <ProjectReference Include="..\FightDataProcessor\FightDataProcessor.csproj" />
+    <ProjectReference Include="..\FightData.Processor\FightData.Processor.csproj" />
   </ItemGroup>
 
 </Project>
