@@ -11,19 +11,20 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestAddExhibition()
         {
+            int originalExhibitionCount = context.Exhibitions.Count();
             Exhibition exhibition = new Exhibition(context);
             exhibition.Name = "test exhibition";
 
             exhibition.Add();
 
-            Assert.IsTrue(context.Exhibitions.Count() == 1);
+            Assert.IsTrue(context.Exhibitions.Count() == originalExhibitionCount + 1);
         }
 
         [TestMethod]
         public void TestUpdateExhibition()
         {
-            entityGenerator.ExhibitionGenerator.GetParsedExhibition().Add();
-            Exhibition exhibition = context.Exhibitions.First();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+            exhibition.Add();
 
             exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetEmptyWebpage());
             exhibition.Update();

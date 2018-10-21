@@ -21,8 +21,6 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindAllExhibitions()
         {
-            new ExhibitionGenerator(context).GetParsedExhibition().Add();
-
             List<Exhibition> exhibitions = exhibitionFinder.FindAllExhibitions();
 
             Assert.IsNotNull(exhibitions.First().Webpages.First().Website);
@@ -31,12 +29,7 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindExhibition()
         {
-            int exhibitionId = 555;
-            Exhibition testExhibition = new ExhibitionGenerator(context).GetEmptyExhibition();
-            testExhibition.Id = exhibitionId;
-            testExhibition.Add();
-
-            Exhibition exhibition = exhibitionFinder.FindExhibition(exhibitionId);
+            Exhibition exhibition = exhibitionFinder.FindExhibition(1);
 
             Assert.IsNotNull(exhibition);
 

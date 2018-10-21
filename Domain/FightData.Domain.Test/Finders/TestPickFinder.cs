@@ -8,13 +8,19 @@ namespace FightData.Domain.Test.Finders
     [TestClass]
     public class TestPickFinder : TestDataLayer
     {
+        private AnalystFinder analystFinder;
+
+        public TestPickFinder()
+        {
+            analystFinder = new AnalystFinder(context);
+        }
+
         [TestMethod]
         public void TestFindPick()
         {
             PickFinder pickFinder = new PickFinder(context);
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
 
-            Pick pick = pickFinder.FindPick(entityGenerator.AnalystGenerator.GetPopulatedAnalyst(), exhibition.Fights.First()).Result;
+            Pick pick = pickFinder.FindPick(analystFinder.FindAnalyst("Mike Bohn").Result, context.Fights.First()).Result;
 
             Assert.IsTrue(pick.Fighter.FullName == "Luke Rockhold");
         }

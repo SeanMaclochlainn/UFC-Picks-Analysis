@@ -10,12 +10,13 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestAddFighter()
         {
+            int originalFighterCount = context.Fighters.Count();
             Fighter fighter = new Fighter(context);
             fighter.PopulateNames("fname lname");
 
             fighter.Add();
 
-            Assert.IsTrue(context.Fighters.Count() == 1);
+            Assert.IsTrue(context.Fighters.Count() == originalFighterCount + 1);
         }
     }
 }

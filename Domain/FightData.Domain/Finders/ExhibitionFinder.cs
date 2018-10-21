@@ -26,5 +26,10 @@ namespace FightData.Domain.Finders
         {
             return context.Exhibitions.Include(e => e.Webpages).ThenInclude(w => w.Website).Single(e => e.Id == id);
         }
+
+        public Exhibition FindExhibition(string name)
+        {
+            return context.Exhibitions.Single(e => e.Name == name);
+        }
     }
 }

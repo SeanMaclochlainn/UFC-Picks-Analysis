@@ -3,6 +3,7 @@ using FightData.Domain.Finders;
 using FightData.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.Domain.Test.Finders
 {
@@ -10,18 +11,18 @@ namespace FightData.Domain.Test.Finders
     public class TestFighterFinder : TestDataLayer
     {
         private FighterFinder fighterFinder;
+        private ExhibitionFinder exhibitionFinder;
 
         public TestFighterFinder()
         {
             fighterFinder = new FighterFinder(context);
+            exhibitionFinder = new ExhibitionFinder(context);
         }
 
         [TestMethod]
         public void TestFindByFullName()
         {
-            Fighter.GenerateFighter("testfname testlname", context).Add();
-
-            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("testfname testlname");
+            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Luke Rockhold");
 
             Assert.IsTrue(finderResult.IsFound());
         }
@@ -29,8 +30,7 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindWithinExhibition()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
-            exhibition.Add();
+            Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
             FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Luke Rockhold", exhibition);
 
@@ -40,8 +40,6 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindBySurname()
         {
-            Fighter.GenerateFighter("Luke Rockhold", context).Add();
-
             FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold");
 
             Assert.IsTrue(finderResult.IsFound());
@@ -50,7 +48,8 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestGetFightersInExhibition()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+
+            Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
             List<Fighter> fighters = fighterFinder.GetFighters(exhibition);
 
@@ -60,7 +59,7 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestGetFightersInFight()
         {
-            Fight fight = entityGenerator.FightGenerator.GetPopulatedFight();
+            Fight fight = exhibitionFinder.FindExhibition("FN 55").Fights.First();
 
             List<Fighter> fighters = fighterFinder.GetFighters(fight);
 

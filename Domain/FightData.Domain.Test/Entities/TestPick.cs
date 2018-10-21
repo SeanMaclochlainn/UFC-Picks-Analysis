@@ -1,4 +1,5 @@
 ﻿using FightData.Domain.Entities;
+using FightData.Domain.Finders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,17 @@ namespace FightData.Domain.Test.Entities
     [TestClass]
     public class TestPick : TestDataLayer
     {
+        private ExhibitionFinder exhibitionFinder;
+        private PickFinder pickFinder;
+        private AnalystFinder analystFinder;
+
+        public TestPick()
+        {
+            exhibitionFinder = new ExhibitionFinder(context);
+            pickFinder = new PickFinder(context);
+            analystFinder = new AnalystFinder(context);
+        }
+
         [TestMethod]
         public void TestIsCorrect()
         {
@@ -22,10 +34,11 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestIsIncorrect()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
-            exhibition.Add();
+            Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
-            Assert.IsTrue(context.Picks.ToList().ElementAt(1).IsCorrect() == false);
+            Pick pick = pickFinder.FindPick(analystFinder.FindAnalyst("Dann Stupp").Result, exhibition.Fights.First()).Result;
+            
+            Assert.IsTrue(pick.IsCorrect() == false);
         }
     }
 }
