@@ -5,7 +5,6 @@ namespace FightData.Domain.Updaters
 {
     public class WebpageUpdater
     {
-        private Webpage webpage;
         private FightPicksContext context;
 
         public WebpageUpdater(FightPicksContext context)
