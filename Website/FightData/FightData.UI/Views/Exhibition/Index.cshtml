@@ -17,6 +17,8 @@
             }
             <th></th>
             <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +43,9 @@
             </td>
             <td>
                 <a asp-action="Process" asp-route-id="@exhibition.Id" class="btn btn-primary">Process</a>
+            </td>
+            <td>
+                <a asp-action="DeleteParsedData" asp-route-id="@exhibition.Id" class="btn btn-primary">Delete Parsed Data</a>
             </td>
         </tr>
         }

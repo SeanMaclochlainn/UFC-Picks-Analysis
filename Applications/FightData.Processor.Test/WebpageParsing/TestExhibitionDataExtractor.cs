@@ -23,7 +23,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         {
             int originalNoFights = context.Fights.Count();
             Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetUnparsedExhibition();
-            new WebpageUpdater(webpageFinder.GetResultsPage(exhibition)).MarkAsParsed();
+            new WebpageUpdater(context).MarkAsParsed(webpageFinder.GetResultsPage(exhibition));
 
             new ExhibitionDataExtractor(exhibition).ExtractResultsPageData();
 

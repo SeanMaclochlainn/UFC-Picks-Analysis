@@ -52,14 +52,14 @@ namespace FightData.TestData
             Webpage resultsWebpage = new Webpage(context)
             {
                 Exhibition = exhibition,
-                Parsed = false,
+                Parsed = true,
                 Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
                 Website = resultsWebsite
             };
             Webpage picksWebpage = new Webpage(context)
             {
                 Exhibition = exhibition,
-                Parsed = false,
+                Parsed = true,
                 Url = "https://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
                 Website = picksWebsite
             };

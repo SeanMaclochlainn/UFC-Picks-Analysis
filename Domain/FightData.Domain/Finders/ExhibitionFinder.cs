@@ -24,7 +24,7 @@ namespace FightData.Domain.Finders
 
         public Exhibition FindExhibition(int id)
         {
-            return context.Exhibitions.Include(e => e.Webpages).ThenInclude(w => w.Website).Single(e => e.Id == id);
+            return FindAllExhibitions().Single(e => e.Id == id);
         }
 
         public Exhibition FindExhibition(string name)

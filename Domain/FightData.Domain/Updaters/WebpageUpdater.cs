@@ -1,4 +1,5 @@
 ﻿using FightData.Domain.Entities;
+using System.Collections.Generic;
 
 namespace FightData.Domain.Updaters
 {
@@ -7,21 +8,27 @@ namespace FightData.Domain.Updaters
         private Webpage webpage;
         private FightPicksContext context;
 
-        public WebpageUpdater(Webpage webpage)
+        public WebpageUpdater(FightPicksContext context)
         {
-            this.webpage = webpage;
-            context = webpage.Context;
+            this.context = context;
         }
 
-        public void MarkAsParsed()
+        public void MarkAsParsed(Webpage webpage)
         {
             webpage.Parsed = true;
             context.SaveChanges();
         }
 
-        public void MarkAsUnparsed()
+        public void MarkAsUnparsed(Webpage webpage)
         {
             webpage.Parsed = false;
+            context.SaveChanges();
+        }
+
+        public void MarkAsUnparsed(List<Webpage> webpages)
+        {
+            foreach (Webpage webpage in webpages)
+                webpage.Parsed = false;
             context.SaveChanges();
         }
     }

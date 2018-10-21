@@ -42,6 +42,7 @@ namespace FightData.Domain.Updaters
         public void DeleteParsedData(Exhibition exhibition)
         {
             fightUpdater.DeleteFights(exhibition.Fights);
+            new WebpageUpdater(context).MarkAsUnparsed(exhibition.Webpages);
         }
 
         private List<Webpage> DownloadWebpageData(List<Webpage> webpages, Client client)
