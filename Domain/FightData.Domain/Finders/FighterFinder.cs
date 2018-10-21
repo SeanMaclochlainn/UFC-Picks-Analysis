@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FightData.Domain.Entities;
 
@@ -10,10 +11,18 @@ namespace FightData.Domain.Finders
 
         public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, string name)
         {
-            Fighter fighter = specifiedFighters.SingleOrDefault(f => f.FullName == name);
-            if (fighter == null)
-                fighter = specifiedFighters.SingleOrDefault(f => f.LastName == name);
-            return new FinderResult<Fighter>(fighter);
+            FinderResult<Fighter> result = FindFighter(f => f.FullName == name, specifiedFighters);
+            if (!result.IsFound())
+                result = FindFighter(f => f.LastName == name, specifiedFighters);
+            return result;
+        }
+
+        private static FinderResult<Fighter> FindFighter(Func<Fighter, bool> fighterNameFunc, List<Fighter> fighters)
+        {
+            if (fighters.Count(fighterNameFunc) > 1)
+                return new FinderResult<Fighter>(null);
+            else
+                return new FinderResult<Fighter>(fighters.SingleOrDefault(fighterNameFunc));
         }
 
         public FinderResult<Fighter> FindFighter(string name)

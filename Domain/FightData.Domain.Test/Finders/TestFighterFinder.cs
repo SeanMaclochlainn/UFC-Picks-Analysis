@@ -66,5 +66,17 @@ namespace FightData.Domain.Test.Finders
             Assert.IsTrue(fighters.Count == 2);
         }
 
+        [TestMethod]
+        public void TestDuplicateFighters()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Luke Rockhold", context));
+            fighters.Add(Fighter.GenerateFighter("Luke Rockhold", context));
+
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Rockhold");
+
+            Assert.IsTrue(result.IsFound() == false);
+        }
+
     }
 }
