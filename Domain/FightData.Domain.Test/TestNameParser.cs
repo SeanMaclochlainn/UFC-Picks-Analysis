@@ -1,7 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FightData.Domain.Test
 {
@@ -16,6 +13,16 @@ namespace FightData.Domain.Test
             NameParser nameParser = new NameParser(name);
 
             Assert.IsTrue(nameParser.GetLastName() == "Aldo");
+        }
+
+        [TestMethod]
+        public void TestNoMiddleName()
+        {
+            string name = "first last";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetMiddleNames() == "");
         }
     }
 }

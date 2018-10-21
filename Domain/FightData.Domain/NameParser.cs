@@ -29,8 +29,10 @@ namespace FightData.Domain
             Sanitize();
             List<string> names = SplitName();
             string middleNames = "";
-            for (int i = 1; i < names.Count; i++)
-                middleNames += names[i];
+            names.RemoveAt(0);
+            names.RemoveAt(names.Count - 1);
+            foreach (string name in names)
+                middleNames += name;
             return middleNames;
         }
 
