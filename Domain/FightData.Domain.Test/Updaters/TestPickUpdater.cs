@@ -23,8 +23,8 @@ namespace FightData.Domain.Test
             PickUpdater pickAdder = new PickUpdater(exhibition);
             int originalNoPicks = exhibition.Fights.Select(f => f.Picks).Count();
 
-            RawExhibitionPicks rawExhibitionPicks = new RawExhibitionPicks("", new List<string>() { "" });
-            pickAdder.AddPicks(rawExhibitionPicks);
+            List<RawAnalystsPicks> rawAnalystPicks = new List<RawAnalystsPicks>() { new RawAnalystsPicks("", new List<string>() { "" }) };
+            pickAdder.AddPicks(rawAnalystPicks);
 
             Assert.IsTrue(originalNoPicks == exhibition.Fights.Select(f => f.Picks).Count());
         }

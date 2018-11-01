@@ -47,7 +47,7 @@ namespace FightDataProcessor.WebpageParsing
                 if (!picksPage.Parsed)
                 {
                     Debug.WriteLine($"Parsing picks page {picksPage.Url}");
-                    List<RawExhibitionPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
+                    List<RawAnalystsPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
                     new PickUpdater(exhibition).AddPicks(rawExhibitionPicks);
                     new WebpageUpdater(context).MarkAsParsed(picksPage);
                 }

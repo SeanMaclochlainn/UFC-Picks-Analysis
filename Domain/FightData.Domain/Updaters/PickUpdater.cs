@@ -23,27 +23,21 @@ namespace FightData.Domain
             fightFinderResult = new FinderResult<Fight>(null);
         }
 
-        public void AddPicks(List<RawExhibitionPicks> rawExhibitionPicks)
+        public void AddPicks(List<RawAnalystsPicks> rawAnalystsPicks)
         {
-            foreach (RawExhibitionPicks rawExhibitionPick in rawExhibitionPicks)
-                AddPicks(rawExhibitionPick);
-        }
-
-        public void AddPicks(RawExhibitionPicks rawExhibitionPick)
-        {
-            foreach (string fighterName in rawExhibitionPick.FighterNames)
-                AddPick(rawExhibitionPick.AnalystName, fighterName);
+            foreach (RawAnalystsPicks analystsPicks in rawAnalystsPicks)
+            {
+                foreach (string fighterName in analystsPicks.FighterNames)
+                {
+                    AddPick(analystsPicks.AnalystName, fighterName);
+                }
+            }
         }
 
         private void AddPick(string analystName, string fighterName)
         {
             this.analystName = analystName;
             this.fighterName = fighterName;
-            AddPick();
-        }
-
-        private void AddPick()
-        {
             FindEntities();
             if (AreEntitiesValid())
             {
