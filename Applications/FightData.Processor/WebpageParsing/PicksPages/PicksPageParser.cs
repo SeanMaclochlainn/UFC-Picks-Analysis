@@ -16,28 +16,34 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             analystParser = new PicksPageAnalystParser(htmlPage);
         }
 
-        public List<RawAnalystsPicks> ParsePicksGrid()
+        public List<RawAnalystPick> ParsePicksGrid()
         {
-            List<RawAnalystsPicks> parsedRows = new List<RawAnalystsPicks>();
+            List<RawAnalystPick> allRawAnalystPicks = new List<RawAnalystPick>();
             for (int currentRow = 1; currentRow <= maxNoOfRows; currentRow++)
             {
-                RawAnalystsPicks parsedRowResult = ParseRow(currentRow);
-                if(IsValidResult(parsedRowResult))
-                    parsedRows.Add(parsedRowResult);
+                List<RawAnalystPick> rawAnalystPicks = ParseRow(currentRow);
+                if(IsValidRow(rawAnalystPicks))
+                {
+                    foreach (RawAnalystPick analystPick in rawAnalystPicks)
+                        allRawAnalystPicks.Add(new RawAnalystPick(analystPick.Analyst, analystPick.Pick));
+                }
             }
-            return parsedRows;
+            return allRawAnalystPicks;
         }
 
-        private RawAnalystsPicks ParseRow(int rowNo)
+        private List<RawAnalystPick> ParseRow(int rowNo)
         {
             List<string> fighters = fightersParser.ParseFighters(rowNo);
             string analyst = analystParser.ParseAnalyst(rowNo);
-            return new RawAnalystsPicks(analyst, fighters);
+            List<RawAnalystPick> rawAnalystPicks = new List<RawAnalystPick>();
+            foreach (string fighter in fighters)
+                rawAnalystPicks.Add(new RawAnalystPick(analyst, fighter));
+            return rawAnalystPicks;
         }
 
-        private bool IsValidResult(RawAnalystsPicks result)
+        private bool IsValidRow(List<RawAnalystPick> rawAnalystPicks)
         {
-            return !(result.AnalystName == null);
+            return rawAnalystPicks.Count != 0;
         }
     }
 }

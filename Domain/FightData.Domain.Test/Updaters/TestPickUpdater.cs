@@ -7,11 +7,11 @@ using System.Linq;
 namespace FightData.Domain.Test
 {
     [TestClass]
-    public class TestPickAdder : TestDataLayer
+    public class TestPickUpdater : TestDataLayer
     {
         private ExhibitionFinder exhibitionFinder;
 
-        public TestPickAdder()
+        public TestPickUpdater()
         {
             exhibitionFinder = new ExhibitionFinder(context);
         }
@@ -20,11 +20,10 @@ namespace FightData.Domain.Test
         public void TestEmptyPickNotAdded()
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
-            PickUpdater pickAdder = new PickUpdater(exhibition);
+            PickUpdater pickUpdater = new PickUpdater(context);
             int originalNoPicks = exhibition.Fights.Select(f => f.Picks).Count();
 
-            List<RawAnalystsPicks> rawAnalystPicks = new List<RawAnalystsPicks>() { new RawAnalystsPicks("", new List<string>() { "" }) };
-            pickAdder.AddPicks(rawAnalystPicks);
+            pickUpdater.AddPick(new Pick(context) { Analyst = null, Fight = exhibition.Fights.First(), Fighter = null });
 
             Assert.IsTrue(originalNoPicks == exhibition.Fights.Select(f => f.Picks).Count());
         }

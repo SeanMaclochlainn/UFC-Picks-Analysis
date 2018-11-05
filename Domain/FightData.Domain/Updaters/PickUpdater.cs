@@ -1,5 +1,4 @@
 ﻿using FightData.Domain.Entities;
-using FightData.Domain.Finders;
 using System.Collections.Generic;
 
 namespace FightData.Domain
@@ -7,77 +6,34 @@ namespace FightData.Domain
     public class PickUpdater
     {
         private FightPicksContext context;
-        private Exhibition exhibition;
-        private string analystName;
-        private string fighterName;
-        FinderResult<Analyst> analystFinderResult;
-        FinderResult<Fighter> fighterFinderResult;
-        FinderResult<Fight> fightFinderResult;
+        private Pick pick;
 
-        public PickUpdater(Exhibition exhibition)
+        public PickUpdater(FightPicksContext context)
         {
-            context = exhibition.Context;
-            this.exhibition = exhibition;
-            analystFinderResult = new FinderResult<Analyst>(null);
-            fighterFinderResult = new FinderResult<Fighter>(null);
-            fightFinderResult = new FinderResult<Fight>(null);
+            this.context = context;
         }
 
-        public void AddPicks(List<RawAnalystsPicks> rawAnalystsPicks)
+        public void AddPicks(List<Pick> picks)
         {
-            foreach (RawAnalystsPicks analystsPicks in rawAnalystsPicks)
+            foreach(Pick pick in picks)
             {
-                foreach (string fighterName in analystsPicks.FighterNames)
-                {
-                    AddPick(analystsPicks.AnalystName, fighterName);
-                }
+                AddPick(pick);
             }
         }
 
-        private void AddPick(string analystName, string fighterName)
+        public void AddPick(Pick pick)
         {
-            this.analystName = analystName;
-            this.fighterName = fighterName;
-            FindEntities();
+            this.pick = pick;
             if (AreEntitiesValid())
             {
-                Pick pick = new Pick(context)
-                {
-                    Analyst = analystFinderResult.Result,
-                    Fighter = fighterFinderResult.Result,
-                    Fight = fightFinderResult.Result
-                };
                 context.Picks.Add(pick);
                 context.SaveChanges();
             }
         }
 
-        private void FindEntities()
-        {
-            FindAnalyst();
-            FindFighter();
-            FindFight();
-        }
-
-        private void FindAnalyst()
-        {
-            analystFinderResult = new AnalystFinder(context).FindAnalyst(analystName);
-        }
-
-        private void FindFighter()
-        {
-            fighterFinderResult = new FighterFinder(context).FindFighter(fighterName, exhibition);
-        }
-
-        private void FindFight()
-        {
-            if (fighterFinderResult.IsFound())
-                fightFinderResult = new FightFinder(context).FindFight(fighterFinderResult.Result, exhibition);
-        }
-
         private bool AreEntitiesValid()
         {
-            return analystFinderResult.IsFound() && fighterFinderResult.IsFound() && fightFinderResult.IsFound();
+            return pick.Analyst != null && pick.Fight!= null && pick.Fighter != null;
         }
     }
 }

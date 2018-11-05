@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using FightDataProcessor.WebpageParsing;
+using System.Collections.Generic;
 
 namespace FightDataUI.Controllers
 {
@@ -73,7 +74,9 @@ namespace FightDataUI.Controllers
         public ActionResult Process(int id)
         {
             ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibitionFinder.FindExhibition(id));
-            exhibitionDataExtractor.ExtractAllWebpages();
+            exhibitionDataExtractor.ExtractResultsPageData();
+            exhibitionDataExtractor.ExtractPicksPagesData();
+            List<RawAnalystPick> UnfoundPicks = exhibitionDataExtractor.InvalidPicks;
             return RedirectToAction("Index");
         }
 

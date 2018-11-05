@@ -14,13 +14,17 @@ namespace FightDataProcessor.WebpageParsing
         private Exhibition exhibition;
         private WebpageFinder webpageFinder;
         private FightPicksContext context;
+        private PickUpdater pickUpdater;
 
         public ExhibitionDataExtractor(Exhibition exhibition)
         {
             this.exhibition = exhibition;
             context = exhibition.Context;
             webpageFinder = new WebpageFinder(exhibition.Context);
+            pickUpdater = new PickUpdater(context);
         }
+
+        public List<RawAnalystPick> InvalidPicks { get; private set; } = new List<RawAnalystPick>();
 
         public void ExtractAllWebpages()
         {
@@ -47,8 +51,11 @@ namespace FightDataProcessor.WebpageParsing
                 if (!picksPage.Parsed)
                 {
                     Debug.WriteLine($"Parsing picks page {picksPage.Url}");
-                    List<RawAnalystsPicks> rawExhibitionPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
-                    new PickUpdater(exhibition).AddPicks(rawExhibitionPicks);
+                    List<RawAnalystPick> rawAnalystsPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
+                    RawPickEvaluator rawPickEvaluator = new RawPickEvaluator(context);
+                    rawPickEvaluator.EvaluatePicks(rawAnalystsPicks, exhibition);
+                    pickUpdater.AddPicks(rawPickEvaluator.ValidPicks);
+                    InvalidPicks.AddRange(rawPickEvaluator.InvalidPicks);
                     new WebpageUpdater(context).MarkAsParsed(picksPage);
                 }
             }
