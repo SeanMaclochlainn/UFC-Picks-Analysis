@@ -39,7 +39,7 @@ namespace FightData.Processor.Test.WebpageParsing.PicksPages
 
             rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { blankAnalystPick }, exhibition);
 
-            Assert.IsTrue(rawPickEvaluator.InvalidPicks.Count == 1);
+            Assert.IsTrue(rawPickEvaluator.InvalidPicks.Count == 1 && rawPickEvaluator.UnfoundPicks.Count == 0);
         }
     }
 }

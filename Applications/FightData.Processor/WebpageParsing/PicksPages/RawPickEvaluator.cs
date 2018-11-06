@@ -40,11 +40,14 @@ namespace FightDataProcessor.WebpageParsing
                 fighterName = analystPick.Pick;
                 if (!ArePicksValid())
                     InvalidPicks.Add(analystPick);
-                FindEntities();
-                if (AreEntitiesFound())
-                    ValidPicks.Add(new Pick(context) { Analyst = analystFinderResult.Result, Fight = fightFinderResult.Result, Fighter = fighterFinderResult.Result });
                 else
-                    UnfoundPicks.Add(analystPick);
+                {
+                    FindEntities();
+                    if (AreEntitiesFound())
+                        ValidPicks.Add(new Pick(context) { Analyst = analystFinderResult.Result, Fight = fightFinderResult.Result, Fighter = fighterFinderResult.Result });
+                    else
+                        UnfoundPicks.Add(analystPick);
+                }
             }
         }
 
