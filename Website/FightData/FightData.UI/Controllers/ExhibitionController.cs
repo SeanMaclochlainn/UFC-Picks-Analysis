@@ -73,11 +73,18 @@ namespace FightDataUI.Controllers
 
         public ActionResult Process(int id)
         {
-            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibitionFinder.FindExhibition(id));
+            Exhibition exhibition = exhibitionFinder.FindExhibition(id);
+            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
             exhibitionDataExtractor.ExtractResultsPageData();
             exhibitionDataExtractor.ExtractPicksPagesData();
-            List<RawAnalystPick> UnfoundPicks = exhibitionDataExtractor.InvalidPicks;
-            return RedirectToAction("Index");
+            List<RawAnalystPick> unfoundPicks = exhibitionDataExtractor.UnfoundPicks;
+            if (unfoundPicks.Count > 0)
+            {
+                UnfoundPicksView unfoundPicksView = new UnfoundPicksView(unfoundPicks, exhibition);
+                return View("UnfoundPicks", unfoundPicksView);
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         public ActionResult DeleteParsedData(int id)

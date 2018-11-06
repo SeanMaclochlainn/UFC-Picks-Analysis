@@ -1,0 +1,19 @@
+﻿@model FightData.UI.ViewModels.UnfoundPicksView
+
+<h2>Invalid Picks</h2>
+
+<table>
+    <tr>
+        <th>
+            analyst
+        </th>
+        <th>pick</th>
+    </tr>
+    @foreach (var pick in Model.UnfoundPicks)
+    {
+    <tr>
+        <td>@pick.Analyst</td>
+        <td>@pick.Pick</td>
+    </tr>
+    }
+</table>

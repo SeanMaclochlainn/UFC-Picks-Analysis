@@ -27,6 +27,18 @@ namespace FightData.Processor.Test.WebpageParsing.PicksPages
 
             rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { invalidPick }, exhibition);
 
+            Assert.IsTrue(rawPickEvaluator.UnfoundPicks.Count == 1);
+        }
+
+        [TestMethod]
+        public void TestBlankAnalyst()
+        {
+            RawPickEvaluator rawPickEvaluator = new RawPickEvaluator(context);
+            RawAnalystPick blankAnalystPick = new RawAnalystPick("", "test");
+            Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
+
+            rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { blankAnalystPick }, exhibition);
+
             Assert.IsTrue(rawPickEvaluator.InvalidPicks.Count == 1);
         }
     }

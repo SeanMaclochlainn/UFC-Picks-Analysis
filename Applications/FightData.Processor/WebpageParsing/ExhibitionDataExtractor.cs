@@ -24,7 +24,7 @@ namespace FightDataProcessor.WebpageParsing
             pickUpdater = new PickUpdater(context);
         }
 
-        public List<RawAnalystPick> InvalidPicks { get; private set; } = new List<RawAnalystPick>();
+        public List<RawAnalystPick> UnfoundPicks { get; private set; } = new List<RawAnalystPick>();
 
         public void ExtractAllWebpages()
         {
@@ -55,7 +55,7 @@ namespace FightDataProcessor.WebpageParsing
                     RawPickEvaluator rawPickEvaluator = new RawPickEvaluator(context);
                     rawPickEvaluator.EvaluatePicks(rawAnalystsPicks, exhibition);
                     pickUpdater.AddPicks(rawPickEvaluator.ValidPicks);
-                    InvalidPicks.AddRange(rawPickEvaluator.InvalidPicks);
+                    UnfoundPicks.AddRange(rawPickEvaluator.UnfoundPicks);
                     new WebpageUpdater(context).MarkAsParsed(picksPage);
                 }
             }

@@ -27,8 +27,9 @@ namespace FightDataProcessor.WebpageParsing
             fighterName = "";
         }
 
-        public List<RawAnalystPick> InvalidPicks { get; private set; } = new List<RawAnalystPick>();
+        public List<RawAnalystPick> UnfoundPicks { get; private set; } = new List<RawAnalystPick>();
         public List<Pick> ValidPicks { get; private set; } = new List<Pick>();
+        public List<RawAnalystPick> InvalidPicks { get; private set; } = new List<RawAnalystPick>();
 
         public void EvaluatePicks(List<RawAnalystPick> rawAnalystPicks, Exhibition exhibition)
         {
@@ -37,11 +38,13 @@ namespace FightDataProcessor.WebpageParsing
             {
                 analystName = analystPick.Analyst;
                 fighterName = analystPick.Pick;
+                if (!ArePicksValid())
+                    InvalidPicks.Add(analystPick);
                 FindEntities();
-                if (FinderEntitiesValid())
+                if (AreEntitiesFound())
                     ValidPicks.Add(new Pick(context) { Analyst = analystFinderResult.Result, Fight = fightFinderResult.Result, Fighter = fighterFinderResult.Result });
                 else
-                    InvalidPicks.Add(analystPick);
+                    UnfoundPicks.Add(analystPick);
             }
         }
 
@@ -53,9 +56,14 @@ namespace FightDataProcessor.WebpageParsing
                 fightFinderResult = new FightFinder(context).FindFight(fighterFinderResult.Result, exhibition);
         }
 
-        private bool FinderEntitiesValid()
+        private bool AreEntitiesFound()
         {
             return analystFinderResult.IsFound() && fighterFinderResult.IsFound() && fightFinderResult.IsFound();
+        }
+
+        private bool ArePicksValid()
+        {
+            return !string.IsNullOrEmpty(analystName);
         }
     }
 }
