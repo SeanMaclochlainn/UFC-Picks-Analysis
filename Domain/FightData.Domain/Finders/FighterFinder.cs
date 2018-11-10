@@ -30,6 +30,11 @@ namespace FightData.Domain.Finders
             return FindFighter(GetAllFighters(), name);
         }
 
+        public FinderResult<Fighter> FindFighter(int id)
+        {
+            return new FinderResult<Fighter>(context.Fighters.Find(id));
+        }
+
         public FinderResult<Fighter> FindFighter(string name, Exhibition exhibition)
         {
             return FindFighter(GetFighters(exhibition), name);
@@ -40,7 +45,7 @@ namespace FightData.Domain.Finders
             return context.Fighters.ToList();
         }
 
-        public List<Fighter> GetFighters(Exhibition exhibition)
+        public static List<Fighter> GetFighters(Exhibition exhibition)
         {
             List<Fighter> fighters = new List<Fighter>();
             foreach (Fight fight in exhibition.Fights)

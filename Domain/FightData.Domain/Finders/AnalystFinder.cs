@@ -14,6 +14,11 @@ namespace FightData.Domain.Finders
             return new FinderResult<Analyst>(analyst);
         }
 
+        public FinderResult<Analyst> FindAnalyst(int id)
+        {
+            return new FinderResult<Analyst>(context.Analysts.Find(id));
+        }
+
         public List<Analyst> GetAllAnalysts()
         {
             return context.Analysts.ToList();

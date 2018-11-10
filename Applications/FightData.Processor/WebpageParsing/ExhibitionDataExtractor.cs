@@ -2,6 +2,8 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightData.Domain.Updaters;
+using FightData.Processor.WebpageParsing.PicksPages;
+using FightData.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
@@ -24,7 +26,7 @@ namespace FightDataProcessor.WebpageParsing
             pickUpdater = new PickUpdater(context);
         }
 
-        public List<RawAnalystPick> UnfoundPicks { get; private set; } = new List<RawAnalystPick>();
+        public List<UnfoundPick> UnfoundPicks { get; private set; } = new List<UnfoundPick>();
 
         public void ExtractAllWebpages()
         {
@@ -51,9 +53,9 @@ namespace FightDataProcessor.WebpageParsing
                 if (!picksPage.Parsed)
                 {
                     Debug.WriteLine($"Parsing picks page {picksPage.Url}");
-                    List<RawAnalystPick> rawAnalystsPicks = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
+                    List<RawAnalystPick> rawAnalystPickList = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
                     RawPickEvaluator rawPickEvaluator = new RawPickEvaluator(context);
-                    rawPickEvaluator.EvaluatePicks(rawAnalystsPicks, exhibition);
+                    rawPickEvaluator.EvaluatePicks(rawAnalystPickList, exhibition);
                     pickUpdater.AddPicks(rawPickEvaluator.ValidPicks);
                     UnfoundPicks.AddRange(rawPickEvaluator.UnfoundPicks);
                     new WebpageUpdater(context).MarkAsParsed(picksPage);

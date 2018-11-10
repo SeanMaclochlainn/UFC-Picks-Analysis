@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Test;
+using FightData.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

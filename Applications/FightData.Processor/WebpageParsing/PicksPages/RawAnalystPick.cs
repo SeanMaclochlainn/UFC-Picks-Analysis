@@ -1,4 +1,4 @@
-﻿namespace FightData.Domain
+﻿namespace FightData.WebpageParsing.PicksPages
 {
     public class RawAnalystPick
     {
@@ -10,5 +10,6 @@
 
         public string Analyst { get; private set; }
         public string Pick { get; private set; }
+        
     }
 }

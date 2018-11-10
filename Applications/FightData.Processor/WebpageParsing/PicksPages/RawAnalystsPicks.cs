@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FightData.Domain
+namespace FightData.WebpageParsing.PicksPages
 {
     public class RawAnalystsPicks
     {

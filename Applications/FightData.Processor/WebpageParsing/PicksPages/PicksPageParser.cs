@@ -1,4 +1,4 @@
-﻿using FightData.Domain;
+﻿using FightData.WebpageParsing.PicksPages;
 using HtmlAgilityPack;
 using System.Collections.Generic;
 

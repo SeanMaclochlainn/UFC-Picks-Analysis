@@ -1,6 +1,8 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using FightData.Processor.WebpageParsing.PicksPages;
+using FightData.WebpageParsing.PicksPages;
 using System.Collections.Generic;
 
 namespace FightDataProcessor.WebpageParsing
@@ -27,14 +29,14 @@ namespace FightDataProcessor.WebpageParsing
             fighterName = "";
         }
 
-        public List<RawAnalystPick> UnfoundPicks { get; private set; } = new List<RawAnalystPick>();
+        public List<UnfoundPick> UnfoundPicks { get; private set; } = new List<UnfoundPick>();
         public List<Pick> ValidPicks { get; private set; } = new List<Pick>();
         public List<RawAnalystPick> InvalidPicks { get; private set; } = new List<RawAnalystPick>();
 
-        public void EvaluatePicks(List<RawAnalystPick> rawAnalystPicks, Exhibition exhibition)
+        public void EvaluatePicks(List<RawAnalystPick> rawAnalystPickList, Exhibition exhibition)
         {
             this.exhibition = exhibition;
-            foreach (RawAnalystPick analystPick in rawAnalystPicks)
+            foreach (RawAnalystPick analystPick in rawAnalystPickList)
             {
                 analystName = analystPick.Analyst;
                 fighterName = analystPick.Pick;
@@ -46,7 +48,7 @@ namespace FightDataProcessor.WebpageParsing
                     if (AreEntitiesFound())
                         ValidPicks.Add(new Pick(context) { Analyst = analystFinderResult.Result, Fight = fightFinderResult.Result, Fighter = fighterFinderResult.Result });
                     else
-                        UnfoundPicks.Add(analystPick);
+                        UnfoundPicks.Add(new UnfoundPick(analystPick, analystFinderResult.IsFound(), fighterFinderResult.IsFound()));
                 }
             }
         }

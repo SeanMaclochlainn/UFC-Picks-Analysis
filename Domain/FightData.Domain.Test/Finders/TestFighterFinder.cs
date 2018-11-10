@@ -51,7 +51,7 @@ namespace FightData.Domain.Test.Finders
 
             Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
-            List<Fighter> fighters = fighterFinder.GetFighters(exhibition);
+            List<Fighter> fighters = FighterFinder.GetFighters(exhibition);
 
             Assert.IsTrue(fighters.Count == 2);
         }
