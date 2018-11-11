@@ -6,32 +6,45 @@ namespace FightData.Domain
     public class NameParser
     {
         private string fullName;
-        private List<string> names;
 
         public NameParser(string fullName)
         {
             this.fullName = fullName;
-            SplitName();
-            FirstName = names.First();
-            LastName = names.Last();
-            GetMiddleNames();
         }
 
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string MiddleNames { get; private set; }
-
-        private void SplitName()
+        public string GetFirstName()
         {
-            names = fullName.Split(' ').ToList();
+            Sanitize();
+            return SplitName().First();
         }
 
-        private void GetMiddleNames()
+        public string GetLastName()
         {
-            names.Remove(FirstName);
-            names.Remove(LastName);
+            Sanitize();
+            return SplitName().Last();
+        }
+
+        public string GetMiddleNames()
+        {
+            Sanitize();
+            List<string> names = SplitName();
+            string middleNames = "";
+            names.RemoveAt(0);
+            names.RemoveAt(names.Count - 1);
             foreach (string name in names)
-                MiddleNames += name;
+                middleNames += name;
+            return middleNames;
+        }
+
+        private List<string> SplitName()
+        {
+            return fullName.Split(' ').ToList();
+        }
+
+        private void Sanitize()
+        {
+            fullName = fullName.Replace("(c)", "");
+            fullName = fullName.Trim();
         }
     }
 }

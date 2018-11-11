@@ -5,6 +5,14 @@ namespace FightData.Domain.Entities
 {
     public class Exhibition : Entity
     {
+        public Exhibition() { }
+
+        public Exhibition(FightPicksContext context, string name, List<Webpage> webpages) : this(context)
+        {
+            Webpages = webpages;
+            Name = name;
+        }
+
         public Exhibition(FightPicksContext context) : base(context) { }
 
         public int Id { get; set; }
@@ -14,29 +22,10 @@ namespace FightData.Domain.Entities
         public List<string> CancelledFighterNames { get; set; }
         public List<Fighter> FightersWithMatchingLastNames { get; set; }
 
-        public List<Fighter> GetFighters()
-        {
-            List<Fighter> fighters = new List<Fighter>();
-            foreach (Fight fight in Fights)
-            {
-                fighters.Add(fight.Winner);
-                fighters.Add(fight.Loser);
-            }
-            return fighters;
-        }
-
-        public void AddFight(Fighter winner, Fighter loser)
-        {
-            Fight fight = new Fight(Context);
-            fight.Winner = winner;
-            fight.Loser = loser;
-            fight.Exhibition = this;
-            Fights.Add(fight);
-        }
-
         public void Add()
         {
             Context.Exhibitions.Add(this);
+            AddWebsitesToContext();
             Context.SaveChanges();
         }
 
@@ -45,14 +34,14 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-        public Webpage GetResultsPage()
+        public string GetWebsiteUrl(WebsiteName websiteName)
         {
-            return Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
+            return Webpages.Any(w => w.Website.WebsiteName == websiteName) ? Webpages.Single(wp => wp.Website.WebsiteName == websiteName).Url : "";
         }
 
-        public List<Webpage> GetPicksPages()
+        private void AddWebsitesToContext()
         {
-            return Webpages.Where(w => w.WebpageType == WebpageType.PicksPage).ToList();
+            Context.Websites.AttachRange(Webpages.Select(w => w.Website));
         }
     }
 }

@@ -1,21 +1,35 @@
-﻿using System.Xml.Linq;
+﻿using FightData.Domain.Updaters;
 
 namespace FightData.Domain.Entities
 {
     public class Webpage : Entity
     {
+        public Webpage() { }
+
         public Webpage(FightPicksContext context) : base(context) { }
+
+        public Webpage(FightPicksContext context, string url, Website website) : base(context)
+        {
+            Url = url;
+            Website = website;
+        }
 
         public int Id { get; set; }
         public string Url { get; set; }
         public Website Website { get; set; }
         public Exhibition Exhibition { get; set; }
         public string Data { get; set; }
-        public WebpageType WebpageType { get; set; }
+        public bool Parsed { get; set; }
 
-        public XDocument GetHtml()
+        public void Add()
         {
-            return XDocument.Parse(Data);
+            Context.Webpages.Add(this);
+            Context.SaveChanges();
+        }
+
+        public void DownloadData(Client client)
+        {
+            Data = client.Download(Url);
         }
     }
 }

@@ -1,0 +1,55 @@
+﻿@model FightData.UI.ViewModels.ExhibitionIndexView
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Exhibitions</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            @foreach (var website in Model.Websites)
+            {
+                <th>
+                    @website.WebsiteName
+                </th>
+            }
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var exhibition in Model.Exhibitions)
+        {
+        <tr>
+            <td>
+                @exhibition.Name
+            </td>
+
+            @foreach (var website in Model.Websites)
+            {
+                <td>
+                    <a href="@exhibition.GetWebsiteUrl(website.WebsiteName)">@exhibition.GetWebsiteUrl(website.WebsiteName)</a>
+                </td>
+            }
+            <td>
+                <a asp-action="Edit" asp-route-id="@exhibition.Id" class="btn btn-info">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@exhibition.Id" class="btn btn-danger">Delete</a>
+            </td>
+            <td>
+                <a asp-action="ExtractWebpages" asp-route-id="@exhibition.Id" class="btn btn-primary">Process</a>
+            </td>
+            <td>
+                <a asp-action="DeleteParsedData" asp-route-id="@exhibition.Id" class="btn btn-primary">Delete Parsed Data</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Create new exhibition</a>

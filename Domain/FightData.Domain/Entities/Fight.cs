@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace FightData.Domain.Entities
 {
@@ -12,12 +11,7 @@ namespace FightData.Domain.Entities
         public Fighter Loser { get; set; }
         public Exhibition Exhibition { get; set; }
         public CardType CardType { get; set; }
-        public List<Pick> Picks { get; set; }
-
-        public List<Fighter> GetFighters()
-        {
-            return new List<Fighter>() { Winner, Loser };
-        }
+        public List<Pick> Picks { get; set; } = new List<Pick>();
 
         public void Add()
         {

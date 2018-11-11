@@ -1,6 +1,5 @@
 ﻿using FightData.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Test.Entities
@@ -20,14 +19,5 @@ namespace FightData.Domain.Test.Entities
             Assert.IsTrue(context.Fights.Count() == currentFightCount + 1);
         }
 
-        [TestMethod]
-        public void TestGetFighters()
-        {
-            Fight fight = entityGenerator.FightGenerator.GetPopulatedFight();
-
-            List<Fighter> fighters = fight.GetFighters();
-
-            Assert.IsTrue(fighters.Count == 2);
-        }
     }
 }

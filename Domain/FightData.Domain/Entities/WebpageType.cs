@@ -1,9 +1,9 @@
 ﻿
 namespace FightData.Domain.Entities
 {
-    public enum WebpageType
+    public enum WebsiteType
     {
-        ResultPage = 1,
-        PicksPage = 2
+        Result = 1,
+        Pick = 2
     }
 }

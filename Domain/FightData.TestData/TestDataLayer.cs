@@ -1,4 +1,5 @@
-﻿using FightData.TestData;
+﻿using FightData.Domain.Entities;
+using FightData.TestData;
 using FightData.TestData.EntityGenerators;
 
 namespace FightData.Domain.Test
@@ -12,6 +13,7 @@ namespace FightData.Domain.Test
         {
             context = new TestDatabase().Context;
             entityGenerator = new EntityGenerator(context);
+            new TestDatabaseSeeder(context).Seed();
         }
     }
 }

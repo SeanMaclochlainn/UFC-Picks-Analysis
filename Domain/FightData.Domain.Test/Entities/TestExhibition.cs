@@ -11,19 +11,20 @@ namespace FightData.Domain.Test
         [TestMethod]
         public void TestAddExhibition()
         {
+            int originalExhibitionCount = context.Exhibitions.Count();
             Exhibition exhibition = new Exhibition(context);
             exhibition.Name = "test exhibition";
 
             exhibition.Add();
 
-            Assert.IsTrue(context.Exhibitions.Count() == 1);
+            Assert.IsTrue(context.Exhibitions.Count() == originalExhibitionCount + 1);
         }
 
         [TestMethod]
         public void TestUpdateExhibition()
         {
-            entityGenerator.ExhibitionGenerator.GetPopulatedExhibition().Add();
-            Exhibition exhibition = context.Exhibitions.First();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+            exhibition.Add();
 
             exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetEmptyWebpage());
             exhibition.Update();
@@ -32,13 +33,15 @@ namespace FightData.Domain.Test
         }
 
         [TestMethod]
-        public void TestGetFighters()
+        public void TestGetWebsiteUrl()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetPopulatedExhibition();
+            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
 
-            List<Fighter> fighters = exhibition.GetFighters();
+            string url = exhibition.GetWebsiteUrl(WebsiteName.Wikipedia);
 
-            Assert.IsTrue(fighters.Count == 2);
+            Assert.IsTrue(url == entityGenerator.WebpageGenerator.GetPopulatedResultsPage().Url);
         }
+
+        
     }
 }

@@ -6,15 +6,7 @@ namespace FightData.Domain.Finders
 {
     public class WebpageFinder : DataFinder
     {
-        public WebpageFinder() { }
-
-        private WebpageFinder(FightPicksContext context) : base(context) { }
-
-        public static WebpageFinder WithCustomContext(FightPicksContext context)
-        {
-            return new WebpageFinder(context);
-        }
-
+        public WebpageFinder(FightPicksContext context) : base(context) { }
 
         public List<Webpage> GetAllWebpages()
         {
@@ -26,16 +18,20 @@ namespace FightData.Domain.Finders
             return context.Webpages.Single(w => w.Exhibition.Id == exhibitionId && w.Website.Id == websiteId);
         }
 
-        public List<Website> GetAllWebsites()
+        public Webpage GetResultsPage(Exhibition exhibition)
         {
-            return context.Websites.ToList();
+            return exhibition.Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);
         }
 
-        public bool WebpageExists(int exhibitionId, int websiteId)
+        public List<Webpage> GetPicksPages(Exhibition exhibition)
         {
-            return context.Webpages.Any(wp => wp.Exhibition.Id == exhibitionId && wp.Website.Id == websiteId);
+            return exhibition.Webpages.Where(w => w.Website.WebsiteType == WebsiteType.Pick).ToList();
         }
 
+        public Webpage GetWebpage(Exhibition exhibition, Website website)
+        {
+            return exhibition.Webpages.Single(w => w.Website == website);
+        }
 
     }
 }
