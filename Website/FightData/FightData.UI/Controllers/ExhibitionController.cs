@@ -44,7 +44,7 @@ namespace FightDataUI.Controllers
         public ActionResult Create()
         {
             ExhibitionForm exhibitionForm = new ExhibitionForm();
-            exhibitionForm.LoadDataForInput(context, new Exhibition());
+            exhibitionForm.AddWebpages(context);
             return View(exhibitionForm);
         }
 
@@ -53,7 +53,7 @@ namespace FightDataUI.Controllers
         public ActionResult Create(ExhibitionForm exhibitionForm)
         {
             ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
-            exhibitionUpdater.AddExhibition(exhibitionForm, new ConnectedClient());
+            exhibitionUpdater.Add(exhibitionForm);
             return RedirectToAction("Index");
         }
 

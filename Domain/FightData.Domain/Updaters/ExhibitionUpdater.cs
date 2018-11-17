@@ -2,6 +2,7 @@
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.Domain.Updaters
 {
@@ -18,11 +19,28 @@ namespace FightData.Domain.Updaters
             fightUpdater = new FightUpdater(context);
         }
 
-        public void AddExhibition(ExhibitionForm exhibitionForm, Client client)
+        public void Add(ExhibitionForm exhibitionForm)
+        {
+            Add(exhibitionForm, new ConnectedClient());
+        }
+
+        public void Add(ExhibitionForm exhibitionForm, Client client)
         {
             List<Webpage> webpages = DownloadWebpageData(exhibitionForm.Exhibition.Webpages, client);
             Exhibition exhibition = new Exhibition(context, exhibitionForm.Exhibition.Name, webpages);
-            exhibition.Add();
+            Add(exhibition);
+        }
+
+        public void Add(Exhibition exhibition)
+        {
+            context.Exhibitions.Add(exhibition);
+            AddWebsitesToContext(exhibition);
+            context.SaveChanges();
+        }
+
+        private void AddWebsitesToContext(Exhibition exhibition)
+        {
+            context.Websites.AttachRange(exhibition.Webpages.Select(w => w.Website));
         }
 
         public void UpdateExhibition(ExhibitionForm exhibitionForm, Client client)
@@ -30,7 +48,7 @@ namespace FightData.Domain.Updaters
             Exhibition exhibition = exhibitionFinder.FindExhibition(exhibitionForm.Exhibition.Id);
             exhibition.Name = exhibitionForm.Exhibition.Name;
             exhibition.Webpages = DownloadWebpageData(exhibitionForm.Exhibition.Webpages, client);
-            exhibition.Update();
+            context.SaveChanges();
         }
 
         public void Delete(Exhibition exhibition)

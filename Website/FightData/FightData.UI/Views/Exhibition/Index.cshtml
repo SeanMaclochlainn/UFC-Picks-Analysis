@@ -24,30 +24,30 @@
     <tbody>
         @foreach (var exhibition in Model.Exhibitions)
         {
-        <tr>
-            <td>
-                @exhibition.Name
-            </td>
-
-            @foreach (var website in Model.Websites)
-            {
+            <tr>
                 <td>
-                    <a href="@exhibition.GetWebsiteUrl(website.WebsiteName)">@exhibition.GetWebsiteUrl(website.WebsiteName)</a>
+                    @exhibition.Name
                 </td>
-            }
-            <td>
-                <a asp-action="Edit" asp-route-id="@exhibition.Id" class="btn btn-info">Edit</a>
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@exhibition.Id" class="btn btn-danger">Delete</a>
-            </td>
-            <td>
-                <a asp-action="ExtractWebpages" asp-route-id="@exhibition.Id" class="btn btn-primary">Process</a>
-            </td>
-            <td>
-                <a asp-action="DeleteParsedData" asp-route-id="@exhibition.Id" class="btn btn-primary">Delete Parsed Data</a>
-            </td>
-        </tr>
+
+                @foreach (var website in Model.Websites)
+                {
+                    <td>
+                        <a href="@Model.WebpageFinder.GetWebpage(exhibition, website).Url">@Model.WebpageFinder.GetWebpage(exhibition, website).Url</a>
+                    </td>
+                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@exhibition.Id" class="btn btn-info">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@exhibition.Id" class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+                    <a asp-action="ExtractWebpages" asp-route-id="@exhibition.Id" class="btn btn-primary">Process</a>
+                </td>
+                <td>
+                    <a asp-action="DeleteParsedData" asp-route-id="@exhibition.Id" class="btn btn-primary">Delete Parsed Data</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -15,11 +15,13 @@ namespace FightData.UI.ViewModels
 
         public List<Exhibition> Exhibitions { get; private set; }
         public List<Website> Websites { get; private set; }
+        public WebpageFinder WebpageFinder { get; private set; }
 
         public void LoadViewData(FightPicksContext context)
         {
             Websites = new WebsiteFinder(context).GetAllWebsites();
             Exhibitions = new ExhibitionFinder(context).FindAllExhibitions();
+            WebpageFinder = new WebpageFinder(context);
         }
         
     }

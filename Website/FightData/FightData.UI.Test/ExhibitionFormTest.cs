@@ -14,7 +14,7 @@ namespace FightData.UI.Test
         {
             ExhibitionForm exhibitionForm = new ExhibitionForm();
 
-            exhibitionForm.LoadDataForInput(context, new Exhibition());
+            exhibitionForm.AddWebpages(context);
 
             Assert.IsTrue(exhibitionForm.Exhibition.Webpages.Count == 2);
         }
