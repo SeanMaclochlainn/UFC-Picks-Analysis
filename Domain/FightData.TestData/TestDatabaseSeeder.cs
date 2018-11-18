@@ -1,6 +1,8 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace FightData.TestData
 {
@@ -49,6 +51,7 @@ namespace FightData.TestData
 
             Website resultsWebsite = AddWebsite(WebsiteName.Wikipedia, WebsiteType.Result);
             Website picksWebsite = AddWebsite(WebsiteName.MMAJunkie, WebsiteType.Pick);
+            Website oddsWebsite = AddWebsite(WebsiteName.BestFightOdds, WebsiteType.Odds);
             Webpage resultsWebpage = new Webpage(context)
             {
                 Exhibition = exhibition,
@@ -63,7 +66,15 @@ namespace FightData.TestData
                 Url = "https://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
                 Website = picksWebsite
             };
-            context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, picksWebpage });
+            Webpage oddsWebpage = new Webpage(context)
+            {
+                Exhibition = exhibition,
+                Parsed = true,
+                Url = "https://www.bestfightodds.com/events/ufc-179-aldo-vs-mendes-ii-855#",
+                Website = oddsWebsite,
+                Data = GetResourceFile("OddsPage.html")
+            };
+            context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, picksWebpage, oddsWebpage });
             context.SaveChanges();
         }
 
@@ -104,6 +115,22 @@ namespace FightData.TestData
             context.Websites.Add(website);
             context.SaveChanges();
             return website;
+        }
+
+        private static string GetResourceFile(string fileName)
+        {
+            string fileData = "";
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            string currentAssemblyName = currentAssembly.GetName().Name;
+            string folderName = "WebsiteHtml";
+            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssemblyName}.{folderName}.{fileName}"))
+            {
+                using (StreamReader sr = new StreamReader(stream))
+                {
+                    fileData = sr.ReadToEnd();
+                }
+            }
+            return fileData;
         }
     }
 }

@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="WebsiteHtml\OddsPage.html" />
     <None Remove="WebsiteHtml\ResultsPage.html" />
     <None Remove="WebsiteHtml\PicksPage.html" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="WebsiteHtml\OddsPage.html" />
     <EmbeddedResource Include="WebsiteHtml\ResultsPage.html" />
     <EmbeddedResource Include="WebsiteHtml\PicksPage.html" />
   </ItemGroup>

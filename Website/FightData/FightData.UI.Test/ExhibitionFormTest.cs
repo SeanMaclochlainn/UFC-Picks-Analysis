@@ -1,8 +1,6 @@
-using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace FightData.UI.Test
 {
@@ -16,7 +14,7 @@ namespace FightData.UI.Test
 
             exhibitionForm.AddWebpages(context);
 
-            Assert.IsTrue(exhibitionForm.Exhibition.Webpages.Count == 2);
+            Assert.IsTrue(exhibitionForm.Exhibition.Webpages.Count == 3);
         }
 
         [TestMethod]

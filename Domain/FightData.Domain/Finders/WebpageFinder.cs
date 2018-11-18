@@ -28,6 +28,11 @@ namespace FightData.Domain.Finders
             return exhibition.Webpages.Where(w => w.Website.WebsiteType == WebsiteType.Pick).ToList();
         }
 
+        public Webpage GetOddsPage(Exhibition exhibition)
+        {
+            return exhibition.Webpages.Single(w => w.Website.WebsiteType == WebsiteType.Odds);
+        }
+
         public Webpage GetWebpage(Exhibition exhibition, Website website)
         {
             return exhibition.Webpages.Single(w => w.Website == website);
