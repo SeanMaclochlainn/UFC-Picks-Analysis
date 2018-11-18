@@ -24,5 +24,15 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(nameParser.GetMiddleNames() == "");
         }
+
+        [TestMethod]
+        public void TestRemoveAccents()
+        {
+            string name = "José Aldo";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFirstName() == "Jose");
+        }
     }
 }

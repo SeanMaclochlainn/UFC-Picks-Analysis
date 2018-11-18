@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace FightData.Domain
 {
@@ -45,6 +47,14 @@ namespace FightData.Domain
         {
             fullName = fullName.Replace("(c)", "");
             fullName = fullName.Trim();
+            RemoveAccents();
+        }
+
+        private void RemoveAccents()
+        {
+            fullName = fullName.Normalize(NormalizationForm.FormD);
+            char[] chars = fullName.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray();
+            fullName = new string(chars).Normalize(NormalizationForm.FormC);
         }
     }
 }
