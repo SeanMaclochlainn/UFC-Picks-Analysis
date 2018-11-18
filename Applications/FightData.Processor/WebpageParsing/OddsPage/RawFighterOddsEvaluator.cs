@@ -1,6 +1,7 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using System;
 using System.Collections.Generic;
 
 namespace FightData.Processor.WebpageParsing.OddsPage
@@ -43,9 +44,9 @@ namespace FightData.Processor.WebpageParsing.OddsPage
             char firstCharacter = moneylineOdd[0];
             decimal numericalValue = decimal.Parse(moneylineOdd.TrimStart(new char[] { '+', '-' }));
             if (firstCharacter == '+')
-                return (numericalValue / 100) + 1;
+                return Math.Round((numericalValue / 100) + 1, 2);
             else
-                return (100 / numericalValue) + 1;
+                return Math.Round((100 / numericalValue) + 1, 2);
         }
     }
 }

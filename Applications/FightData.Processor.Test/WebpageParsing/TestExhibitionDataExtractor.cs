@@ -1,7 +1,6 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightData.Domain.Test;
-using FightData.Domain.Updaters;
 using FightDataProcessor.WebpageParsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -27,7 +26,6 @@ namespace FightDataProcessor.Test.WebpageParsing
             new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
 
             Assert.IsTrue(originalNoFights == context.Fights.Count());
-
         }
 
         [TestMethod]
@@ -48,7 +46,7 @@ namespace FightDataProcessor.Test.WebpageParsing
 
             new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
 
-            Assert.IsTrue(context.Odds.Count() == originalOddsCount + 1);
+            Assert.IsTrue(context.Odds.Count() == originalOddsCount + 2);
         }
     }
 }
