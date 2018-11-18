@@ -2,6 +2,7 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightData.Domain.Updaters;
+using FightData.Processor.WebpageParsing.OddsPage;
 using FightData.Processor.WebpageParsing.PicksPages;
 using FightData.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.PicksPages;
@@ -17,6 +18,7 @@ namespace FightDataProcessor.WebpageParsing
         private WebpageFinder webpageFinder;
         private FightPicksContext context;
         private PickUpdater pickUpdater;
+        private OddUpdater oddUpdater;
 
         public ExhibitionDataExtractor(Exhibition exhibition)
         {
@@ -24,6 +26,7 @@ namespace FightDataProcessor.WebpageParsing
             context = exhibition.Context;
             webpageFinder = new WebpageFinder(exhibition.Context);
             pickUpdater = new PickUpdater(context);
+            oddUpdater = new OddUpdater(context);
         }
 
         public List<UnfoundPick> UnfoundPicks { get; private set; } = new List<UnfoundPick>();
@@ -32,9 +35,10 @@ namespace FightDataProcessor.WebpageParsing
         {
             ExtractResultsPageData();
             ExtractPicksPagesData();
+            ExtractOddsPageData();
         }
 
-        public void ExtractResultsPageData()
+        private void ExtractResultsPageData()
         {
             Webpage resultsPage = webpageFinder.GetResultsPage(exhibition);
             if (!resultsPage.Parsed)
@@ -46,7 +50,7 @@ namespace FightDataProcessor.WebpageParsing
             }
         }
 
-        public void ExtractPicksPagesData()
+        private void ExtractPicksPagesData()
         {
             foreach (Webpage picksPage in webpageFinder.GetPicksPages(exhibition))
             {
@@ -60,6 +64,19 @@ namespace FightDataProcessor.WebpageParsing
                     UnfoundPicks.AddRange(rawPickEvaluator.UnfoundPicks);
                     new WebpageUpdater(context).MarkAsParsed(picksPage);
                 }
+            }
+        }
+
+        private void ExtractOddsPageData()
+        {
+            Webpage oddsPage = webpageFinder.GetOddsPage(exhibition);
+            if(!oddsPage.Parsed)
+            {
+                OddsPageParser oddsPageParser = new OddsPageParser(new HtmlPageParser(oddsPage.Data).ParseHtml());
+                List<RawFighterOdds> rawFighterOdds = oddsPageParser.Parse();
+                RawFighterOddsEvaluator rawFighterOddsEvaluator = new RawFighterOddsEvaluator(context);
+                List<Odd> odds = rawFighterOddsEvaluator.GetOdds(rawFighterOdds, exhibition);
+                oddUpdater.AddOdds(odds);
             }
         }
     }

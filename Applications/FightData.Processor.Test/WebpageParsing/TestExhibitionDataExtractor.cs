@@ -24,7 +24,7 @@ namespace FightDataProcessor.Test.WebpageParsing
             int originalNoFights = context.Fights.Count();
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
-            new ExhibitionDataExtractor(exhibition).ExtractResultsPageData();
+            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
 
             Assert.IsTrue(originalNoFights == context.Fights.Count());
 
@@ -35,9 +35,20 @@ namespace FightDataProcessor.Test.WebpageParsing
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
 
-            new ExhibitionDataExtractor(exhibition).ExtractResultsPageData();
+            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
 
             Assert.IsTrue(webpageFinder.GetResultsPage(exhibition).Parsed == true);
+        }
+
+        [TestMethod]
+        public void TestExtractOddsPage()
+        {
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
+            int originalOddsCount = context.Odds.Count();
+
+            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+
+            Assert.IsTrue(context.Odds.Count() == originalOddsCount + 1);
         }
     }
 }

@@ -76,8 +76,7 @@ namespace FightDataUI.Controllers
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition(id);
             ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
-            exhibitionDataExtractor.ExtractResultsPageData();
-            exhibitionDataExtractor.ExtractPicksPagesData();
+            exhibitionDataExtractor.ExtractAllWebpages();
             List<UnfoundPick> unfoundPicks = exhibitionDataExtractor.UnfoundPicks;
             if (unfoundPicks.Count > 0)
             {

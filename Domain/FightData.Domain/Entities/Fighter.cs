@@ -15,6 +15,7 @@ namespace FightData.Domain.Entities
         public List<Fight> Wins { get; set; }
         public List<Fight> Losses { get; set; }
         public List<Pick> Picks { get; set; }
+        public List<Odd> Odds { get; set; }
 
         public static Fighter GenerateFighter(string name, FightPicksContext context)
         {

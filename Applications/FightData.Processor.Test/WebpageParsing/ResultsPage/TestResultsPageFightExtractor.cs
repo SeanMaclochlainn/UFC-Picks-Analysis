@@ -24,7 +24,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
             int existingFights = context.Fights.Count();
 
             ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
-            exhibitionDataExtractor.ExtractResultsPageData();
+            exhibitionDataExtractor.ExtractAllWebpages();
 
             Assert.IsTrue(context.Fights.Count() == existingFights + 2);
         }

@@ -18,6 +18,7 @@ namespace FightData.Domain
         public DbSet<Pick> Picks { get; set; }
         public DbSet<Webpage> Webpages { get; set; }
         public DbSet<Website> Websites { get; set; }
+        public DbSet<Odd> Odds { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -145,6 +146,16 @@ namespace FightData.Domain
             modelBuilder.Entity<AnalystAltName>()
                 .HasOne(a => a.Analyst)
                 .WithMany(a => a.AltNames)
+                .IsRequired();
+
+            modelBuilder.Entity<Odd>()
+                .HasOne(o => o.Fighter)
+                .WithMany(f => f.Odds)
+                .IsRequired();
+
+            modelBuilder.Entity<Odd>()
+                .HasOne(o => o.Fight)
+                .WithMany(f => f.Odds)
                 .IsRequired();
 
         }

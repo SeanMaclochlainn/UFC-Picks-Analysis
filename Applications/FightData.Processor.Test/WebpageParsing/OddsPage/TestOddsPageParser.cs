@@ -28,9 +28,9 @@ namespace FightData.Processor.Test.WebpageParsing.OddsPage
             Webpage oddsPage = webpageFinder.GetOddsPage(exhibition);
             OddsPageParser oddsPageParser = new OddsPageParser(new HtmlPageParser(oddsPage.Data).ParseHtml());
 
-            List<RawFighterOdds> odds = oddsPageParser.Parse();
+            List<RawFighterOdds> rawFighterOdds = oddsPageParser.Parse();
 
-            Assert.IsTrue(odds.First().FighterName == "Chad Mendes" && odds.First().Odds == "2.85");
+            Assert.IsTrue(rawFighterOdds.First().FighterName == "Luke Rockhold" && rawFighterOdds.First().Odds == "1.18");
         }
     }
 }
