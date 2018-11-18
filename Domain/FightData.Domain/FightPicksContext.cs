@@ -100,6 +100,12 @@ namespace FightData.Domain
                 .IsRequired();
             });
 
+            modelBuilder.Entity<Odd>(entity =>
+            {
+                entity.Property(e => e.Value)
+                .IsRequired();
+            });
+
             modelBuilder.Entity<Webpage>()
                 .HasOne(wp => wp.Website)
                 .WithMany(ws => ws.Webpages)
