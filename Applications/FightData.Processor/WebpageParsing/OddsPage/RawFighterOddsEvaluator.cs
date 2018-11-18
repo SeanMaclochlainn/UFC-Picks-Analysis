@@ -17,7 +17,7 @@ namespace FightData.Processor.WebpageParsing.OddsPage
             entityFinder = new EntityFinder(context);
         }
 
-        public List<Odd> GetOdds(List<RawFighterOdds> rawFighterOdds, Exhibition exhibition)
+        public List<Odd> GetOddEntities(List<RawFighterOdds> rawFighterOdds, Exhibition exhibition)
         {
             List<Odd> odds = new List<Odd>();
             foreach(RawFighterOdds rawFighterOdd in rawFighterOdds)

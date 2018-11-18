@@ -8,16 +8,6 @@ namespace FightData.Domain.Finders
     {
         public WebpageFinder(FightPicksContext context) : base(context) { }
 
-        public List<Webpage> GetAllWebpages()
-        {
-            return context.Webpages.ToList();
-        }
-
-        public Webpage GetWebpage(int exhibitionId, int websiteId)
-        {
-            return context.Webpages.Single(w => w.Exhibition.Id == exhibitionId && w.Website.Id == websiteId);
-        }
-
         public Webpage GetResultsPage(Exhibition exhibition)
         {
             return exhibition.Webpages.Single(w => w.Website.WebsiteName == WebsiteName.Wikipedia);

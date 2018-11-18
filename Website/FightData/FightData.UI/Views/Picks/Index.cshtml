@@ -10,10 +10,11 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            @foreach(Analyst analyst in Model.AnalystFinder.GetAllAnalysts())
+            <th>Winner</th>
+            <th>Odds</th>
+            <th>Loser</th>
+            <th>Odds</th>
+            @foreach(Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
             {
                 <th>@analyst.Name</th>
             }
@@ -32,11 +33,16 @@
             <td>
                 @exhibition.Fights[i].Winner.FullName
             </td>
-            <td>def.</td>
+            <td>
+                @Model.FindFighterOddText(exhibition.Fights[i].Winner, exhibition)
+            </td>
             <td>
                 @exhibition.Fights[i].Loser.FullName
             </td>
-            @foreach (Analyst analyst in Model.AnalystFinder.GetAllAnalysts())
+            <td>
+                @Model.FindFighterOddText(exhibition.Fights[i].Loser, exhibition)
+            </td>
+            @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
             {
                 <td class="@Model.FindPickColour(analyst, exhibition.Fights[i])">@Model.FindPickText(analyst, exhibition.Fights[i])</td>
             }

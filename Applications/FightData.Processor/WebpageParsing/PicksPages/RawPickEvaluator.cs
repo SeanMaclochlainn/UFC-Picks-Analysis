@@ -31,7 +31,6 @@ namespace FightDataProcessor.WebpageParsing
 
         public List<UnfoundPick> UnfoundPicks { get; private set; } = new List<UnfoundPick>();
         public List<Pick> ValidPicks { get; private set; } = new List<Pick>();
-        public List<RawAnalystPick> InvalidPicks { get; private set; } = new List<RawAnalystPick>();
 
         public void EvaluatePicks(List<RawAnalystPick> rawAnalystPickList, Exhibition exhibition)
         {
@@ -40,9 +39,7 @@ namespace FightDataProcessor.WebpageParsing
             {
                 analystName = analystPick.Analyst;
                 fighterName = analystPick.Pick;
-                if (!ArePicksValid())
-                    InvalidPicks.Add(analystPick);
-                else
+                if (ArePicksValid())
                 {
                     FindEntities();
                     if (AreEntitiesFound())

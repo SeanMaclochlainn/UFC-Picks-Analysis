@@ -75,7 +75,7 @@ namespace FightDataProcessor.WebpageParsing
                 OddsPageParser oddsPageParser = new OddsPageParser(new HtmlPageParser(oddsPage.Data).ParseHtml());
                 List<RawFighterOdds> rawFighterOdds = oddsPageParser.Parse();
                 RawFighterOddsEvaluator rawFighterOddsEvaluator = new RawFighterOddsEvaluator(context);
-                List<Odd> odds = rawFighterOddsEvaluator.GetOdds(rawFighterOdds, exhibition);
+                List<Odd> odds = rawFighterOddsEvaluator.GetOddEntities(rawFighterOdds, exhibition);
                 oddUpdater.AddOdds(odds);
             }
         }

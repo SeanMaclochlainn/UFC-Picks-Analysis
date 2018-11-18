@@ -12,7 +12,7 @@ namespace FightData.Domain.Entities
         public Exhibition Exhibition { get; set; }
         public CardType CardType { get; set; }
         public List<Pick> Picks { get; set; } = new List<Pick>();
-        public List<Odd> Odds { get; set; }
+        public List<Odd> Odds { get; set; } = new List<Odd>();
 
         public void Add()
         {
