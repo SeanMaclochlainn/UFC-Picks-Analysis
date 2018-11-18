@@ -1,4 +1,4 @@
-﻿using FightData.Domain;
+﻿using FightData.Domain.Entities;
 using FightData.Domain.Test;
 using FightData.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing;
@@ -15,7 +15,9 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseAnalyst()
         {
-            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data).ParseHtml());
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
+            Webpage picksPage = entityFinder.WebpageFinder.GetPicksPages(exhibition).First();
+            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml());
 
             List<RawAnalystPick> gridRowResults = picksPageParser.ParsePicksGrid();
 
@@ -25,7 +27,9 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestParseFighters()
         {
-            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data).ParseHtml());
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
+            Webpage picksPage = entityFinder.WebpageFinder.GetPicksPages(exhibition).First();
+            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml());
 
             List<RawAnalystPick> gridRowResults = picksPageParser.ParsePicksGrid().ToList();
 

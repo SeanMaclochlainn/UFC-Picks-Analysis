@@ -22,8 +22,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         public void TestSkipParsedPage()
         {
             int originalNoFights = context.Fights.Count();
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetUnparsedExhibition();
-            new WebpageUpdater(context).MarkAsParsed(webpageFinder.GetResultsPage(exhibition));
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
             new ExhibitionDataExtractor(exhibition).ExtractResultsPageData();
 
@@ -34,7 +33,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         [TestMethod]
         public void TestWebpageIsMarkedAsParsed()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetUnparsedExhibition();
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
 
             new ExhibitionDataExtractor(exhibition).ExtractResultsPageData();
 

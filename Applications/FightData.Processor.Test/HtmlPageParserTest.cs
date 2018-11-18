@@ -1,7 +1,9 @@
-﻿using FightData.Domain.Test;
+﻿using FightData.Domain.Entities;
+using FightData.Domain.Test;
 using FightDataProcessor.WebpageParsing;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace FightDataProcessor.Test
 {
@@ -11,7 +13,8 @@ namespace FightDataProcessor.Test
         [TestMethod]
         public void TestParsePageContainingRaquo()
         {
-            HtmlPageParser htmlPageParser = new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedPicksPage().Data);
+            Webpage picksPage = entityFinder.WebpageFinder.GetPicksPages(entityFinder.ExhibitionFinder.FindExhibition("FN 55")).First();
+            HtmlPageParser htmlPageParser = new HtmlPageParser(picksPage.Data);
 
             HtmlDocument result = htmlPageParser.ParseHtml();
 

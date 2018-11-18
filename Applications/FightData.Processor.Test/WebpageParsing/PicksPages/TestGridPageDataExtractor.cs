@@ -13,16 +13,13 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         [TestMethod]
         public void TestExtractPick()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
-            exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetPopulatedPicksPage());
-            entityGenerator.AnalystGenerator.GetPopulatedAnalyst().Add();
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
 
             ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
-            exhibitionDataExtractor.ExtractPicksPagesData();
+            exhibitionDataExtractor.ExtractAllWebpages();
 
-            Pick mikeBohnsPick = context.Picks.First(p => p.Analyst.Name == "Mike Bohn" && p.Fight.Winner.LastName == "Rockhold");
-            Assert.IsTrue(mikeBohnsPick.Fighter.LastName == "Rockhold");
-            
+            Pick mikeBohnsPick = context.Picks.First(p => p.Analyst.Name == "Mike Bohn" && p.Fight.Winner.LastName == "Aldo");
+            Assert.IsTrue(mikeBohnsPick.Fighter.LastName == "Aldo");   
         }
     }
 }

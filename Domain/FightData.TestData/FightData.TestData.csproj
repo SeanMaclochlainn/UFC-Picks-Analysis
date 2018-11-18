@@ -1,19 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="WebsiteHtml\OddsPage.html" />
-    <None Remove="WebsiteHtml\ResultsPage.html" />
-    <None Remove="WebsiteHtml\PicksPage.html" />
+    <None Remove="WebsiteHtml\OddsPages\OddsPage.html" />
+    <None Remove="WebsiteHtml\OddsPages\UFC179.html" />
+    <None Remove="WebsiteHtml\PicksPages\FN55.html" />
+    <None Remove="WebsiteHtml\PicksPages\UFC179.html" />
+    <None Remove="WebsiteHtml\ResultsPages\FN55.html" />
+    <None Remove="WebsiteHtml\ResultsPages\UFC179.html" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="WebsiteHtml\OddsPage.html" />
-    <EmbeddedResource Include="WebsiteHtml\ResultsPage.html" />
-    <EmbeddedResource Include="WebsiteHtml\PicksPage.html" />
+    <EmbeddedResource Include="WebsiteHtml\OddsPages\FN55.html" />
+    <EmbeddedResource Include="WebsiteHtml\OddsPages\UFC179.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPages\UFC179.html" />
+    <EmbeddedResource Include="WebsiteHtml\ResultsPages\FN55.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPages\FN55.html" />
+    <EmbeddedResource Include="WebsiteHtml\ResultsPages\UFC179.html" />
   </ItemGroup>
 
   <ItemGroup>

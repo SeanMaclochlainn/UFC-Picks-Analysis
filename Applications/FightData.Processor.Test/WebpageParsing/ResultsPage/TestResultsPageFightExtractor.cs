@@ -20,21 +20,13 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         [TestMethod]
         public void TestExtractResults()
         {
-            Exhibition exhibition = GetResultsPageExhibition();
-            exhibitionUpdater.Add(exhibition);
-            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
             int existingFights = context.Fights.Count();
 
+            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
             exhibitionDataExtractor.ExtractResultsPageData();
 
             Assert.IsTrue(context.Fights.Count() == existingFights + 2);
-        }
-
-        private Exhibition GetResultsPageExhibition()
-        {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetEmptyExhibition();
-            exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetPopulatedResultsPage());
-            return exhibition;
         }
     }
 }

@@ -32,8 +32,9 @@ namespace FightData.UI.Test
         [TestMethod]
         public void TestDownloadWebpageData()
         {
-            ExhibitionForm exhibitionForm = new ExhibitionForm(entityGenerator.ExhibitionGenerator.GetEmptyExhibition());
-            exhibitionForm.Exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetEmptyWebpage());
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
+            ExhibitionForm exhibitionForm = new ExhibitionForm(exhibition);
+            exhibitionForm.Exhibition.Webpages.Add(exhibition.Webpages.First());
 
             exhibitionUpdater.Add(exhibitionForm, new TestClient());
 
@@ -43,25 +44,25 @@ namespace FightData.UI.Test
         [TestMethod]
         public void TestAddExhibitionFromForm()
         {
-            ExhibitionForm exhibitionForm = new ExhibitionForm(entityGenerator.ExhibitionGenerator.GetEmptyExhibition());
-            exhibitionForm.Exhibition.Webpages.Add(entityGenerator.WebpageGenerator.GetEmptyWebpage());
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
+            ExhibitionForm exhibitionForm = new ExhibitionForm(exhibition);
+            exhibitionForm.Exhibition.Webpages.Add(exhibition.Webpages.First());
             int previousExhibitionCount = context.Exhibitions.Count();
 
             exhibitionUpdater.Add(exhibitionForm, new TestClient());
 
-            Assert.IsTrue(context.Exhibitions.Count() == previousExhibitionCount+1);
+            Assert.IsTrue(context.Exhibitions.Count() == previousExhibitionCount + 1);
         }
 
         [TestMethod]
         public void TestEditExhibitionFromForm()
         {
-            exhibitionUpdater.Add(entityGenerator.ExhibitionGenerator.GetParsedExhibition());
-            ExhibitionForm exhibitionForm = new ExhibitionForm(context.Exhibitions.Last());
+            ExhibitionForm exhibitionForm = new ExhibitionForm(entityFinder.ExhibitionFinder.FindExhibition("FN 55"));
 
             string update = "editexhibition";
             exhibitionUpdater.UpdateExhibition(exhibitionForm, new TestClient(update));
 
-            Assert.IsTrue(context.Exhibitions.Last().Webpages.First().Data == update);
+            Assert.IsTrue(entityFinder.ExhibitionFinder.FindExhibition("FN 55").Webpages.First().Data == update);
         }
     }
 }

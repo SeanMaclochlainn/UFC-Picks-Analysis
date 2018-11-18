@@ -17,13 +17,13 @@ namespace FightData.Domain.Test.Finders
         }
 
         [TestMethod]
-        public void TestGetWebsiteUrl()
+        public void TestGetWebpage()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
-            string url = webpageFinder.GetWebpage(exhibition, websiteFinder.GetWebsite(WebsiteName.Wikipedia)).Url;
+            Webpage webpage = webpageFinder.GetWebpage(exhibition, websiteFinder.GetWebsite(WebsiteName.Wikipedia));
 
-            Assert.IsTrue(url == entityGenerator.WebpageGenerator.GetPopulatedResultsPage().Url);
+            Assert.IsTrue(webpage.Website.WebsiteName == WebsiteName.Wikipedia);
         }
     }
 }

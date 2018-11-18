@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Entities;
 using FightData.Domain.Test;
 using FightDataProcessor.WebpageParsing;
 using FightDataProcessor.WebpageParsing.ResultsPage;
@@ -15,7 +16,8 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 
         public TestResultsTableParser()
         {
-            resultsTableParser = new ResultsPageParser(new HtmlPageParser(entityGenerator.WebpageGenerator.GetPopulatedResultsPage().Data).ParseHtml());
+            Webpage resultsPage = entityFinder.WebpageFinder.GetResultsPage(entityFinder.ExhibitionFinder.FindExhibition("FN 55"));
+            resultsTableParser = new ResultsPageParser(new HtmlPageParser(resultsPage.Data).ParseHtml());
         }
 
         [TestMethod]

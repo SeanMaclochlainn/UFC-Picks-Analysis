@@ -28,10 +28,11 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestIsCorrect()
         {
-            Exhibition exhibition = entityGenerator.ExhibitionGenerator.GetParsedExhibition();
-            exhibitionUpdater.Add(exhibition);
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
-            Assert.IsTrue(context.Picks.First().IsCorrect());
+            Pick pick = pickFinder.FindPick(analystFinder.FindAnalyst("Mike Bohn").Result, exhibition.Fights.First()).Result;
+
+            Assert.IsTrue(pick.IsCorrect());
         }
 
         [TestMethod]
