@@ -103,8 +103,13 @@ namespace FightDataUI.Controllers
 
         public ActionResult DeleteParsedData(int id)
         {
-            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
             exhibitionUpdater.DeleteParsedData(exhibitionFinder.FindExhibition(id));
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteAllParsedData()
+        {
+            exhibitionUpdater.DeleteAllParsedData();
             return RedirectToAction("Index");
         }
 

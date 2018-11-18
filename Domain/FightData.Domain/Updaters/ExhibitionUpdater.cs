@@ -9,14 +9,16 @@ namespace FightData.Domain.Updaters
     public class ExhibitionUpdater
     {
         private FightPicksContext context;
-        private ExhibitionFinder exhibitionFinder;
         private FightUpdater fightUpdater;
+        private EntityFinder entityFinder;
+        private FighterUpdater fighterUpdater;
 
         public ExhibitionUpdater(FightPicksContext context)
         {
             this.context = context;
-            exhibitionFinder = new ExhibitionFinder(context);
+            entityFinder = new EntityFinder(context);
             fightUpdater = new FightUpdater(context);
+            fighterUpdater = new FighterUpdater(context);
         }
 
         public void Add(ExhibitionForm exhibitionForm)
@@ -45,7 +47,7 @@ namespace FightData.Domain.Updaters
 
         public void UpdateExhibition(ExhibitionForm exhibitionForm, Client client)
         {
-            Exhibition exhibition = exhibitionFinder.FindExhibition(exhibitionForm.Exhibition.Id);
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition(exhibitionForm.Exhibition.Id);
             exhibition.Name = exhibitionForm.Exhibition.Name;
             exhibition.Webpages = DownloadWebpageData(exhibitionForm.Exhibition.Webpages, client);
             context.SaveChanges();
@@ -61,6 +63,16 @@ namespace FightData.Domain.Updaters
         {
             fightUpdater.DeleteFights(exhibition.Fights);
             new WebpageUpdater(context).MarkAsUnparsed(exhibition.Webpages);
+        }
+
+        public void DeleteAllParsedData()
+        {
+            List<Exhibition> exhibitions = entityFinder.ExhibitionFinder.FindAllExhibitions();
+            foreach(Exhibition exhibition in exhibitions)
+            {
+                DeleteParsedData(exhibition);
+            }
+            fighterUpdater.DeleteAll();
         }
 
         private List<Webpage> DownloadWebpageData(List<Webpage> webpages, Client client)

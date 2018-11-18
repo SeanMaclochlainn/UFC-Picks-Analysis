@@ -29,7 +29,7 @@ namespace FightData.Domain.Test.Updaters
         }
 
         [TestMethod]
-        public void TestDeleteParsedData()
+        public void TestDeleteParsedDataFromExhibition()
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
             
@@ -39,5 +39,14 @@ namespace FightData.Domain.Test.Updaters
             Assert.IsTrue(exhibition.Fights.Count() == 0);
         }
 
+        [TestMethod]
+        public void TestDeleteAllParsedData()
+        {
+            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
+
+            exhibitionUpdater.DeleteAllParsedData();
+
+            Assert.IsTrue(context.Fighters.Count() == 0);
+        }
     }
 }
