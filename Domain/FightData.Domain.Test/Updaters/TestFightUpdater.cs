@@ -27,5 +27,15 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(exhibition.Fights.Count() == originalFightCount + 1);
         }
+
+        [TestMethod]
+        public void TestAddFighterWithAccent()
+        {
+            Exhibition exhibition = exhibitionFinder.FindExhibition("UFC 179");
+
+            fightUpdater.AddFights(new List<RawFightResult>() { new RawFightResult("José Aldo", "Chad Mendes") }, exhibition);
+
+            Assert.IsTrue(exhibitionFinder.FindExhibition("UFC 179").Fights.First().Winner.FullName == "Jose Aldo");
+        }
     }
 }

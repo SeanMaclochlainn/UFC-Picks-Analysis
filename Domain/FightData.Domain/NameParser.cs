@@ -7,11 +7,11 @@ namespace FightData.Domain
 {
     public class NameParser
     {
-        private string fullName;
+        private string nameText;
 
-        public NameParser(string fullName)
+        public NameParser(string nameText)
         {
-            this.fullName = fullName;
+            this.nameText = nameText;
         }
 
         public string GetFirstName()
@@ -38,23 +38,33 @@ namespace FightData.Domain
             return middleNames;
         }
 
+        public string GetFullName()
+        {
+            string middleName = GetMiddleNames();
+            if(string.IsNullOrEmpty(middleName))
+                return $"{GetFirstName()} {GetLastName()}";
+            else
+                return $"{GetFirstName()} {GetMiddleNames()} {GetLastName()}";
+
+        }
+
         private List<string> SplitName()
         {
-            return fullName.Split(' ').ToList();
+            return nameText.Split(' ').ToList();
         }
 
         private void Sanitize()
         {
-            fullName = fullName.Replace("(c)", "");
-            fullName = fullName.Trim();
+            nameText = nameText.Replace("(c)", "");
+            nameText = nameText.Trim();
             RemoveAccents();
         }
 
         private void RemoveAccents()
         {
-            fullName = fullName.Normalize(NormalizationForm.FormD);
-            char[] chars = fullName.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray();
-            fullName = new string(chars).Normalize(NormalizationForm.FormC);
+            nameText = nameText.Normalize(NormalizationForm.FormD);
+            char[] chars = nameText.Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark).ToArray();
+            nameText = new string(chars).Normalize(NormalizationForm.FormC);
         }
     }
 }

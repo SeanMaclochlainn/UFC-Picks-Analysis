@@ -30,10 +30,10 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-        public void PopulateNames(string fullName)
+        public void PopulateNames(string nameText)
         {
-            FullName = fullName;
-            NameParser nameParser = new NameParser(FullName);
+            NameParser nameParser = new NameParser(nameText);
+            FullName = nameParser.GetFullName();
             FirstName = nameParser.GetFirstName();
             LastName = nameParser.GetLastName();
             MiddleName = nameParser.GetMiddleNames();
