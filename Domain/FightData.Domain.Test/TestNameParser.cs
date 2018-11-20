@@ -12,7 +12,7 @@ namespace FightData.Domain.Test
 
             NameParser nameParser = new NameParser(name);
 
-            Assert.IsTrue(nameParser.GetLastName() == "Aldo");
+            Assert.IsTrue(nameParser.GetLastName() == "aldo");
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace FightData.Domain.Test
 
             NameParser nameParser = new NameParser(name);
 
-            Assert.IsTrue(nameParser.GetFirstName() == "Jose");
+            Assert.IsTrue(nameParser.GetFirstName() == "jose");
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace FightData.Domain.Test
 
             NameParser nameParser = new NameParser(name);
 
-            Assert.IsTrue(nameParser.GetFullName() == "Aldo");
+            Assert.IsTrue(nameParser.GetFullName() == "aldo");
         }
 
         [TestMethod]
@@ -52,7 +52,17 @@ namespace FightData.Domain.Test
 
             NameParser nameParser = new NameParser(name);
 
-            Assert.IsTrue(nameParser.GetFullName() == "Carlos Diego Ferreira");
+            Assert.IsTrue(nameParser.GetFullName() == "carlos diego ferreira");
+        }
+
+        [TestMethod]
+        public void TestMakeNameLowercase()
+        {
+            string name = "José Aldo";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "jose aldo");
         }
     }
 }

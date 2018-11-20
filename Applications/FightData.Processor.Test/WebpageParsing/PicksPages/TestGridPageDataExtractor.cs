@@ -18,8 +18,8 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
             ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
             exhibitionDataExtractor.ExtractAllWebpages();
 
-            Pick mikeBohnsPick = context.Picks.First(p => p.Analyst.Name == "Mike Bohn" && p.Fight.Winner.LastName == "Aldo");
-            Assert.IsTrue(mikeBohnsPick.Fighter.LastName == "Aldo");   
+            Pick mikeBohnsPick = context.Picks.First(p => p.Analyst.Name == "Mike Bohn" && p.Fight.Winner.LastName == "aldo");
+            Assert.IsTrue(mikeBohnsPick.Fighter.LastName == "aldo");   
         }
     }
 }

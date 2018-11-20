@@ -24,7 +24,7 @@ namespace FightData.Domain.Test.Entities
         {
             Fighter fighter = Fighter.GenerateFighter("José Aldo (c)", context);
 
-            Assert.IsTrue(fighter.FullName == "Jose Aldo");
+            Assert.IsTrue(fighter.FullName == "jose aldo");
         }
     }
 }
