@@ -56,6 +56,16 @@ namespace FightData.Domain.Test
         }
 
         [TestMethod]
+        public void TestParseFourNames()
+        {
+            string name = "Antônio dos Santos Jr.";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "antonio dos santos jr");
+        }
+
+        [TestMethod]
         public void TestMakeNameLowercase()
         {
             string name = "José Aldo";

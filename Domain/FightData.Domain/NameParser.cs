@@ -38,9 +38,9 @@ namespace FightData.Domain
             if (names.Count > 2)
             {
                 for (int i = 1; i < names.Count - 1; i++)
-                    middleNames += names[i];
+                    middleNames += names[i] + " ";
             }
-            return middleNames;
+            return middleNames.Trim();
         }
 
         public string GetFullName()
@@ -64,6 +64,7 @@ namespace FightData.Domain
         private void Sanitize()
         {
             nameText = nameText.Replace("(c)", "");
+            nameText = nameText.Replace(".", "");
             nameText = nameText.Trim();
             nameText = nameText.ToLower();
             RemoveAccents();
