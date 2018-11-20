@@ -4,12 +4,12 @@
     {
         public static string ResultsPageWinnerXpath(int rowNo)
         {
-            return string.Format(@"//body//table[2]//tr[{0}]/td[2]", rowNo);
+            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[2]", rowNo);
         }
 
         public static string ResultsPageLoserXpath(int rowNo)
         {
-            return string.Format(@"//body//table[2]//tr[{0}]/td[4]", rowNo);
+            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[4]", rowNo);
         }
 
         public static string PicksPageAnalystXpath(int rowNo)
