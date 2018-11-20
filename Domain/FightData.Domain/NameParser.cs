@@ -17,7 +17,11 @@ namespace FightData.Domain
         public string GetFirstName()
         {
             Sanitize();
-            return SplitName().First();
+            List<string> names = SplitName();
+            if (names.Count > 1)
+                return names.First();
+            else
+                return "";
         }
 
         public string GetLastName()
@@ -31,20 +35,24 @@ namespace FightData.Domain
             Sanitize();
             List<string> names = SplitName();
             string middleNames = "";
-            names.RemoveAt(0);
-            names.RemoveAt(names.Count - 1);
-            foreach (string name in names)
-                middleNames += name;
+            if (names.Count > 2)
+            {
+                foreach (string name in names)
+                    middleNames += name;
+            }
             return middleNames;
         }
 
         public string GetFullName()
         {
             string middleName = GetMiddleNames();
-            if(string.IsNullOrEmpty(middleName))
+            string firstname = GetFirstName();
+            if(string.IsNullOrEmpty(middleName) && string.IsNullOrEmpty(firstname))
+                return $"{GetLastName()}";
+            else if (string.IsNullOrEmpty(middleName))
                 return $"{GetFirstName()} {GetLastName()}";
             else
-                return $"{GetFirstName()} {GetMiddleNames()} {GetLastName()}";
+                return $"{GetFirstName()} {middleName} {GetLastName()}";
 
         }
 

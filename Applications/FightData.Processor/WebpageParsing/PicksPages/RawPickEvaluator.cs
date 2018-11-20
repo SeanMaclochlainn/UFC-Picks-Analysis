@@ -5,7 +5,7 @@ using FightData.Processor.WebpageParsing.PicksPages;
 using FightData.WebpageParsing.PicksPages;
 using System.Collections.Generic;
 
-namespace FightDataProcessor.WebpageParsing
+namespace FightDataProcessor.PicksPages.WebpageParsing
 {
     public class RawPickEvaluator
     {

@@ -78,5 +78,16 @@ namespace FightData.Domain.Test.Finders
             Assert.IsTrue(result.IsFound() == false);
         }
 
+        [TestMethod]
+        public void TestFindUsingAccentedName()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Ildemar Alcântara", context));
+
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Alcântara");
+
+            Assert.IsTrue(result.IsFound() == true);
+        }
+
     }
 }

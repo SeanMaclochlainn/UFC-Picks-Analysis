@@ -34,5 +34,15 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(nameParser.GetFirstName() == "Jose");
         }
+
+        [TestMethod]
+        public void TestParseSurname()
+        {
+            string name = "Aldo";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "Aldo");
+        }
     }
 }

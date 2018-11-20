@@ -21,8 +21,8 @@ namespace FightData.Domain
             {
                 EnsureFighterIsAdded(rawFightResult.Winner);
                 EnsureFighterIsAdded(rawFightResult.Loser);
-                Fighter winner = fighterFinder.FindFighter(new NameParser(rawFightResult.Winner).GetFullName()).Result;
-                Fighter loser = fighterFinder.FindFighter(new NameParser(rawFightResult.Loser).GetFullName()).Result;
+                Fighter winner = fighterFinder.FindFighter(rawFightResult.Winner).Result;
+                Fighter loser = fighterFinder.FindFighter(rawFightResult.Loser).Result;
                 AddFight(winner, loser, exhibition);
             }
         }

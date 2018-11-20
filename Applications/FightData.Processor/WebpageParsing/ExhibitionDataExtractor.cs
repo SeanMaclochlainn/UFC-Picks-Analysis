@@ -5,6 +5,7 @@ using FightData.Domain.Updaters;
 using FightData.Processor.WebpageParsing.OddsPage;
 using FightData.Processor.WebpageParsing.PicksPages;
 using FightData.WebpageParsing.PicksPages;
+using FightDataProcessor.PicksPages.WebpageParsing;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;

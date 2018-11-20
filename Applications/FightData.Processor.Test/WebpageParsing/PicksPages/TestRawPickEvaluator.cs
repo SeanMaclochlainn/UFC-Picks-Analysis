@@ -1,9 +1,8 @@
-﻿using FightData.Domain;
-using FightData.Domain.Entities;
+﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightData.Domain.Test;
 using FightData.WebpageParsing.PicksPages;
-using FightDataProcessor.WebpageParsing;
+using FightDataProcessor.PicksPages.WebpageParsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
