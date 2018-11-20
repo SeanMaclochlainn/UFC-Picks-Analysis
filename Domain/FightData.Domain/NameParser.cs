@@ -37,8 +37,8 @@ namespace FightData.Domain
             string middleNames = "";
             if (names.Count > 2)
             {
-                foreach (string name in names)
-                    middleNames += name;
+                for (int i = 1; i < names.Count - 1; i++)
+                    middleNames += names[i];
             }
             return middleNames;
         }

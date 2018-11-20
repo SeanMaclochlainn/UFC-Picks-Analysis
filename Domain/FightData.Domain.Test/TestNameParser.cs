@@ -44,5 +44,15 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(nameParser.GetFullName() == "Aldo");
         }
+
+        [TestMethod]
+        public void TestParseThreeNames()
+        {
+            string name = "Carlos Diego Ferreira";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "Carlos Diego Ferreira");
+        }
     }
 }
