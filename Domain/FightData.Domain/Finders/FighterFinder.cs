@@ -13,6 +13,8 @@ namespace FightData.Domain.Finders
         {
             name = new NameParser(name).GetFullName();
             FinderResult<Fighter> result = FindFighter(f => f.FullName == name, specifiedFighters);
+            if(!result.IsFound())
+                result = FindFighter(f => $"{f.MiddleName} {f.LastName}" == name, specifiedFighters);
             if (!result.IsFound())
                 result = FindFighter(f => f.LastName == name, specifiedFighters);
             return result;

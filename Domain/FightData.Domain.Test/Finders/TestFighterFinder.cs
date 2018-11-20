@@ -89,5 +89,14 @@ namespace FightData.Domain.Test.Finders
             Assert.IsTrue(result.IsFound() == true);
         }
 
+        [TestMethod]
+        public void TestFindIncludingMiddleName()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Rafael dos Anjos", context));
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Dos Anjos");
+
+            Assert.IsTrue(result.IsFound() == true);
+        }
     }
 }
