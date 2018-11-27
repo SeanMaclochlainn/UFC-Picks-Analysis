@@ -1,8 +1,9 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain;
+using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using System.Collections.Generic;
 
-namespace FightData.Domain.Views
+namespace FightData.UI.ViewModels
 {
     public class PickView
     {
@@ -26,7 +27,10 @@ namespace FightData.Domain.Views
         {
             FinderResult<Pick> pickFinderResult = EntityFinder.PickFinder.FindPick(analyst, fight);
             if (pickFinderResult.IsFound())
-                return pickFinderResult.Result.Fighter.LastName;
+                if (pickFinderResult.Result.IsCorrect())
+                    return "1";
+                else
+                    return "0";
             else
                 return "";
         }
@@ -38,22 +42,6 @@ namespace FightData.Domain.Views
                 return oddsFinderResult.Result.Value.ToString();
             else
                 return "";
-        }
-
-        public string FindPickColour(Analyst analyst, Fight fight)
-        {
-            FinderResult<Pick> pickFinderResult = EntityFinder.PickFinder.FindPick(analyst, fight);
-            if(pickFinderResult.IsFound())
-            {
-                if (pickFinderResult.Result.IsCorrect())
-                    return "bg-success";
-                else
-                    return "bg-danger";
-            }
-            else
-            {
-                return "";
-            }
         }
 
     }

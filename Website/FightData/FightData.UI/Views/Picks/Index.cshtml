@@ -1,12 +1,13 @@
-﻿@model FightData.Domain.Views.PickView
+﻿@model FightData.UI.ViewModels.PickView
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Picks</h2>
-
-<table class="table">
+<a asp-action="ExportToCsv" class="btn btn-primary">Export To Csv</a>
+<p></p>
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Name</th>
@@ -14,7 +15,7 @@
             <th>Odds</th>
             <th>Loser</th>
             <th>Odds</th>
-            @foreach(Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
+            @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
             {
                 <th>@analyst.Name</th>
             }
@@ -25,28 +26,39 @@
         {
             @for (int i = 0; i < exhibition.Fights.Count; i++)
             {
-        <tr>
-            @if (i == 0)
-            {
-                <td rowspan="@exhibition.Fights.Count">@exhibition.Name</td>
-            }
-            <td>
-                @exhibition.Fights[i].Winner.FullName
-            </td>
-            <td>
-                @Model.FindFighterOddText(exhibition.Fights[i].Winner, exhibition)
-            </td>
-            <td>
-                @exhibition.Fights[i].Loser.FullName
-            </td>
-            <td>
-                @Model.FindFighterOddText(exhibition.Fights[i].Loser, exhibition)
-            </td>
-            @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
-            {
-                <td class="@Model.FindPickColour(analyst, exhibition.Fights[i])">@Model.FindPickText(analyst, exhibition.Fights[i])</td>
-            }
-        </tr>
+                <tr>
+                    @if (i == 0)
+                    {
+                        <td rowspan="@exhibition.Fights.Count">@exhibition.Name</td>
+                    }
+                    <td>
+                        @exhibition.Fights[i].Winner.FullName
+                    </td>
+                    <td>
+                        @Model.FindFighterOddText(exhibition.Fights[i].Winner, exhibition)
+                    </td>
+                    <td>
+                        @exhibition.Fights[i].Loser.FullName
+                    </td>
+                    <td>
+                        @Model.FindFighterOddText(exhibition.Fights[i].Loser, exhibition)
+                    </td>
+                    @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
+                    {
+                        @if (Model.FindPickText(analyst, exhibition.Fights[i]) == "1")
+                        {
+                            <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                        }
+                        else if (Model.FindPickText(analyst, exhibition.Fights[i]) == "0")
+                        {
+                            <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                </tr>
             }
         }
     </tbody>
