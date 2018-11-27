@@ -98,5 +98,16 @@ namespace FightData.Domain.Test.Finders
 
             Assert.IsTrue(result.IsFound() == true);
         }
+
+        [TestMethod]
+        public void TestFindByParsedSurname()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Urijah Hall", context));
+
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Uriah Hall");
+
+            Assert.IsTrue(result.IsFound());
+        }
     }
 }

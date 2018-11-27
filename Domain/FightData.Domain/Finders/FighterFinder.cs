@@ -11,12 +11,12 @@ namespace FightData.Domain.Finders
 
         public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, string name)
         {
-            name = new NameParser(name).GetFullName();
-            FinderResult<Fighter> result = FindFighter(f => f.FullName == name, specifiedFighters);
+            NameParser parsedName = new NameParser(name);
+            FinderResult<Fighter> result = FindFighter(f => f.FullName == parsedName.GetFullName(), specifiedFighters);
             if(!result.IsFound())
-                result = FindFighter(f => $"{f.MiddleName} {f.LastName}" == name, specifiedFighters);
+                result = FindFighter(f => $"{f.MiddleName} {f.LastName}" == parsedName.GetFullName(), specifiedFighters);
             if (!result.IsFound())
-                result = FindFighter(f => f.LastName == name, specifiedFighters);
+                result = FindFighter(f => f.LastName == parsedName.GetLastName(), specifiedFighters);
             return result;
         }
 
