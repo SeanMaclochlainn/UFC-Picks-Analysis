@@ -16,10 +16,11 @@ namespace FightData.Processor.WebpageParsing.OddsPage
             this.context = context;
             entityFinder = new EntityFinder(context);
         }
-
-        public List<Odd> GetOddEntities(List<RawFighterOdds> rawFighterOdds, Exhibition exhibition)
+        
+        public OddsEvaluatorResult GetOddEntities(List<RawFighterOdds> rawFighterOdds, Exhibition exhibition)
         {
             List<Odd> odds = new List<Odd>();
+            List<RawFighterOdds> unfoundOdds = new List<RawFighterOdds>();
             foreach(RawFighterOdds rawFighterOdd in rawFighterOdds)
             {
                 FinderResult<Fighter> fighterFinder = entityFinder.FighterFinder.FindFighter(rawFighterOdd.FighterName, exhibition);
@@ -35,8 +36,10 @@ namespace FightData.Processor.WebpageParsing.OddsPage
                     };
                     odds.Add(odd);
                 }
+                else
+                    unfoundOdds.Add(rawFighterOdd);
             }
-            return odds;
+            return new OddsEvaluatorResult(odds, unfoundOdds);
         }
 
         private decimal ConvertToDecimalOdd(string moneylineOdd)
