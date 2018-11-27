@@ -60,9 +60,9 @@ namespace FightDataProcessor.WebpageParsing
                     Debug.WriteLine($"Parsing picks page {picksPage.Url}");
                     List<RawAnalystPick> rawAnalystPickList = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml()).ParsePicksGrid();
                     RawPickEvaluator rawPickEvaluator = new RawPickEvaluator(context);
-                    rawPickEvaluator.EvaluatePicks(rawAnalystPickList, exhibition);
-                    pickUpdater.AddPicks(rawPickEvaluator.ValidPicks);
-                    UnfoundPicks.AddRange(rawPickEvaluator.UnfoundPicks);
+                    PicksEvaluationResult picksEvaluationResult = rawPickEvaluator.EvaluatePicks(rawAnalystPickList, exhibition);
+                    pickUpdater.AddPicks(picksEvaluationResult.ValidPicks);
+                    UnfoundPicks.AddRange(picksEvaluationResult.UnfoundPicks);
                     new WebpageUpdater(context).MarkAsParsed(picksPage);
                 }
             }
