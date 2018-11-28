@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace FightData.Processor.WebpageParsing.PicksPages
 {
-    public class PicksEvaluationResult
+    public class EvaluatedPicks
     {
-        public PicksEvaluationResult(List<UnfoundPick> unfoundPicks, List<Pick> validPicks)
+        public EvaluatedPicks(List<UnfoundPick> unfoundPicks, List<Pick> validPicks)
         {
             UnfoundPicks = unfoundPicks;
             ValidPicks = validPicks;

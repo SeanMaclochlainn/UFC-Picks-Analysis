@@ -1,6 +1,7 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using FightData.Domain.Test;
+using FightData.Processor.WebpageParsing;
 using FightDataProcessor.WebpageParsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -10,11 +11,15 @@ namespace FightDataProcessor.Test.WebpageParsing
     [TestClass]
     public class TestExhibitionDataExtractor : TestDataLayer
     {
-        WebpageFinder webpageFinder;
+        private WebpageFinder webpageFinder;
+        private ExhibitionWebpageParser exhibitionWebpageParser;
+        private RawEntitiesUpdater rawEntitiesUpdater;
 
         public TestExhibitionDataExtractor()
         {
             webpageFinder = new WebpageFinder(context);
+            exhibitionWebpageParser = new ExhibitionWebpageParser(context);
+            rawEntitiesUpdater = new RawEntitiesUpdater(context);
         }
 
         [TestMethod]
@@ -23,7 +28,8 @@ namespace FightDataProcessor.Test.WebpageParsing
             int originalNoFights = context.Fights.Count();
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
-            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            rawEntitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
 
             Assert.IsTrue(originalNoFights == context.Fights.Count());
         }
@@ -33,7 +39,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
 
-            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+            exhibitionWebpageParser.ParseAllWebpages(exhibition);
 
             Assert.IsTrue(webpageFinder.GetResultsPage(exhibition).Parsed == true);
         }
@@ -44,7 +50,8 @@ namespace FightDataProcessor.Test.WebpageParsing
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
             int originalOddsCount = context.Odds.Count();
 
-            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+            RawExhibitionEntities rawWebpageEntities = exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            rawEntitiesUpdater.UpdateEntities(rawWebpageEntities, exhibition);
 
             Assert.IsTrue(context.Odds.Count() == originalOddsCount + 2);
         }

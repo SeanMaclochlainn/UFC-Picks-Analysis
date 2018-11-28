@@ -26,7 +26,7 @@ namespace FightData.Processor.Test.WebpageParsing.PicksPages
             RawAnalystPick invalidPick = new RawAnalystPick("test", "test");
             Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
-            PicksEvaluationResult picksEvaluationResult = rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { invalidPick }, exhibition);
+            EvaluatedPicks picksEvaluationResult = rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { invalidPick }, exhibition);
 
             Assert.IsTrue(picksEvaluationResult.UnfoundPicks.Count == 1);
         }
@@ -38,7 +38,7 @@ namespace FightData.Processor.Test.WebpageParsing.PicksPages
             RawAnalystPick blankAnalystPick = new RawAnalystPick("", "test");
             Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
-            PicksEvaluationResult picksEvaluationResult = rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { blankAnalystPick }, exhibition);
+            EvaluatedPicks picksEvaluationResult = rawPickEvaluator.EvaluatePicks(new List<RawAnalystPick>() { blankAnalystPick }, exhibition);
 
             Assert.IsTrue(picksEvaluationResult.ValidPicks.Count == 0 && picksEvaluationResult.UnfoundPicks.Count == 0);
         }

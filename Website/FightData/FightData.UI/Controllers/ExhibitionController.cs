@@ -3,6 +3,7 @@ using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
 using FightData.Domain.Updaters;
+using FightData.Processor.WebpageParsing;
 using FightData.Processor.WebpageParsing.PicksPages;
 using FightData.UI.Models;
 using FightData.UI.ViewModels;
@@ -75,9 +76,11 @@ namespace FightDataUI.Controllers
         public ActionResult ExtractWebpages(int id)
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition(id);
-            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
-            exhibitionDataExtractor.ExtractAllWebpages();
-            List<UnfoundPick> unfoundPicks = exhibitionDataExtractor.UnfoundPicks;
+            ExhibitionWebpageParser exhibitionDataExtractor = new ExhibitionWebpageParser(context);
+            RawExhibitionEntities rawExhibitionEntities = exhibitionDataExtractor.ParseAllWebpages(exhibition);
+            RawEntitiesUpdater entitiesUpdater = new RawEntitiesUpdater(context);
+            UpdateEntitiesResult updateEntitiesResult = entitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
+            List<UnfoundPick> unfoundPicks = updateEntitiesResult.UnfoundPicks;
             if (unfoundPicks.Count > 0)
             {
                 return LoadUnfoundPicksPage(unfoundPicks, exhibition);

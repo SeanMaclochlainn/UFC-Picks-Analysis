@@ -1,9 +1,9 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.Test;
 using FightData.Processor.WebpageParsing.OddsPage;
-using FightDataProcessor.WebpageParsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.Processor.Test.WebpageParsing.OddsPage
 {
@@ -13,23 +13,25 @@ namespace FightData.Processor.Test.WebpageParsing.OddsPage
         [TestMethod]
         public void TestPositiveMoneylineOddConversion()
         {
-            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
+            RawFighterOddsEvaluator rawFighterOddsEvaluator = new RawFighterOddsEvaluator(context);
 
-            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+            RawFighterOdds rawFighterOdds = new RawFighterOdds("Luke Rockhold", "+180");
+            EvaluatedOdds evaluatedOdds = rawFighterOddsEvaluator.EvaluateOdds(new List<RawFighterOdds>() { rawFighterOdds }, exhibition);
 
-            Odd odd = entityFinder.OddsFinder.FindFighterOdd(entityFinder.FighterFinder.FindFighter("Chad Mendes").Result, exhibition).Result;
-            Assert.IsTrue(odd.Value == 2.80M);
+            Assert.IsTrue(evaluatedOdds.ValidOdds.First().Value == 2.80M);
         }
 
         [TestMethod]
         public void TestNegativeMoneylineOddConversion()
         {
-            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
+            RawFighterOddsEvaluator rawFighterOddsEvaluator = new RawFighterOddsEvaluator(context);
 
-            new ExhibitionDataExtractor(exhibition).ExtractAllWebpages();
+            RawFighterOdds rawFighterOdds = new RawFighterOdds("Luke Rockhold", "-215");
+            EvaluatedOdds evaluatedOdds = rawFighterOddsEvaluator.EvaluateOdds(new List<RawFighterOdds>() { rawFighterOdds }, exhibition);
 
-            Odd odd = entityFinder.OddsFinder.FindFighterOdd(entityFinder.FighterFinder.FindFighter("Jose Aldo").Result, exhibition).Result;
-            Assert.IsTrue(odd.Value == 1.47M);
+            Assert.IsTrue(evaluatedOdds.ValidOdds.First().Value == 1.47M);
         }
 
         [TestMethod]
@@ -40,7 +42,7 @@ namespace FightData.Processor.Test.WebpageParsing.OddsPage
             RawFighterOdds rawFighterOdds = new RawFighterOdds("xyz", "+100");
             List<RawFighterOdds> rawFighterOddsCollection = new List<RawFighterOdds>() { rawFighterOdds };
 
-            OddsEvaluatorResult oddsEvaluatorResult = rawFighterOddsEvaluator.GetOddEntities(rawFighterOddsCollection, exhibition);
+            EvaluatedOdds oddsEvaluatorResult = rawFighterOddsEvaluator.EvaluateOdds(rawFighterOddsCollection, exhibition);
 
             Assert.IsTrue(oddsEvaluatorResult.UnfoundOdds.Count == 1);
         }

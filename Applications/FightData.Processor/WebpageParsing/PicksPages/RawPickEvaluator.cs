@@ -29,7 +29,7 @@ namespace FightDataProcessor.PicksPages.WebpageParsing
             fighterName = "";
         }
 
-        public PicksEvaluationResult EvaluatePicks(List<RawAnalystPick> rawAnalystPickList, Exhibition exhibition)
+        public EvaluatedPicks EvaluatePicks(List<RawAnalystPick> rawAnalystPickList, Exhibition exhibition)
         {
             this.exhibition = exhibition;
             List<UnfoundPick> unfoundPicks = new List<UnfoundPick>();
@@ -47,7 +47,7 @@ namespace FightDataProcessor.PicksPages.WebpageParsing
                         unfoundPicks.Add(new UnfoundPick(analystPick, analystFinderResult.IsFound(), fighterFinderResult.IsFound()));
                 }
             }
-            return new PicksEvaluationResult(unfoundPicks, validPicks);
+            return new EvaluatedPicks(unfoundPicks, validPicks);
         }
 
         private void FindEntities()
