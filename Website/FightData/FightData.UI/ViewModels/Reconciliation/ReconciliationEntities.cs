@@ -19,7 +19,7 @@ namespace FightData.UI.ViewModels.Reconciliation
         private List<ReconciledOdd> GetReconciledOdds()
         {
             List<ReconciledOdd> reconciledOdds = new List<ReconciledOdd>();
-            foreach(ReconciliationOdd reconciliationOdd in Odds.Where(o=>!o.Cancelled))
+            foreach (ReconciliationOdd reconciliationOdd in Odds.Where(o => o.CorrectFighterId != 0))
                 reconciledOdds.Add(new ReconciledOdd(reconciliationOdd.CorrectFighterId, reconciliationOdd.FighterOdds));
             return reconciledOdds;
         }
@@ -27,7 +27,7 @@ namespace FightData.UI.ViewModels.Reconciliation
         private List<ReconciledPick> GetReconciledPicks()
         {
             List<ReconciledPick> reconciledPicks = new List<ReconciledPick>();
-            foreach (ReconciliationPick reconciliationPick in Picks.Where(o => !o.Cancelled))
+            foreach (ReconciliationPick reconciliationPick in Picks.Where(o => o.CorrectFighterId != 0))
                 reconciledPicks.Add(new ReconciledPick(reconciliationPick.CorrectFighterId, reconciliationPick.CorrectAnalystId));
             return reconciledPicks;
         }

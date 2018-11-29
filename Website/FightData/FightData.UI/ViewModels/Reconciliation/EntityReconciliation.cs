@@ -14,14 +14,14 @@ namespace FightData.UI.ViewModels.Reconciliation
     {
         private FightPicksContext context;
         public ReconciliationEntities ReconciliationEntities { get; set; }
-        public SelectList Fighters { get; private set; }
+        public SelectList FighterDropdown { get; private set; }
         public Exhibition Exhibition { get; set; }
 
         public void LoadData(UpdateEntitiesResult updateEntitiesResult, Exhibition exhibition)
         {
             context = exhibition.Context;
             Exhibition = exhibition;
-            Fighters = new SelectList(FighterFinder.GetFighters(exhibition), "Id", "FullName");
+            FighterDropdown = new SelectList(FighterFinder.GetFighters(exhibition), "Id", "FullName");
             LoadReconciliationEntities(updateEntitiesResult);
         }
 
@@ -42,8 +42,7 @@ namespace FightData.UI.ViewModels.Reconciliation
                 ReconciliationOdd reconciledOdd = new ReconciliationOdd()
                 {
                     FighterName = unfoundOdd.FighterName,
-                    FighterOdds = unfoundOdd.Odds,
-                    Cancelled = true
+                    FighterOdds = unfoundOdd.Odds
                 };
                 reconciliationOdds.Add(reconciledOdd);
             }
@@ -58,8 +57,7 @@ namespace FightData.UI.ViewModels.Reconciliation
                 ReconciliationPick reconciledPick = new ReconciliationPick()
                 {
                     PickText = unfoundPick.RawAnalystPick.Pick,
-                    AnalystName = unfoundPick.RawAnalystPick.Analyst,
-                    Cancelled = true
+                    AnalystName = unfoundPick.RawAnalystPick.Analyst
                 };
                 reconciledPick.CorrectAnalystId = new AnalystFinder(context).FindAnalyst(unfoundPick.RawAnalystPick.Analyst).Result.Id;
                 reconciliationPicks.Add(reconciledPick);
