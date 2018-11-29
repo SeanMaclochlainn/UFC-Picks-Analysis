@@ -17,7 +17,7 @@ namespace FightData.Domain.Finders
         {
             foreach (Fight fight in exhibition.Fights.ToList())
             {
-                if (FighterFinder.FindFighter(fighterFinder.GetFighters(fight), fighterFromFight.FullName).IsFound())
+                if (FighterFinder.FindFighter(fighterFinder.GetFighters(fight), fighterFromFight.Id).IsFound())
                     return new FinderResult<Fight>(fight);
             }
             return new FinderResult<Fight>(null);

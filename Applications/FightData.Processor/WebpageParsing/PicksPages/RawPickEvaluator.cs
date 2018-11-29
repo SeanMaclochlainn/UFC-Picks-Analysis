@@ -1,6 +1,7 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using FightData.Domain.Updaters;
 using FightData.Processor.WebpageParsing.PicksPages;
 using FightData.WebpageParsing.PicksPages;
 using System.Collections.Generic;

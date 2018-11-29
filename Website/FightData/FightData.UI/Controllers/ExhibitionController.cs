@@ -7,6 +7,7 @@ using FightData.Processor.WebpageParsing;
 using FightData.Processor.WebpageParsing.PicksPages;
 using FightData.UI.Models;
 using FightData.UI.ViewModels;
+using FightData.UI.ViewModels.Reconciliation;
 using FightDataProcessor.WebpageParsing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,14 +19,12 @@ namespace FightDataUI.Controllers
     public class ExhibitionController : Controller
     {
         private FightPicksContext context;
-        private WebsiteFinder websiteFinder;
         private ExhibitionFinder exhibitionFinder;
         private ExhibitionUpdater exhibitionUpdater;
 
         public ExhibitionController(FightPicksContext context)
         {
             this.context = context;
-            websiteFinder = new WebsiteFinder(context);
             exhibitionFinder = new ExhibitionFinder(context);
             exhibitionUpdater = new ExhibitionUpdater(context);
         }
@@ -83,24 +82,24 @@ namespace FightDataUI.Controllers
             List<UnfoundPick> unfoundPicks = updateEntitiesResult.UnfoundPicks;
             if (unfoundPicks.Count > 0)
             {
-                return LoadUnfoundPicksPage(unfoundPicks, exhibition);
+                return LoadUnfoundPicksPage(updateEntitiesResult, exhibition);
             }
             else
                 return RedirectToAction("Index");
         }
 
-        public ViewResult LoadUnfoundPicksPage(List<UnfoundPick> unfoundPicks, Exhibition exhibition)
+        public ViewResult LoadUnfoundPicksPage(UpdateEntitiesResult updateEntitiesResult, Exhibition exhibition)
         {
-            UnfoundPicksView unfoundPicksView = new UnfoundPicksView();
-            unfoundPicksView.LoadData(unfoundPicks, exhibition);
-            return View("UnfoundPicks", unfoundPicksView);
+            EntityReconciliation entityReconciliation = new EntityReconciliation();
+            entityReconciliation.LoadData(updateEntitiesResult, exhibition);
+            return View("EntityReconciliation", entityReconciliation);
         }
 
         [HttpPost]
-        public ActionResult UnfoundPicks(UnfoundPicksView unfoundPicksView)
+        public ActionResult EntityReconciliation(EntityReconciliation entityReconciliation)
         {
-            ReconciledPicksAdder reconciledPicksAdder = new ReconciledPicksAdder(context);
-            reconciledPicksAdder.AddReconciledPicks(unfoundPicksView.ReconciledPicks, exhibitionFinder.FindExhibition(unfoundPicksView.Exhibition.Id));
+            ReconciledEntitiesUpdater reconciledEntitiesUpdater = new ReconciledEntitiesUpdater(context);
+            reconciledEntitiesUpdater.AddReconciledEntities(entityReconciliation.ReconciliationEntities.GetReconciledEntities(), exhibitionFinder.FindExhibition(entityReconciliation.Exhibition.Id));
             return RedirectToAction("Index");
         }
 

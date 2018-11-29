@@ -12,10 +12,15 @@ namespace FightData.Domain.Updaters
             this.context = context;
         }
 
+        public void AddOdd(Odd odd)
+        {
+            context.Odds.Add(odd);
+            context.SaveChanges();
+        }
+
         public void AddOdds(List<Odd> odds)
         {
-            foreach (Odd odd in odds)
-                context.Odds.Add(odd);
+            context.Odds.AddRange(odds);
             context.SaveChanges();
         }
     }

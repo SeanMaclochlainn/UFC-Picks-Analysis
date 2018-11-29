@@ -32,7 +32,7 @@ namespace FightData.Processor.WebpageParsing.OddsPage
                     {
                         Fight = fight,
                         Fighter = fighter,
-                        Value = ConvertToDecimalOdd(rawFighterOdd.Odds)
+                        Value = OddsConverter.ConvertToDecimalOdd(rawFighterOdd.Odds)
                     };
                     odds.Add(odd);
                 }
@@ -40,16 +40,6 @@ namespace FightData.Processor.WebpageParsing.OddsPage
                     unfoundOdds.Add(rawFighterOdd);
             }
             return new EvaluatedOdds(odds, unfoundOdds);
-        }
-
-        private decimal ConvertToDecimalOdd(string moneylineOdd)
-        {
-            char firstCharacter = moneylineOdd[0];
-            decimal numericalValue = decimal.Parse(moneylineOdd.TrimStart(new char[] { '+', '-' }));
-            if (firstCharacter == '+')
-                return Math.Round((numericalValue / 100) + 1, 2);
-            else
-                return Math.Round((100 / numericalValue) + 1, 2);
         }
     }
 }

@@ -13,19 +13,24 @@ namespace FightData.Domain.Finders
         {
             NameParser parsedName = new NameParser(name);
             FinderResult<Fighter> result = FindFighter(f => f.FullName == parsedName.GetFullName(), specifiedFighters);
-            if(!result.IsFound())
+            if (!result.IsFound())
                 result = FindFighter(f => $"{f.MiddleName} {f.LastName}" == parsedName.GetFullName(), specifiedFighters);
             if (!result.IsFound())
                 result = FindFighter(f => f.LastName == parsedName.GetLastName(), specifiedFighters);
             return result;
         }
 
-        private static FinderResult<Fighter> FindFighter(Func<Fighter, bool> fighterNameFunc, List<Fighter> fighters)
+        public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, int fighterId)
         {
-            if (fighters.Count(fighterNameFunc) > 1)
+            return FindFighter(f => f.Id == fighterId, specifiedFighters);
+        }
+
+        private static FinderResult<Fighter> FindFighter(Func<Fighter, bool> fighterFindingMethod, List<Fighter> fighters)
+        {
+            if (fighters.Count(fighterFindingMethod) > 1)
                 return new FinderResult<Fighter>(null);
             else
-                return new FinderResult<Fighter>(fighters.SingleOrDefault(fighterNameFunc));
+                return new FinderResult<Fighter>(fighters.SingleOrDefault(fighterFindingMethod));
         }
 
         public FinderResult<Fighter> FindFighter(string name)

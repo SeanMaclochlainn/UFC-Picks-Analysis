@@ -1,7 +1,7 @@
 ﻿using FightData.Domain.Entities;
 using System.Collections.Generic;
 
-namespace FightData.Domain
+namespace FightData.Domain.Updaters
 {
     public class PickUpdater
     {

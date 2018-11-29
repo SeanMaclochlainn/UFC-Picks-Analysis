@@ -1,7 +1,7 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using FightData.Domain.Updaters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FightData.Domain.Test

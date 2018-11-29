@@ -1,7 +1,6 @@
 ﻿using FightData.Processor.WebpageParsing.OddsPage;
 using FightData.Processor.WebpageParsing.PicksPages;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FightData.Processor.WebpageParsing
 {
