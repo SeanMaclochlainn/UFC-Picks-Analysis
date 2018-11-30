@@ -12,13 +12,13 @@ namespace FightDataProcessor.Test.WebpageParsing
     public class TestExhibitionDataExtractor : TestDataLayer
     {
         private WebpageFinder webpageFinder;
-        private ExhibitionWebpageParser exhibitionWebpageParser;
+        private ExhibitionWebpagesParser exhibitionWebpagesParser;
         private RawEntitiesUpdater rawEntitiesUpdater;
 
         public TestExhibitionDataExtractor()
         {
             webpageFinder = new WebpageFinder(context);
-            exhibitionWebpageParser = new ExhibitionWebpageParser(context);
+            exhibitionWebpagesParser = new ExhibitionWebpagesParser(context);
             rawEntitiesUpdater = new RawEntitiesUpdater(context);
         }
 
@@ -28,7 +28,7 @@ namespace FightDataProcessor.Test.WebpageParsing
             int originalNoFights = context.Fights.Count();
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
-            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
             rawEntitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
 
             Assert.IsTrue(originalNoFights == context.Fights.Count());
@@ -39,7 +39,7 @@ namespace FightDataProcessor.Test.WebpageParsing
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
 
-            exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            exhibitionWebpagesParser.ParseAllWebpages(exhibition);
 
             Assert.IsTrue(webpageFinder.GetResultsPage(exhibition).Parsed == true);
         }
@@ -50,7 +50,7 @@ namespace FightDataProcessor.Test.WebpageParsing
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
             int originalOddsCount = context.Odds.Count();
 
-            RawExhibitionEntities rawWebpageEntities = exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            RawExhibitionEntities rawWebpageEntities = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
             rawEntitiesUpdater.UpdateEntities(rawWebpageEntities, exhibition);
 
             Assert.IsTrue(context.Odds.Count() == originalOddsCount + 2);

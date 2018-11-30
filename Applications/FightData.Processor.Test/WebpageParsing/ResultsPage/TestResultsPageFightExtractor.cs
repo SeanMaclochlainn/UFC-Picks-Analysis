@@ -12,13 +12,13 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
     public class TestResultsPageFightExtractor : TestDataLayer
     {
         private ExhibitionUpdater exhibitionUpdater;
-        private ExhibitionWebpageParser exhibitionWebpageParser;
+        private ExhibitionWebpagesParser exhibitionWebpagesParser;
         private RawEntitiesUpdater rawEntitiesUpdater;
 
         public TestResultsPageFightExtractor()
         {
             exhibitionUpdater = new ExhibitionUpdater(context);
-            exhibitionWebpageParser = new ExhibitionWebpageParser(context);
+            exhibitionWebpagesParser = new ExhibitionWebpagesParser(context);
             rawEntitiesUpdater = new RawEntitiesUpdater(context);
         }
 
@@ -28,7 +28,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
             int existingFights = context.Fights.Count();
 
-            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
             rawEntitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
 
             Assert.IsTrue(context.Fights.Count() == existingFights + 2);

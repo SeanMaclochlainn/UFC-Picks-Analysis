@@ -11,12 +11,12 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
     [TestClass]
     public class TestGridPageDataExtractor : TestDataLayer
     {
-        private ExhibitionWebpageParser exhibitionWebpageParser;
+        private ExhibitionWebpagesParser exhibitionWebpagesParser;
         private RawEntitiesUpdater rawEntitiesUpdater;
 
         public TestGridPageDataExtractor()
         {
-            exhibitionWebpageParser = new ExhibitionWebpageParser(context);
+            exhibitionWebpagesParser = new ExhibitionWebpagesParser(context);
             rawEntitiesUpdater = new RawEntitiesUpdater(context);
         }
 
@@ -25,7 +25,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
 
-            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpageParser.ParseAllWebpages(exhibition);
+            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
             rawEntitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
 
             Pick mikeBohnsPick = context.Picks.First(p => p.Analyst.Name == "Mike Bohn" && p.Fight.Winner.LastName == "aldo");

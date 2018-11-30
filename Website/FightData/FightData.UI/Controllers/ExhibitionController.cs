@@ -75,7 +75,7 @@ namespace FightDataUI.Controllers
         public ActionResult ExtractWebpages(int id)
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition(id);
-            ExhibitionWebpageParser exhibitionDataExtractor = new ExhibitionWebpageParser(context);
+            ExhibitionWebpagesParser exhibitionDataExtractor = new ExhibitionWebpagesParser(context);
             RawExhibitionEntities rawExhibitionEntities = exhibitionDataExtractor.ParseAllWebpages(exhibition);
             RawEntitiesUpdater entitiesUpdater = new RawEntitiesUpdater(context);
             UpdateEntitiesResult updateEntitiesResult = entitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);

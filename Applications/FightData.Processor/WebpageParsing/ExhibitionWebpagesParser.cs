@@ -12,14 +12,14 @@ using System.Diagnostics;
 
 namespace FightDataProcessor.WebpageParsing
 {
-    public class ExhibitionWebpageParser
+    public class ExhibitionWebpagesParser
     {
         private Exhibition exhibition;
         private WebpageFinder webpageFinder;
         private FightPicksContext context;
         private WebpageUpdater webpageUpdater;
 
-        public ExhibitionWebpageParser(FightPicksContext context)
+        public ExhibitionWebpagesParser(FightPicksContext context)
         {
             this.context = context;
             webpageFinder = new WebpageFinder(context);
