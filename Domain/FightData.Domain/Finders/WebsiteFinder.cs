@@ -13,7 +13,7 @@ namespace FightData.Domain.Finders
             return context.Websites.ToList();
         }
 
-        public Website GetWebsite(WebsiteName websiteName)
+        public Website FindWebsite(WebsiteName websiteName)
         {
             return context.Websites.Single(w => w.WebsiteName == websiteName);
         }

@@ -9,20 +9,21 @@ using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
     public class ExhibitionWebpagesParser
     {
         private Exhibition exhibition;
-        private WebpageFinder webpageFinder;
+        private EntityFinder entityFinder;
         private FightPicksContext context;
         private WebpageUpdater webpageUpdater;
 
         public ExhibitionWebpagesParser(FightPicksContext context)
         {
             this.context = context;
-            webpageFinder = new WebpageFinder(context);
+            entityFinder = new EntityFinder(context);
             webpageUpdater = new WebpageUpdater(context);
         }
 
@@ -38,7 +39,7 @@ namespace FightDataProcessor.WebpageParsing
         private List<RawFightResult> ExtractResultsPageData()
         {
             List<RawFightResult> rawFightResults = new List<RawFightResult>();
-            Webpage resultsPage = webpageFinder.GetResultsPage(exhibition);
+            Webpage resultsPage = entityFinder.WebpageFinder.GetResultsPage(exhibition);
             if (!resultsPage.Parsed)
             {
                 Debug.WriteLine($"Parsing results page {resultsPage.Url}");
@@ -52,13 +53,14 @@ namespace FightDataProcessor.WebpageParsing
         private List<RawAnalystPick> ExtractPicksPagesData()
         {
             List<RawAnalystPick> rawAnalystPicks = new List<RawAnalystPick>();
-            foreach (Webpage picksPage in webpageFinder.GetPicksPages(exhibition))
+            foreach (Webpage picksPage in entityFinder.WebpageFinder.GetPicksPages(exhibition))
             {
                 if (!picksPage.Parsed)
                 {
                     Debug.WriteLine($"Parsing picks page {picksPage.Url}");
                     PicksPageParser rawAnalystPickList = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml());
-                    rawAnalystPicks.AddRange(rawAnalystPickList.ParsePicksGrid());
+                    PicksPageConfiguration picksPageConfiguration = entityFinder.PicksPageConfigurationFinder.FindConfiguration(picksPage.Website);
+                    rawAnalystPicks.AddRange(rawAnalystPickList.ParsePicksPage(picksPageConfiguration));
                     webpageUpdater.MarkAsParsed(picksPage);
                 }
             }
@@ -68,7 +70,7 @@ namespace FightDataProcessor.WebpageParsing
         private List<RawFighterOdds> ExtractOddsPageData()
         {
             List<RawFighterOdds> rawFighterOdds = new List<RawFighterOdds>();
-            Webpage oddsPage = webpageFinder.GetOddsPage(exhibition);
+            Webpage oddsPage = entityFinder.WebpageFinder.GetOddsPage(exhibition);
             if(!oddsPage.Parsed)
             {
                 OddsPageParser oddsPageParser = new OddsPageParser(new HtmlPageParser(oddsPage.Data).ParseHtml());

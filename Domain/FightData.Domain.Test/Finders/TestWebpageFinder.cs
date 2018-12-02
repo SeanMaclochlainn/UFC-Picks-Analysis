@@ -21,7 +21,7 @@ namespace FightData.Domain.Test.Finders
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
 
-            Webpage webpage = webpageFinder.GetWebpage(exhibition, websiteFinder.GetWebsite(WebsiteName.Wikipedia));
+            Webpage webpage = webpageFinder.GetWebpage(exhibition, websiteFinder.FindWebsite(WebsiteName.Wikipedia));
 
             Assert.IsTrue(webpage.Website.WebsiteName == WebsiteName.Wikipedia);
         }

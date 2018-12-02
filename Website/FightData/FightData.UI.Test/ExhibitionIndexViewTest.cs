@@ -15,7 +15,7 @@ namespace FightData.UI.Test
 
             exhibitionIndexView.LoadViewData(context);
 
-            Assert.IsTrue(exhibitionIndexView.Websites.Count() == 3);
+            Assert.IsTrue(exhibitionIndexView.Websites.Count() == 4);
         }
 
         

@@ -4,14 +4,16 @@ using FightData.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FightData.Domain.Migrations
 {
     [DbContext(typeof(FightPicksContext))]
-    partial class FightPicksContextModelSnapshot : ModelSnapshot
+    [Migration("20181201184531_picskpageconfiguration")]
+    partial class picskpageconfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

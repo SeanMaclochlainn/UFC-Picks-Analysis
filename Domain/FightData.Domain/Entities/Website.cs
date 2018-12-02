@@ -10,6 +10,7 @@ namespace FightData.Domain.Entities
         public WebsiteName WebsiteName { get; set; }
         public List<Webpage> Webpages { get; set; }
         public WebsiteType WebsiteType { get; set; }
+        public PicksPageConfiguration PicksPageConfiguration { get; set; }
 
         public void Add()
         {

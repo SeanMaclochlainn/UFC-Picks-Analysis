@@ -12,6 +12,7 @@
             WebpageFinder = new WebpageFinder(context);
             WebsiteFinder = new WebsiteFinder(context);
             OddsFinder = new OddsFinder(context);
+            PicksPageConfigurationFinder = new PicksPageConfigurationFinder(context);
         }
 
         public AnalystFinder AnalystFinder { get; private set; }
@@ -22,5 +23,6 @@
         public WebpageFinder WebpageFinder { get; private set; }
         public WebsiteFinder WebsiteFinder { get; private set; }
         public OddsFinder OddsFinder { get; private set; }
+        public PicksPageConfigurationFinder PicksPageConfigurationFinder { get; private set; }
     }
 }

@@ -16,9 +16,9 @@
   <ItemGroup>
     <EmbeddedResource Include="WebsiteHtml\OddsPages\FN55.html" />
     <EmbeddedResource Include="WebsiteHtml\OddsPages\UFC179.html" />
-    <EmbeddedResource Include="WebsiteHtml\PicksPages\UFC179.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPages\MmaJunkie\UFC179.html" />
     <EmbeddedResource Include="WebsiteHtml\ResultsPages\FN55.html" />
-    <EmbeddedResource Include="WebsiteHtml\PicksPages\FN55.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPages\MmaJunkie\FN55.html" />
     <EmbeddedResource Include="WebsiteHtml\ResultsPages\UFC179.html" />
   </ItemGroup>
 

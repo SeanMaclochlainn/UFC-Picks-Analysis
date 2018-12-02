@@ -22,11 +22,35 @@ namespace FightData.TestData
         {
             AddWebsite(WebsiteName.Wikipedia, WebsiteType.Result);
             AddWebsite(WebsiteName.MMAJunkie, WebsiteType.Pick);
+            AddWebsite(WebsiteName.BloodyElbow, WebsiteType.Pick);
             AddWebsite(WebsiteName.BestFightOdds, WebsiteType.Odds);
+            AddPicksPageConfigurations();
             AddAnalyst("Mike Bohn");
             AddAnalyst("Dann Stupp");
             AddFN55();
             AddUFC179();
+        }
+
+        private void AddPicksPageConfigurations()
+        {
+            PicksPageConfiguration mmaJunkieConfiguration = new PicksPageConfiguration(context)
+            {
+                AnalystXpath = "//table//tr[{0}]/td[1]/strong",
+                FighterXpath = "//table//tr[{0}]/td[{1}+1]",
+                PicksPageRowType = PicksPageRowType.AnalystThenFighters,
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie)
+            };
+
+            PicksPageConfiguration bloodyElbowConfiguration = new PicksPageConfiguration(context)
+            {
+                AnalystXpath = "//table//tr[{0}]/td[1]/strong",
+                FighterXpath = "//table//tr[{0}]/td[{1}+1]",
+                PicksPageRowType = PicksPageRowType.FighterThenAnalysts,
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow)
+            };
+            context.PicksPageConfigurations.Add(mmaJunkieConfiguration);
+            context.PicksPageConfigurations.Add(bloodyElbowConfiguration);
+            context.SaveChanges();
         }
 
         private void AddUFC179()
@@ -38,8 +62,8 @@ namespace FightData.TestData
                 Exhibition = exhibition,
                 Parsed = false,
                 Url = "https://en.wikipedia.org/wiki/UFC_179",
-                Website = entityFinder.WebsiteFinder.GetWebsite(WebsiteName.Wikipedia),
-                Data = GetResourceFile("UFC179.html", "ResultsPages")
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.Wikipedia),
+                Data = GetResourceFile("UFC179.html", "WebsiteHtml/ResultsPages")
             };
 
             Webpage picksWebpage = new Webpage(context)
@@ -47,8 +71,8 @@ namespace FightData.TestData
                 Exhibition = exhibition,
                 Parsed = false,
                 Url = "https://mmajunkie.com/2014/10/ufc-179-staff-picks-splits-with-aldo-vs-mendes-teixeira-vs-davis",
-                Website = entityFinder.WebsiteFinder.GetWebsite(WebsiteName.MMAJunkie),
-                Data = GetResourceFile("UFC179.html", "PicksPages")
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie),
+                Data = GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/MmaJunkie")
             };
 
             Webpage oddsWebpage = new Webpage(context)
@@ -56,8 +80,8 @@ namespace FightData.TestData
                 Exhibition = exhibition,
                 Parsed = false,
                 Url = "https://www.bestfightodds.com/events/ufc-179-aldo-vs-mendes-ii-855#",
-                Website = entityFinder.WebsiteFinder.GetWebsite(WebsiteName.BestFightOdds),
-                Data = GetResourceFile("UFC179.html", "OddsPages")
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BestFightOdds),
+                Data = GetResourceFile("UFC179.html", "WebsiteHtml/OddsPages")
             };
 
             context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, picksWebpage, oddsWebpage });
@@ -98,24 +122,24 @@ namespace FightData.TestData
                 Exhibition = exhibition,
                 Parsed = true,
                 Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
-                Website = entityFinder.WebsiteFinder.GetWebsite(WebsiteName.Wikipedia),
-                Data = GetResourceFile("FN55.html", "ResultsPages")
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.Wikipedia),
+                Data = GetResourceFile("FN55.html", "WebsiteHtml/ResultsPages")
             };
             Webpage picksWebpage = new Webpage(context)
             {
                 Exhibition = exhibition,
                 Parsed = true,
                 Url = "https://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
-                Website = entityFinder.WebsiteFinder.GetWebsite(WebsiteName.MMAJunkie),
-                Data = GetResourceFile("FN55.html", "PicksPages")
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie),
+                Data = GetResourceFile("FN55.html", "WebsiteHtml/PicksPages/MmaJunkie")
             };
             Webpage oddsWebpage = new Webpage(context)
             {
                 Exhibition = exhibition,
                 Parsed = true,
                 Url = "https://www.bestfightodds.com/events/ufc-179-aldo-vs-mendes-ii-855#",
-                Website = entityFinder.WebsiteFinder.GetWebsite(WebsiteName.BestFightOdds),
-                Data = GetResourceFile("FN55.html", "OddsPages")
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BestFightOdds),
+                Data = GetResourceFile("FN55.html", "WebsiteHtml/OddsPages")
             };
             context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, picksWebpage, oddsWebpage });
             context.SaveChanges();
@@ -160,13 +184,13 @@ namespace FightData.TestData
             return website;
         }
 
-        private static string GetResourceFile(string fileName, string folderName)
+        private static string GetResourceFile(string fileName, string folderPath)
         {
             string fileData = "";
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
             string currentAssemblyName = currentAssembly.GetName().Name;
-            string basefolderName = "WebsiteHtml";
-            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssemblyName}.{basefolderName}.{folderName}.{fileName}"))
+            folderPath = folderPath.Replace("/", ".");
+            using (Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssemblyName}.{folderPath}.{fileName}"))
             {
                 using (StreamReader sr = new StreamReader(stream))
                 {

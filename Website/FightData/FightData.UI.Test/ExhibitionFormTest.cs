@@ -14,7 +14,7 @@ namespace FightData.UI.Test
 
             exhibitionForm.AddWebpages(context);
 
-            Assert.IsTrue(exhibitionForm.Exhibition.Webpages.Count == 3);
+            Assert.IsTrue(exhibitionForm.Exhibition.Webpages.Count == 4);
         }
 
         [TestMethod]

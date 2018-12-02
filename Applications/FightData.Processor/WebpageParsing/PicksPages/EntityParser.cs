@@ -5,19 +5,18 @@ using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
-    public class PicksPageAnalystParser
+    public class EntityParser
     {
         private HtmlDocument htmlDocument;
 
-        public PicksPageAnalystParser(HtmlDocument htmlDocument)
+        public EntityParser(HtmlDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
         }
 
-        public string ParseAnalyst(int rowNo)
+        public string ParseEntity(int rowNo, string xpath)
         {
-            string xpath = XpathGenerator.PicksPageAnalystXpath(rowNo);
-            FinderResult<HtmlNode> analystFinderResult = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
+            FinderResult<HtmlNode> analystFinderResult = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(XpathGenerator.FormatXpath(xpath, rowNo))?.FirstOrDefault());
             Debug.WriteLine($"Searched for analyst with xpath: {xpath} \r\n Successful result: {analystFinderResult.IsFound()}");
             if (analystFinderResult.IsFound())
             {
