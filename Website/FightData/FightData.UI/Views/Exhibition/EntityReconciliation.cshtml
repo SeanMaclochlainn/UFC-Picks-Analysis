@@ -56,8 +56,8 @@
             <caption>Unfound Analysts</caption>
             <thead>
                 <tr>
+                    <th>Analyst Text</th>
                     <th>Fighter</th>
-                    <th>Pick Text</th>
                     <th>Analyst</th>
                 </tr>
             </thead>
@@ -101,25 +101,3 @@
     }
     <input type="submit" value="Submit" class="btn btn-info" />
 }
-<p></p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Winner</th>
-            <th>Loser</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Fight fight in Model.Exhibition.Fights)
-        {
-            <tr>
-                <td>
-                    @fight.Winner.FullName
-                </td>
-                <td>
-                    @fight.Loser.FullName
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

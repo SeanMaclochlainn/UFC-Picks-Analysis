@@ -39,7 +39,7 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
         }
 
         [TestMethod]
-        public void TestParseParseFighterThenAnalysts()
+        public void TestParseSingleFighterMultipleAnalysts()
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
             Webpage picksPage = entityFinder.WebpageFinder.GetPicksPage(exhibition, entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow));
@@ -49,7 +49,19 @@ namespace FightDataProcessor.Test.WebpageParsing.PicksPages
             List<RawAnalystPick> rawAnalystPicks = picksPageParser.ParsePicksPage(picksPageConfiguration);
 
             Assert.IsTrue(rawAnalystPicks.Any(rap => rap.Pick == "Aldo" && rap.Analyst == "Stephie"));
+        }
 
+        [TestMethod]
+        public void TestRowWithNoAnalystPicksStillValid()
+        {
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("UFC 179");
+            Webpage picksPage = entityFinder.WebpageFinder.GetPicksPage(exhibition, entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow));
+            PicksPageParser picksPageParser = new PicksPageParser(new HtmlPageParser(picksPage.Data).ParseHtml());
+            PicksPageConfiguration picksPageConfiguration = entityFinder.PicksPageConfigurationFinder.FindConfiguration(picksPage.Website);
+
+            List<RawAnalystPick> rawAnalystPicks = picksPageParser.ParsePicksPage(picksPageConfiguration);
+
+            Assert.IsTrue(rawAnalystPicks.Any(rap => rap.Pick == "Elkins" && rap.Analyst == "Fraser"));
         }
     }
 }
