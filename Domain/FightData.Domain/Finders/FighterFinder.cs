@@ -33,6 +33,17 @@ namespace FightData.Domain.Finders
                 return new FinderResult<Fighter>(fighters.SingleOrDefault(fighterFindingMethod));
         }
 
+        public static List<Fighter> GetFighters(Exhibition exhibition)
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            foreach (Fight fight in exhibition.Fights)
+            {
+                fighters.Add(fight.Winner);
+                fighters.Add(fight.Loser);
+            }
+            return fighters;
+        }
+
         public FinderResult<Fighter> FindFighter(string name)
         {
             return FindFighter(GetAllFighters(), name);
@@ -51,17 +62,6 @@ namespace FightData.Domain.Finders
         public List<Fighter> GetAllFighters()
         {
             return context.Fighters.ToList();
-        }
-
-        public static List<Fighter> GetFighters(Exhibition exhibition)
-        {
-            List<Fighter> fighters = new List<Fighter>();
-            foreach (Fight fight in exhibition.Fights)
-            {
-                fighters.Add(fight.Winner);
-                fighters.Add(fight.Loser);
-            }
-            return fighters;
         }
 
         public List<Fighter> GetFighters(Fight fight)

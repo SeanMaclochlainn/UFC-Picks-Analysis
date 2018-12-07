@@ -15,6 +15,7 @@ namespace FightData.UI.ViewModels.Reconciliation
         private FightPicksContext context;
         public ReconciliationEntities ReconciliationEntities { get; set; }
         public SelectList FighterDropdown { get; private set; }
+        public SelectList AnalystDropdown { get; private set; }
         public Exhibition Exhibition { get; set; }
 
         public void LoadData(UpdateEntitiesResult updateEntitiesResult, Exhibition exhibition)
@@ -22,15 +23,22 @@ namespace FightData.UI.ViewModels.Reconciliation
             context = exhibition.Context;
             Exhibition = exhibition;
             FighterDropdown = new SelectList(FighterFinder.GetFighters(exhibition), "Id", "FullName");
+            AnalystDropdown = new SelectList(new AnalystFinder(context).GetAllAnalysts(), "Id", "Name");
             LoadReconciliationEntities(updateEntitiesResult);
+        }
+
+        private static ReconciliationPick ExtractReconciliationPick(UnfoundPick unfoundPick)
+        {
+            return new ReconciliationPick() { PickText = unfoundPick.RawAnalystPick.Pick, AnalystName = unfoundPick.RawAnalystPick.Analyst };
         }
 
         private void LoadReconciliationEntities(UpdateEntitiesResult updateEntitiesResult)
         {
             ReconciliationEntities = new ReconciliationEntities()
             {
-                Odds = GetReconciliationOdds(updateEntitiesResult),
-                Picks = GetReconciliationPicks(updateEntitiesResult)
+                UnfoundOdds = GetReconciliationOdds(updateEntitiesResult),
+                UnfoundFighters = GetUnfoundFighterPicks(updateEntitiesResult),
+                UnfoundAnalysts = GetUnfoundAnalystPicks(updateEntitiesResult)
             };
         }
 
@@ -39,32 +47,39 @@ namespace FightData.UI.ViewModels.Reconciliation
             List<ReconciliationOdd> reconciliationOdds = new List<ReconciliationOdd>();
             foreach(RawFighterOdds unfoundOdd in updateEntitiesResult.UnfoundOdds)
             {
-                ReconciliationOdd reconciledOdd = new ReconciliationOdd()
+                ReconciliationOdd reconciliationOdd = new ReconciliationOdd()
                 {
                     FighterName = unfoundOdd.FighterName,
                     FighterOdds = unfoundOdd.Odds
                 };
-                reconciliationOdds.Add(reconciledOdd);
+                reconciliationOdds.Add(reconciliationOdd);
             }
             return reconciliationOdds;
         }
 
-        private List<ReconciliationPick> GetReconciliationPicks(UpdateEntitiesResult updateEntitiesResult)
+        private List<ReconciliationPick> GetUnfoundFighterPicks(UpdateEntitiesResult updateEntitiesResult)
         {
             List<ReconciliationPick> reconciliationPicks = new List<ReconciliationPick>();
             foreach (UnfoundPick unfoundPick in updateEntitiesResult.UnfoundPicks.Where(up => up.AnalystFound))
             {
-                ReconciliationPick reconciledPick = new ReconciliationPick()
-                {
-                    PickText = unfoundPick.RawAnalystPick.Pick,
-                    AnalystName = unfoundPick.RawAnalystPick.Analyst
-                };
-                reconciledPick.CorrectAnalystId = new AnalystFinder(context).FindAnalyst(unfoundPick.RawAnalystPick.Analyst).Result.Id;
-                reconciliationPicks.Add(reconciledPick);
+                ReconciliationPick reconciliationPick = ExtractReconciliationPick(unfoundPick);
+                reconciliationPick.CorrectAnalystId = new AnalystFinder(context).FindAnalyst(unfoundPick.RawAnalystPick.Analyst).Result.Id;
+                reconciliationPicks.Add(reconciliationPick);
             }
             return reconciliationPicks;
         }
 
+        private List<ReconciliationPick> GetUnfoundAnalystPicks(UpdateEntitiesResult updateEntitiesResult)
+        {
+            List<ReconciliationPick> reconciliationPicks = new List<ReconciliationPick>();
+            foreach (UnfoundPick unfoundPick in updateEntitiesResult.UnfoundPicks.Where(up => up.FighterFound))
+            {
+                ReconciliationPick reconciliationPick = ExtractReconciliationPick(unfoundPick);
+                reconciliationPick.CorrectFighterId = new FighterFinder(context).FindFighter(unfoundPick.RawAnalystPick.Pick, Exhibition).Result.Id;
+                reconciliationPicks.Add(reconciliationPick);
+            }
+            return reconciliationPicks;
+        }
 
     }
 }
