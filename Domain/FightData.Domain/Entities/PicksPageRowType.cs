@@ -2,7 +2,7 @@
 {
     public enum PicksPageRowType
     {
-        AnalystThenFighters = 1,
-        FighterThenAnalysts = 2
+        SingleAnalystMultipleFighters = 1,
+        SingleFighterMultipleAnalysts = 2
     }
 }

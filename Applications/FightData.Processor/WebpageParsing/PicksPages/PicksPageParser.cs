@@ -38,31 +38,31 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
 
         private List<RawAnalystPick> ParseRow(int rowNo)
         {
-            if (picksPageConfiguration.PicksPageRowType == PicksPageRowType.AnalystThenFighters)
+            if (picksPageConfiguration.PicksPageRowType == PicksPageRowType.SingleAnalystMultipleFighters)
             {
-                return ParseAnalystThenFighters(picksPageConfiguration.AnalystXpath, picksPageConfiguration.FighterXpath);
+                return ParseSingleAnalystMultipleFighters(picksPageConfiguration.AnalystXpath, picksPageConfiguration.FighterXpath);
             }
             else
             {
-                return ParseFighterThenAnalysts(picksPageConfiguration.AnalystXpath, picksPageConfiguration.FighterXpath);
+                return ParseSingleFighterMultipleAnalysts(picksPageConfiguration.AnalystXpath, picksPageConfiguration.FighterXpath);
             }
         }
 
-        private List<RawAnalystPick> ParseAnalystThenFighters(string analystXpath, string fighterXpath)
+        private List<RawAnalystPick> ParseSingleAnalystMultipleFighters(string analystXpath, string fighterXpath)
         {
             List<RawAnalystPick> rawAnalystPicks = new List<RawAnalystPick>();
-            List<string> fighters = entityRowParser.ParseEntities(currentRow, picksPageConfiguration.FighterXpath);
-            string analyst = entityParser.ParseEntity(currentRow, picksPageConfiguration.AnalystXpath);
+            List<string> fighters = entityRowParser.ParseEntities(currentRow, picksPageConfiguration.FighterXpath, picksPageConfiguration.FighterRegex);
+            string analyst = entityParser.ParseEntity(currentRow, picksPageConfiguration.AnalystXpath, picksPageConfiguration.AnalystRegex);
             foreach (string fighter in fighters)
                 rawAnalystPicks.Add(new RawAnalystPick(analyst, fighter));
             return rawAnalystPicks;
         }
 
-        private List<RawAnalystPick> ParseFighterThenAnalysts(string analystXpath, string fighterXpath)
+        private List<RawAnalystPick> ParseSingleFighterMultipleAnalysts(string analystXpath, string fighterXpath)
         {
             List<RawAnalystPick> rawAnalystPicks = new List<RawAnalystPick>();
-            List<string> analysts = entityRowParser.ParseEntities(currentRow, picksPageConfiguration.AnalystXpath);
-            string fighter = entityParser.ParseEntity(currentRow, picksPageConfiguration.FighterXpath);
+            List<string> analysts = entityRowParser.ParseEntities(currentRow, picksPageConfiguration.AnalystXpath, picksPageConfiguration.AnalystRegex);
+            string fighter = entityParser.ParseEntity(currentRow, picksPageConfiguration.FighterXpath, picksPageConfiguration.FighterRegex);
             foreach (string analyst in analysts)
                 rawAnalystPicks.Add(new RawAnalystPick(analyst, fighter));
             return rawAnalystPicks;

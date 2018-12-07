@@ -7,6 +7,8 @@
   <ItemGroup>
     <None Remove="WebsiteHtml\OddsPages\OddsPage.html" />
     <None Remove="WebsiteHtml\OddsPages\UFC179.html" />
+    <None Remove="WebsiteHtml\PicksPages\BloodyElbow\FN 55.html" />
+    <None Remove="WebsiteHtml\PicksPages\BloodyElbow\UFC179.html" />
     <None Remove="WebsiteHtml\PicksPages\FN55.html" />
     <None Remove="WebsiteHtml\PicksPages\UFC179.html" />
     <None Remove="WebsiteHtml\ResultsPages\FN55.html" />
@@ -16,6 +18,8 @@
   <ItemGroup>
     <EmbeddedResource Include="WebsiteHtml\OddsPages\FN55.html" />
     <EmbeddedResource Include="WebsiteHtml\OddsPages\UFC179.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPages\BloodyElbow\FN 55.html" />
+    <EmbeddedResource Include="WebsiteHtml\PicksPages\BloodyElbow\UFC179.html" />
     <EmbeddedResource Include="WebsiteHtml\PicksPages\MmaJunkie\UFC179.html" />
     <EmbeddedResource Include="WebsiteHtml\ResultsPages\FN55.html" />
     <EmbeddedResource Include="WebsiteHtml\PicksPages\MmaJunkie\FN55.html" />

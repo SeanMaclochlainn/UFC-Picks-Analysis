@@ -1,17 +1,16 @@
 ﻿using FightData.Domain.Finders;
 using HtmlAgilityPack;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FightDataProcessor.WebpageParsing.PicksPages
 {
     public class EntityRowParser
     {
-        private static int maxNoOfFights = 10;
         private HtmlDocument htmlDocument;
-        private int currentRow;
-        private int currentColumnNo;
+        private int row;
+        private string regex;
         private string xpath;
 
         public EntityRowParser(HtmlDocument htmlDocument)
@@ -19,40 +18,72 @@ namespace FightDataProcessor.WebpageParsing.PicksPages
             this.htmlDocument = htmlDocument;
         }
 
-        public List<string> ParseEntities(int rowNo, string xpath)
+        public List<string> ParseEntities(int row, string xpath, string regex)
         {
-            currentRow = rowNo;
+            this.row = row;
+            this.regex = regex;
             this.xpath = xpath;
-            List<string> fighters = new List<string>();
-            foreach (HtmlNode fighterNode in GetCurrentRowFighterElements())
-                fighters.Add(DataSanitizer.GetElementValue(fighterNode));
-            return fighters;
+            return GetRowEntities();
         }
 
-        private List<HtmlNode> GetCurrentRowFighterElements()
+        private static bool IsRegexApplicable(string regex)
         {
-            List<HtmlNode> fighterNodes = new List<HtmlNode>();
-            for (int currentColumnNo = 1; currentColumnNo <= maxNoOfFights; currentColumnNo++)
+            return !string.IsNullOrEmpty(regex);
+        }
+
+        private static bool IsValidEntity(string entity)
+        {
+            return !string.IsNullOrEmpty(entity);
+        }
+
+        private List<string> GetRowEntities()
+        {
+            List<string> entities = new List<string>();
+            bool entityFound = true;
+            int column = 1;
+            while (entityFound)
             {
-                this.currentColumnNo = currentColumnNo;
-                FinderResult<HtmlNode> fighterResult = FindFighter();
-                if (fighterResult.IsFound())
-                    fighterNodes.Add(fighterResult.Result);
+                FinderResult<HtmlNode> findNodeResult = FindRowNode(column);
+                if (findNodeResult.IsFound())
+                {
+                    string entity = ExtractNodeText(findNodeResult.Result, column);
+                    if (IsValidEntity(entity))
+                    {
+                        entities.Add(entity);
+                        column++;
+                    }
+                    else
+                        entityFound = false;
+                }
+                else
+                    entityFound = false;
             }
-            return fighterNodes;
+            return entities;
         }
 
-        private FinderResult<HtmlNode> FindFighter()
+        private string ExtractNodeText(HtmlNode node, int column)
         {
-            FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(GetFormattedXpath())?.FirstOrDefault());
-            Debug.WriteLine($"Searched for fighter with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
-            return result;
+            string nodeText = DataSanitizer.GetNodeText(node);
+            if (IsRegexApplicable(regex))
+                return ApplyRegex(nodeText, column);
+            else
+                return nodeText;
         }
 
-        private string GetFormattedXpath()
+        private FinderResult<HtmlNode> FindRowNode(int column)
         {
-            return XpathGenerator.FormatXpath(xpath, currentRow, currentColumnNo);
+            return new FinderResult<HtmlNode>(htmlDocument.DocumentNode.SelectNodes(XpathGenerator.FormatXpath(xpath, row, column))?.FirstOrDefault());
         }
 
+        private string FormatRegex(int column)
+        {
+            return regex.Replace("{column-incrementer}", column.ToString());
+        }
+
+        private string ApplyRegex(string text, int column)
+        {
+            Match match = Regex.Match(text, FormatRegex(column));
+            return match.Groups.Last().Value;
+        }
     }
 }

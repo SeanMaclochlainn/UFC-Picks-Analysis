@@ -118,8 +118,14 @@ namespace FightData.Domain
                 entity.Property(e => e.AnalystXpath)
                 .IsRequired();
 
+                entity.Property(e => e.AnalystRegex)
+                .IsRequired(false);
+
                 entity.Property(e => e.FighterXpath)
                 .IsRequired();
+
+                entity.Property(e => e.FighterRegex)
+                .IsRequired(false);
 
             });
 

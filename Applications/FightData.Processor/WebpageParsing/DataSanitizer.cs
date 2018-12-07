@@ -4,7 +4,7 @@ namespace FightDataProcessor.WebpageParsing
 {
     public class DataSanitizer
     {
-        public static string GetElementValue(HtmlNode node)
+        public static string GetNodeText(HtmlNode node)
         {
             return node.InnerText.Trim();
         }

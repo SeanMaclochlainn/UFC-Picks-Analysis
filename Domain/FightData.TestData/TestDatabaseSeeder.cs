@@ -35,17 +35,19 @@ namespace FightData.TestData
         {
             PicksPageConfiguration mmaJunkieConfiguration = new PicksPageConfiguration(context)
             {
-                AnalystXpath = "//table//tr[{0}]/td[1]/strong",
-                FighterXpath = "//table//tr[{0}]/td[{1}+1]",
-                PicksPageRowType = PicksPageRowType.AnalystThenFighters,
+                AnalystXpath = "//table//tr[{row-incrementer}]/td[1]/strong",
+                FighterXpath = "//table//tr[{row-incrementer}]/td[{column-incrementer}+1]",
+                PicksPageRowType = PicksPageRowType.SingleAnalystMultipleFighters,
                 Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie)
             };
 
             PicksPageConfiguration bloodyElbowConfiguration = new PicksPageConfiguration(context)
             {
-                AnalystXpath = "//table//tr[{0}]/td[1]/strong",
-                FighterXpath = "//table//tr[{0}]/td[{1}+1]",
-                PicksPageRowType = PicksPageRowType.FighterThenAnalysts,
+                AnalystXpath = "(//text()[starts-with(normalize-space(),'Staff picking')])[{row-incrementer}]",
+                AnalystRegex = @"(?:[:|,]\s(\w+)){{column-incrementer}}",
+                FighterXpath = "(//text()[starts-with(normalize-space(),'Staff picking')])[{row-incrementer}]",
+                FighterRegex = @"(?<=Staff picking )\w+",
+                PicksPageRowType = PicksPageRowType.SingleFighterMultipleAnalysts,
                 Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow)
             };
             context.PicksPageConfigurations.Add(mmaJunkieConfiguration);
@@ -66,13 +68,22 @@ namespace FightData.TestData
                 Data = GetResourceFile("UFC179.html", "WebsiteHtml/ResultsPages")
             };
 
-            Webpage picksWebpage = new Webpage(context)
+            Webpage mmaJunkieWebpage = new Webpage(context)
             {
                 Exhibition = exhibition,
                 Parsed = false,
                 Url = "https://mmajunkie.com/2014/10/ufc-179-staff-picks-splits-with-aldo-vs-mendes-teixeira-vs-davis",
                 Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie),
                 Data = GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/MmaJunkie")
+            };
+
+            Webpage bloodyElbowWebpage = new Webpage(context)
+            {
+                Exhibition = exhibition,
+                Parsed = false,
+                Url = "https://www.bloodyelbow.com/2014/10/24/7062449/ufc-179-aldo-vs-mendes-2-staff-picks-and-predictions",
+                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow),
+                Data = GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/BloodyElbow")
             };
 
             Webpage oddsWebpage = new Webpage(context)
@@ -84,7 +95,7 @@ namespace FightData.TestData
                 Data = GetResourceFile("UFC179.html", "WebsiteHtml/OddsPages")
             };
 
-            context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, picksWebpage, oddsWebpage });
+            context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, mmaJunkieWebpage, bloodyElbowWebpage, oddsWebpage });
             context.SaveChanges();
         }
 

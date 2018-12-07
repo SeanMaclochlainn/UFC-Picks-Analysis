@@ -2,34 +2,35 @@
 {
     public class XpathGenerator
     {
-        public static string ResultsPageWinnerXpath(int rowNo)
+        public static string ResultsPageWinnerXpath(int row)
         {
-            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[2]", rowNo);
+            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[2]", row);
         }
 
-        public static string ResultsPageLoserXpath(int rowNo)
+        public static string ResultsPageLoserXpath(int row)
         {
-            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[4]", rowNo);
+            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[4]", row);
         }
 
-        public static string OddsPageFighter(int rowNo)
+        public static string OddsPageFighter(int row)
         {
-            return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]//span", rowNo);
+            return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]//span", row);
         }
 
-        public static string OddsPageOdds(int rowNo)
+        public static string OddsPageOdds(int row)
         {
-            return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]/td[2]//span/span", rowNo);
+            return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]/td[2]//span/span", row);
         }
 
-        public static string FormatXpath(string xpath, int rowNo)
+        public static string FormatXpath(string xpath, int row)
         {
-            return string.Format(xpath, rowNo);
+            return xpath.Replace("{row-incrementer}", row.ToString());
         }
 
-        public static string FormatXpath(string xpath, int rowNo, int colNo)
+        public static string FormatXpath(string xpath, int row, int column)
         {
-            return string.Format(xpath, rowNo, colNo);
+            xpath = xpath.Replace("{column-incrementer}", column.ToString());
+            return xpath.Replace("{row-incrementer}", row.ToString());
         }
     }
 }
