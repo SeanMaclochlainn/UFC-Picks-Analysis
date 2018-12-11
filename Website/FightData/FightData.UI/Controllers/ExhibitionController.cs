@@ -21,12 +21,18 @@ namespace FightDataUI.Controllers
         private FightPicksContext context;
         private ExhibitionFinder exhibitionFinder;
         private ExhibitionUpdater exhibitionUpdater;
+        private WebpageUpdater webpageUpdater;
+        private ExhibitionWebpagesParser exhibitionWebpagesParser;
+        private RawEntitiesUpdater rawEntitiesUpdater;
 
         public ExhibitionController(FightPicksContext context)
         {
             this.context = context;
             exhibitionFinder = new ExhibitionFinder(context);
             exhibitionUpdater = new ExhibitionUpdater(context);
+            webpageUpdater = new WebpageUpdater(context);
+            exhibitionWebpagesParser = new ExhibitionWebpagesParser(context);
+            rawEntitiesUpdater = new RawEntitiesUpdater(context);
         }
 
         public ActionResult Index()
@@ -75,10 +81,9 @@ namespace FightDataUI.Controllers
         public ActionResult ExtractWebpages(int id)
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition(id);
-            ExhibitionWebpagesParser exhibitionDataExtractor = new ExhibitionWebpagesParser(context);
-            RawExhibitionEntities rawExhibitionEntities = exhibitionDataExtractor.ParseAllWebpages(exhibition);
-            RawEntitiesUpdater entitiesUpdater = new RawEntitiesUpdater(context);
-            UpdateEntitiesResult updateEntitiesResult = entitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
+            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
+            webpageUpdater.DeleteDownloadedData(exhibition);
+            UpdateEntitiesResult updateEntitiesResult = rawEntitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
             List<UnfoundPick> unfoundPicks = updateEntitiesResult.UnfoundPicks;
             if (unfoundPicks.Count > 0)
             {

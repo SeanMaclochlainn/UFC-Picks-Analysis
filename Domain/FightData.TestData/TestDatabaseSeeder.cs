@@ -46,7 +46,7 @@ namespace FightData.TestData
                 AnalystXpath = "(//text()[starts-with(normalize-space(),'Staff picking')])[{row-incrementer}]",
                 AnalystRegex = @"(?:[:|,]\s(\w+)){{column-incrementer}}",
                 FighterXpath = "(//text()[starts-with(normalize-space(),'Staff picking')])[{row-incrementer}]",
-                FighterRegex = @"(?<=Staff picking )\w+",
+                FighterRegex = @"(?<=Staff picking )[A-Za-z'\s\-]+(?=:)",
                 PicksPageRowType = PicksPageRowType.SingleFighterMultipleAnalysts,
                 Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow)
             };
