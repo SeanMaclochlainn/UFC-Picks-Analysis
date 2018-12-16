@@ -1,4 +1,4 @@
-﻿@model FightData.UI.ViewModels.ExhibitionIndexView
+﻿@model FightData.UI.ViewModels.ExhibitionIndex.ExhibitionGrid
 @{
     ViewData["Title"] = "Index";
 }
@@ -24,32 +24,46 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var exhibition in Model.Exhibitions)
+        @foreach (ExhibitionGridEntry exhibitionGridEntry in Model.ExhibitionGridEntries)
         {
-            <tr>
+        <tr>
+            <td>
+                @exhibitionGridEntry.Exhibition.Name
+            </td>
+
+            @foreach (Website website in Model.Websites)
+            {
                 <td>
-                    @exhibition.Name
+                    <a href="@exhibitionGridEntry.GetWebsiteUrl(website)">@exhibitionGridEntry.GetWebsiteUrl(website)</a>
+                </td>
+            }
+            <td>
+                <a asp-action="Edit" asp-route-id="@exhibitionGridEntry.Exhibition.Id" class="btn btn-info">Edit</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@exhibitionGridEntry.Exhibition.Id" class="btn btn-danger">Delete</a>
+            </td>
+
+            @if (!exhibitionGridEntry.IsDataDownloaded() && !exhibitionGridEntry.IsParsed())
+            {
+                <td>
+                    <a asp-action="RedownloadData" asp-route-id="@exhibitionGridEntry.Exhibition.Id" class="btn btn-primary">Redownload Data</a>
+                </td>
+            }
+            else if (!exhibitionGridEntry.IsParsed())
+            {
+                <td>
+                    <a asp-action="ExtractWebpages" asp-route-id="@exhibitionGridEntry.Exhibition.Id" class="btn btn-primary">Process</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a asp-action="DeleteParsedData" asp-route-id="@exhibitionGridEntry.Exhibition.Id" class="btn btn-warning">Delete Parsed Data</a>
                 </td>
 
-                @foreach (var website in Model.Websites)
-                {
-                    <td>
-                        <a href="@Model.WebpageFinder.GetWebpage(exhibition, website).Url">@Model.WebpageFinder.GetWebpage(exhibition, website).Url</a>
-                    </td>
-                }
-                <td>
-                    <a asp-action="Edit" asp-route-id="@exhibition.Id" class="btn btn-info">Edit</a>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@exhibition.Id" class="btn btn-danger">Delete</a>
-                </td>
-                <td>
-                    <a asp-action="ExtractWebpages" asp-route-id="@exhibition.Id" class="btn btn-primary">Process</a>
-                </td>
-                <td>
-                    <a asp-action="DeleteParsedData" asp-route-id="@exhibition.Id" class="btn btn-primary">Delete Parsed Data</a>
-                </td>
-            </tr>
+            }
+        </tr>
         }
     </tbody>
 </table>
