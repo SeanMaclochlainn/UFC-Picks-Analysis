@@ -60,6 +60,9 @@ namespace FightData.Domain
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Date)
+                .IsRequired(true);
             });
 
             modelBuilder.Entity<Fighter>(entity =>

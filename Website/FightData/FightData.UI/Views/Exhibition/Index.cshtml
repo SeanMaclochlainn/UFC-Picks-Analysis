@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Date</th>
             @foreach (var website in Model.Websites)
             {
                 <th>
@@ -29,6 +30,9 @@
         <tr>
             <td>
                 @exhibitionGridEntry.Exhibition.Name
+            </td>
+            <td>
+                @exhibitionGridEntry.Exhibition.Date.ToShortDateString()
             </td>
 
             @foreach (Website website in Model.Websites)

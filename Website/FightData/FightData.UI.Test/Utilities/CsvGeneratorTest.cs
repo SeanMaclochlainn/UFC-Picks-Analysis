@@ -1,13 +1,11 @@
 ﻿using FightData.UI.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FightData.UI.Test.Utilities
 {
     [TestClass]
-    class CsvGeneratorTest
+    public class CsvGeneratorTest
     {
         [TestMethod]
         public void TestAddRow()

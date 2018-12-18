@@ -2,6 +2,7 @@
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.UI.ViewModels.ExhibitionIndex
 {
@@ -13,7 +14,7 @@ namespace FightData.UI.ViewModels.ExhibitionIndex
         public void LoadViewData(FightPicksContext context)
         {
             EntityFinder entityFinder = new EntityFinder(context);
-            foreach (Exhibition exhibition in entityFinder.ExhibitionFinder.FindAllExhibitions())
+            foreach (Exhibition exhibition in entityFinder.ExhibitionFinder.FindAllExhibitions().OrderByDescending(e => e.Date))
                 ExhibitionGridEntries.Add(new ExhibitionGridEntry(exhibition));
             Websites = entityFinder.WebsiteFinder.GetAllWebsites();
         }

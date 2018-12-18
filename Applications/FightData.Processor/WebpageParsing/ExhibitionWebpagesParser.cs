@@ -8,8 +8,6 @@ using FightData.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.PicksPages;
 using FightDataProcessor.WebpageParsing.ResultsPage;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace FightDataProcessor.WebpageParsing
 {
@@ -27,26 +25,28 @@ namespace FightDataProcessor.WebpageParsing
             webpageUpdater = new WebpageUpdater(context);
         }
 
-        public RawExhibitionEntities ParseAllWebpages(Exhibition exhibition)
+        public RawExhibitionData ParseAllWebpages(Exhibition exhibition)
         {
             this.exhibition = exhibition;
-            List<RawFightResult> rawFightResults = ExtractResultsPageData();
+            RawResultsPageData rawResultsPageData = ExtractResultsPageData();
             List<RawAnalystPick> rawAnalystPicks = ExtractPicksPagesData();
             List<RawFighterOdds> rawFighterOdds = ExtractOddsPageData();
-            return new RawExhibitionEntities(rawFightResults, rawAnalystPicks, rawFighterOdds);
+            return new RawExhibitionData(rawResultsPageData, rawAnalystPicks, rawFighterOdds);
         }
 
-        private List<RawFightResult> ExtractResultsPageData()
+        private RawResultsPageData ExtractResultsPageData()
         {
             List<RawFightResult> rawFightResults = new List<RawFightResult>();
+            string date = "";
             Webpage resultsPage = entityFinder.WebpageFinder.GetResultsPage(exhibition);
             if (!resultsPage.Parsed)
             {
                 ResultsPageParser resultsPageParser = new ResultsPageParser(new HtmlPageParser(resultsPage.Data).ParseHtml());
                 rawFightResults = resultsPageParser.ParseResultTable();
+                date = resultsPageParser.ParseDate();
                 webpageUpdater.MarkAsParsed(resultsPage);
             }
-            return rawFightResults;
+            return new RawResultsPageData(rawFightResults, date);
         }
 
         private List<RawAnalystPick> ExtractPicksPagesData()

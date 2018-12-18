@@ -1,20 +1,19 @@
-﻿using FightData.Domain;
-using FightData.Processor.WebpageParsing.OddsPage;
+﻿using FightData.Processor.WebpageParsing.OddsPage;
 using FightData.WebpageParsing.PicksPages;
 using System.Collections.Generic;
 
 namespace FightData.Processor.WebpageParsing
 {
-    public class RawExhibitionEntities
+    public class RawExhibitionData
     {
-        public RawExhibitionEntities(List<RawFightResult> rawFightResults, List<RawAnalystPick> rawAnalystPicks, List<RawFighterOdds> rawFighterOdds)
+        public RawExhibitionData(RawResultsPageData rawResultsPageData, List<RawAnalystPick> rawAnalystPicks, List<RawFighterOdds> rawFighterOdds)
         {
-            RawFightResults = rawFightResults;
+            ResultsPageData = rawResultsPageData;
             RawAnalystPicks = rawAnalystPicks;
             RawFighterOdds = rawFighterOdds;
         }
 
-        public List<RawFightResult> RawFightResults { get; private set; }
+        public RawResultsPageData ResultsPageData { get; private set; }
         public List<RawAnalystPick> RawAnalystPicks { get; private set; }
         public List<RawFighterOdds> RawFighterOdds { get; private set; }
     }

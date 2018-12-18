@@ -12,6 +12,11 @@
             return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[4]", row);
         }
 
+        public static string ResultsPageDate()
+        {
+            return @"//span[@class='bday dtstart published updated']";
+        }
+
         public static string OddsPageFighter(int row)
         {
             return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]//span", row);

@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Finders;
+using FightDataProcessor.WebpageParsing.PicksPages;
 using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,6 +31,13 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
 
             }
             return rawFightResults;
+        }
+
+        public string ParseDate()
+        {
+            string xpath = XpathGenerator.ResultsPageDate();
+            HtmlNode result = resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault();
+            return DataSanitizer.GetNodeText(result);
         }
 
         private FinderResult<HtmlNode> FindWinnerElement(int rowNo)

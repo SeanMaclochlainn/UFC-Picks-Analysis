@@ -78,9 +78,9 @@ namespace FightDataUI.Controllers
         public ActionResult ExtractWebpages(int id)
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition(id);
-            RawExhibitionEntities rawExhibitionEntities = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
+            RawExhibitionData rawExhibitionData = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
             webpageUpdater.DeleteDownloadedData(exhibition);
-            UpdateEntitiesResult updateEntitiesResult = rawEntitiesUpdater.UpdateEntities(rawExhibitionEntities, exhibition);
+            UpdateEntitiesResult updateEntitiesResult = rawEntitiesUpdater.UpdateEntities(rawExhibitionData, exhibition);
             List<UnfoundPick> unfoundPicks = updateEntitiesResult.UnfoundPicks;
             if (unfoundPicks.Count > 0)
             {

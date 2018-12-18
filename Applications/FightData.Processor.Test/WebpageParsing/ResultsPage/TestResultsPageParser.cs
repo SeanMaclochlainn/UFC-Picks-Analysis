@@ -10,11 +10,11 @@ using System.Linq;
 namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 {
     [TestClass]
-    public class TestResultsTableParser : TestDataLayer
+    public class TestResultsPageParser : TestDataLayer
     {
         private ResultsPageParser resultsTableParser;
 
-        public TestResultsTableParser()
+        public TestResultsPageParser()
         {
             Webpage resultsPage = entityFinder.WebpageFinder.GetResultsPage(entityFinder.ExhibitionFinder.FindExhibition("FN 55"));
             resultsTableParser = new ResultsPageParser(new HtmlPageParser(resultsPage.Data).ParseHtml());
@@ -43,6 +43,14 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
 
             Assert.IsTrue(rawFightResults.ElementAt(1).Loser == "Ross Pearson");
 
+        }
+
+        [TestMethod]
+        public void TestExtractDate()
+        {
+            string date = resultsTableParser.ParseDate();
+
+            Assert.IsTrue(date == "2014-11-08");
         }
     }
 }

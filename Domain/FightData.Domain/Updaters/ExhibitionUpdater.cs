@@ -1,6 +1,7 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,6 +51,12 @@ namespace FightData.Domain.Updaters
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition(exhibitionForm.Exhibition.Id);
             exhibition.Name = exhibitionForm.Exhibition.Name;
             exhibition.Webpages = DownloadWebpageData(exhibitionForm.Exhibition.Webpages, client);
+            context.SaveChanges();
+        }
+
+        public void UpdateDate(Exhibition exhibition, DateTime date)
+        {
+            exhibition.Date = date;
             context.SaveChanges();
         }
 

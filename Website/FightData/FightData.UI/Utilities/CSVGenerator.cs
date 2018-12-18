@@ -15,6 +15,7 @@ namespace FightData.UI.Utilities
         {
             foreach (string entry in entries)
                 content += entry + ",";
+            content = content.Remove(content.Length - 1);
             content += "\r\n";
         }
 
