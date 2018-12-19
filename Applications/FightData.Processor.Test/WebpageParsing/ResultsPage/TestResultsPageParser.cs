@@ -50,7 +50,7 @@ namespace FightDataProcessor.Test.WebpageParsing.ResultsPage
         {
             string date = resultsTableParser.ParseDate();
 
-            Assert.IsTrue(date == "2014-11-08");
+            Assert.IsTrue(date == "November 11, 2014");
         }
     }
 }

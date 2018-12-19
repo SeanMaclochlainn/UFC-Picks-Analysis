@@ -14,7 +14,7 @@
 
         public static string ResultsPageDate()
         {
-            return @"//span[@class='bday dtstart published updated']";
+            return @"//table[@class='infobox']/tbody/tr[contains(th/text(),'Date')]/td/text()";
         }
 
         public static string OddsPageFighter(int row)

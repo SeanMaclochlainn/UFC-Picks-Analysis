@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace FightDataUI
 {
@@ -25,6 +26,8 @@ namespace FightDataUI
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            SetApplicationCulture("en-IE");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -43,6 +46,13 @@ namespace FightDataUI
                     name: "default",
                     template: "{controller=Exhibition}/{action=Index}/{id?}");
             });
+        }
+
+        private static void SetApplicationCulture(string name)
+        {
+            CultureInfo cultureInfo = new CultureInfo(name);
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
         }
     }
 }
