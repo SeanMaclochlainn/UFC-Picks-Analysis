@@ -20,7 +20,7 @@ namespace FightData.UI.ViewModels
         
         public void LoadData()
         {
-            Exhibitions = EntityFinder.ExhibitionFinder.FindAllExhibitions();
+            Exhibitions = EntityFinder.ExhibitionFinder.FindExhibitionsInOrder();
         }
 
         public string FindPickText(Analyst analyst, Fight fight)

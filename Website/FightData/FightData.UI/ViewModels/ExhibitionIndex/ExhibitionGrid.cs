@@ -14,7 +14,7 @@ namespace FightData.UI.ViewModels.ExhibitionIndex
         public void LoadViewData(FightPicksContext context)
         {
             EntityFinder entityFinder = new EntityFinder(context);
-            foreach (Exhibition exhibition in entityFinder.ExhibitionFinder.FindAllExhibitions().OrderByDescending(e => e.Date))
+            foreach (Exhibition exhibition in entityFinder.ExhibitionFinder.FindExhibitionsInOrder())
                 ExhibitionGridEntries.Add(new ExhibitionGridEntry(exhibition));
             Websites = entityFinder.WebsiteFinder.GetAllWebsites();
         }

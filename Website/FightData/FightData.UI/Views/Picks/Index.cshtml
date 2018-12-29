@@ -11,6 +11,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Date</th>
             <th>Winner</th>
             <th>Odds</th>
             <th>Loser</th>
@@ -22,14 +23,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var exhibition in Model.Exhibitions)
+        @foreach (Exhibition exhibition in Model.Exhibitions)
         {
             @for (int i = 0; i < exhibition.Fights.Count; i++)
             {
                 <tr>
                     @if (i == 0)
                     {
-                        <td rowspan="@exhibition.Fights.Count">@exhibition.Name</td>
+                        int fightCount = exhibition.Fights.Count;
+                        <td rowspan="@fightCount">@exhibition.Name</td>
+                        <td rowspan="@fightCount">@exhibition.Date.ToShortDateString()</td>
                     }
                     <td>
                         @exhibition.Fights[i].Winner.FullName
