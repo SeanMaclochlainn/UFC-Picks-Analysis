@@ -65,6 +65,7 @@ namespace FightData.Domain
         {
             nameText = nameText.Replace("(c)", "");
             nameText = nameText.Replace(".", "");
+            nameText = nameText.Replace("Jr", "");
             nameText = nameText.Trim();
             nameText = nameText.ToLower();
             RemoveAccents();

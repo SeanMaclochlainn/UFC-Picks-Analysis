@@ -20,6 +20,13 @@ namespace FightData.Domain.Finders
             return result;
         }
 
+        public static FinderResult<Fighter> FindFighterByFullName(List<Fighter> specifiedFighters, string fullName)
+        {
+            NameParser parsedName = new NameParser(fullName);
+            FinderResult<Fighter> result = FindFighter(f => f.FullName == parsedName.GetFullName(), specifiedFighters);
+            return result;
+        }
+
         public static FinderResult<Fighter> FindFighter(List<Fighter> specifiedFighters, int fighterId)
         {
             return FindFighter(f => f.Id == fighterId, specifiedFighters);
@@ -44,9 +51,9 @@ namespace FightData.Domain.Finders
             return fighters;
         }
 
-        public FinderResult<Fighter> FindFighter(string name)
+        public FinderResult<Fighter> FindFighter(string fullName)
         {
-            return FindFighter(GetAllFighters(), name);
+            return FindFighterByFullName(GetAllFighters(), fullName);
         }
 
         public FinderResult<Fighter> FindFighter(int id)

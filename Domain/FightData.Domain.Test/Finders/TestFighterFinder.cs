@@ -40,7 +40,9 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindBySurname()
         {
-            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold");
+            Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
+
+            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold", exhibition);
 
             Assert.IsTrue(finderResult.IsFound());
         }
