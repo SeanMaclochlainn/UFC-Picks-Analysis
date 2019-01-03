@@ -1,0 +1,107 @@
+﻿@model FightData.UI.ViewModels.Reconciliation.EntityReconciliation
+
+@{
+    ViewData["Title"] = "Data Reconciliation";
+}
+
+<h2>Data Reconciliation</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Website</th>
+            <th>Url</th>
+        </tr>
+    </thead>
+    @foreach (var webpage in Model.Exhibition.Webpages)
+    {
+        <tr>
+            <td>
+                @webpage.Website.WebsiteName
+            </td>
+            <td>
+                <a href="@webpage.Url">@webpage.Url</a>
+            </td>
+        </tr>
+    }
+</table>
+<p></p>
+<h3>Picks</h3>
+@using (Html.BeginForm("EntityReconciliation", "Exhibition"))
+{
+    @Html.HiddenFor(m => m.Exhibition.Id)
+    if (Model.ReconciliationEntities.UnfoundFighters.Any())
+    {
+        <table class="table">
+            <caption>Unfound Fighters</caption>
+            <thead>
+                <tr>
+                    <th>Analyst</th>
+                    <th>Pick Text</th>
+                    <th>Pick</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.ReconciliationEntities.UnfoundFighters.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.ReconciliationEntities.UnfoundFighters[i].CorrectAnalystId)
+                    <tr>
+                        <td>@Model.ReconciliationEntities.UnfoundFighters[i].AnalystName</td>
+                        <td>@Model.ReconciliationEntities.UnfoundFighters[i].PickText</td>
+                        <td>@Html.DropDownListFor(m => m.ReconciliationEntities.UnfoundFighters[i].CorrectFighterId, Model.FighterDropdown, "-- Cancel --", null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    if (Model.ReconciliationEntities.UnfoundAnalysts.Any())
+    {
+        <table class="table">
+            <caption>Unfound Analysts</caption>
+            <thead>
+                <tr>
+                    <th>Analyst Text</th>
+                    <th>Fighter</th>
+                    <th>Analyst</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.ReconciliationEntities.UnfoundAnalysts.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.ReconciliationEntities.UnfoundAnalysts[i].CorrectFighterId)
+                    <tr>
+                        <td>@Model.ReconciliationEntities.UnfoundAnalysts[i].AnalystName</td>
+                        <td>@Model.ReconciliationEntities.UnfoundAnalysts[i].PickText</td>
+                        <td>@Html.DropDownListFor(m => m.ReconciliationEntities.UnfoundAnalysts[i].CorrectAnalystId, Model.AnalystDropdown, "-- Cancel --", null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    if (Model.ReconciliationEntities.UnfoundOdds.Any())
+    {
+        <br />
+        <h3>Odds</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fighter Name</th>
+                    <th>Odds</th>
+                    <th>Fighter</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.ReconciliationEntities.UnfoundOdds.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.ReconciliationEntities.UnfoundOdds[i].FighterOdds)
+                    <tr>
+                        <td>@Model.ReconciliationEntities.UnfoundOdds[i].FighterName</td>
+                        <td>@Model.ReconciliationEntities.UnfoundOdds[i].FighterOdds</td>
+                        <td>@Html.DropDownListFor(m => m.ReconciliationEntities.UnfoundOdds[i].CorrectFighterId, Model.FighterDropdown, "-- Cancel --", null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <input type="submit" value="Submit" class="btn btn-info" />
+}

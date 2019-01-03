@@ -30,5 +30,14 @@ namespace FightData.Domain.Updaters
                 webpage.Parsed = false;
             context.SaveChanges();
         }
+
+        public void DeleteDownloadedData(Exhibition exhibition)
+        {
+            foreach(Webpage webpage in exhibition.Webpages)
+            {
+                webpage.Data = "";
+            }
+            context.SaveChanges();
+        }
     }
 }

@@ -27,5 +27,27 @@ namespace FightData.Domain.Test
 
             Assert.IsTrue(exhibition.Fights.Count() == originalFightCount + 1);
         }
+
+        [TestMethod]
+        public void TestAddFighterWithAccent()
+        {
+            Exhibition exhibition = exhibitionFinder.FindExhibition("UFC 179");
+
+            fightUpdater.AddFights(new List<RawFightResult>() { new RawFightResult("José Aldo", "Chad Mendes") }, exhibition);
+
+            Assert.IsTrue(exhibitionFinder.FindExhibition("UFC 179").Fights.First().Winner.FullName == "jose aldo");
+        }
+
+        [TestMethod]
+        public void TestAddFighterWithExistingSurname()
+        {
+            Exhibition exhibition = exhibitionFinder.FindExhibition("UFC 179");
+
+            Fighter fighter = Fighter.GenerateFighter("Junior dos Santos", context);
+            fighter.Add();
+            fightUpdater.AddFights(new List<RawFightResult>() { new RawFightResult("Daniel Sarafian", "Antônio dos Santos Jr." ) }, exhibition);
+
+            Assert.IsTrue(context.Fighters.Any(f => f.FullName == "antonio dos santos"));
+        }
     }
 }

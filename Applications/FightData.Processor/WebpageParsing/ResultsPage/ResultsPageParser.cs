@@ -1,5 +1,6 @@
 ﻿using FightData.Domain;
 using FightData.Domain.Finders;
+using FightDataProcessor.WebpageParsing.PicksPages;
 using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,26 +27,29 @@ namespace FightDataProcessor.WebpageParsing.ResultsPage
                 FinderResult<HtmlNode> loserResult = FindLoserElement(currentRowNo);
 
                 if (IsValidElementList(new List<FinderResult<HtmlNode>>() { winnerResult, loserResult }))
-                    rawFightResults.Add(new RawFightResult(DataSanitizer.GetElementValue(winnerResult.Result), DataSanitizer.GetElementValue(loserResult.Result)));
+                    rawFightResults.Add(new RawFightResult(DataSanitizer.GetNodeText(winnerResult.Result), DataSanitizer.GetNodeText(loserResult.Result)));
 
             }
             return rawFightResults;
         }
 
+        public string ParseDate()
+        {
+            string xpath = XpathGenerator.ResultsPageDate();
+            HtmlNode result = resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault();
+            return DataSanitizer.GetNodeText(result);
+        }
+
         private FinderResult<HtmlNode> FindWinnerElement(int rowNo)
         {
             string xpath = XpathGenerator.ResultsPageWinnerXpath(rowNo);
-            FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
-            Debug.WriteLine($"Searched for winner with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
-            return result;
+            return new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
         }
 
         private FinderResult<HtmlNode> FindLoserElement(int rowNo)
         {
             string xpath = XpathGenerator.ResultsPageLoserXpath(rowNo);
-            FinderResult<HtmlNode> result = new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
-            Debug.WriteLine($"Searched for loser with xpath: {xpath} \r\n Successful result: {result.IsFound()}");
-            return result;
+            return new FinderResult<HtmlNode>(resultsPageHtml.DocumentNode.SelectNodes(xpath)?.FirstOrDefault());
         }
 
         private bool IsValidElementList(List<FinderResult<HtmlNode>> nodes)

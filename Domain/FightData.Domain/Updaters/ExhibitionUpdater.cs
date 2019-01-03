@@ -1,36 +1,63 @@
 ﻿using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FightData.Domain.Updaters
 {
     public class ExhibitionUpdater
     {
         private FightPicksContext context;
-        private ExhibitionFinder exhibitionFinder;
         private FightUpdater fightUpdater;
+        private EntityFinder entityFinder;
+        private FighterUpdater fighterUpdater;
 
         public ExhibitionUpdater(FightPicksContext context)
         {
             this.context = context;
-            exhibitionFinder = new ExhibitionFinder(context);
+            entityFinder = new EntityFinder(context);
             fightUpdater = new FightUpdater(context);
+            fighterUpdater = new FighterUpdater(context);
         }
 
-        public void AddExhibition(ExhibitionForm exhibitionForm, Client client)
+        public void Add(ExhibitionForm exhibitionForm)
+        {
+            Add(exhibitionForm, new ConnectedClient());
+        }
+
+        public void Add(ExhibitionForm exhibitionForm, Client client)
         {
             List<Webpage> webpages = DownloadWebpageData(exhibitionForm.Exhibition.Webpages, client);
             Exhibition exhibition = new Exhibition(context, exhibitionForm.Exhibition.Name, webpages);
-            exhibition.Add();
+            Add(exhibition);
+        }
+
+        public void Add(Exhibition exhibition)
+        {
+            context.Exhibitions.Add(exhibition);
+            AddWebsitesToContext(exhibition);
+            context.SaveChanges();
+        }
+
+        private void AddWebsitesToContext(Exhibition exhibition)
+        {
+            context.Websites.AttachRange(exhibition.Webpages.Select(w => w.Website));
         }
 
         public void UpdateExhibition(ExhibitionForm exhibitionForm, Client client)
         {
-            Exhibition exhibition = exhibitionFinder.FindExhibition(exhibitionForm.Exhibition.Id);
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition(exhibitionForm.Exhibition.Id);
             exhibition.Name = exhibitionForm.Exhibition.Name;
             exhibition.Webpages = DownloadWebpageData(exhibitionForm.Exhibition.Webpages, client);
-            exhibition.Update();
+            context.SaveChanges();
+        }
+
+        public void UpdateDate(Exhibition exhibition, DateTime date)
+        {
+            exhibition.Date = date;
+            context.SaveChanges();
         }
 
         public void Delete(Exhibition exhibition)
@@ -43,6 +70,16 @@ namespace FightData.Domain.Updaters
         {
             fightUpdater.DeleteFights(exhibition.Fights);
             new WebpageUpdater(context).MarkAsUnparsed(exhibition.Webpages);
+        }
+
+        public void DeleteAllParsedData()
+        {
+            List<Exhibition> exhibitions = entityFinder.ExhibitionFinder.FindAllExhibitions();
+            foreach(Exhibition exhibition in exhibitions)
+            {
+                DeleteParsedData(exhibition);
+            }
+            fighterUpdater.DeleteAll();
         }
 
         private List<Webpage> DownloadWebpageData(List<Webpage> webpages, Client client)

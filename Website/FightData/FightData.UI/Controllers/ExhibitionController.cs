@@ -3,37 +3,40 @@ using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
 using FightData.Domain.Updaters;
+using FightData.Processor.WebpageParsing;
 using FightData.Processor.WebpageParsing.PicksPages;
-using FightData.UI.Models;
-using FightData.UI.ViewModels;
+using FightData.UI.ViewModels.ExhibitionIndex;
+using FightData.UI.ViewModels.Reconciliation;
 using FightDataProcessor.WebpageParsing;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace FightDataUI.Controllers
 {
     public class ExhibitionController : Controller
     {
         private FightPicksContext context;
-        private WebsiteFinder websiteFinder;
-        private ExhibitionFinder exhibitionFinder;
+        private EntityFinder entityFinder;
         private ExhibitionUpdater exhibitionUpdater;
+        private WebpageUpdater webpageUpdater;
+        private ExhibitionWebpagesParser exhibitionWebpagesParser;
+        private RawEntitiesUpdater rawEntitiesUpdater;
 
         public ExhibitionController(FightPicksContext context)
         {
             this.context = context;
-            websiteFinder = new WebsiteFinder(context);
-            exhibitionFinder = new ExhibitionFinder(context);
+            entityFinder = new EntityFinder(context);
             exhibitionUpdater = new ExhibitionUpdater(context);
+            webpageUpdater = new WebpageUpdater(context);
+            exhibitionWebpagesParser = new ExhibitionWebpagesParser(context);
+            rawEntitiesUpdater = new RawEntitiesUpdater(context);
         }
 
         public ActionResult Index()
         {
-            ExhibitionIndexView exhibitionIndexView = new ExhibitionIndexView();
-            exhibitionIndexView.LoadViewData(context);
-            return View(exhibitionIndexView);
+            ExhibitionGrid exhibitionGrid = new ExhibitionGrid();
+            exhibitionGrid.LoadViewData(context);
+            return View(exhibitionGrid);
         }
 
         public ActionResult Details(int id)
@@ -44,7 +47,7 @@ namespace FightDataUI.Controllers
         public ActionResult Create()
         {
             ExhibitionForm exhibitionForm = new ExhibitionForm();
-            exhibitionForm.LoadDataForInput(context, new Exhibition());
+            exhibitionForm.AddWebpages(context);
             return View(exhibitionForm);
         }
 
@@ -53,13 +56,13 @@ namespace FightDataUI.Controllers
         public ActionResult Create(ExhibitionForm exhibitionForm)
         {
             ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
-            exhibitionUpdater.AddExhibition(exhibitionForm, new ConnectedClient());
+            exhibitionUpdater.Add(exhibitionForm);
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
         {
-            ExhibitionForm exhibitionForm = new ExhibitionForm(exhibitionFinder.FindExhibition(id));
+            ExhibitionForm exhibitionForm = new ExhibitionForm(entityFinder.ExhibitionFinder.FindExhibition(id));
             return View(exhibitionForm);
         }
 
@@ -74,58 +77,65 @@ namespace FightDataUI.Controllers
 
         public ActionResult ExtractWebpages(int id)
         {
-            Exhibition exhibition = exhibitionFinder.FindExhibition(id);
-            ExhibitionDataExtractor exhibitionDataExtractor = new ExhibitionDataExtractor(exhibition);
-            exhibitionDataExtractor.ExtractResultsPageData();
-            exhibitionDataExtractor.ExtractPicksPagesData();
-            List<UnfoundPick> unfoundPicks = exhibitionDataExtractor.UnfoundPicks;
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition(id);
+            RawExhibitionData rawExhibitionData = exhibitionWebpagesParser.ParseAllWebpages(exhibition);
+            webpageUpdater.DeleteDownloadedData(exhibition);
+            UpdateEntitiesResult updateEntitiesResult = rawEntitiesUpdater.UpdateEntities(rawExhibitionData, exhibition);
+            List<UnfoundPick> unfoundPicks = updateEntitiesResult.UnfoundPicks;
             if (unfoundPicks.Count > 0)
             {
-                return LoadUnfoundPicksPage(unfoundPicks, exhibition);
+                return LoadUnfoundPicksPage(updateEntitiesResult, exhibition);
             }
             else
                 return RedirectToAction("Index");
         }
 
-        public ViewResult LoadUnfoundPicksPage(List<UnfoundPick> unfoundPicks, Exhibition exhibition)
+        public ViewResult LoadUnfoundPicksPage(UpdateEntitiesResult updateEntitiesResult, Exhibition exhibition)
         {
-            UnfoundPicksView unfoundPicksView = new UnfoundPicksView();
-            unfoundPicksView.LoadData(unfoundPicks, exhibition);
-            return View("UnfoundPicks", unfoundPicksView);
+            EntityReconciliation entityReconciliation = new EntityReconciliation();
+            entityReconciliation.LoadData(updateEntitiesResult, exhibition);
+            return View("EntityReconciliation", entityReconciliation);
         }
 
         [HttpPost]
-        public ActionResult UnfoundPicks(UnfoundPicksView unfoundPicksView)
+        public ActionResult EntityReconciliation(EntityReconciliation entityReconciliation)
         {
-            ReconciledPicksAdder reconciledPicksAdder = new ReconciledPicksAdder(context);
-            reconciledPicksAdder.AddReconciledPicks(unfoundPicksView.ReconciledPicks, exhibitionFinder.FindExhibition(unfoundPicksView.Exhibition.Id));
+            ReconciledEntitiesUpdater reconciledEntitiesUpdater = new ReconciledEntitiesUpdater(context);
+            reconciledEntitiesUpdater.AddReconciledEntities(entityReconciliation.ReconciliationEntities.GetReconciledEntities(), entityFinder.ExhibitionFinder.FindExhibition(entityReconciliation.Exhibition.Id));
             return RedirectToAction("Index");
         }
 
         public ActionResult DeleteParsedData(int id)
         {
-            ExhibitionUpdater exhibitionUpdater = new ExhibitionUpdater(context);
-            exhibitionUpdater.DeleteParsedData(exhibitionFinder.FindExhibition(id));
+            exhibitionUpdater.DeleteParsedData(entityFinder.ExhibitionFinder.FindExhibition(id));
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteAllParsedData()
+        {
+            exhibitionUpdater.DeleteAllParsedData();
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
-            return View(exhibitionFinder.FindExhibition(id));
+            return View(entityFinder.ExhibitionFinder.FindExhibition(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Exhibition exhibition)
         {
-            exhibition = exhibitionFinder.FindExhibition(exhibition.Id);
+            exhibition = entityFinder.ExhibitionFinder.FindExhibition(exhibition.Id);
             exhibitionUpdater.Delete(exhibition);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Error()
+        public ActionResult RedownloadData(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition(id);
+            exhibitionUpdater.UpdateExhibition(new ExhibitionForm(exhibition), new ConnectedClient());
+            return RedirectToAction("Index");
         }
     }
 }

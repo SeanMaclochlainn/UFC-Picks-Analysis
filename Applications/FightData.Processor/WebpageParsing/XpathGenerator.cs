@@ -2,24 +2,40 @@
 {
     public class XpathGenerator
     {
-        public static string ResultsPageWinnerXpath(int rowNo)
+        public static string ResultsPageWinnerXpath(int row)
         {
-            return string.Format(@"//body//table[2]//tr[{0}]/td[2]", rowNo);
+            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[2]", row);
         }
 
-        public static string ResultsPageLoserXpath(int rowNo)
+        public static string ResultsPageLoserXpath(int row)
         {
-            return string.Format(@"//body//table[2]//tr[{0}]/td[4]", rowNo);
+            return string.Format(@"//body//table[@class='toccolours']//tr[{0}]/td[4]", row);
         }
 
-        public static string PicksPageAnalystXpath(int rowNo)
+        public static string ResultsPageDate()
         {
-            return string.Format("//table//tr[{0}]/td[1]/strong", rowNo);
+            return @"//table[@class='infobox']/tbody/tr[contains(th/text(),'Date')]/td/text()";
         }
 
-        public static string PicksPageFighterXpath(int rowNo, int columnNo)
+        public static string OddsPageFighter(int row)
         {
-            return string.Format("//table//tr[{0}]/td[{1}+1]", rowNo, columnNo);
+            return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]//span", row);
+        }
+
+        public static string OddsPageOdds(int row)
+        {
+            return string.Format("//table[@class='odds-table']/tbody/tr[@class='even' or @class='odd'][{0}]/td[2]//span/span", row);
+        }
+
+        public static string FormatXpath(string xpath, int row)
+        {
+            return xpath.Replace("{row-incrementer}", row.ToString());
+        }
+
+        public static string FormatXpath(string xpath, int row, int column)
+        {
+            xpath = xpath.Replace("{column-incrementer}", column.ToString());
+            return xpath.Replace("{row-incrementer}", row.ToString());
         }
     }
 }

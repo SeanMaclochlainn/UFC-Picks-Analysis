@@ -18,5 +18,13 @@ namespace FightData.Domain.Test.Entities
 
             Assert.IsTrue(context.Fighters.Count() == originalFighterCount + 1);
         }
+
+        [TestMethod]
+        public void TestSanitizeFullName()
+        {
+            Fighter fighter = Fighter.GenerateFighter("José Aldo (c)", context);
+
+            Assert.IsTrue(fighter.FullName == "jose aldo");
+        }
     }
 }

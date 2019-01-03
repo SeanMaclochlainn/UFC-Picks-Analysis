@@ -22,7 +22,7 @@ namespace FightData.Domain.Test.Finders
 
             Pick pick = pickFinder.FindPick(analystFinder.FindAnalyst("Mike Bohn").Result, context.Fights.First()).Result;
 
-            Assert.IsTrue(pick.Fighter.FullName == "Luke Rockhold");
+            Assert.IsTrue(pick.Fighter.FullName == "luke rockhold");
         }
     }
 }

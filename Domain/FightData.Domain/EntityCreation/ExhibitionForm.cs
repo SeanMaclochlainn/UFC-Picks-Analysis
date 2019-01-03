@@ -10,20 +10,14 @@ namespace FightData.Domain.EntityCreation
             Exhibition = new Exhibition();
         }
 
-        public ExhibitionForm(Exhibition newExhibition)
+        public ExhibitionForm(Exhibition existingExhibition)
         {
-            Exhibition = newExhibition;
+            Exhibition = existingExhibition;
         }
 
         public Exhibition Exhibition { get; private set; }
 
-        public void LoadDataForInput(FightPicksContext context, Exhibition exhibition)
-        {
-            exhibition = Exhibition;
-            AddAllWebsiteWebpages(context);
-        }
-
-        private void AddAllWebsiteWebpages(FightPicksContext context)
+        public void AddWebpages(FightPicksContext context)
         {
             foreach (Website website in new WebsiteFinder(context).GetAllWebsites())
                 Exhibition.Webpages.Add(new Webpage(context) { Website = website });

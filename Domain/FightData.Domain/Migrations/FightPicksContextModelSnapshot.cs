@@ -79,6 +79,8 @@ namespace FightData.Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Date");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -168,6 +170,29 @@ namespace FightData.Domain.Migrations
                     b.ToTable("FighterAltName");
                 });
 
+            modelBuilder.Entity("FightData.Domain.Entities.Odd", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("FightId")
+                        .IsRequired();
+
+                    b.Property<int?>("FighterId")
+                        .IsRequired();
+
+                    b.Property<decimal>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FightId");
+
+                    b.HasIndex("FighterId");
+
+                    b.ToTable("Odd");
+                });
+
             modelBuilder.Entity("FightData.Domain.Entities.Pick", b =>
                 {
                     b.Property<int>("Id")
@@ -192,6 +217,34 @@ namespace FightData.Domain.Migrations
                     b.HasIndex("FighterId");
 
                     b.ToTable("Pick");
+                });
+
+            modelBuilder.Entity("FightData.Domain.Entities.PicksPageConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AnalystRegex");
+
+                    b.Property<string>("AnalystXpath")
+                        .IsRequired();
+
+                    b.Property<string>("FighterRegex");
+
+                    b.Property<string>("FighterXpath")
+                        .IsRequired();
+
+                    b.Property<int>("PicksPageRowType");
+
+                    b.Property<int>("WebsiteId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WebsiteId")
+                        .IsUnique();
+
+                    b.ToTable("PicksPageConfiguration");
                 });
 
             modelBuilder.Entity("FightData.Domain.Entities.Webpage", b =>
@@ -284,6 +337,19 @@ namespace FightData.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("FightData.Domain.Entities.Odd", b =>
+                {
+                    b.HasOne("FightData.Domain.Entities.Fight", "Fight")
+                        .WithMany("Odds")
+                        .HasForeignKey("FightId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FightData.Domain.Entities.Fighter", "Fighter")
+                        .WithMany("Odds")
+                        .HasForeignKey("FighterId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("FightData.Domain.Entities.Pick", b =>
                 {
                     b.HasOne("FightData.Domain.Entities.Analyst", "Analyst")
@@ -299,6 +365,14 @@ namespace FightData.Domain.Migrations
                     b.HasOne("FightData.Domain.Entities.Fighter", "Fighter")
                         .WithMany("Picks")
                         .HasForeignKey("FighterId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FightData.Domain.Entities.PicksPageConfiguration", b =>
+                {
+                    b.HasOne("FightData.Domain.Entities.Website", "Website")
+                        .WithOne("PicksPageConfiguration")
+                        .HasForeignKey("FightData.Domain.Entities.PicksPageConfiguration", "WebsiteId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

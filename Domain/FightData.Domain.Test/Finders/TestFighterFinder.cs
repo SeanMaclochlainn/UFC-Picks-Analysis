@@ -40,7 +40,9 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestFindBySurname()
         {
-            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold");
+            Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
+
+            FinderResult<Fighter> finderResult = fighterFinder.FindFighter("Rockhold", exhibition);
 
             Assert.IsTrue(finderResult.IsFound());
         }
@@ -78,5 +80,36 @@ namespace FightData.Domain.Test.Finders
             Assert.IsTrue(result.IsFound() == false);
         }
 
+        [TestMethod]
+        public void TestFindUsingAccentedName()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Ildemar Alcântara", context));
+
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Alcântara");
+
+            Assert.IsTrue(result.IsFound() == true);
+        }
+
+        [TestMethod]
+        public void TestFindIncludingMiddleName()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Rafael dos Anjos", context));
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Dos Anjos");
+
+            Assert.IsTrue(result.IsFound() == true);
+        }
+
+        [TestMethod]
+        public void TestFindByParsedSurname()
+        {
+            List<Fighter> fighters = new List<Fighter>();
+            fighters.Add(Fighter.GenerateFighter("Urijah Hall", context));
+
+            FinderResult<Fighter> result = FighterFinder.FindFighter(fighters, "Uriah Hall");
+
+            Assert.IsTrue(result.IsFound());
+        }
     }
 }

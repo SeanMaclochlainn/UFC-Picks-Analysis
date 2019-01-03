@@ -15,6 +15,7 @@ namespace FightData.Domain.Entities
         public List<Fight> Wins { get; set; }
         public List<Fight> Losses { get; set; }
         public List<Pick> Picks { get; set; }
+        public List<Odd> Odds { get; set; }
 
         public static Fighter GenerateFighter(string name, FightPicksContext context)
         {
@@ -29,10 +30,10 @@ namespace FightData.Domain.Entities
             Context.SaveChanges();
         }
 
-        public void PopulateNames(string fullName)
+        public void PopulateNames(string nameText)
         {
-            FullName = fullName;
-            NameParser nameParser = new NameParser(FullName);
+            NameParser nameParser = new NameParser(nameText);
+            FullName = nameParser.GetFullName();
             FirstName = nameParser.GetFirstName();
             LastName = nameParser.GetLastName();
             MiddleName = nameParser.GetMiddleNames();

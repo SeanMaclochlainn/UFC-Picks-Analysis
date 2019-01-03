@@ -1,7 +1,6 @@
 ﻿
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
-using FightData.TestData.EntityGenerators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;

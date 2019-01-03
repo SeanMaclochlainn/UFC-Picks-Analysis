@@ -18,6 +18,8 @@ namespace FightData.Domain
         public DbSet<Pick> Picks { get; set; }
         public DbSet<Webpage> Webpages { get; set; }
         public DbSet<Website> Websites { get; set; }
+        public DbSet<Odd> Odds { get; set; }
+        public DbSet<PicksPageConfiguration> PicksPageConfigurations { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,10 +60,10 @@ namespace FightData.Domain
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
-            });
 
-            modelBuilder.Entity<Exhibition>().Ignore(e => e.CancelledFighterNames);
-            modelBuilder.Entity<Exhibition>().Ignore(e => e.FightersWithMatchingLastNames);
+                entity.Property(e => e.Date)
+                .IsRequired(true);
+            });
 
             modelBuilder.Entity<Fighter>(entity =>
             {
@@ -97,6 +99,37 @@ namespace FightData.Domain
 
                 entity.Property(e => e.Parsed)
                 .IsRequired();
+            });
+
+            modelBuilder.Entity<Website>(entity =>
+            {
+                entity.Property(e => e.WebsiteName)
+                .IsRequired();
+            });
+
+            modelBuilder.Entity<Odd>(entity =>
+            {
+                entity.Property(e => e.Value)
+                .IsRequired();
+            });
+
+            modelBuilder.Entity<PicksPageConfiguration>(entity =>
+            {
+                entity.Property(e => e.PicksPageRowType)
+                .IsRequired();
+
+                entity.Property(e => e.AnalystXpath)
+                .IsRequired();
+
+                entity.Property(e => e.AnalystRegex)
+                .IsRequired(false);
+
+                entity.Property(e => e.FighterXpath)
+                .IsRequired();
+
+                entity.Property(e => e.FighterRegex)
+                .IsRequired(false);
+
             });
 
             modelBuilder.Entity<Webpage>()
@@ -146,6 +179,21 @@ namespace FightData.Domain
                 .HasOne(a => a.Analyst)
                 .WithMany(a => a.AltNames)
                 .IsRequired();
+
+            modelBuilder.Entity<Odd>()
+                .HasOne(o => o.Fighter)
+                .WithMany(f => f.Odds)
+                .IsRequired();
+
+            modelBuilder.Entity<Odd>()
+                .HasOne(o => o.Fight)
+                .WithMany(f => f.Odds)
+                .IsRequired();
+
+            modelBuilder.Entity<Website>()
+               .HasOne(w => w.PicksPageConfiguration)
+               .WithOne(ppc => ppc.Website)
+               .HasForeignKey<PicksPageConfiguration>(e => e.WebsiteId);
 
         }
     }

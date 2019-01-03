@@ -12,7 +12,7 @@ namespace FightData.Domain.Test
 
             NameParser nameParser = new NameParser(name);
 
-            Assert.IsTrue(nameParser.GetLastName() == "Aldo");
+            Assert.IsTrue(nameParser.GetLastName() == "aldo");
         }
 
         [TestMethod]
@@ -23,6 +23,56 @@ namespace FightData.Domain.Test
             NameParser nameParser = new NameParser(name);
 
             Assert.IsTrue(nameParser.GetMiddleNames() == "");
+        }
+
+        [TestMethod]
+        public void TestRemoveAccents()
+        {
+            string name = "José Aldo";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFirstName() == "jose");
+        }
+
+        [TestMethod]
+        public void TestParseSurname()
+        {
+            string name = "Aldo";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "aldo");
+        }
+
+        [TestMethod]
+        public void TestParseThreeNames()
+        {
+            string name = "Carlos Diego Ferreira";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "carlos diego ferreira");
+        }
+
+        [TestMethod]
+        public void TestMakeNameLowercase()
+        {
+            string name = "José Aldo";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "jose aldo");
+        }
+
+        [TestMethod]
+        public void TestRemoveJr()
+        {
+            string name = "Antônio dos Santos Jr.";
+
+            NameParser nameParser = new NameParser(name);
+
+            Assert.IsTrue(nameParser.GetFullName() == "antonio dos santos");
         }
     }
 }

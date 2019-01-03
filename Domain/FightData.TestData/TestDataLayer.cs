@@ -1,18 +1,17 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain.Finders;
 using FightData.TestData;
-using FightData.TestData.EntityGenerators;
 
 namespace FightData.Domain.Test
 {
     public class TestDataLayer
     {
         protected FightPicksContext context;
-        protected EntityGenerator entityGenerator;
+        protected EntityFinder entityFinder;
 
         public TestDataLayer()
         {
             context = new TestDatabase().Context;
-            entityGenerator = new EntityGenerator(context);
+            entityFinder = new EntityFinder(context);
             new TestDatabaseSeeder(context).Seed();
         }
     }
