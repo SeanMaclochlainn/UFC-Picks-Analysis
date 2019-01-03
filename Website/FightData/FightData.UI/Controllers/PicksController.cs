@@ -27,7 +27,7 @@ namespace FightDataUI.Controllers
         {
             PickView pickView = GetPickView();
             CsvGenerator csvGenerator = new CsvGenerator();
-            List<string> headerEntries = new List<string>() { "Name", "Winner", "Odds", "Loser", "Odds" };
+            List<string> headerEntries = new List<string>() { "Name", "Date", "Winner", "Odds", "Loser", "Odds" };
             headerEntries.AddRange(pickView.EntityFinder.AnalystFinder.GetAllAnalysts().Select(a => a.Name).ToList());
             csvGenerator.AddRow(headerEntries);
 
@@ -37,9 +37,15 @@ namespace FightDataUI.Controllers
                 {
                     List<string> rowEntries = new List<string>();
                     if (i == 0)
+                    {
                         rowEntries.Add(exhibition.Name);
+                        rowEntries.Add(exhibition.Date.ToShortDateString());
+                    }
                     else
+                    {
                         rowEntries.Add("");
+                        rowEntries.Add("");
+                    }
                     rowEntries.Add(exhibition.Fights[i].Winner.FullName);
                     rowEntries.Add(pickView.FindFighterOddText(exhibition.Fights[i].Winner, exhibition));
                     rowEntries.Add(exhibition.Fights[i].Loser.FullName);
