@@ -7,6 +7,13 @@ namespace FightData.Domain.Test.Entities
     [TestClass]
     public class TestFight : TestDataLayer
     {
+        private FightUpdater fightUpdater;
+
+        public TestFight()
+        {
+            fightUpdater = new FightUpdater(context);
+        }
+
         [TestMethod]
         public void TestAddFight()
         {
@@ -16,7 +23,7 @@ namespace FightData.Domain.Test.Entities
             fight.Exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
             int currentFightCount = context.Fights.Count();
 
-            fight.Add();
+            fightUpdater.AddFight(fight);
 
             Assert.IsTrue(context.Fights.Count() == currentFightCount + 1);
         }

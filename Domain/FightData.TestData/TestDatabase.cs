@@ -1,4 +1,5 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Finders;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -27,9 +28,13 @@ namespace FightData.TestData
             Context = new FightPicksContext(options);
 
             Context.Database.EnsureCreated();
+
+            new TestDatabaseSeeder(Context).Seed();
+            EntityFinder = new EntityFinder(Context);
         }
 
 
         public FightPicksContext Context { get; private set; }
+        public EntityFinder EntityFinder { get; private set; }
     }
 }

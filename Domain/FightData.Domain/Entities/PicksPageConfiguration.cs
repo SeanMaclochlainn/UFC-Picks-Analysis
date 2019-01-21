@@ -1,8 +1,20 @@
-﻿namespace FightData.Domain.Entities
+﻿using FightData.Domain.Builders;
+
+namespace FightData.Domain.Entities
 {
     public class PicksPageConfiguration : Entity
     {
         public PicksPageConfiguration(FightPicksContext context) : base(context) { }
+
+        public PicksPageConfiguration(PicksPageConfigurationBuilder picksPageConfigurationBuilder) : this(picksPageConfigurationBuilder.Context)
+        {
+            PicksPageRowType = picksPageConfigurationBuilder.PicksPageRowType;
+            AnalystXpath = picksPageConfigurationBuilder.AnalystXpath;
+            AnalystRegex = picksPageConfigurationBuilder.AnalystRegex;
+            FighterXpath = picksPageConfigurationBuilder.FighterXpath;
+            FighterRegex = picksPageConfigurationBuilder.FighterRegex;
+            Website = picksPageConfigurationBuilder.Website;
+        }
 
         public int Id { get; set; }
         public PicksPageRowType PicksPageRowType { get; set; }

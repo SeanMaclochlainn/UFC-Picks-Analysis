@@ -1,6 +1,8 @@
 ﻿using FightData.Domain;
+using FightData.Domain.Builders;
 using FightData.Domain.Entities;
 using FightData.Domain.Finders;
+using FightData.Domain.Updaters;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -11,11 +13,13 @@ namespace FightData.TestData
     {
         private FightPicksContext context;
         private EntityFinder entityFinder;
+        private EntityUpdater entityUpdater;
 
         public TestDatabaseSeeder(FightPicksContext context)
         {
             this.context = context;
             entityFinder = new EntityFinder(context);
+            entityUpdater = new EntityUpdater(context);
         }
 
         public void Seed()
@@ -33,143 +37,71 @@ namespace FightData.TestData
 
         private void AddPicksPageConfigurations()
         {
-            PicksPageConfiguration mmaJunkieConfiguration = new PicksPageConfiguration(context)
-            {
-                AnalystXpath = "//table//tr[{row-incrementer}]/td[1]/strong",
-                FighterXpath = "//table//tr[{row-incrementer}]/td[{column-incrementer}+1]",
-                PicksPageRowType = PicksPageRowType.SingleAnalystMultipleFighters,
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie)
-            };
+            PicksPageConfiguration mmaJunkieConfiguration = new PicksPageConfigurationBuilder(context)
+                .GenerateSampleMmaJunkiePicksPageConfiguration()
+                .Build();
 
-            PicksPageConfiguration bloodyElbowConfiguration = new PicksPageConfiguration(context)
-            {
-                AnalystXpath = "(//text()[starts-with(normalize-space(),'Staff picking')])[{row-incrementer}]",
-                AnalystRegex = @"(?:[:|,]\s(\w+)){{column-incrementer}}",
-                FighterXpath = "(//text()[starts-with(normalize-space(),'Staff picking')])[{row-incrementer}]",
-                FighterRegex = @"(?<=Staff picking )[A-Za-z'\s\-]+(?=:)",
-                PicksPageRowType = PicksPageRowType.SingleFighterMultipleAnalysts,
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow)
-            };
-            context.PicksPageConfigurations.Add(mmaJunkieConfiguration);
-            context.PicksPageConfigurations.Add(bloodyElbowConfiguration);
-            context.SaveChanges();
+            PicksPageConfiguration bloodyElbowConfiguration = new PicksPageConfigurationBuilder(context)
+                .GenerateSampleBloodyElbowPicksPageConfiguration()
+                .Build();
+
+            entityUpdater.PicksPageConfigurationUpdater.Add(new List<PicksPageConfiguration>() { mmaJunkieConfiguration, bloodyElbowConfiguration });
         }
 
         private void AddUFC179()
         {
-            Exhibition exhibition = AddExhibition("UFC 179");
+            Exhibition exhibition = new ExhibitionBuilder(context).GenerateExhibition("UFC 179").Build();
 
-            Webpage resultsWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = false,
-                Url = "https://en.wikipedia.org/wiki/UFC_179",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.Wikipedia),
-                Data = GetResourceFile("UFC179.html", "WebsiteHtml/ResultsPages")
-            };
+            Webpage resultsWebpage = new WebpageBuilder(context)
+                .GenerateSampleUnparsedResultsWebpage(exhibition, GetResourceFile("UFC179.html", "WebsiteHtml/ResultsPages"))
+                .Build();
 
-            Webpage mmaJunkieWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = false,
-                Url = "https://mmajunkie.com/2014/10/ufc-179-staff-picks-splits-with-aldo-vs-mendes-teixeira-vs-davis",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie),
-                Data = GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/MmaJunkie")
-            };
+            Webpage mmaJunkieWebpage = new WebpageBuilder(context)
+                .GenerateSampleUnparsedPicksWebpage(exhibition, GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/MmaJunkie"), WebsiteName.MMAJunkie)
+                .Build();
 
-            Webpage bloodyElbowWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = false,
-                Url = "https://www.bloodyelbow.com/2014/10/24/7062449/ufc-179-aldo-vs-mendes-2-staff-picks-and-predictions",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BloodyElbow),
-                Data = GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/BloodyElbow")
-            };
+            Webpage bloodyElbowWebpage = new WebpageBuilder(context)
+                .GenerateSampleUnparsedPicksWebpage(exhibition, GetResourceFile("UFC179.html", "WebsiteHtml/PicksPages/BloodyElbow"), WebsiteName.BloodyElbow)
+                .Build();
 
-            Webpage oddsWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = false,
-                Url = "https://www.bestfightodds.com/events/ufc-179-aldo-vs-mendes-ii-855#",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BestFightOdds),
-                Data = GetResourceFile("UFC179.html", "WebsiteHtml/OddsPages")
-            };
+            Webpage oddsWebpage = new WebpageBuilder(context)
+                .GenerateSampleUnparsedOddsWebpage(exhibition, GetResourceFile("UFC179.html", "WebsiteHtml/OddsPages"))
+                .Build();
 
-            context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, mmaJunkieWebpage, bloodyElbowWebpage, oddsWebpage });
-            context.SaveChanges();
+            entityUpdater.WebpageUpdater.AddWebpages(new List<Webpage>() { resultsWebpage, mmaJunkieWebpage, bloodyElbowWebpage, oddsWebpage });
         }
 
         private void AddFN55()
         {
-            Exhibition exhibition = AddExhibition("FN 55");
-            Fighter winner = AddFighter("Luke Rockhold");
-            Fighter loser = AddFighter("Michael Bisping");
-            Fight fight = new Fight(context)
-            {
-                Exhibition = exhibition,
-                Winner = winner,
-                Loser = loser
-            };
-            context.Fights.Add(fight);
-            context.SaveChanges();
+            Exhibition exhibition = new ExhibitionBuilder(context).GenerateExhibition("FN 55").Build();
+            Fighter winner = new FighterBuilder(context).GenerateFighter("Luke Rockhold").Build();
+            Fighter loser = new FighterBuilder(context).GenerateFighter("Michael Bisping").Build();
+            Fight fight = new FightBuilder(context).GenerateFight(exhibition, winner, loser).Build();
+            entityUpdater.FightUpdater.AddFight(fight);
 
-            Pick correctPick = new Pick(context)
-            {
-                Analyst = entityFinder.AnalystFinder.FindAnalyst("Mike Bohn").Result,
-                Fight = fight,
-                Fighter = winner
-            };
-            Pick incorrectPick = new Pick(context)
-            {
-                Analyst = entityFinder.AnalystFinder.FindAnalyst("Dann Stupp").Result,
-                Fight = fight,
-                Fighter = loser
-            };
-            context.Picks.AddRange(new List<Pick>() { correctPick, incorrectPick });
-            context.SaveChanges();
+            Pick correctPick = new PickBuilder(context)
+                .GeneratePick(entityFinder.AnalystFinder.FindAnalyst("Mike Bohn").Result, fight, winner)
+                .Build();
 
-            Webpage resultsWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = true,
-                Url = "https://en.wikipedia.org/wiki/UFC_Fight_Night:_Rockhold_vs._Bisping",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.Wikipedia),
-                Data = GetResourceFile("FN55.html", "WebsiteHtml/ResultsPages")
-            };
-            Webpage picksWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = true,
-                Url = "https://mmajunkie.com/2014/11/ufc-fight-night-55-staff-picks-rockhold-a-unanimous-nod-over-bisping",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.MMAJunkie),
-                Data = GetResourceFile("FN55.html", "WebsiteHtml/PicksPages/MmaJunkie")
-            };
-            Webpage oddsWebpage = new Webpage(context)
-            {
-                Exhibition = exhibition,
-                Parsed = true,
-                Url = "https://www.bestfightodds.com/events/ufc-179-aldo-vs-mendes-ii-855#",
-                Website = entityFinder.WebsiteFinder.FindWebsite(WebsiteName.BestFightOdds),
-                Data = GetResourceFile("FN55.html", "WebsiteHtml/OddsPages")
-            };
-            context.Webpages.AddRange(new List<Webpage>() { resultsWebpage, picksWebpage, oddsWebpage });
-            context.SaveChanges();
-        }
+            Pick incorrectPick = new PickBuilder(context)
+                .GeneratePick(entityFinder.AnalystFinder.FindAnalyst("Dann Stupp").Result, fight, loser)
+                .Build();
 
-        private Fighter AddFighter(string name)
-        {
-            Fighter fighter = Fighter.GenerateFighter(name, context);
-            context.Fighters.Add(fighter);
-            context.SaveChanges();
-            return fighter;
-        }
+            entityUpdater.PickUpdater.AddPicks(new List<Pick>() { correctPick, incorrectPick });
 
-        private Exhibition AddExhibition(string name)
-        {
-            Exhibition exhibition = new Exhibition(context, name, new List<Webpage>());
-            context.Exhibitions.Add(exhibition);
-            context.SaveChanges();
-            return exhibition;
+            Webpage resultsWebpage = new WebpageBuilder(context)
+                .GenerateSampleParsedResultsWebpage(exhibition, GetResourceFile("FN55.html", "WebsiteHtml/ResultsPages"))
+                .Build();
+
+            Webpage picksWebpage = new WebpageBuilder(context)
+                .GenerateSampleParsedPicksWebpage(exhibition, GetResourceFile("FN55.html", "WebsiteHtml/PicksPages/MmaJunkie"), WebsiteName.MMAJunkie)
+                .Build();
+
+            Webpage oddsWebpage = new WebpageBuilder(context)
+                .GenerateSampleParsedOddsWebpage(exhibition, GetResourceFile("FN55.html", "WebsiteHtml/OddsPages"))
+                .Build();
+
+            entityUpdater.WebpageUpdater.AddWebpages(new List<Webpage>() { resultsWebpage, picksWebpage, oddsWebpage });
         }
 
         private Analyst AddAnalyst(string name)
@@ -178,8 +110,7 @@ namespace FightData.TestData
             {
                 Name = name
             };
-            context.Analysts.Add(analyst);
-            context.SaveChanges();
+            entityUpdater.AnalystUpdater.Add(analyst);
             return analyst;
         }
 
@@ -190,8 +121,7 @@ namespace FightData.TestData
                 WebsiteName = websiteName,
                 WebsiteType = websiteType
             };
-            context.Websites.Add(website);
-            context.SaveChanges();
+            entityUpdater.WebsiteUpdater.Add(website);
             return website;
         }
 

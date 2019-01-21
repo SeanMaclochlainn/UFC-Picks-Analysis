@@ -33,6 +33,12 @@ namespace FightData.Domain
             context.SaveChanges();
         }
 
+        public void AddFight(Fight fight)
+        {
+            context.Fights.Add(fight);
+            context.SaveChanges();
+        }
+
         private void EnsureFighterIsAdded(string name)
         {
             if (!fighterFinder.FindFighter(name).IsFound())
@@ -47,7 +53,7 @@ namespace FightData.Domain
             fight.Winner = winner;
             fight.Loser = loser;
             fight.Exhibition = exhibition;
-            fight.Add();
+            AddFight(fight);
         }
     }
 }

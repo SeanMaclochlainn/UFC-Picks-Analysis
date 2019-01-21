@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain.Builders;
+using FightData.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -7,14 +8,20 @@ namespace FightData.Domain.Test.Entities
     [TestClass]
     public class TestFighter : TestDataLayer
     {
+        private FighterBuilder fighterBuilder;
+
+        public TestFighter()
+        {
+            fighterBuilder = new FighterBuilder(context);
+        }
+
         [TestMethod]
         public void TestAddFighter()
         {
             int originalFighterCount = context.Fighters.Count();
-            Fighter fighter = new Fighter(context);
-            fighter.PopulateNames("fname lname");
+            Fighter fighter = fighterBuilder.GenerateFighter("fname lname").Build();
 
-            fighter.Add();
+            entityUpdater.FighterUpdater.Add(fighter);
 
             Assert.IsTrue(context.Fighters.Count() == originalFighterCount + 1);
         }
@@ -22,7 +29,7 @@ namespace FightData.Domain.Test.Entities
         [TestMethod]
         public void TestSanitizeFullName()
         {
-            Fighter fighter = Fighter.GenerateFighter("José Aldo (c)", context);
+            Fighter fighter = fighterBuilder.GenerateFighter("José Aldo (c)").Build();
 
             Assert.IsTrue(fighter.FullName == "jose aldo");
         }

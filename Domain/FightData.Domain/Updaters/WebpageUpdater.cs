@@ -39,5 +39,12 @@ namespace FightData.Domain.Updaters
             }
             context.SaveChanges();
         }
+
+        public void AddWebpages(List<Webpage> webpages)
+        {
+            foreach (Webpage webpage in webpages)
+                context.Webpages.Add(webpage);
+            context.SaveChanges();
+        }
     }
 }
