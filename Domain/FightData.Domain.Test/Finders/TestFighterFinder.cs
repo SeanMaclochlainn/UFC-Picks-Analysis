@@ -53,12 +53,11 @@ namespace FightData.Domain.Test.Finders
         [TestMethod]
         public void TestGetFightersInExhibition()
         {
-
             Exhibition exhibition = exhibitionFinder.FindExhibition("FN 55");
 
             List<Fighter> fighters = FighterFinder.GetFighters(exhibition);
 
-            Assert.IsTrue(fighters.Count == 2);
+            Assert.IsTrue(fighters.Count == 6);
         }
 
         [TestMethod]

@@ -27,15 +27,22 @@ namespace FightData.Domain
             }
         }
 
-        public void DeleteFights(List<Fight> fights)
+        public void AddFights(List<Fight> fights)
         {
-            context.Fights.RemoveRange(fights);
+            foreach (Fight fight in fights)
+                context.Fights.Add(fight);
             context.SaveChanges();
         }
 
         public void AddFight(Fight fight)
         {
             context.Fights.Add(fight);
+            context.SaveChanges();
+        }
+
+        public void DeleteFights(List<Fight> fights)
+        {
+            context.Fights.RemoveRange(fights);
             context.SaveChanges();
         }
 

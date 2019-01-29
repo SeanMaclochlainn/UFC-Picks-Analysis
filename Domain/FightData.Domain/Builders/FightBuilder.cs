@@ -4,9 +4,12 @@ namespace FightData.Domain.Builders
 {
     public class FightBuilder
     {
+        private FighterBuilder fighterBuilder;
+
         public FightBuilder(FightPicksContext context)
         {
             Context = context;
+            fighterBuilder = new FighterBuilder(context);
         }
 
         public FightPicksContext Context { get; private set; }
@@ -19,6 +22,14 @@ namespace FightData.Domain.Builders
             Exhibition = exhibition;
             Winner = winner;
             Loser = loser;
+            return this;
+        }
+
+        public FightBuilder GenerateFight(Exhibition exhibition, string winnerName, string loserName)
+        {
+            Exhibition = exhibition;
+            Winner = fighterBuilder.GenerateFighter(winnerName).Build();
+            Loser = fighterBuilder.GenerateFighter(loserName).Build();
             return this;
         }
 

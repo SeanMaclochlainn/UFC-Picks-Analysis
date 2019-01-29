@@ -17,5 +17,15 @@ namespace FightData.Domain.Finders
             Fight fight = fightFinder.FindFight(fighter, exhibition).Result;
             return new FinderResult<Odd>(fight.Odds.SingleOrDefault(o => o.Fighter == fighter));
         }
+
+        public static FinderResult<Odd> GetWinnerOdds(Fight fight)
+        {
+            return new FinderResult<Odd>(fight.Odds.SingleOrDefault(o => o.Fighter.Id == fight.Winner.Id));
+        }
+
+        public static FinderResult<Odd> GetLoserOdds(Fight fight)
+        {
+            return new FinderResult<Odd>(fight.Odds.SingleOrDefault(o => o.Fighter.Id == fight.Loser.Id));
+        }
     }
 }

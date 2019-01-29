@@ -74,20 +74,26 @@ namespace FightData.TestData
         private void AddFN55()
         {
             Exhibition exhibition = new ExhibitionBuilder(context).GenerateExhibition("FN 55").Build();
-            Fighter winner = new FighterBuilder(context).GenerateFighter("Luke Rockhold").Build();
-            Fighter loser = new FighterBuilder(context).GenerateFighter("Michael Bisping").Build();
-            Fight fight = new FightBuilder(context).GenerateFight(exhibition, winner, loser).Build();
-            entityUpdater.FightUpdater.AddFight(fight);
+            Fight fight1 = new FightBuilder(context).GenerateFight(exhibition, "Luke Rockhold", "Michael Bisping").Build();
+            Fight fight2 = new FightBuilder(context).GenerateFight(exhibition, "Al Iaquinta", "Ross Pearson").Build();
+            Fight fight3 = new FightBuilder(context).GenerateFight(exhibition, "Robert Whittaker", "Clint Hester").Build();
+            entityUpdater.FightUpdater.AddFights(new List<Fight>() { fight1, fight2, fight3 });
 
-            Pick correctPick = new PickBuilder(context)
-                .GeneratePick(entityFinder.AnalystFinder.FindAnalyst("Mike Bohn").Result, fight, winner)
-                .Build();
+            Analyst mikeBohn = entityFinder.AnalystFinder.FindAnalyst("Mike Bohn").Result;
+            Analyst dannStupp = entityFinder.AnalystFinder.FindAnalyst("Dann Stupp").Result;
+            Pick fight1CorrectPick = new PickBuilder(context).GeneratePick(mikeBohn, fight1, fight1.Winner).Build();
+            Pick fight1IncorrectPick = new PickBuilder(context).GeneratePick(dannStupp, fight1, fight1.Loser).Build();
+            Pick fight2MikeBohn = new PickBuilder(context).GeneratePick(mikeBohn, fight2, fight2.Loser).Build();
+            Pick fight3MikeBohn = new PickBuilder(context).GeneratePick(mikeBohn, fight3, fight3.Loser).Build();
+            Odd fight1WinnerOdds = new OddsBuilder(context).GenerateOdd(1.18M, fight1.Winner, fight1).Build();
+            Odd fight1LoserOdds = new OddsBuilder(context).GenerateOdd(5.30M, fight1.Loser, fight1).Build();
+            Odd fight2WinnerOdds = new OddsBuilder(context).GenerateOdd(2.10M, fight2.Winner, fight2).Build();
+            Odd fight2LoserOdds = new OddsBuilder(context).GenerateOdd(1.77M, fight2.Loser, fight2).Build();
+            Odd fight3WinnerOdds = new OddsBuilder(context).GenerateOdd(2.58M, fight3.Winner, fight3).Build();
+            Odd fight3LoserOdds = new OddsBuilder(context).GenerateOdd(1.54M, fight3.Loser, fight3).Build();
+            entityUpdater.OddUpdater.AddOdds(new List<Odd>() { fight1WinnerOdds, fight1LoserOdds, fight2WinnerOdds, fight2LoserOdds, fight3WinnerOdds, fight3LoserOdds });
 
-            Pick incorrectPick = new PickBuilder(context)
-                .GeneratePick(entityFinder.AnalystFinder.FindAnalyst("Dann Stupp").Result, fight, loser)
-                .Build();
-
-            entityUpdater.PickUpdater.AddPicks(new List<Pick>() { correctPick, incorrectPick });
+            entityUpdater.PickUpdater.AddPicks(new List<Pick>() { fight1CorrectPick, fight1IncorrectPick, fight2MikeBohn, fight3MikeBohn });
 
             Webpage resultsWebpage = new WebpageBuilder(context)
                 .GenerateSampleParsedResultsWebpage(exhibition, GetResourceFile("FN55.html", "WebsiteHtml/ResultsPages"))
