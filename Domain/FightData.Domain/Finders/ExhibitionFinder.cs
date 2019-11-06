@@ -9,9 +9,14 @@ namespace FightData.Domain.Finders
     {
         public ExhibitionFinder(FightPicksContext context) : base(context) { }
 
-        public List<Exhibition> FindExhibitionsInOrder()
+        public List<Exhibition> FindNewestToOldest()
         {
             return FindAllExhibitions().OrderByDescending(e => e.Date).ToList();
+        }
+
+        public List<Exhibition> FindOldestToNewest()
+        {
+            return FindAllExhibitions().OrderBy(e => e.Date).ToList();
         }
 
         public List<Exhibition> FindAllExhibitions()
