@@ -50,11 +50,11 @@
                     {
                         @if (Model.FindPickText(analyst, exhibition.Fights[i]) == "1")
                         {
-                            <td><span class="glyphicon glyphicon-ok text-success"></span></td>
+                            <td><i class="fas fa-check" style="color:green"></i></td>
                         }
                         else if (Model.FindPickText(analyst, exhibition.Fights[i]) == "0")
                         {
-                            <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
+                            <td><i class="fas fa-times" style="color:red"></i></td>
                         }
                         else
                         {
