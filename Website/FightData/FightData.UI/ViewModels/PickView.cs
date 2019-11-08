@@ -16,11 +16,13 @@ namespace FightData.UI.ViewModels
         }
 
         public List<Exhibition> Exhibitions { get; private set; }
+        public List<Analyst> Analysts { get; private set; }
         public EntityFinder EntityFinder { get; private set; }
         
         public void LoadData()
         {
             Exhibitions = EntityFinder.ExhibitionFinder.FindNewestToOldest();
+            Analysts = EntityFinder.AnalystFinder.GetAllAnalysts();
         }
 
         public string FindPickText(Analyst analyst, Fight fight)

@@ -16,13 +16,14 @@
             <th>Odds</th>
             <th>Loser</th>
             <th>Odds</th>
-            @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
+            @foreach (Analyst analyst in Model.Analysts)
             {
                 <th>@analyst.Name</th>
             }
         </tr>
     </thead>
     <tbody>
+
         @foreach (Exhibition exhibition in Model.Exhibitions)
         {
             @for (int i = 0; i < exhibition.Fights.Count; i++)
@@ -46,7 +47,7 @@
                     <td>
                         @Model.FindFighterOddText(exhibition.Fights[i].Loser, exhibition)
                     </td>
-                    @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
+                    @foreach (Analyst analyst in Model.Analysts)
                     {
                         @if (Model.FindPickText(analyst, exhibition.Fights[i]) == "1")
                         {
