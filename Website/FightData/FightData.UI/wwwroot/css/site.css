@@ -33,3 +33,17 @@
         display: none;
     }
 }
+
+.correct-pick {
+    color: green;
+    font-family: 'Zapf Dingbats';
+    vertical-align: middle;
+    text-align: center;
+}
+
+.incorrect-pick {
+    color: red;
+    font-family: 'Zapf Dingbats';
+    vertical-align: middle;
+    text-align: center;
+}

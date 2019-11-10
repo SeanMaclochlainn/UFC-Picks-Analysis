@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\..\Applications\FightData.Processor\FightData.Processor.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\freeze-table\" />
+  </ItemGroup>
+
 </Project>
