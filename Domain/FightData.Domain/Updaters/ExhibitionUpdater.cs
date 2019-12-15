@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain.Builders;
+using FightData.Domain.Entities;
 using FightData.Domain.EntityCreation;
 using FightData.Domain.Finders;
 using System;
@@ -13,13 +14,15 @@ namespace FightData.Domain.Updaters
         private FightUpdater fightUpdater;
         private EntityFinder entityFinder;
         private FighterUpdater fighterUpdater;
-
+        private WebpageBuilder webpageBuilder;
+        
         public ExhibitionUpdater(FightPicksContext context)
         {
             this.context = context;
             entityFinder = new EntityFinder(context);
             fightUpdater = new FightUpdater(context);
             fighterUpdater = new FighterUpdater(context);
+            webpageBuilder = new WebpageBuilder(context);
         }
 
         public void Add(ExhibitionForm exhibitionForm)
@@ -87,7 +90,7 @@ namespace FightData.Domain.Updaters
             List<Webpage> populatedWebpages = new List<Webpage>();
             foreach (Webpage webpageInput in webpages)
             {
-                Webpage webpage = new Webpage(context, webpageInput.Url, webpageInput.Website);
+                Webpage webpage = webpageBuilder.GenerateEmptyWebpage(webpageInput.Url, webpageInput.Website).Build();
                 webpage.DownloadData(client);
                 populatedWebpages.Add(webpage);
             }

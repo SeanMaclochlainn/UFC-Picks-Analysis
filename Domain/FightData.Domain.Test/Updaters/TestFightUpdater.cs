@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain.Builders;
+using FightData.Domain.Entities;
 using FightData.Domain.Finders;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace FightData.Domain.Test
     {
         private FightUpdater fightUpdater;
         private ExhibitionFinder exhibitionFinder;
+        private FighterBuilder fighterBuilder;
 
         public TestFightUpdater()
         {
             fightUpdater = new FightUpdater(context);
             exhibitionFinder = new ExhibitionFinder(context);
+            fighterBuilder = new FighterBuilder(context);
         }
 
         [TestMethod]
@@ -43,8 +46,8 @@ namespace FightData.Domain.Test
         {
             Exhibition exhibition = exhibitionFinder.FindExhibition("UFC 179");
 
-            Fighter fighter = Fighter.GenerateFighter("Junior dos Santos", context);
-            fighter.Add();
+            Fighter fighter = fighterBuilder.GenerateFighter("Junior dos Santos").Build();
+            entityUpdater.FighterUpdater.Add(fighter);
             fightUpdater.AddFights(new List<RawFightResult>() { new RawFightResult("Daniel Sarafian", "Antônio dos Santos Jr." ) }, exhibition);
 
             Assert.IsTrue(context.Fighters.Any(f => f.FullName == "antonio dos santos"));

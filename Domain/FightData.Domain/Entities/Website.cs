@@ -11,11 +11,5 @@ namespace FightData.Domain.Entities
         public List<Webpage> Webpages { get; set; }
         public WebsiteType WebsiteType { get; set; }
         public PicksPageConfiguration PicksPageConfiguration { get; set; }
-
-        public void Add()
-        {
-            Context.Websites.Add(this);
-            Context.SaveChanges();
-        }
     }
 }

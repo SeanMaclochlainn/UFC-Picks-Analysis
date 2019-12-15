@@ -1,9 +1,18 @@
 ﻿
+using FightData.Domain.Builders;
+
 namespace FightData.Domain.Entities
 {
     public class Pick : Entity
     {
         public Pick(FightPicksContext context) : base(context) { }
+
+        public Pick(PickBuilder pickBuilder) : this(pickBuilder.Context)
+        {
+            Analyst = pickBuilder.Analyst;
+            Fight = pickBuilder.Fight;
+            Fighter = pickBuilder.Fighter;
+        }
 
         public int Id { get; set; }
         public Analyst Analyst { get; set; }

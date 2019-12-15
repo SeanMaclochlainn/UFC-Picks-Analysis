@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FightData.Domain.Builders;
+using System;
 using System.Collections.Generic;
 
 namespace FightData.Domain.Entities
@@ -14,6 +15,11 @@ namespace FightData.Domain.Entities
         }
 
         public Exhibition(FightPicksContext context) : base(context) { }
+
+        public Exhibition(ExhibitionBuilder exhibitionBuilder) : this(exhibitionBuilder.Context)
+        {
+            Name = exhibitionBuilder.Name;
+        }
 
         public int Id { get; set; }
         public string Name { get; set; }

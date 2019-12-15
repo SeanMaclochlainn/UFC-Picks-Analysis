@@ -3,66 +3,70 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<script src="~/lib/freeze-table/freeze-table.js"></script>
+<script src="~/js/initialize-freeze-table.js"></script>
 <h2>Picks</h2>
 <a asp-action="ExportToCsv" class="btn btn-primary">Export To Csv</a>
 <p></p>
-<table class="table table-bordered table-condensed">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Winner</th>
-            <th>Odds</th>
-            <th>Loser</th>
-            <th>Odds</th>
-            @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
+<div class="freeze-table" style="height:65vh;">
+    <table class="table table-bordered table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Winner</th>
+                <th>Odds</th>
+                <th>Loser</th>
+                <th>Odds</th>
+                @foreach (Analyst analyst in Model.Analysts)
+                {
+                    <th>@analyst.Name</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Exhibition exhibition in Model.Exhibitions)
             {
-                <th>@analyst.Name</th>
+                @for (int i = 0; i < exhibition.Fights.Count; i++)
+                {
+                    <tr>
+                        @if (i == 0)
+                        {
+                            int fightCount = exhibition.Fights.Count;
+                            <td rowspan="@fightCount">@exhibition.Name</td>
+                            <td rowspan="@fightCount">@exhibition.Date.ToShortDateString()</td>
+                        }
+                        <td>
+                            @exhibition.Fights[i].Winner.FullName
+                        </td>
+                        <td>
+                            @Model.FindFighterOddText(exhibition.Fights[i].Winner, exhibition)
+                        </td>
+                        <td>
+                            @exhibition.Fights[i].Loser.FullName
+                        </td>
+                        <td>
+                            @Model.FindFighterOddText(exhibition.Fights[i].Loser, exhibition)
+                        </td>
+                        @foreach (Analyst analyst in Model.Analysts)
+                        {
+                            @if (Model.FindPickText(analyst, exhibition.Fights[i]) == "1")
+                            {
+                                <td class="correct-pick">&#10004;</td>
+                            }
+                            else if (Model.FindPickText(analyst, exhibition.Fights[i]) == "0")
+                            {
+                                <td class="incorrect-pick">&#10006;</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                    </tr>
+                }
             }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Exhibition exhibition in Model.Exhibitions)
-        {
-            @for (int i = 0; i < exhibition.Fights.Count; i++)
-            {
-                <tr>
-                    @if (i == 0)
-                    {
-                        int fightCount = exhibition.Fights.Count;
-                        <td rowspan="@fightCount">@exhibition.Name</td>
-                        <td rowspan="@fightCount">@exhibition.Date.ToShortDateString()</td>
-                    }
-                    <td>
-                        @exhibition.Fights[i].Winner.FullName
-                    </td>
-                    <td>
-                        @Model.FindFighterOddText(exhibition.Fights[i].Winner, exhibition)
-                    </td>
-                    <td>
-                        @exhibition.Fights[i].Loser.FullName
-                    </td>
-                    <td>
-                        @Model.FindFighterOddText(exhibition.Fights[i].Loser, exhibition)
-                    </td>
-                    @foreach (Analyst analyst in Model.EntityFinder.AnalystFinder.GetAllAnalysts())
-                    {
-                        @if (Model.FindPickText(analyst, exhibition.Fights[i]) == "1")
-                        {
-                            <td><span class="glyphicon glyphicon-ok text-success"></span></td>
-                        }
-                        else if (Model.FindPickText(analyst, exhibition.Fights[i]) == "0")
-                        {
-                            <td><span class="glyphicon glyphicon-remove text-danger"></span></td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                    }
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>

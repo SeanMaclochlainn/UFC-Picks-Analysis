@@ -1,4 +1,5 @@
-﻿using FightData.Domain.Entities;
+﻿using FightData.Domain.Builders;
+using FightData.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FightData.Domain.Test.Finders
@@ -7,24 +8,26 @@ namespace FightData.Domain.Test.Finders
     public class TestFightFinder : TestDataLayer
     {
         private FighterUpdater fighterUpdater;
+        private FighterBuilder fighterBuilder;
 
         public TestFightFinder()
         {
             fighterUpdater = new FighterUpdater(context);
+            fighterBuilder = new FighterBuilder(context);
         }
 
         [TestMethod]
         public void TestFindFightWhenDuplicateSurnames()
         {
             Exhibition exhibition = entityFinder.ExhibitionFinder.FindExhibition("FN 55");
-            Fighter dhiego = Fighter.GenerateFighter("Dhiego Lima", context);
-            dhiego.Add();
-            Fighter dhiegoOpponent = Fighter.GenerateFighter("xyz def", context);
-            dhiegoOpponent.Add();
-            Fighter juliana = Fighter.GenerateFighter("Juliana Lima", context);
-            juliana.Add();
-            Fighter julianaOpponent = Fighter.GenerateFighter("fsdf fda", context);
-            julianaOpponent.Add();
+            Fighter dhiego = fighterBuilder.GenerateFighter("Dhiego Lima").Build();
+            entityUpdater.FighterUpdater.Add(dhiego);
+            Fighter dhiegoOpponent = fighterBuilder.GenerateFighter("xyz def").Build();
+            entityUpdater.FighterUpdater.Add(dhiegoOpponent);
+            Fighter juliana = fighterBuilder.GenerateFighter("Juliana Lima").Build();
+            entityUpdater.FighterUpdater.Add(juliana);
+            Fighter julianaOpponent = fighterBuilder.GenerateFighter("fsdf fda").Build();
+            entityUpdater.FighterUpdater.Add(julianaOpponent);
             exhibition.Fights.Add(new Fight(context) { Winner = dhiego, Loser = dhiegoOpponent });
             exhibition.Fights.Add(new Fight(context) { Winner = juliana, Loser = julianaOpponent });
 

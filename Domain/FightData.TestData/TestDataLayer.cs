@@ -1,4 +1,5 @@
 ﻿using FightData.Domain.Finders;
+using FightData.Domain.Updaters;
 using FightData.TestData;
 
 namespace FightData.Domain.Test
@@ -7,12 +8,13 @@ namespace FightData.Domain.Test
     {
         protected FightPicksContext context;
         protected EntityFinder entityFinder;
+        protected EntityUpdater entityUpdater;
 
         public TestDataLayer()
         {
             context = new TestDatabase().Context;
             entityFinder = new EntityFinder(context);
-            new TestDatabaseSeeder(context).Seed();
+            entityUpdater = new EntityUpdater(context);
         }
     }
 }

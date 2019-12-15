@@ -27,6 +27,19 @@ namespace FightData.Domain
             }
         }
 
+        public void AddFights(List<Fight> fights)
+        {
+            foreach (Fight fight in fights)
+                context.Fights.Add(fight);
+            context.SaveChanges();
+        }
+
+        public void AddFight(Fight fight)
+        {
+            context.Fights.Add(fight);
+            context.SaveChanges();
+        }
+
         public void DeleteFights(List<Fight> fights)
         {
             context.Fights.RemoveRange(fights);
@@ -47,7 +60,7 @@ namespace FightData.Domain
             fight.Winner = winner;
             fight.Loser = loser;
             fight.Exhibition = exhibition;
-            fight.Add();
+            AddFight(fight);
         }
     }
 }
